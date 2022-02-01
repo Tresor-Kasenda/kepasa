@@ -22,10 +22,10 @@ class CustomerMiddleware
     {
         if(!Auth::check()){return redirect()->route('login');}
         return match (Auth::user()->role_id) {
-            1 => $next($request),
+            1 => redirect()->route('super.dashboard.index'),
             2 => redirect()->route('admin.dashboard.index'),
             3 => redirect()->route('organiser.home.index'),
-            4 => redirect()->route('data.user'),
+            4 => $next($request),
             default => redirect()->route('login'),
         };
     }

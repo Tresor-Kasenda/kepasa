@@ -25,7 +25,7 @@ class SuperMiddleware
             1 => $next($request),
             2 => redirect()->route('admin.dashboard.index'),
             3 => redirect()->route('organiser.home.index'),
-            4 => redirect()->route('data.user'),
+            4 => redirect()->route('home.user'),
             default => redirect()->route('login'),
         };
     }
