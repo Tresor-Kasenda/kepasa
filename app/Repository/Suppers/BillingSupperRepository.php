@@ -4,14 +4,13 @@ declare(strict_types=1);
 namespace App\Repository\Suppers;
 
 use App\Models\Billing;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class BillingSupperRepository
 {
-    public function getContents(): Collection|array
+    public function getContents(): array|Collection
     {
         return Billing::query()
-            ->orderByDesc('created_at')
             ->with('event')
             ->get();
     }

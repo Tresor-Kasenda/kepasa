@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace App\Repository\Suppers;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class OrganiserSupperRepository
 {
-    public function getContents(): Collection|array
+    public function getContents(): array|Collection
     {
         return User::query()
             ->orderByDesc('created_at')
