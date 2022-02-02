@@ -41,4 +41,8 @@ class Event extends Model
         return $this->hasMany(Billing::class);
     }
 
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'countryCode');
+    }
 }

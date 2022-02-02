@@ -18,4 +18,9 @@ class Country extends Model
     {
         return $this->hasMany(City::class);
     }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(Event::class);
+    }
 }

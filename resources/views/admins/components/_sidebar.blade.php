@@ -29,39 +29,34 @@
                         <h6 class="overline-title text-primary-alt">Administration</h6>
                     </li>
                     @include('admins.partials.navLink', [
-                        'route' => route('supper.dashboard.index'),
+                        'route' => route('supper.events.listens'),
                         'name' => 'Events',
                         'icon' => 'ni-swap-alt'
                     ])
                     @include('admins.partials.navLink', [
-                        'route' => route('supper.dashboard.index'),
+                        'route' => route('supper.events.country'),
                         'name' => 'Events Country',
                         'icon' => 'ni-location'
                     ])
                     @include('admins.partials.navLink', [
-                        'route' => route('supper.dashboard.index'),
-                        'name' => 'Events organiser',
-                        'icon' => 'ni-user'
+                        'route' => route('supper.organisers.index'),
+                        'name' => 'Organisers',
+                        'icon' => 'ni-spark'
                     ])
                     @include('admins.partials.navLink', [
-                        'route' => route('supper.dashboard.index'),
+                        'route' => route('supper.admins.index'),
                         'name' => 'Admins',
                         'icon' => 'ni-user-circle'
                     ])
                     @include('admins.partials.navLink', [
-                        'route' => route('supper.dashboard.index'),
-                        'name' => 'Cities',
+                        'route' => route('supper.countries.listens'),
+                        'name' => 'Countries',
                         'icon' => 'ni-map'
                     ])
                     @include('admins.partials.navLink', [
-                        'route' => route('supper.dashboard.index'),
+                        'route' => route('supper.billing.index'),
                         'name' => 'Billings',
                         'icon' => 'ni-wallet-saving'
-                    ])
-                    @include('admins.partials.navLink', [
-                        'route' => route('supper.dashboard.index'),
-                        'name' => 'Event Media',
-                        'icon' => 'ni-img'
                     ])
                 </ul>
             </div>
