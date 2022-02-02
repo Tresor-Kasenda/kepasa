@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,7 +30,17 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo;
+
+    public function redirectTo(){
+        $this->redirectTo = match (Auth::user()->role_id) {
+            1 => route('supper.dashboard.index'),
+            2 => route('admin.admin.index'),
+            3 => route('organiser.organiser.index'),
+            4 => '',
+            default => route('home.index'),
+        };
+    }
 
     /**
      * Create a new controller instance.

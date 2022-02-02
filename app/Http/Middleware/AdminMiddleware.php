@@ -20,10 +20,10 @@ class AdminMiddleware
     {
         if(!Auth::check()){return redirect()->route('login');}
         return match (Auth::user()->role_id) {
-            1 => redirect()->route('super.dashboard.index'),
+            1 => redirect()->route('supper.dashboard.index'),
             2 => $next($request),
-            3 => redirect()->route('organiser.home.index'),
-            4 => redirect()->route('home.user'),
+            3 => redirect()->route('organiser.organiser.index'),
+            4 => redirect()->route('user.home.index'),
             default => redirect()->route('login'),
         };
     }

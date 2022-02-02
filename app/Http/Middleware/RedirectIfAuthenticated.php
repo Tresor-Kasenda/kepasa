@@ -24,13 +24,13 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check() && Auth::user()->role_id == 1) {
-                return redirect()->route('super.dashboard.index');
+                return redirect()->route('supper.dashboard.index');
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 2){
-                return redirect()->route('admin.dashboard.index');
+                return redirect()->route('admin.admin.index');
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 3){
-                return redirect()->route('organiser.home.index');
+                return redirect()->route('organiser.organiser.index');
             } elseif (Auth::guard($guard)->check() && Auth::user()->role_id == 4){
-                return redirect()->route('home.user');
+                return redirect()->route('user.home.index');
             }
         }
 

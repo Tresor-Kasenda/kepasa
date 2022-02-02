@@ -11,10 +11,10 @@ final class RoleEnum extends Enum
     const SUPER =   1;
     const ADMIN =   2;
     const ORGANISER = 3;
-    const CUSTOMER = 4;
+    const USERS = 4;
 
     public static array $types = [
         self::ORGANISER,
-        self::CUSTOMER,
+        self::USERS,
     ];
 }

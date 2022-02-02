@@ -5,7 +5,7 @@
 @section('content')
     <div class="clearfix"></div>
 
-    <div class="main-search-container full-height alt-search-box centered" data-background-image="images/listeo_bg3.jpg">
+    <div class="main-search-container full-height alt-search-box centered" data-background-image="">
         <div class="main-search-inner">
             <div class="container">
                 <div class="row">
@@ -24,23 +24,14 @@
                                     <option>Events</option>
                                 </select>
                             </div>
-                            <div class="main-search-input-item">
-                                <select data-placeholder="All Categories" class="chosen-select" >
-                                    <option>All Categories</option>
-                                    <option>Shops</option>
-                                    <option>Hotels</option>
-                                    <option>Restaurants</option>
-                                    <option>Fitness</option>
-                                    <option>Events</option>
-                                </select>
-                            </div>
-                            <button class="button" onclick="window.location.href='listings-half-screen-map-list.html'">Search</button>
+                            <button class="button" onclick="window.location.href=''">Search</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div id="titlebar" class="gradient">
         <div class="container">
             <div class="row">
@@ -56,7 +47,7 @@
         </div>
     </div>
 
-    <section class="fullwidth margin-top-65 padding-top-75 padding-bottom-70" data-background-color="#f8f8f8">
+    <section class="fullwidth padding-top-50 padding-bottom-70" data-background-color="#ffffff">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -162,7 +153,7 @@
         </div>
     </div>
 
-    <section class="fullwidth margin-top-65 padding-top-75 padding-bottom-70" data-background-color="#f8f8f8">
+    <section class="fullwidth padding-top-50 padding-bottom-70" data-background-color="#ffffff">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">

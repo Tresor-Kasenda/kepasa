@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -15,9 +16,11 @@ class LoginController extends Controller
 
     public function redirectTo(){
         $this->redirectTo = match (Auth::user()->role_id) {
-            1 => '/home',
-            2 => '/admin/dashboard',
-            default => '/',
+            1 => route('supper.dashboard.index'),
+            2 => route('admin.admin.index'),
+            3 => route('organiser.organiser.index'),
+            4 => route('user.home.index'),
+            default => route('home.index'),
         };
     }
 

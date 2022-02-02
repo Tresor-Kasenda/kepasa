@@ -21,14 +21,14 @@
                             <form method="post" class="login" action="{{ route('login') }}">
                                 @csrf
                                 <p class="form-row form-row-wide">
-                                    <label for="emailaddress">
+                                    <label for="email">
                                         Email :
                                         <input
                                             type="text"
                                             class="input-text"
-                                            name="emailaddress"
-                                            id="emailaddress"
-                                            value="{{ old('emailaddress') }}"
+                                            name="email"
+                                            id="email"
+                                            value="{{ old('email') }}"
                                         />
                                     </label>
                                 </p>
@@ -49,7 +49,7 @@
                                 </p>
 
                                 <div class="form-row">
-                                    <button type="submit" class="button border margin-top-5" name="login">
+                                    <button type="submit" class="button border margin-top-5">
                                         Login
                                     </button>
                                 </div>
@@ -142,7 +142,7 @@
                                         />
                                     </label>
                                 </p>
-                                <button type="submit" class="button border fw margin-top-10" name="register">
+                                <button type="submit" class="button border fw margin-top-10">
                                     Register
                                 </button>
                             </form>

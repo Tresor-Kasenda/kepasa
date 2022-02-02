@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Enums\RoleEnum;
+use App\Models\Profile;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -68,6 +69,10 @@ class AddUser extends Command
                     ->create(compact('name', 'email', 'password', 'role_id'));
 
                 $user->save();
+                Profile::query()
+                    ->create([
+                        'user_id' => $user->id
+                    ]);
                 $this->info(sprintf('User %s <%s> created', $name, $email));
                 exit();
             } catch (\Exception $exception) {

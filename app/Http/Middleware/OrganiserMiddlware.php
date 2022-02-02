@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class OrganiserMiddlware
 {
     /**
-     * Handle an incoming request.
-     *
      * @param Request $request
      * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return Response|RedirectResponse
@@ -22,10 +20,10 @@ class OrganiserMiddlware
     {
         if(!Auth::check()){return redirect()->route('login');}
         return match (Auth::user()->role_id) {
-            1 => redirect()->route('super.dashboard.index'),
-            2 => redirect()->route('admin.dashboard.index'),
+            1 => redirect()->route('supper.dashboard.index'),
+            2 => redirect()->route('admin.admin.index'),
             3 => $next($request),
-            4 => redirect()->route('home.user'),
+            4 => redirect()->route('user.home.index'),
             default => redirect()->route('login'),
         };
     }
