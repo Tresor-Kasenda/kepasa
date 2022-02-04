@@ -7,6 +7,8 @@
     <title>{{ config('app.name') }} | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main-color.css') }}" id="colors">
+    @yield('styles')
+    @laravelPWA
 </head>
 <body class="transparent-header">
     <div id="wrapper">

@@ -22,9 +22,7 @@ return new class extends Migration
             $table->mediumText('population',11)->nullable();
             $table->string('popularCity')->nullable();
             $table->mediumText('mayor')->nullable();
-            $table->foreignIdFor(\App\Models\Country::class, 'countryCode')
-                ->constrained('countries')
-                ->cascadeOnDelete();
+            $table->string('countryCode');
             $table->timestamps();
 
         });

@@ -30,7 +30,7 @@
                             <div class="main-search-input-item">
                                 <select name="cityName" id="cityName" class="chosen-select"></select>
                             </div>
-                            <button class="button" onclick="window.location.href=''">Search</button>
+                            <button class="button" id="submit">Search</button>
                         </div>
                     </div>
                 </div>
@@ -278,6 +278,14 @@
                         }
                     }
                 })
+            })
+
+            $('#submit').on('click', function (e){
+                e.preventDefault()
+                const country = $('#country').val()
+                const city = $('#cityName').val()
+
+                console.log(country, city)
             })
         })
     </script>

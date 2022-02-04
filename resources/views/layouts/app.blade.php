@@ -4,6 +4,7 @@
     <title>{{ config('app.name') }} | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/admins/css/dashlite.css') }}">
     @yield('styles')
+
 </head>
 
 <body class="nk-body bg-lighter npc-general has-sidebar ">
