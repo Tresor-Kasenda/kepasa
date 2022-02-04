@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
-use App\Models\Country;
 use App\Repository\HomeRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,6 +22,8 @@ class HomeController extends Controller
 
     public function getCities(Request $request): Collection|array
     {
-        return Country::getCitiesInCountry($request->all());
+        return $this
+            ->repository
+            ->getCitiesInCountry($request);
     }
 }

@@ -13,4 +13,9 @@ class HomeRepository
         return Country::query()
             ->get();
     }
+
+    public function getCitiesInCountry($attributes): array|Collection
+    {
+        return Country::getCitiesInCountry($attributes->all());
+    }
 }
