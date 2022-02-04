@@ -50,3 +50,5 @@ Route::get('/event-fees', EventFeeController::class)->name('fee.index');
 Route::get('/term-and-conditions', [EventFeeController::class, 'terms'])->name('term.details');
 Route::get('/contact-us', ContactUsController::class)->name('contact.index');
 Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact.store');
+
+Route::post('country', [HomeController::class, 'getCities'])->name('cities.listens');

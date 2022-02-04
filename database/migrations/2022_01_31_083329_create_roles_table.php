@@ -23,8 +23,8 @@ class CreateRolesTable extends Migration
 
         Role::create(['name' => "SUPER"]);
         Role::create(['name' => "ADMIN"]);
-        Role::create(['name' => "EVENT"]);
-        Role::create(['name' => "USER"]);
+        Role::create(['name' => "Event organiser"]);
+        Role::create(['name' => "Customer"]);
     }
 
     /**

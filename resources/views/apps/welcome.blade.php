@@ -5,24 +5,30 @@
 @section('content')
     <div class="clearfix"></div>
 
-    <div class="main-search-container full-height alt-search-box centered" data-background-image="">
+    <div class="main-search-container full-height alt-search-box centered" data-background-image="{{ asset('assets/images/banner0.jpg') }}">
         <div class="main-search-inner">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="main-search-input">
                             <div class="main-search-input-headline">
-                                <h2>Find deals for any season</h2>
+                                <h3>Select the country for the city you are looking for.</h3>
                             </div>
                             <div class="main-search-input-item">
-                                <select data-placeholder="All Categories" class="chosen-select" >
-                                    <option>All Categories</option>
-                                    <option>Shops</option>
-                                    <option>Hotels</option>
-                                    <option>Restaurants</option>
-                                    <option>Fitness</option>
-                                    <option>Events</option>
+                                <select data-placeholder="All Country" name="country" id="country" class="chosen-select" >
+                                    <option>All Country</option>
+                                    @foreach($countries as $country)
+                                        <option
+                                            value="{{ $country->countryCode }}"
+                                        >
+                                            {{ $country->countryName }}
+                                        </option>
+                                    @endforeach
                                 </select>
+                            </div>
+
+                            <div class="main-search-input-item">
+                                <select name="cityName" id="cityName" class="chosen-select"></select>
                             </div>
                             <button class="button" onclick="window.location.href=''">Search</button>
                         </div>
@@ -244,4 +250,49 @@
         </div>
     </section>
 
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $("#country").change(function () {
+                const country = $("#country option:selected").val()
+                $.ajax({
+                    type: "POST",
+                    url: `{{ route('cities.listens') }}`,
+                    data: {
+                        country: country
+                    },
+                    dataType: "json",
+                    success: function(response){
+                        if (response){
+                            $('#cityName').show();
+                            $.each(response, function (key, value) {
+                                $('#cityName').append('<option value=" ' + value.id + '">' + value.cityName + '</option>');
+                            })
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+@endsection
+
+@section('styles')
+    <style>
+        .main-search-input select, .main-search-input select:focus {
+            font-size: 16px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px 0px rgb(0 0 0 / 8%);
+            background: #fff;
+            height: 55px;
+            padding: 12px 18px;
+            border-radius: 4px;
+        }
+    </style>
 @endsection

@@ -11,17 +11,18 @@ return new class extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
-            $table->string('cityName', 100);
-            $table->mediumText('latitude');
-            $table->mediumText('longitude');
-            $table->string('facts')->nullable();
-            $table->string('currency', 20);
-            $table->string('history')->nullable();
-            $table->string('language')->nullable();
-            $table->string('population',11);
-            $table->string('popularCity');
-            $table->foreignId('countryCode')
+            $table->string('cityName', 100)->unique();
+            $table->mediumText('latitude')->nullable();
+            $table->mediumText('longitude')->nullable();
+            $table->mediumText('facts')->nullable();
+            $table->mediumText('overview')->nullable();
+            $table->string('currency', 20)->nullable();
+            $table->text('history')->nullable();
+            $table->string('languages')->nullable();
+            $table->mediumText('population',11)->nullable();
+            $table->string('popularCity')->nullable();
+            $table->mediumText('mayor')->nullable();
+            $table->foreignIdFor(\App\Models\Country::class, 'countryCode')
                 ->constrained('countries')
                 ->cascadeOnDelete();
             $table->timestamps();

@@ -60,11 +60,19 @@
                             <form method="post" class="register" action="{{ route('register') }}">
                                 @csrf
                                 <p class="form-row form-row-wide">
-                                    <label for="username">
+                                    <label for="role">
                                         Register As
-                                        <select class="input-text" name="type" id="username" required>
-                                            <option value="organiser">Event Organiser</option>
-                                            <option value="customer">Customer</option>
+                                        <select class="input-text" name="role" id="role" required>
+                                            @php
+                                                $roles = \App\Models\Role::query()
+                                                                ->select('name', 'id')
+                                                                ->where('id', '!=', 1)
+                                                                ->where('id', '!=', 2)
+                                                                ->get()
+                                            @endphp
+                                            @foreach($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
                                         </select>
                                     </label>
                                 </p>

@@ -11,7 +11,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 
 class City extends Model
 {
-    use HasFactory, HasKey;
+    use HasFactory;
 
     protected $guarded = [];
 
