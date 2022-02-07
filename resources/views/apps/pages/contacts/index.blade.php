@@ -67,8 +67,7 @@
             <div class="col-md-8">
                 <div class="notification success closeable" id="flash">
                     <p>
-                        <span>Success!</span>
-                        <span id="success"></span>
+                        <span>Success!</span> <span id="success"></span>
                     </p>
                     <a class="close"></a>
                 </div>
@@ -139,18 +138,12 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            $('#flash').hide()
 
             $('#name-error').hide()
             $('#email-error').hide()
             $('#subject-error').hide()
             $('#comment-error').hide()
-
-            let error_name = false;
-            let error_email = false;
-            let error_subject = false;
-            let error_comment = false;
-
-            $('#flash').hide()
 
             $('#name').focusout(function () {
                 check_name();
@@ -213,7 +206,6 @@
                 }
             }
 
-
             $('#submit').click(function(e) {
                 e.preventDefault()
                 const name = $('#name').val()
@@ -245,10 +237,9 @@
                                 $('#email').val(" ")
                                 $('#subject').val(" ")
                                 $('#comments').val(" ")
-                                $('#flash').show()
                                 $("#success").html(response.message)
                                 setTimeout(function(){
-                                    $("#flash").hide();
+                                    $('#flash').show()
                                 }, 4000);
                             }
                         },

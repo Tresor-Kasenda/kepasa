@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('title', "Authentification and enregistrement")
+@section('title', "Authentification and inscription")
 
 @section('content')
     <div class="container margin-top-40">
@@ -9,7 +9,7 @@
             <div class="col-md-6">
                 <div class="style-1">
                     <ul class="tabs-nav">
-                        <li class="">
+                        <li>
                             <a href="#tab1">Log In</a>
                         </li>
                         <li>
@@ -32,7 +32,6 @@
                                         />
                                     </label>
                                 </p>
-
                                 <p class="form-row form-row-wide">
                                     <label for="password">
                                         Password:
@@ -47,7 +46,6 @@
                                         <a href="#" >Lost Your Password?</a>
                                     </span>
                                 </p>
-
                                 <div class="form-row">
                                     <button type="submit" class="button border margin-top-5">
                                         Login
@@ -127,13 +125,13 @@
                                     </label>
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="password1">
+                                    <label for="password">
                                         Password:
                                         <input
                                             class="input-text"
                                             type="password"
-                                            name="password1"
-                                            id="password1"
+                                            name="password"
+                                            id="password"
                                             required
                                             autocomplete="new-password"
                                         />

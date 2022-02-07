@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main-color.css') }}" id="colors">
     @laravelPWA
+    @yield('styles')
 </head>
 <body>
     <div id="wrapper">

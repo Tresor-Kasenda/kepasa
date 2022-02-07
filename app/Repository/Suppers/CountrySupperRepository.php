@@ -11,7 +11,11 @@ class CountrySupperRepository
     public function getContents(): array|Collection
     {
         return Country::query()
-            ->with('cities.countryCode')
             ->get();
+    }
+
+    public function getCitiesInCountry($attributes): \Illuminate\Database\Eloquent\Collection|array
+    {
+        return Country::getCitiesInCountry($attributes);
     }
 }

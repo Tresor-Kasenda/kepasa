@@ -18,9 +18,7 @@
                                 <select data-placeholder="All Country" name="country" id="country" class="chosen-select" >
                                     <option>All Country</option>
                                     @foreach($countries as $country)
-                                        <option
-                                            value="{{ $country->countryCode }}"
-                                        >
+                                        <option value="{{ $country->countryCode }}">
                                             {{ $country->countryName }}
                                         </option>
                                     @endforeach
@@ -263,29 +261,17 @@
             $("#country").change(function () {
                 const country = $("#country option:selected").val()
                 $.ajax({
-                    type: "POST",
+                    type: "post",
                     url: `{{ route('cities.listens') }}`,
-                    data: {
-                        country: country
-                    },
+                    data: {country: country},
                     dataType: "json",
                     success: function(response){
-                        if (response){
-                            $('#cityName').show();
-                            $.each(response, function (key, value) {
-                                $('#cityName').append('<option value=" ' + value.id + '">' + value.cityName + '</option>');
-                            })
-                        }
+                        $('#cityName').show();
+                        $.each(response, function (key, value) {
+                            $('#cityName').append('<option value=" ' + value.id + '">' + value.cityName + '</option>');
+                        })
                     }
                 })
-            })
-
-            $('#submit').on('click', function (e){
-                e.preventDefault()
-                const country = $('#country').val()
-                const city = $('#cityName').val()
-
-                console.log(country, city)
             })
         })
     </script>

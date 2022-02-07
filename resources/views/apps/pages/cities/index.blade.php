@@ -103,7 +103,6 @@
                                 type="email"
                                 id="email"
                                 placeholder="Email Address"
-                                pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$"
                                 required="required"
                             />
                         </div>

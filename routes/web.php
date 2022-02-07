@@ -17,7 +17,6 @@ use App\Http\Controllers\Supers\HomeSuperController;
 use App\Http\Controllers\Supers\OrganiserSupperController;
 use Illuminate\Support\Facades\Route;
 
-
 Auth::routes(['verify' => true]);
 
 Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper', 'auth']], function(){
@@ -27,6 +26,7 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
     Route::resource('organisers', OrganiserSupperController::class);
     Route::resource('admins', AdminSupperController::class);
     Route::get('countries', CountrySupperController::class)->name('countries.listens');
+    Route::get('country/{countryCode}', [CountrySupperController::class, 'show'])->name('country.detail');
     Route::get('billings', BillingSupperController::class)->name('billing.index');
 });
 

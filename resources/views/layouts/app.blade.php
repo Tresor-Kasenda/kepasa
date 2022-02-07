@@ -4,13 +4,12 @@
     <title>{{ config('app.name') }} | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/admins/css/dashlite.css') }}">
     @yield('styles')
-
 </head>
 
-<body class="nk-body bg-lighter npc-general has-sidebar ">
-    <div id="app">
+<body class="nk-body bg-lighter npc-general has-sidebar">
+    <div>
         <div class="nk-app-root">
-            <div class="nk-main ">
+            <div class="nk-main">
                 @include('admins.components._sidebar')
                 <div class="nk-wrap">
                     @include('admins.components._header')

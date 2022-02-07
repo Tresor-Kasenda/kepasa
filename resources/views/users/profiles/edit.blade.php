@@ -33,7 +33,9 @@
             </div>
 
             <div class="col-lg-8 col-md-8 padding-left-30">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{{ route('user.home.update', auth()->user()->key) }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
                     <div class="row">
                         <div class="col-md-6">
                             <label>First Name</label>
@@ -71,7 +73,11 @@
                                 <option value="{{ auth()->user()->profile->country ?? "" }}">
                                     {{ auth()->user()->profile->country ?? "" }}
                                 </option>
-                                @include('apps.components._country')
+                                @foreach($countries as $country)
+                                    <option value="{{ $country->countryName }}">
+                                        {{ $country->countryName }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -79,9 +85,8 @@
                             <label>Image</label>
                             <input type="file"
                                    class="form-control-file text-success font-weight-bold"
-                                   required name="images" multiple
+                                   required name="images"
                                    id="images"
-                                   onchange="readUrl(this)"
                                    data-title="Click or Drag in your images(Max size: 10MB)">
                         </div>
                     </div>
@@ -91,55 +96,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $('#submit').on('click', function (e) {
-                e.preventDefault();
-                let name = $('#name').val()
-                let firstName = $('#firstName').val()
-                let email = $('#email').val()
-                let phones = $('#phones').val()
-                let alternativePhone = $('#alternativePhones').val()
-                let city = $('#city').val()
-                let country = $('#country').val()
-                let picture = $('#images').val()
-                let key = `{{ auth()->user()->key }}`
-
-                $.ajax({
-                    type: 'update',
-                    url: ``,
-                    data: {_key: key, name: name, firstname: firstName, email: email, phones: phones, alternativePhone: alternativePhone, country: country, city: city},
-                    dataType: "json",
-                    success: function(response){
-
-                    },
-                    error: function (error) {
-
-                    }
-                })
-            })
-        })
-
-        function readUrl(input) {
-            if (input.files && input.files[0]) {
-                let reader = new FileReader();
-                reader.onload = e => {
-                    let imgData = e.target.result;
-                    let imgName = input.files[0].name;
-                    input.setAttribute("data-title", imgName);
-                    console.log(e.target.result);
-                };
-                return reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 @endsection

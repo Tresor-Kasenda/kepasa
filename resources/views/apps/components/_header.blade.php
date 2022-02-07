@@ -4,7 +4,7 @@
             <div class="left-side">
                 <div id="logo">
                     <a href="{{ route('home.index') }}">
-                        <img src="" alt="">
+                        <img src="{{ asset('assets/images/logo.png') }}" alt="Logo Kepas">
                     </a>
                 </div>
                 <div class="mmenu-trigger">
@@ -46,12 +46,27 @@
             </div>
             <div class="right-side">
                 <div class="header-widget">
-                    <a href="{{ route('login') }}" class="sign-in {{ Request::url() === route('login') ? 'current' : '' }}">
-                        <i class="sl sl-icon-login"></i> Sign In
-                    </a>
-                    <a href="#" class="button border with-icon">
-                        Create event <i class="sl sl-icon-plus"></i>
-                    </a>
+                    @auth
+                        <a href="{{ route('user.home.index') }}" class="button {{ Request::url() === route('user.home.index') ? 'current' : '' }}">
+                             Profile <i class="sl sl-icon-user"></i>
+                        </a>
+                        <a href="{{ route('logout') }}" class="sign-in popup-with-zoom-anim mr-5" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="sl sl-icon-logout"></i>
+                            <span>Sign out</span>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                        @if(auth()->user()->role_id == 3)
+                            <a href="#" class="button border with-icon">
+                                Create event <i class="sl sl-icon-plus"></i>
+                            </a>
+                        @endif
+                    @else
+                        <a href="{{ route('login') }}" class="sign-in {{ Request::url() === route('login') ? 'current' : '' }}">
+                            <i class="sl sl-icon-login"></i> Sign In
+                        </a>
+                    @endauth
                 </div>
             </div>
         </div>

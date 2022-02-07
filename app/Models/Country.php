@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Country extends Model
 {
@@ -21,8 +22,15 @@ class Country extends Model
             ->get();
     }
 
-    public function events(): HasMany
+    public function events(): HasManyThrough
     {
-        return $this->hasMany(Event::class);
+        return $this->hasManyThrough(
+            Event::class,
+            User::class,
+            'country_id',
+            'user_id',
+            'id',
+            'id'
+        );
     }
 }
