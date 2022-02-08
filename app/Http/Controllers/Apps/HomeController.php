@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repository\HomeRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -20,10 +21,11 @@ class HomeController extends Controller
         ]);
     }
 
-    public function getCities(Request $request): Collection|array
+    public function getCities(Request $request): JsonResponse
     {
-        return $this
+        $data['cities'] = $this
             ->repository
             ->getCitiesInCountry($request);
+        return response()->json($data);
     }
 }

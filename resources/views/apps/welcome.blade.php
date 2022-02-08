@@ -253,23 +253,26 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+            $('#cityName').addClass('display:none')
             $("#country").change(function () {
                 const country = $("#country option:selected").val()
+                $("#cityName").html('');
                 $.ajax({
                     type: "post",
                     url: `{{ route('cities.listens') }}`,
-                    data: {country: country},
-                    dataType: "json",
+                    data: {
+                        country: country,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType : 'json',
                     success: function(response){
-                        $('#cityName').show();
-                        $.each(response, function (key, value) {
-                            $('#cityName').append('<option value=" ' + value.id + '">' + value.cityName + '</option>');
-                        })
+                        if (response){
+                            $('#cityName').show()
+                            $('#cityName').html('<option>Select City</option>')
+                            $.each(response.cities,function(key,value){
+                                $('#cityName').append('<option value=" ' + value.id + '">' + value.cityName + '</option>');
+                            });
+                        }
                     }
                 })
             })

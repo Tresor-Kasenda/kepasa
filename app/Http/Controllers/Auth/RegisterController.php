@@ -26,8 +26,7 @@ class RegisterController extends Controller
             1 => route('supper.dashboard.index'),
             2 => route('admin.admin.index'),
             3 => route('organiser.organiser.index'),
-            4 => route('user.home.index'),
-            default => route('home.index'),
+            4 => route('user.home.index')
         };
     }
 

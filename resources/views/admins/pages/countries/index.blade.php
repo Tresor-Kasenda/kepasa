@@ -51,7 +51,7 @@
                                                                     <li>
                                                                         <a href="{{ route('supper.country.detail', $country->countryCode) }}">
                                                                             <em class="icon ni ni-eye"></em>
-                                                                            <span>Voir</span>
+                                                                            <span>Detail</span>
                                                                         </a>
                                                                     </li>
                                                                 </ul>

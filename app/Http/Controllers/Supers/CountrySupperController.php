@@ -26,4 +26,10 @@ class CountrySupperController extends Controller
             'cities' => $this->repository->getCitiesInCountry($countryCode)
         ]);
     }
+
+    public function edit(string $key): Factory|View|Application
+    {
+        $city = $this->repository->getSingleCity($key);
+        return view('admins.pages.countries.edit', compact('city'));
+    }
 }

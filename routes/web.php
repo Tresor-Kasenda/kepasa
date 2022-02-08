@@ -27,6 +27,7 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
     Route::resource('admins', AdminSupperController::class);
     Route::get('countries', CountrySupperController::class)->name('countries.listens');
     Route::get('country/{countryCode}', [CountrySupperController::class, 'show'])->name('country.detail');
+    Route::get('country/{countryCode}/edit', [CountrySupperController::class, 'edit'])->name('country.city.edit');
     Route::get('billings', BillingSupperController::class)->name('billing.index');
 });
 

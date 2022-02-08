@@ -8,8 +8,8 @@
             </div>
             <div class="nk-header-brand d-xl-none">
                 <a href="{{ route('supper.dashboard.index') }}" class="logo-link">
-                    <img class="logo-light logo-img" src="" srcset=" 2x" alt="logo">
-                    <img class="logo-dark logo-img" src="" srcset=" 2x" alt="logo-dark">
+                    <img class="logo-light logo-img" src="{{ asset('assets/images/logo.png') }}" srcset="{{ asset('assets/images/logo.png') }} 2x" alt="logo">
+                    <img class="logo-dark logo-img" src="{{ asset('assets/images/logo.png') }}" srcset="{{ asset('assets/images/logo.png') }} 2x" alt="logo-dark">
                 </a>
             </div>
 
