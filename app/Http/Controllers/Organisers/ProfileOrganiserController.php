@@ -6,10 +6,10 @@ namespace App\Http\Controllers\Organisers;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\Renderable;
 
-class HomeOrganiserController extends Controller
+class ProfileOrganiserController extends Controller
 {
     public function index(): Renderable
     {
-        return view('organisers.dashboard');
+        return view('organisers.pages.profiles.index');
     }
 }

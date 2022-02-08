@@ -73,9 +73,16 @@ class RegisterController extends Controller
                 'phones' => $data['phones'],
                 'password' => Hash::make($data['password']),
             ]);
-        $user->profile()->create([
-            'alternativePhones' => $data['phones']
-        ]);
-        return $user;
+        if ($data['role'] == 3){
+            $user->company()->create([
+                'email' => $data['email']
+            ]);
+            return $user;
+        } else if($data['role'] = 4){
+            $user->profile()->create([
+                'alternativePhones' => $data['phones']
+            ]);
+            return $user;
+        }
     }
 }

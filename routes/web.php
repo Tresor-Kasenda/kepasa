@@ -8,6 +8,7 @@ use App\Http\Controllers\Apps\HomeController;
 use App\Http\Controllers\Apps\PromotionRequestController;
 use App\Http\Controllers\HomeUserController;
 use App\Http\Controllers\Organisers\HomeOrganiserController;
+use App\Http\Controllers\Organisers\ProfileOrganiserController;
 use App\Http\Controllers\Supers\AdminSupperController;
 use App\Http\Controllers\Supers\BillingSupperController;
 use App\Http\Controllers\Supers\CountrySupperController;
@@ -33,6 +34,7 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
 
 Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['organiser', 'auth']], function(){
     Route::resource('organiser', HomeOrganiserController::class);
+    Route::resource('profile', ProfileOrganiserController::class);
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function(){
