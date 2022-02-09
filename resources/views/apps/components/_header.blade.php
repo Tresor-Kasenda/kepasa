@@ -47,9 +47,16 @@
             <div class="right-side">
                 <div class="header-widget">
                     @auth
-                        <a href="{{ route('user.home.index') }}" class="button {{ Request::url() === route('user.home.index') ? 'current' : '' }}">
-                             Profile <i class="sl sl-icon-user"></i>
-                        </a>
+                        @if(auth()->user()->role_id == 4)
+                            <a href="{{ route('user.home.index') }}" class="button {{ Request::url() === route('user.home.index') ? 'current' : '' }}">
+                                Profile <i class="sl sl-icon-user"></i>
+                            </a>
+                        @endif
+                        @if(auth()->user()->role_id == 3)
+                            <a href="{{ route('organiser.organiser.index') }}" class="button {{ Request::url() === route('organiser.organiser.index') ? 'current' : '' }}">
+                                Profile <i class="sl sl-icon-user"></i>
+                            </a>
+                        @endif
                         <a href="{{ route('logout') }}" class="sign-in popup-with-zoom-anim mr-5" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="sl sl-icon-logout"></i>
                             <span>Sign out</span>
@@ -57,11 +64,6 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
-                        @if(auth()->user()->role_id == 3)
-                            <a href="#" class="button border with-icon">
-                                Create event <i class="sl sl-icon-plus"></i>
-                            </a>
-                        @endif
                     @else
                         <a href="{{ route('login') }}" class="sign-in {{ Request::url() === route('login') ? 'current' : '' }}">
                             <i class="sl sl-icon-login"></i> Sign In
