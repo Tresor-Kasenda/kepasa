@@ -34,6 +34,11 @@
                         'icon' => 'ni-swap-alt'
                     ])
                     @include('admins.partials.navLink', [
+                        'route' => route('supper.category.index'),
+                        'name' => 'Categories',
+                        'icon' => 'ni-box'
+                    ])
+                    @include('admins.partials.navLink', [
                         'route' => route('supper.events.country'),
                         'name' => 'Events Country',
                         'icon' => 'ni-location'

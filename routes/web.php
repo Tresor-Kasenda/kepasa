@@ -11,6 +11,7 @@ use App\Http\Controllers\Organisers\HomeOrganiserController;
 use App\Http\Controllers\Organisers\ProfileOrganiserController;
 use App\Http\Controllers\Supers\AdminSupperController;
 use App\Http\Controllers\Supers\BillingSupperController;
+use App\Http\Controllers\Supers\CategorySupperController;
 use App\Http\Controllers\Supers\CountrySupperController;
 use App\Http\Controllers\Supers\EventCountrySupperController;
 use App\Http\Controllers\Supers\EventSupperController;
@@ -30,6 +31,7 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
     Route::get('country/{countryCode}', [CountrySupperController::class, 'show'])->name('country.detail');
     Route::get('country/{countryCode}/edit', [CountrySupperController::class, 'edit'])->name('country.city.edit');
     Route::get('billings', BillingSupperController::class)->name('billing.index');
+    Route::resource('category', CategorySupperController::class);
 });
 
 Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['organiser', 'auth']], function(){

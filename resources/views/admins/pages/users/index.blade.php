@@ -10,6 +10,24 @@
                     <div class="nk-block-head-content">
                         <h3 class="nk-block-title page-title">Administrateurs</h3>
                     </div>
+                    <div class="nk-block-head-content">
+                        <div class="toggle-wrap nk-block-tools-toggle">
+                            <div class="toggle-expand-content" data-content="pageMenu">
+                                <ul class="nk-block-tools g-3">
+                                    <li class="preview-item">
+                                        <a href="{{ route('supper.admins.create') }}" class="btn btn-dim btn-primary btn-sm">
+                                            <em class="icon ni ni-plus mr-1"></em> Ajouter
+                                        </a>
+                                    </li>
+                                    <li class="preview-item">
+                                        <a href="" class="btn btn-dim btn-primary btn-sm">
+                                            <em class="icon ni ni-reload mr-1"></em> Historique
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="nk-block">

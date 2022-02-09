@@ -47,6 +47,11 @@
             <div class="right-side">
                 <div class="header-widget">
                     @auth
+                        @if(auth()->user()->role_id == 1)
+                            <a href="{{ route('supper.dashboard.index') }}" class="button {{ Request::url() === route('user.home.index') ? 'current' : '' }}">
+                                Profile <i class="sl sl-icon-user"></i>
+                            </a>
+                        @endif
                         @if(auth()->user()->role_id == 4)
                             <a href="{{ route('user.home.index') }}" class="button {{ Request::url() === route('user.home.index') ? 'current' : '' }}">
                                 Profile <i class="sl sl-icon-user"></i>
