@@ -21,24 +21,40 @@
             <div class="dashboard-nav">
                 <div class="dashboard-nav-inner">
                     <ul data-submenu-title="Main">
-                        <li class="active">
+                        <li class="{{ Request::url() === route('organiser.organiser.index') ? 'active' : '' }}">
                             <a href="{{ route('organiser.organiser.index') }}">
                                 <i class="sl sl-icon-settings"></i> Dashboard
                             </a>
                         </li>
                     </ul>
                     <ul data-submenu-title="Listings">
-                        <li><a href=""><i class="sl sl-icon-star"></i> Event</a></li>
-                        <li><a href=""><i class="sl sl-icon-wallet"></i> Billing</a></li>
-                        <li><a href=""><i class="sl sl-icon-plus"></i>  Event images</a></li>
+                        <li>
+                            <a href="">
+                                <i class="sl sl-icon-star"></i> Event
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="sl sl-icon-wallet"></i> Billing
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="sl sl-icon-plus"></i> Event images
+                            </a>
+                        </li>
                     </ul>
                     <ul data-submenu-title="Account">
-                        <li>
+                        <li class="{{ Request::url() === route('organiser.profile.index') ? 'active' : '' }}">
                             <a href="{{ route('organiser.profile.index') }}">
                                 <i class="sl sl-icon-user"></i> My Profile
                             </a>
                         </li>
-                        <li><a href=""><i class="sl sl-icon-power"></i> Logout</a></li>
+                        <li>
+                            <a href="">
+                                <i class="sl sl-icon-power"></i> Logout
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
@@ -16,9 +17,6 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    /**
-     * @var string
-     */
     protected $redirectTo;
 
     public function redirectTo(){
@@ -26,7 +24,8 @@ class RegisterController extends Controller
             1 => route('supper.dashboard.index'),
             2 => route('admin.admin.index'),
             3 => route('organiser.organiser.index'),
-            4 => route('user.home.index')
+            4 => route('user.home.index'),
+            default => '/'
         };
     }
 
@@ -84,5 +83,6 @@ class RegisterController extends Controller
             ]);
             return $user;
         }
+        return $user;
     }
 }

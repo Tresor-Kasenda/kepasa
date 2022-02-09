@@ -24,8 +24,7 @@
                                     @endforeach
                                 </select>
                             </div>
-
-                            <div class="main-search-input-item">
+                            <div class="main-search-input-item" id="city">
                                 <select name="cityName" id="cityName" class="chosen-select"></select>
                             </div>
                             <button class="button" id="submit">Search</button>
@@ -253,7 +252,7 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $('#cityName').addClass('display:none')
+            $('#city').hide()
             $("#country").change(function () {
                 const country = $("#country option:selected").val()
                 $("#cityName").html('');
@@ -267,7 +266,7 @@
                     dataType : 'json',
                     success: function(response){
                         if (response){
-                            $('#cityName').show()
+                            $('div#city, select#cityName').show()
                             $('#cityName').html('<option>Select City</option>')
                             $.each(response.cities,function(key,value){
                                 $('#cityName').append('<option value=" ' + value.id + '">' + value.cityName + '</option>');

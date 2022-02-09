@@ -11,12 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class OrganiserMiddlware
 {
-    /**
-     * @param Request $request
-     * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return Response|RedirectResponse
-     */
-    public function handle(Request $request, Closure $next): Response|RedirectResponse
+
+    public function handle(Request $request, Closure $next)
     {
         if(!Auth::check()){return redirect()->route('login');}
         return match (Auth::user()->role_id) {

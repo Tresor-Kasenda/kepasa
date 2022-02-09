@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "silviolleite/laravelpwa": "^2.0",
-        "symfony/mailer": "^6.0"
+        "symfony/mailer": "^6.0",
+        "realrashid/sweet-alert": "^4.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",
