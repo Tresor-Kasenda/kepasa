@@ -23,6 +23,12 @@
             'name' => "Evénement",
             'icon' => 'im-icon-Clothing-Store'
         ])
+
+        @include('organisers.components._stat', [
+            'number' => 0,
+            'name' => "Billing",
+            'icon' => 'im-icon-Money-2'
+        ])
     </div>
 @endsection
 

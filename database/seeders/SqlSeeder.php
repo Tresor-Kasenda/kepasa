@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class SqlSeeder extends Seeder
 {
@@ -17,6 +18,9 @@ class SqlSeeder extends Seeder
             'database' => env('DB_DATABASE')
         ];
         exec("mysql --user={$db['username']} --password={$db['password']} --host={$db['host']} --database {$db['database']} < $path");
-        \Log::info('SQL Import Done');
+
+        $sql = file_get_contents(database_path() . '/seeds/users.sql');
+
+        DB::statement($sql);
     }
 }

@@ -20,7 +20,7 @@
                                 <thead>
                                 <tr class="nk-tb-item nk-tb-head">
                                     <th class="nk-tb-col tb-col-mb">
-                                        <span class="sub-text">Organiser Name</span>
+                                        <span class="sub-text">Company Name</span>
                                     </th>
                                     <th class="nk-tb-col tb-col-mb">
                                         <span class="sub-text">Contact Number</span>
@@ -46,22 +46,22 @@
                                     @foreach($organisers as $organiser)
                                         <tr class="nk-tb-item">
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $organiser->companyName ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $organiser->phones ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $organiser->email ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $organiser->country ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $organiser->city ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $organiser->companyName ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1">
@@ -73,19 +73,19 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li>
-                                                                        <a href="">
+                                                                        <a href="{{ route('supper.organisers.show', $organiser->key) }}">
                                                                             <em class="icon ni ni-eye"></em>
                                                                             <span>Voir</span>
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="">
+                                                                        <a href="{{ route('supper.organisers.edit', $organiser->key) }}">
                                                                             <em class="icon ni ni-edit"></em>
                                                                             <span>Editer</span>
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <form action="" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                        <form action="{{ route('supper.organisers.destroy', $organiser->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                             @method('DELETE')
                                                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                             <button type="submit" class="btn btn-dim">

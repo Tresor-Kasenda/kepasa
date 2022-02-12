@@ -11,6 +11,7 @@ class AdminSupperRepository
     public function getContents(): array|Collection
     {
         return User::query()
+            ->where('role_id', '=', 2)
             ->orderByDesc('created_at')
             ->get();
     }

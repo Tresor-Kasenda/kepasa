@@ -18,9 +18,19 @@
                         'username' => "Users",
                         'amount' => \App\Models\User::count()
                     ])
-
+                    @include('admins.partials.stats', [
+                        'username' => "Events",
+                        'amount' => \App\Models\Event::count()
+                    ])
+                    @include('admins.partials.stats', [
+                        'username' => "Organisers",
+                        'amount' => \App\Models\Company::count()
+                    ])
+                    @include('admins.partials.stats', [
+                        'username' => "Billings",
+                        'amount' => \App\Models\Billing::count()
+                    ])
                 </div>
-
                 <div class="row  g-gs">
                     <div class="col-xxl-6">
                         <div class="card">

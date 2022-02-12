@@ -7,7 +7,7 @@
     <title>{{ config('app.name') }} | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main-color.css') }}" id="colors">
-    @laravelPWA
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
     @yield('styles')
 </head>
 <body>
@@ -28,9 +28,9 @@
                         </li>
                     </ul>
                     <ul data-submenu-title="Listings">
-                        <li>
-                            <a href="">
-                                <i class="sl sl-icon-star"></i> Event
+                        <li class="{{ Request::url() === route('organiser.events.index') ? 'active' : '' }}">
+                            <a href="{{ route('organiser.events.index') }}">
+                                <i class="sl sl-icon-list"></i> Event
                             </a>
                         </li>
                         <li>
@@ -40,7 +40,7 @@
                         </li>
                         <li>
                             <a href="">
-                                <i class="sl sl-icon-plus"></i> Event images
+                                <i class="sl sl-icon-picture"></i> Event images
                             </a>
                         </li>
                     </ul>

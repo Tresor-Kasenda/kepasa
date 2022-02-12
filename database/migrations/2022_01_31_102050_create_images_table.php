@@ -12,8 +12,10 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique();
-            $table->nullableMorphs('model');
             $table->string('image')->nullable();
+            $table->foreignId('event_id')
+                ->constrained()
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

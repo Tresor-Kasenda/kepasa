@@ -28,7 +28,7 @@ serve: vendor/autoload.php ## lance, le serve de development
 
 .PHONY: analyse
 analyse: vendor/autoload.php
-    vendor/bin/phpstan analyse app tests --level=5
+    ./vendor/bin/phpstan analyse app tests --level=5 && ./vendor/bin/psalm
 
 vendor/autoload.php: composer.lock
 	composer install

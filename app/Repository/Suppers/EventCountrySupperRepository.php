@@ -11,6 +11,7 @@ class EventCountrySupperRepository
     public function getContents(): array|Collection
     {
         return Country::query()
+            ->withCount('events')
             ->orderByDesc('created_at')
             ->get();
     }

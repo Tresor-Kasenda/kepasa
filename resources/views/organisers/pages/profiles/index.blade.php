@@ -165,6 +165,21 @@
             }
         });
 
+        var toastMixin = Swal.mixin({
+            toast: true,
+            icon: 'success',
+            title: 'General Title',
+            animation: false,
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
         $('#password, #password_confirmation').on('keyup', function () {
             if ($('#password').val() === $('#password_confirmation').val()) {
                 $('#message1').html('Le mot de passe correspond').css('color', 'green');
@@ -186,7 +201,7 @@
                     cache: false,
                     processData: false,
                     success: function (response) {
-                        swal(`${response.messages}`);
+                        Swal.fire("Felicitation", `${response.messages}`, "success");
                     }
                 });
             });
@@ -204,9 +219,12 @@
                     processData: false,
                     success: function (response) {
                         if (response.status === 'success'){
-                            swal(`${response.messages}`);
+                            Swal.fire("Felicitation", `${response.messages}`, "success");
                         } else {
-                            swal(`${response.messages}`);
+                            toastMixin.fire({
+                                title: `${response.messages}`,
+                                icon: 'error'
+                            });
                         }
                     }
                 });
