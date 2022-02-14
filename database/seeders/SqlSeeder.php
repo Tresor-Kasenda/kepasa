@@ -10,17 +10,7 @@ class SqlSeeder extends Seeder
 {
     public function run()
     {
-        $path  = public_path('');
-        $db = [
-            'username' => env('DB_USERNAME'),
-            'password' => env('DB_PASSWORD'),
-            'host' => env('DB_HOST'),
-            'database' => env('DB_DATABASE')
-        ];
-        exec("mysql --user={$db['username']} --password={$db['password']} --host={$db['host']} --database {$db['database']} < $path");
-
-        $sql = file_get_contents(database_path() . '/seeds/users.sql');
-
+        $sql = storage_path('seeds\city.sql');
         DB::statement($sql);
     }
 }

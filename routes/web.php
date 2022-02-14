@@ -7,9 +7,11 @@ use App\Http\Controllers\Apps\EventFeeController;
 use App\Http\Controllers\Apps\HomeController;
 use App\Http\Controllers\Apps\PromotionRequestController;
 use App\Http\Controllers\HomeUserController;
+use App\Http\Controllers\Organisers\BillingOrganiserController;
 use App\Http\Controllers\Organisers\CheckoutOrganiserController;
 use App\Http\Controllers\Organisers\EventOrganiserController;
 use App\Http\Controllers\Organisers\HomeOrganiserController;
+use App\Http\Controllers\Organisers\ImageOrganiserController;
 use App\Http\Controllers\Organisers\ProfileOrganiserController;
 use App\Http\Controllers\Supers\AdminSupperController;
 use App\Http\Controllers\Supers\BillingSupperController;
@@ -19,6 +21,7 @@ use App\Http\Controllers\Supers\EventCountrySupperController;
 use App\Http\Controllers\Supers\EventSupperController;
 use App\Http\Controllers\Supers\HomeSuperController;
 use App\Http\Controllers\Supers\OrganiserSupperController;
+use App\Http\Controllers\Supers\SettingSupperController;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
@@ -34,11 +37,17 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
     Route::get('country/{countryCode}/edit', [CountrySupperController::class, 'edit'])->name('country.city.edit');
     Route::get('billings', BillingSupperController::class)->name('billing.index');
     Route::resource('category', CategorySupperController::class);
+    Route::controller(SettingSupperController::class)->group(function (){
+        Route::get('settings', '__invoke')->name('settings.index');
+    });
 });
 
 Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['organiser', 'auth']], function(){
     Route::resource('organiser', HomeOrganiserController::class);
     Route::resource('profile', ProfileOrganiserController::class);
+    Route::post('imagesProfile', [ProfileOrganiserController::class, 'uploadPicture'])->name('profile.images');
+    Route::resource('billing', BillingOrganiserController::class);
+    Route::resource('images', ImageOrganiserController::class);
     Route::post('updateCompany', [ProfileOrganiserController::class, 'updateCompany'])->name('company.update');
     Route::resource('events', EventOrganiserController::class);
     Route::resource('events.payment', CheckoutOrganiserController::class);

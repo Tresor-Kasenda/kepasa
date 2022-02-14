@@ -6,6 +6,7 @@ namespace App\Repository\Organisers;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\User;
+use App\Services\ImageUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileOrganiserRepository
 {
+    use ImageUpload;
+
     public function getCountries(): Collection|array
     {
         return Country::query()
@@ -29,14 +32,11 @@ class ProfileOrganiserRepository
 
     public function updateCompany($attributes): Model|Builder
     {
-        $company = Company::query()
-            ->where('user_id', '=', $attributes->user()->id)
-            ->first();
+        $company = $this->getCompanyByUser($attributes);
         $this->updateUserAuthenticate($attributes);
         $this->companyUpdate($company, $attributes);
         return $company;
     }
-
 
     public function updatePassword($attributes): Model|Builder
     {
@@ -47,6 +47,12 @@ class ProfileOrganiserRepository
             'password' => Hash::make($attributes->input('password'))
         ]);
         return $user;
+    }
+
+    public function uploadImages($attributes)
+    {
+        $organiser = $this->getCompanyByUser($attributes);
+        dd($organiser);
     }
 
     private function updateUserAuthenticate($attributes)
@@ -73,5 +79,12 @@ class ProfileOrganiserRepository
             'country' => $attributes->input('country'),
             'city' => $attributes->input('city'),
         ]);
+    }
+
+    private function getCompanyByUser($attributes): null|Builder|Model
+    {
+        return Company::query()
+            ->where('user_id', '=', $attributes->user()->id)
+            ->first();
     }
 }

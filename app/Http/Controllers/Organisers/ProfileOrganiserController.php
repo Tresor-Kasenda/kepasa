@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Organisers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\ProfileImageRequest;
 use App\Http\Requests\ProfileOrganiserRequest;
 use App\Repository\Organisers\ProfileOrganiserRepository;
 use Illuminate\Contracts\Support\Renderable;
@@ -44,5 +45,10 @@ class ProfileOrganiserController extends Controller
             'messages' => "Company ou lien existe deja",
             'status' => 'error'
         ]);
+    }
+
+    public function uploadPicture(ProfileImageRequest $attributes)
+    {
+        $this->repository->uploadImages(attributes:  $attributes);
     }
 }

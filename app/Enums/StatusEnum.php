@@ -8,12 +8,14 @@ use BenSampo\Enum\Enum;
 final class StatusEnum extends Enum
 {
     const ACTIVE =  'active';
-    const DESACTIVE =   'desactive';
+    const DEACTIVATE =   'deactivate';
     const POSTPONE = 'postpone';
+    const CANCEL = 'cancel';
 
     public static array $status = [
         self::ACTIVE,
-        self::DESACTIVE,
-        self::POSTPONE
+        self::DEACTIVATE,
+        self::POSTPONE,
+        self::CANCEL
     ];
 }
