@@ -13,7 +13,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class EventOrganiserController extends Controller
 {
@@ -41,20 +40,20 @@ class EventOrganiserController extends Controller
     public function show(string $key): Factory|View|Application
     {
         return view('organisers.pages.events.show', [
-            'event' => $this->organiserRepository->getEventById($key)
+            'event' => $this->organiserRepository->getEventById(key: $key)
         ]);
     }
 
     public function store(EventRequest $attributes): RedirectResponse
     {
-        $event = $this->organiserRepository->store($attributes);
+        $event = $this->organiserRepository->store(attributes: $attributes);
         return redirect()->route('organiser.events.payment.index', compact('event'));
     }
 
     public function edit(string $key): Factory|View|Application
     {
         return view('organisers.pages.events.edit', [
-            'event' => $this->organiserRepository->getEventById($key),
+            'event' => $this->organiserRepository->getEventById(key: $key),
             'countries' => $this->repository->getCountries(),
             'categories' => $this->categorySupperRepository->getContents()
         ]);
@@ -63,6 +62,12 @@ class EventOrganiserController extends Controller
     public function update(string $key, EventRequest $attributes): RedirectResponse
     {
         $this->organiserRepository->updateEvent(key: $key, attributes: $attributes);
+        return redirect()->route('organiser.events.index');
+    }
+
+    public function destroy(string $key): RedirectResponse
+    {
+        $this->organiserRepository->deleteEvent(key: $key);
         return redirect()->route('organiser.events.index');
     }
 }

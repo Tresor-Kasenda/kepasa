@@ -36,7 +36,18 @@
                                         <h3>
                                             <a href="{{ route('organiser.events.show', $event->key) }}">{{ strtoupper($event->title) ?? "" }}</a>
                                         </h3>
-                                        <span>{{ $event->address ?? "" }}</span>
+                                        <div class="inner-booking-list">
+                                            <h5>Event Date:</h5>
+                                            <ul class="booking-list">
+                                                <li class="highlighted">{{ $event->date ?? "" }} at {{ $event->startTime ?? "" }} - {{ $event->endTime ?? "" }}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="inner-booking-list">
+                                            <h5>Event Location:</h5>
+                                            <ul class="booking-list">
+                                                <li>{{ $event->city ?? "" }}/{{ $event->address ?? "" }}</li>
+                                            </ul>
+                                        </div>
                                         <div class="star-rating">
                                             @if($event->status == 'desactive')
                                                 <span class="pending-data">pending</span>
@@ -59,17 +70,22 @@
                                 <a href="{{ route('organiser.events.edit', $event->key) }}" class="button gray">
                                     <i class="sl sl-icon-note"></i> Edit
                                 </a>
-                                <a href="#" class="button gray">
+                                <a href="{{ route('organiser.events.destroy',$event->key) }}" class="button gray" onclick="event.preventDefault(); document.getElementById('destroy-event').submit();">
                                     <i class="sl sl-icon-close"></i> Delete
                                 </a>
+                                <form id="destroy-event" action="{{ route('organiser.events.destroy',$event->key) }}" method="POST" class="d-none">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
                             </div>
                         </li>
                     @endforeach
                 </ul>
             </div>
+
             <div class="clearfix"></div>
+
             <div class="row">
-                {{ $events->links() }}
                 <div class="col-md-12">
                     <div class="pagination-container margin-top-20 margin-bottom-40">
                         <nav class="pagination">
@@ -100,7 +116,6 @@
             font-size: 13px;
             font-weight: 600;
             border-radius: 50px
-
         }
         .message-by{
             background-color: #e9e9e9;

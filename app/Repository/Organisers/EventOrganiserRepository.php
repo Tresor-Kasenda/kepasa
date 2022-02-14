@@ -9,7 +9,6 @@ use App\Models\Event;
 use App\Services\FeedCalculation;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class EventOrganiserRepository
@@ -23,7 +22,7 @@ class EventOrganiserRepository
             ->withCount('billings')
             ->where('user_id', '=', request()->user()->id)
             ->orderByDesc('created_at')
-            ->paginate(1);
+            ->paginate(6);
     }
 
     public function getEventById(string $key): Model|Builder
@@ -86,6 +85,16 @@ class EventOrganiserRepository
         return $event;
     }
 
+    public function deleteEvent(string $key): Model|Builder
+    {
+        $event = Event::query()
+            ->where('key', '=', $key)
+            ->firstOrFail();
+        $event->delete();
+        toast("Evenement supprimer avec succes", 'success');
+        return $event;
+    }
+
     private function getCountry($attributes): Builder|Model
     {
         return Country::query()
@@ -107,4 +116,5 @@ class EventOrganiserRepository
             ->where('key', '=', $key)
             ->firstOrFail();
     }
+
 }
