@@ -26,9 +26,9 @@ class Event extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function media(): MorphMany
+    public function media(): HasMany
     {
-        return $this->morphMany(Images::class, 'model');
+        return $this->hasMany(Images::class);
     }
 
     public function customers(): HasMany

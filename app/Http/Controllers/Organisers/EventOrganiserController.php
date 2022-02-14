@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Organisers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EventRequest;
 use App\Repository\HomeRepository;
 use App\Repository\Organisers\EventOrganiserRepository;
 use App\Repository\Suppers\CategorySupperRepository;
@@ -24,7 +25,9 @@ class EventOrganiserController extends Controller
 
     public function index(): Renderable
     {
-        return view('organisers.pages.events.index');
+        return view('organisers.pages.events.index', [
+            'events' => $this->organiserRepository->getContents()
+        ]);
     }
 
     public function create(): Factory|View|Application
@@ -35,9 +38,31 @@ class EventOrganiserController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function show(string $key): Factory|View|Application
     {
-        $event = $this->organiserRepository->store(attributes: $request);
-        return redirect()->route('organiser.events.payment.index', compact($event));
+        return view('organisers.pages.events.show', [
+            'event' => $this->organiserRepository->getEventById($key)
+        ]);
+    }
+
+    public function store(EventRequest $attributes): RedirectResponse
+    {
+        $event = $this->organiserRepository->store($attributes);
+        return redirect()->route('organiser.events.payment.index', compact('event'));
+    }
+
+    public function edit(string $key): Factory|View|Application
+    {
+        return view('organisers.pages.events.edit', [
+            'event' => $this->organiserRepository->getEventById($key),
+            'countries' => $this->repository->getCountries(),
+            'categories' => $this->categorySupperRepository->getContents()
+        ]);
+    }
+
+    public function update(string $key, EventRequest $attributes): RedirectResponse
+    {
+        $this->organiserRepository->updateEvent(key: $key, attributes: $attributes);
+        return redirect()->route('organiser.events.index');
     }
 }

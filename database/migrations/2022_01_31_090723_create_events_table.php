@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use App\Enums\FeeOptionEnum;
 use App\Enums\StatusEnum;
+use App\Enums\TypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,14 +23,14 @@ return new class extends Migration
             $table->string('address');
             $table->integer('ticketNumber')->default(0);
             $table->integer('prices')->default(0);
-            $table->enum('feeOption', ['Inclusive', 'Exclusive'])->default('Inclusive');
+            $table->enum('feeOption', FeeOptionEnum::$types)->default('Inclusive');
             $table->integer('commission')->default(0);
             $table->integer('buyerPrice')->default(0);
             $table->string('country');
             $table->string('city');
-            $table->string('description')->nullable();
-            $table->enum('status', StatusEnum::getValues())->default(StatusEnum::DESACTIVE);
-            $table->enum('types', ['online', 'presence'])->default('presence');
+            $table->longText('description')->nullable();
+            $table->enum('status', StatusEnum::getValues())->default(StatusEnum::DEACTIVATE);
+            $table->enum('types', TypeEnum::$types)->default('presence');
             $table->boolean('promoted')->default(0);
             $table->timestamps();
 

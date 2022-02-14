@@ -21,9 +21,9 @@ class EventRequest extends FormRequest
             "title" => ['required', 'min:4'],
             "subTitle" => ['required', 'min:4'],
             "category_id" => ['required', Rule::exists('categories', 'id')],
-            "date" => ['required', 'date', 'date_format:Y:m:d', 'after:tomorrow'],
-            "startTime" => ['required', 'date', 'date_format:H:i'],
-            "endTime" => ['required', 'date', 'date_format:H:i', 'after_or_equal:startTime'],
+            "date" => ['required', 'date', 'after:tomorrow'],
+            "startTime" => ['required', 'date_format:H:i', 'required_with:endTime'],
+            "endTime" => ['required','date_format:H:i', 'required_with:startTime', 'after:startTime'],
             "address" => ['required', 'min:5'],
             "ticketNumber" => ['required', 'min:1'],
             "prices" => ['required', 'min:1'],
@@ -31,8 +31,6 @@ class EventRequest extends FormRequest
             "country" => ['required', Rule::exists('countries', 'countryCode')],
             "cityName" => ['required'],
             "description" => ['nullable', 'min:10'],
-            "image" => ['required'],
-            "image.*" => ['mimes:jpeg,jpg,png,gif,csv,txt,pdf', 'max:2048']
         ];
     }
 }

@@ -7,5 +7,5 @@ class FeeOptionEnum
 {
     const Inclusive = 'Inclusive';
     const Exclusive = 'Exclusive';
-    public static $types = [self::Inclusive, self::Exclusive];
+    public static array $types = [self::Inclusive, self::Exclusive];
 }
