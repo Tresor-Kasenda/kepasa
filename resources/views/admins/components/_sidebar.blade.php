@@ -63,6 +63,11 @@
                         'name' => 'Billings',
                         'icon' => 'ni-wallet-saving'
                     ])
+                    @include('admins.partials.navLink', [
+                        'route' => route('supper.settings.index'),
+                        'name' => 'Settings',
+                        'icon' => 'ni-setting-alt'
+                    ])
                 </ul>
             </div>
         </div>

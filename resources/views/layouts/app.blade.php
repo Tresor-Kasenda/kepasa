@@ -25,6 +25,7 @@
     </div>
     <script src="{{ asset('assets/admins/js/bundle.js') }}"></script>
     <script src="{{ asset('assets/admins/js/scripts.js') }}"></script>
+    @include('sweetalert::alert')
     @yield('scripts')
 </body>
 </html>

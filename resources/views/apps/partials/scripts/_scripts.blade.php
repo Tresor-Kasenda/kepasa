@@ -10,4 +10,3 @@
 <script type="text/javascript" src="{{ asset('assets/scripts/jquery-ui.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/scripts/tooltips.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/scripts/custom.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>

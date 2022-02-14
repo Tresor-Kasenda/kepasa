@@ -7,18 +7,6 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>Listens events</h2>
-                <nav id="breadcrumbs">
-                    <ul>
-                        <li>
-                            <a
-                                href="{{ route('organiser.events.create') }}"
-                                class="button border"
-                            >
-                                Add Listing <i class="sl sl-icon-plus"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>
@@ -28,37 +16,72 @@
             <div class="dashboard-list-box margin-top-0">
                 <h4>Events Listings</h4>
                 <ul>
-                    <li>
-                        <div class="list-box-listing">
-                            <div class="list-box-listing-img">
-                                <a href="#">
-                                    <img src="" alt="">
-                                </a>
-                            </div>
-                            <div class="list-box-listing-content">
-                                <div class="inner">
-                                    <span class="tag">Education</span>
-                                    <h3><a href="#">Tom's Restaurant</a></h3>
-                                    <span>964 School Street, New York</span>
-                                    <div class="star-rating">
-                                        <span class="message-by">0 ticket(s) bought <span>
+                    @foreach($events as $event)
+                        <li>
+                            <div class="list-box-listing">
+                                <div class="list-box-listing-img">
+                                    <a href="{{ route('organiser.events.show', $event->key) }}">
+                                        @if($event->media)
+                                            @foreach($event->media as $images)
+                                                <img src="" alt="">
+                                            @endforeach
+                                        @else
+
+                                        @endif
+                                    </a>
+                                </div>
+                                <div class="list-box-listing-content">
+                                    <div class="inner">
+                                        <span class="tag">{{ $event->category->name ?? "" }}</span>
+                                        <h3>
+                                            <a href="{{ route('organiser.events.show', $event->key) }}">{{ strtoupper($event->title) ?? "" }}</a>
+                                        </h3>
+                                        <span>{{ $event->address ?? "" }}</span>
+                                        <div class="star-rating">
+                                            @if($event->status == 'desactive')
+                                                <span class="pending-data">pending</span>
+                                            @endif
+                                            @if($event->status == 'postpone')
+                                                <span class="message-by">postpone</span>
+                                            @endif
+                                            @if($event->status == 'active')
+                                                <span class="active-data">active</span>
+                                            @endif
+                                            <span class="message-by">{{ $event->billings_count ?? 0 }} ticket(s) </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="buttons-to-right">
-                            <a href="#" class="button gray approve">
-                                <i class="sl sl-icon-check"></i> Booking
-                            </a>
-                            <a href="#" class="button gray">
-                                <i class="sl sl-icon-note"></i> Edit
-                            </a>
-                            <a href="#" class="button gray">
-                                <i class="sl sl-icon-close"></i> Delete
-                            </a>
-                        </div>
-                    </li>
+                            <div class="buttons-to-right">
+                                <a href="{{ route('organiser.events.payment.index', $event) }}" class="button gray approve">
+                                    <i class="sl sl-icon-check"></i> Booking
+                                </a>
+                                <a href="{{ route('organiser.events.edit', $event->key) }}" class="button gray">
+                                    <i class="sl sl-icon-note"></i> Edit
+                                </a>
+                                <a href="#" class="button gray">
+                                    <i class="sl sl-icon-close"></i> Delete
+                                </a>
+                            </div>
+                        </li>
+                    @endforeach
                 </ul>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                {{ $events->links() }}
+                <div class="col-md-12">
+                    <div class="pagination-container margin-top-20 margin-bottom-40">
+                        <nav class="pagination">
+                            <ul>
+                                <li><a href="#" class="current-page">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#"><i class="sl sl-icon-arrow-right"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -93,6 +116,24 @@
         }
         .message-by{
             padding-bottom: 20px;
+        }
+        .pending-data{
+            background-color: #EBF6E0 !important;
+            color: #5f9025;
+            padding: 2px 10px;
+            line-height: 22px;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 50px;
+        }
+        .active-data{
+            padding: 2px 10px;
+            line-height: 22px;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 50px;
+            background-color: #E9F7FE !important;
+            color: #3184ae;
         }
     </style>
 @endsection

@@ -19,7 +19,7 @@
 
     <div class="row">
         @include('organisers.components._stat', [
-            'number' => 0,
+            'number' => \App\Models\Event::query()->where('user_id', '=', auth()->id())->count(),
             'name' => "Evénement",
             'icon' => 'im-icon-Clothing-Store'
         ])

@@ -15,63 +15,17 @@
         @include('organisers.components._header')
         <div class="clearfix"></div>
         <div id="dashboard">
-            <a href="#" class="dashboard-responsive-nav-trigger">
-                <i class="fa fa-reorder"></i> Dashboard Navigation
-            </a>
-            <div class="dashboard-nav">
-                <div class="dashboard-nav-inner">
-                    <ul data-submenu-title="Main">
-                        <li class="{{ Request::url() === route('organiser.organiser.index') ? 'active' : '' }}">
-                            <a href="{{ route('organiser.organiser.index') }}">
-                                <i class="sl sl-icon-settings"></i> Dashboard
-                            </a>
-                        </li>
-                    </ul>
-                    <ul data-submenu-title="Listings">
-                        <li class="{{ Request::url() === route('organiser.events.index') ? 'active' : '' }}">
-                            <a href="{{ route('organiser.events.index') }}">
-                                <i class="sl sl-icon-list"></i> Event
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <i class="sl sl-icon-wallet"></i> Billing
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <i class="sl sl-icon-picture"></i> Event images
-                            </a>
-                        </li>
-                    </ul>
-                    <ul data-submenu-title="Account">
-                        <li class="{{ Request::url() === route('organiser.profile.index') ? 'active' : '' }}">
-                            <a href="{{ route('organiser.profile.index') }}">
-                                <i class="sl sl-icon-user"></i> My Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="sl sl-icon-power"></i> Logout
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
+            @include('organisers.partials._main')
             <div class="dashboard-content">
                 <main>
                     @yield('content')
                 </main>
             </div>
         </div>
-
         @include('organisers.components._footer')
     </div>
     @include('apps.partials.scripts._scripts')
+    @include('sweetalert::alert')
     @yield('scripts')
 </body>
 </html>

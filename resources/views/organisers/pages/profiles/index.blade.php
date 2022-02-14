@@ -27,14 +27,18 @@
                 <div class="dashboard-list-box-static">
                     <div class="edit-profile-photo">
                         <img src="{{ asset('assets/images/profile.jpg') }}" id="preview" alt="Photo de profile">
-                        <div class="change-photo-btn">
-                            <div class="photoUpload">
-                                <span><i class="fa fa-upload"></i></span>
-                                <input type="file" class="upload" name="images" id="images" />
+                        <form action="{{ route('organiser.profile.images') }}">
+                            @csrf
+                            <div class="change-photo-btn">
+                                <div class="photoUpload">
+                                    <span><i class="fa fa-upload"></i></span>
+                                    <input type="file" class="upload" name="images" id="images" />
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <form class="updateDetails" method="post">
+                        @csrf
                         <div class="my-profile">
                             <label for="name">Name</label>
                             <input

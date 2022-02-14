@@ -174,9 +174,11 @@
 
                     <div class="add-listing-section margin-top-45 margin-bottom-20">
                         <div class="submit-section">
+                            <div class="add-listing-headline">
+                                <h3><i class="sl sl-icon-pencil"></i> Event Description</h3>
+                            </div>
                             <div class="row with-forms">
                                 <div class="col-sm-12">
-                                    <h5>Event Description</h5>
                                     <textarea
                                         class="WYSIWYG"
                                         name="description"
@@ -223,7 +225,7 @@
     <script>
         function calculate() {
             var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-            let price = document.getElementById("price").value
+            let price = document.getElementById("prices").value
             if (price !== 0) {
                 if (selectedValue === "Inclusive") {
                     inclusive();
@@ -236,7 +238,7 @@
         }
 
         function inclusive() {
-            let price = document.getElementById("price").value;
+            let price = document.getElementById("prices").value;
             let deduct = (5 / 100) * price;
             let organiserPrice = parseFloat(price) - deduct;
             document.getElementById("answer").innerHTML = "Organiser amount : R" + organiserPrice;
@@ -246,7 +248,7 @@
         }
 
         function exclusive() {
-            let price = document.getElementById("price").value;
+            let price = document.getElementById("prices").value;
             let add = (5 / 100) * price;
             let ticketPrice = parseFloat(price) + add;
             document.getElementById("answer").innerHTML = "Organiser Amount: R " + parseInt(price);
