@@ -19,11 +19,15 @@
                         <h3><i class="sl sl-icon-doc"></i> Confirm your details below</h3>
                     </div>
                     <div class="row with-forms">
-                        <form action="" method="POST">
+                        <form action="{{ route('organiser.confirm.payment.event') }}" method="POST">
+                            @csrf
                             <div class="col-md-6">
                                 <h5>Category</h5>
                                 <input  type="text" value="{{ $event->category->name ?? "" }}" readonly required>
                             </div>
+                            <input type="hidden" name="nameOrganiser" value="{{ $category->user->name ?? "" }}">
+                            <input type="hidden" name="lastNameOrganiser" value="{{ $category->user->lastName ?? "" }}">
+                            <input type="hidden" name="address" value="{{ $event->user->company->address ?? $event->address }}">
                             <div class="col-md-6">
                                 <h5>Event Name</h5>
                                 <input type="text" readonly required value="{{ $event->title ?? "" }}" name="eventName">
@@ -33,8 +37,7 @@
                                 <input type="text" value="{{ $event->subTitle ?? "" }}" name="subtitle">
                             </div>
                             <div class="col-md-6">
-                                <h5>Event Date
-                                </h5>
+                                <h5>Event Date</h5>
                                 <input type="date" readonly required value="{{ $event->date ?? "" }}" name="eventDate">
                             </div>
                             <div class="col-md-6">
@@ -85,56 +88,31 @@
 @endsection
 
 @section('scripts')
-    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ env('PAYPAL_SANDBOX_CLIENT_ID') }}&locale=en_US"></script>
     <script>
-        let client_id = {{config('paypal.sandbox.client_id')}}
         paypal.Buttons({
             style: {
-                layout:  'vertical',
-                color:   'blue',
-                shape:   'pill',
-                label:   'paypal'
+                shape: 'rect',
+                color: 'gold',
+                layout: 'horizontal',
+                label: 'pay',
             },
             createOrder: function(data, actions) {
-                return fetch('', {
-                    method: 'POST',
-                    body:JSON.stringify({
-                        'course_id': "",
-                        'user_id' : "{{auth()->id()}}",
-                        'amount' : '',
-                    })
-                }).then(function(res) {
-                    return res.json();
-                }).then(function(orderData) {
-                    return orderData.id;
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: { value: '{{ $event->ticketNumber }}' },
+                        'event': "{{ $event }}",
+                        'user_id' : "{{ auth()->user()->id }}",
+                    }]
                 });
             },
-
             onApprove: function(data, actions) {
-                return fetch('' , {
-                    method: 'POST',
-                    body :JSON.stringify({
-                        orderId : data.orderID,
-                        payment_gateway_id: $("#payapalId").val(),
-                        user_id: "{{ auth()->user()->id }}",
-                    })
-                }).then(function(res) {
-                    return res.json();
-                }).then(function(orderData) {
-                    var transaction = orderData.purchase_units[0].payments.captures[0];
-                    iziToast.success({
-                        title: 'Success',
-                        message: 'Payment completed',
-                        position: 'topRight'
-                    });
+                return actions.order.capture().then(function(details) {
+                    if(details.status === 'COMPLETED'){
+                        window.location = "../dashboard/paid.php?CompanyRef={{ $event->key }}&verify="+ details.status;
+                    }
                 });
             }
         }).render('#paypal-button-container');
-    </script>
-
-    <script>
-        if ( window.history.replaceState) {
-            window.history.replaceState( null, null, window.location.href );
-        }
     </script>
 @endsection

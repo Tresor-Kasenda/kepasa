@@ -7,7 +7,7 @@ use App\Enums\FeeOptionEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class EventRequest extends FormRequest
+class EventUpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -30,8 +30,7 @@ class EventRequest extends FormRequest
             "feeOption" => ['required', Rule::in(FeeOptionEnum::$types)],
             "country" => ['required', Rule::exists('countries', 'countryCode')],
             "cityName" => ['required', Rule::exists('cities', 'id')],
-            "description" => ['nullable', 'min:10'],
-            "image" => ['required', 'image', 'mimes:jpeg,jpg,png']
+            "description" => ['nullable', 'min:10']
         ];
     }
 }

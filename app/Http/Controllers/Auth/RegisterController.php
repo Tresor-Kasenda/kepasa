@@ -17,17 +17,12 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo;
-
-    public function redirectTo(){
-        $this->redirectTo = match (Auth::user()->role_id) {
-            1 => route('supper.dashboard.index'),
-            2 => route('admin.admin.index'),
-            3 => route('organiser.organiser.index'),
-            4 => route('user.home.index'),
-            default => route('home.index')
-        };
-    }
+    /**
+     * Where to redirect users after registration.
+     *
+     * @var string
+     */
+    protected string $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * @return void
@@ -38,8 +33,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -56,8 +49,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
-     *
      * @param  array  $data
      * @return Builder|Model
      */

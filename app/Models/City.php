@@ -5,6 +5,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class City extends Model
@@ -13,8 +14,8 @@ class City extends Model
 
     protected $guarded = [];
 
-    public function media(): MorphMany
+    public function media(): HasMany
     {
-        return $this->morphMany(Images::class, 'model');
+        return $this->hasMany(CityMedia::class);
     }
 }

@@ -28,7 +28,7 @@ Auth::routes(['verify' => true]);
 
 Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper', 'auth']], function(){
     Route::resource('dashboard', HomeSuperController::class);
-    Route::get('viewEvents', EventSupperController::class)->name('events.listens');
+    Route::resource('viewEvents', EventSupperController::class);
     Route::get('eventsCountries', EventCountrySupperController::class)->name('events.country');
     Route::resource('organisers', OrganiserSupperController::class);
     Route::resource('admins', AdminSupperController::class);
@@ -51,6 +51,7 @@ Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['o
     Route::post('updateCompany', [ProfileOrganiserController::class, 'updateCompany'])->name('company.update');
     Route::resource('events', EventOrganiserController::class);
     Route::resource('events.payment', CheckoutOrganiserController::class);
+    Route::post('confirm-payment', [CheckoutOrganiserController::class, 'confirmed'])->name('confirm.payment.event');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function(){

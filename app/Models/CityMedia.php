@@ -6,22 +6,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 
-class Company extends Model
+class CityMedia extends Model
 {
     use HasFactory, HasKey;
 
     protected $guarded = [];
 
-    public function user(): BelongsTo
+    public function city(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function onlineEvents(): HasMany
-    {
-        return $this->hasMany(OnlineEvent::class);
+        return $this->belongsTo(City::class, 'city_id');
     }
 }

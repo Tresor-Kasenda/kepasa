@@ -49,25 +49,31 @@
                                     @foreach($events as $event)
                                         <tr class="nk-tb-item">
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span class="tb-product text-center">
+                                                 <img src="{{
+                                                    $event->images == 'avatar3.png' ?
+                                                    asset('admins/images/avatar3.png')  :
+                                                    asset('storage/'.$event->images)
+                                                 }}" alt="{{ $event->title }}" class="thumb">
+                                             </span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ strtoupper($event->category->name) ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $event->date ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $event->startTime ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $event->endTime ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $event->ticketNumber ?? 0 }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $event->status ?? "Default" }}</span>
                                             </td>
                                             <td class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1">
@@ -79,19 +85,19 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li>
-                                                                        <a href="">
+                                                                        <a href="{{ route('supper.viewEvents.show', $event->key) }}">
                                                                             <em class="icon ni ni-eye"></em>
                                                                             <span>Voir</span>
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="">
+                                                                        <a href="{{ route('supper.viewEvents.edit', $event->key) }}">
                                                                             <em class="icon ni ni-edit"></em>
                                                                             <span>Editer</span>
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <form action="" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                        <form action="{{ route('supper.viewEvents.destroy',$event->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                             @method('DELETE')
                                                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                             <button type="submit" class="btn btn-dim">

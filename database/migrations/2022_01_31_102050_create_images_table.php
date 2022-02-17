@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->string('key')->unique();
             $table->string('image')->nullable();
-            $table->foreignId('event_id')
+            $table->foreignIdFor(\App\Models\Event::class)
                 ->constrained()
                 ->cascadeOnDelete();
             $table->timestamps();

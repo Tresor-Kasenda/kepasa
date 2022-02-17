@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use App\Models\Role;
+use App\Models\City;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,21 +10,19 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('city_media', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique();
-            $table->string('name');
+            $table->string('images');
+            $table->foreignIdFor(City::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->timestamps();
         });
-
-        Role::create(['name' => "SUPER"]);
-        Role::create(['name' => "ADMIN"]);
-        Role::create(['name' => "Event organiser"]);
-        Role::create(['name' => "Customer"]);
     }
 
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('city_media');
     }
 };

@@ -29,7 +29,7 @@
                         <h6 class="overline-title text-primary-alt">Administration</h6>
                     </li>
                     @include('admins.partials.navLink', [
-                        'route' => route('supper.events.listens'),
+                        'route' => route('supper.viewEvents.index'),
                         'name' => 'Events',
                         'icon' => 'ni-swap-alt'
                     ])

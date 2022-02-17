@@ -172,6 +172,25 @@
                         </div>
                     </div>
 
+                    <div class="add-listing-section margin-top-45">
+                        <div class="add-listing-headline">
+                            <h3><i class="sl sl-icon-picture"></i> Gallery</h3>
+                        </div>
+                        <div class="submit-section">
+                            <div class="row with-forms">
+                                <div class="col-md-12">
+                                    <h5>Images</h5>
+                                    <input
+                                        type="file"
+                                        name="image"
+                                        id="image"
+                                        value="{{ old('image') }}"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="add-listing-section margin-top-45 margin-bottom-20">
                         <div class="submit-section">
                             <div class="add-listing-headline">
@@ -198,10 +217,10 @@
 @endsection
 
 @section('scripts')
-    <script defer>
+    <script>
         $(document).ready(function () {
             $(".countries").change(function () {
-                var selectedCountry = $(".countries option:selected").val();
+                let selectedCountry = $(".countries option:selected").val();
                 $('select#cityName').hide()
                 $.ajax({
                     type: "POST",
@@ -221,10 +240,9 @@
                 });
             });
         });
-    </script>
-    <script>
+
         function calculate() {
-            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+            let selectedValue = selectBox.options[selectBox.selectedIndex].value;
             let price = document.getElementById("prices").value
             if (price !== 0) {
                 if (selectedValue === "Inclusive") {

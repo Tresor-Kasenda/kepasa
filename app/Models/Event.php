@@ -45,4 +45,14 @@ class Event extends Model
     {
         return $this->belongsTo(Country::class, 'countryCode');
     }
+
+    public function onlineEvent(): HasMany
+    {
+        return $this->hasMany(OnlineEvent::class);
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(PaymentCustomer::class);
+    }
 }

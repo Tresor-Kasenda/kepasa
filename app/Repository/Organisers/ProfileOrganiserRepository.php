@@ -32,7 +32,7 @@ class ProfileOrganiserRepository
 
     public function updateCompany($attributes): Model|Builder
     {
-        $company = $this->getCompanyByUser($attributes);
+        $company = $this->getCompanyByUser(attributes: $attributes);
         $this->updateUserAuthenticate($attributes);
         $this->companyUpdate($company, $attributes);
         return $company;
