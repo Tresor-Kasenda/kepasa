@@ -15,8 +15,13 @@ class Images extends Model
 
     protected $guarded = [];
 
-    public function model(): MorphTo
+    public function event(): BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(Event::class, 'event_id');
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
     }
 }

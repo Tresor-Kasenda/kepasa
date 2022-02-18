@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Event::class)
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\Company::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

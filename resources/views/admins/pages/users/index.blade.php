@@ -19,11 +19,6 @@
                                             <em class="icon ni ni-plus mr-1"></em> Ajouter
                                         </a>
                                     </li>
-                                    <li class="preview-item">
-                                        <a href="" class="btn btn-dim btn-primary btn-sm">
-                                            <em class="icon ni ni-reload mr-1"></em> Historique
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -41,13 +36,13 @@
                                         <span class="sub-text">Name</span>
                                     </th>
                                     <th class="nk-tb-col tb-col-md">
+                                        <span class="sub-text">Laste Name</span>
+                                    </th>
+                                    <th class="nk-tb-col tb-col-md">
                                         <span class="sub-text">Email</span>
                                     </th>
                                     <th class="nk-tb-col tb-col-md">
                                         <span class="sub-text">Phone Number</span>
-                                    </th>
-                                    <th class="nk-tb-col tb-col-md">
-                                        <span class="sub-text">Status</span>
                                     </th>
                                     <th class="nk-tb-col nk-tb-col-tools text-right">
                                         <span class="sub-text">Actions</span>
@@ -58,16 +53,16 @@
                                     @foreach($admins as $user)
                                         <tr class="nk-tb-item">
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $user->name ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $user->lastName ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $user->email ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $user->phones ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1">
@@ -79,19 +74,13 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li>
-                                                                        <a href="">
-                                                                            <em class="icon ni ni-eye"></em>
-                                                                            <span>Voir</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="">
+                                                                        <a href="{{ route('supper.admins.edit', $user->key) }}">
                                                                             <em class="icon ni ni-edit"></em>
                                                                             <span>Editer</span>
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <form action="" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                        <form action="{{ route('supper.admins.destroy', $user->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                             @method('DELETE')
                                                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                             <button type="submit" class="btn btn-dim">

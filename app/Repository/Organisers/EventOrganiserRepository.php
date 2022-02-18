@@ -32,6 +32,7 @@ class EventOrganiserRepository
     {
         $event = Event::query()
             ->where('key', '=', $key)
+            ->where('user_id', '=', auth()->id())
             ->firstOrFail();
         return $event->load(['category', 'media', 'payments']);
     }
@@ -93,6 +94,7 @@ class EventOrganiserRepository
     public function deleteEvent(string $key): Model|Builder
     {
         $event = Event::query()
+            ->where('user_id', '=', auth()->id())
             ->where('key', '=', $key)
             ->firstOrFail();
         $event->delete();
@@ -118,6 +120,7 @@ class EventOrganiserRepository
     private function getSingleEvent(string $key): Model|Builder
     {
         return Event::query()
+            ->where('user_id', '=', auth()->id())
             ->where('key', '=', $key)
             ->firstOrFail();
     }
