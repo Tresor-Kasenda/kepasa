@@ -16,8 +16,8 @@
                     <i class="sl sl-icon-list"></i> Event
                 </a>
             </li>
-            <li class="{{ Request::url() === route('organiser.billing.index') ? 'active' : '' }}">
-                <a href="{{ route('organiser.billing.index') }}">
+            <li class="{{ Request::url() === route('organiser.bookings.index') ? 'active' : '' }}">
+                <a href="{{ route('organiser.bookings.index') }}">
                     <i class="sl sl-icon-wallet"></i> Bookings
                 </a>
             </li>

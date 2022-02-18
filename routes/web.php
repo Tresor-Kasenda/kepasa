@@ -7,7 +7,7 @@ use App\Http\Controllers\Apps\EventFeeController;
 use App\Http\Controllers\Apps\HomeController;
 use App\Http\Controllers\Apps\PromotionRequestController;
 use App\Http\Controllers\HomeUserController;
-use App\Http\Controllers\Organisers\BillingOrganiserController;
+use App\Http\Controllers\Organisers\BookingOrganiserController;
 use App\Http\Controllers\Organisers\CheckoutOrganiserController;
 use App\Http\Controllers\Organisers\EventOrganiserController;
 use App\Http\Controllers\Organisers\HomeOrganiserController;
@@ -46,7 +46,7 @@ Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['o
     Route::resource('organiser', HomeOrganiserController::class);
     Route::resource('profile', ProfileOrganiserController::class);
     Route::post('imagesProfile', [ProfileOrganiserController::class, 'uploadPicture'])->name('profile.images');
-    Route::resource('billing', BillingOrganiserController::class);
+    Route::resource('bookings', BookingOrganiserController::class);
     Route::resource('images', ImageOrganiserController::class);
     Route::post('updateCompany', [ProfileOrganiserController::class, 'updateCompany'])->name('company.update');
     Route::resource('events', EventOrganiserController::class);
