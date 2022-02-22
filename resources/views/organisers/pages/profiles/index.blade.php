@@ -26,8 +26,12 @@
                 <h4 class="gray">Profile Details</h4>
                 <div class="dashboard-list-box-static">
                     <div class="edit-profile-photo">
-                        <img src="{{ asset('assets/images/profile.jpg') }}" id="preview" alt="Photo de profile">
-                        <form action="{{ route('organiser.profile.images') }}">
+                        @if(auth()->user()->company->images !== null)
+                            <img src="{{ asset('storage/'.auth()->user()->company->images) }}" id="preview" alt="Photo de profile">
+                        @else
+                            <img src="{{ asset('assets/images/profile.jpg') }}" id="preview" alt="Photo de profile">
+                        @endif
+                        <form id="submit">
                             @csrf
                             <div class="change-photo-btn">
                                 <div class="photoUpload">
@@ -37,7 +41,7 @@
                             </div>
                         </form>
                     </div>
-                    <form class="updateDetails" method="post">
+                    <form action="{{ route('organiser.company.update') }}" class="updateDetails" method="post">
                         @csrf
                         <div class="my-profile">
                             <label for="name">Name</label>
@@ -132,7 +136,9 @@
                 <h4 class="gray">Change Password</h4>
                 <div class="dashboard-list-box-static">
                     <div class="my-profile">
-                        <form method="post" class="submitPassword">
+                        <form action="{{ route('organiser.profile.update', auth()->user()->key) }}" method="post" class="submitPassword">
+                            @csrf
+                            @method('PUT')
                             <label for="oldPassword" class="margin-top-0">Current Password</label>
                             <input
                                 type="password"
@@ -169,21 +175,6 @@
             }
         });
 
-        var toastMixin = Swal.mixin({
-            toast: true,
-            icon: 'success',
-            title: 'General Title',
-            animation: false,
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
-
         $('#password, #password_confirmation').on('keyup', function () {
             if ($('#password').val() === $('#password_confirmation').val()) {
                 $('#message1').html('Le mot de passe correspond').css('color', 'green');
@@ -194,62 +185,29 @@
             }
         })
 
-        $(document).on("click", "#password_confirmation", function () {
-            $(document).on('submit', '.submitPassword', function (e) {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('organiser.profile.store') }}",
-                    data: new FormData(this),
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function (response) {
-                        Swal.fire("Felicitation", `${response.messages}`, "success");
-                    }
-                });
-            });
-        })
+        $('#images').change(function(){
+            let form  = new FormData();
+            let files = $('#images')[0].files;
+            console.log(form, files)
 
-        $(document).ready(function () {
-            $(document).on('submit', '.updateDetails', function (e) {
-                e.preventDefault();
+            if(files.length > 0 ){
+                form.append('images',files[0]);
+
                 $.ajax({
-                    type: "POST",
-                    url: "{{ route('organiser.company.update') }}",
-                    data: new FormData(this),
+                    url: `{{ route('organiser.profile.images') }}`,
+                    type: 'post',
+                    data: form,
                     contentType: false,
-                    cache: false,
                     processData: false,
-                    success: function (response) {
-                        if (response.status === 'success'){
-                            Swal.fire("Felicitation", `${response.messages}`, "success");
-                        } else {
-                            toastMixin.fire({
-                                title: `${response.messages}`,
-                                icon: 'error'
-                            });
+                    success: function(response){
+                        if(response.status === 'success'){
+                            swal("Congrats!", ", Your account is created!", "success");
                         }
-                    }
+                    },
                 });
-            });
-        });
-
-        $('#images').on('change', function () {
-            const image = $("#images")[0].files[0]
-            const fd = new FormData();
-            fd.append('image',image);
-
-            $.ajax({
-                type: '',
-                url: 'POST',
-                data: fd,
-                processData: false,
-                contentType: false,
-                success: function (response){
-
-                }
-            })
+            }else{
+                alert("Please select a file.");
+            }
         })
     </script>
 @endsection

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\OrganiserAccountCreate;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -67,6 +68,7 @@ class RegisterController extends Controller
             $user->company()->create([
                 'email' => $data['email']
             ]);
+            dispatch(new OrganiserAccountCreate($user))->delay(now()->addSecond(5));
             return $user;
         } else if($data['role'] = 4){
             $user->profile()->create([

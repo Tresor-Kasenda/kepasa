@@ -9,14 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class OrganiserMiddleware
 {
-    /**
-     * @param Request $request
-     * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return Response|RedirectResponse
-     */
-    public function handle(Request $request, Closure $next): Response|RedirectResponse
+    public function handle(Request $request, Closure $next)
     {
         if(!Auth::check()){
             return redirect()->route('login');
@@ -27,11 +22,11 @@ class AdminMiddleware
         }
 
         if (Auth::user()->role_id == 2) {
-            return $next($request);
+            return redirect()->route('admin.admin.index');
         }
 
         if (Auth::user()->role_id == 3){
-            return redirect()->route('organiser.organiser.index');
+            return $next($request);
         }
 
         if (Auth::user()->role_id == 4){

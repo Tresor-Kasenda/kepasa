@@ -15,9 +15,21 @@ trait ImageUpload
             ->storePublicly('/', ['disk' => 'public']);
     }
 
+    public static function uploadProfile(Request $request): string
+    {
+        return $request->file('images')
+            ->storePublicly('/', ['disk' => 'public']);
+    }
+
     public function removePicture(Model $model)
     {
         Storage::disk('public')
             ->delete($model->image);
+    }
+
+    public function removeProfile(Model $model)
+    {
+        Storage::disk('public')
+            ->delete($model->images);
     }
 }

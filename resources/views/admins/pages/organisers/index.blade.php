@@ -79,12 +79,6 @@
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="{{ route('supper.organisers.edit', $organiser->key) }}">
-                                                                            <em class="icon ni ni-edit"></em>
-                                                                            <span>Editer</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
                                                                         <form action="{{ route('supper.organisers.destroy', $organiser->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                             @method('DELETE')
                                                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">

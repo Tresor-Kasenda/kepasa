@@ -55,4 +55,9 @@ class Event extends Model
     {
         return $this->hasMany(PaymentCustomer::class);
     }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
 }

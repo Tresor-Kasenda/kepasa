@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers;
 
+use App\Jobs\EventCreated;
 use App\Models\Billing;
 use App\Models\City;
 use App\Models\Country;
@@ -61,6 +62,7 @@ class EventOrganiserRepository
                 'image' => self::uploadFiles(request: $attributes)
             ]);
         $this->createBilling($event, $attributes);
+        dispatch(new EventCreated($event, auth()->user()->company))->delay(now()->addSecond(5));
         toast("Evenement enregistrer avec succes",'success');
         return $event;
     }

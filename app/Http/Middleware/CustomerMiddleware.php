@@ -20,13 +20,24 @@ class CustomerMiddleware
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        if(!Auth::check()){return redirect()->route('login');}
-        return match (Auth::user()->role_id) {
-            1 => redirect()->route('supper.dashboard.index'),
-            2 => redirect()->route('admin.admin.index'),
-            3 => redirect()->route('organiser.organiser.index'),
-            4 => $next($request),
-            default => redirect()->route('login'),
-        };
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+
+        if (Auth::user()->role_id == 1) {
+            return redirect()->route('supper.dashboard.index');
+        }
+
+        if (Auth::user()->role_id == 2) {
+            return redirect()->route('admin.admin.index');
+        }
+
+        if (Auth::user()->role_id == 3){
+            return redirect()->route('organiser.organiser.index');
+        }
+
+        if (Auth::user()->role_id == 4){
+            return $next($request);
+        }
     }
 }

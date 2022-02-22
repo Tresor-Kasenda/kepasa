@@ -20,13 +20,24 @@ class SuperMiddleware
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        if(!Auth::check()){return redirect()->route('login');}
-        return match (Auth::user()->role_id) {
-            1 => $next($request),
-            2 => redirect()->route('admin.dashboard.index'),
-            3 => redirect()->route('organiser.home.index'),
-            4 => redirect()->route('home.user'),
-            default => redirect()->route('login'),
-        };
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+
+        if (Auth::user()->role_id == 1) {
+            return $next($request);
+        }
+
+        if (Auth::user()->role_id == 2) {
+            return redirect()->route('admin.admin.index');
+        }
+
+        if (Auth::user()->role_id == 3){
+            return redirect()->route('organiser.home.index');
+        }
+
+        if (Auth::user()->role_id == 4){
+            return redirect()->route('user.home.index');
+        }
     }
 }

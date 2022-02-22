@@ -45,13 +45,17 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
 Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['organiser', 'auth']], function(){
     Route::resource('organiser', HomeOrganiserController::class);
     Route::resource('profile', ProfileOrganiserController::class);
-    Route::post('imagesProfile', [ProfileOrganiserController::class, 'uploadPicture'])->name('profile.images');
+
     Route::resource('bookings', BookingOrganiserController::class);
     Route::resource('images', ImageOrganiserController::class);
-    Route::post('updateCompany', [ProfileOrganiserController::class, 'updateCompany'])->name('company.update');
     Route::resource('events', EventOrganiserController::class);
     Route::resource('events.payment', CheckoutOrganiserController::class);
     Route::post('confirm-payment', [CheckoutOrganiserController::class, 'confirmed'])->name('confirm.payment.event');
+
+    Route::controller(ProfileOrganiserController::class)->group(function(){
+        Route::post('imagesProfile',  'uploadPicture')->name('profile.images');
+        Route::post('updateCompany', 'updateCompany')->name('company.update');
+    });
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function(){

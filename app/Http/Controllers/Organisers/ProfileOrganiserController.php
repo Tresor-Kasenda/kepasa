@@ -10,6 +10,7 @@ use App\Http\Requests\ProfileOrganiserRequest;
 use App\Repository\Organisers\ProfileOrganiserRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ProfileOrganiserController extends Controller
@@ -23,32 +24,25 @@ class ProfileOrganiserController extends Controller
         ]);
     }
 
-    public function store(ProfileOrganiserRequest $attributes): JsonResponse
+    public function update(string $key, ProfileOrganiserRequest $attributes): RedirectResponse
     {
-        $this->repository->updatePassword($attributes);
-        return response()->json([
-            'messages' => "Le mot de passe a ete  mise a jour"
-        ]);
+        $this->repository->updatePassword(key: $key, attributes: $attributes);
+        return back();
     }
 
-    public function updateCompany(CompanyRequest $attributes): JsonResponse
+    public function updateCompany(CompanyRequest $attributes): RedirectResponse
     {
-        $company = $this->repository->getCompany($attributes);
-        if ($company == null){
-            $this->repository->updateCompany($attributes);
-            return response()->json([
-                'message' => "La mise a ete faite avec success",
-                'status' => 'success'
-            ], 200);
-        }
-        return response()->json([
-            'messages' => "Company ou lien existe deja",
-            'status' => 'error'
-        ]);
+        $this->repository->updateCompany($attributes);
+        return back();
     }
 
-    public function uploadPicture(ProfileImageRequest $attributes)
+    public function uploadPicture(ProfileImageRequest $attributes): JsonResponse
     {
-        $this->repository->uploadImages(attributes:  $attributes);
+        $images = $this->repository->uploadImages(attributes:  $attributes);
+        return response()->json([
+            'messages' => "Photo de profile uploader",
+            'status' => 'success',
+            'data' => $images
+        ], 200);
     }
 }

@@ -26,7 +26,7 @@ class ProfileOrganiserRepository
     {
         return Company::query()
             ->where('companyName', '=', $attributes->input('companyName'))
-            ->orWhere('website', '=', $attributes->input('companyWebsite'))
+            ->where('user_id', '=', auth()->id())
             ->first();
     }
 
@@ -35,13 +35,14 @@ class ProfileOrganiserRepository
         $company = $this->getCompanyByUser(attributes: $attributes);
         $this->updateUserAuthenticate($attributes);
         $this->companyUpdate($company, $attributes);
+        toast("Une mise a jours a ete faite pour la company", 'success');
         return $company;
     }
 
-    public function updatePassword($attributes): Model|Builder
+    public function updatePassword(string $key, $attributes): Model|Builder
     {
         $user = User::query()
-            ->where('key', '=', $attributes->user()->key)
+            ->where('key', '=', $key)
             ->firstOrFail();
         $user->update([
             'password' => Hash::make($attributes->input('password'))
@@ -49,10 +50,14 @@ class ProfileOrganiserRepository
         return $user;
     }
 
-    public function uploadImages($attributes)
+    public function uploadImages($attributes): Model|Builder|null
     {
         $organiser = $this->getCompanyByUser($attributes);
-        dd($organiser);
+        $this->removeProfile($organiser);
+        $organiser->update([
+            'images' => self::uploadProfile($attributes)
+        ]);
+        return $organiser;
     }
 
     private function updateUserAuthenticate($attributes)
@@ -84,7 +89,7 @@ class ProfileOrganiserRepository
     private function getCompanyByUser($attributes): null|Builder|Model
     {
         return Company::query()
-            ->where('user_id', '=', $attributes->user()->id)
+            ->where('user_id', '=', auth()->id())
             ->first();
     }
 }

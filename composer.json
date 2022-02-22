@@ -6,12 +6,14 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-curl": "*",
+        "ext-simplexml": "*",
         "bensampo/laravel-enum": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4.1",
         "ip2location/ip2location-laravel": "^1.2",
         "juststeveking/laravel-key-factory": "^1.0",
-        "laravel/framework": "^8.83.1",
+        "laravel/framework": "^v8.83.1",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
@@ -20,9 +22,7 @@
         "srmklive/paypal": "^3.0",
         "stevebauman/location": "^6.3",
         "symfony/filesystem": "^6.0",
-        "symfony/mailer": "^6.0",
-        "ext-curl": "*",
-        "ext-simplexml": "*"
+        "symfony/mailer": "^6.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",
