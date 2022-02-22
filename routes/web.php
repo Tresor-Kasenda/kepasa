@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admins\CityAdminController;
+use App\Http\Controllers\Admins\EventCountryAdminController;
+use App\Http\Controllers\Admins\EventOrganiserAdminController;
+use App\Http\Controllers\Admins\EventsAdminController;
 use App\Http\Controllers\Admins\HomeAdminController;
 use App\Http\Controllers\Apps\ContactUsController;
 use App\Http\Controllers\Apps\EventController;
@@ -60,6 +64,10 @@ Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['o
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function(){
     Route::resource('admin', HomeAdminController::class);
+    Route::resource('eventsCountries', EventCountryAdminController::class);
+    Route::resource('eventsAdmins', EventsAdminController::class);
+    Route::resource('eventsOrganisers', EventOrganiserAdminController::class);
+    Route::resource('cityMedia', CityAdminController::class);
 });
 
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'auth']], function(){
