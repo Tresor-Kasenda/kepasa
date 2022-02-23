@@ -49,7 +49,6 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
 Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['organiser', 'auth']], function(){
     Route::resource('organiser', HomeOrganiserController::class);
     Route::resource('profile', ProfileOrganiserController::class);
-
     Route::resource('bookings', BookingOrganiserController::class);
     Route::resource('images', ImageOrganiserController::class);
     Route::resource('events', EventOrganiserController::class);

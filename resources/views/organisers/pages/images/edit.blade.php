@@ -1,12 +1,12 @@
 @extends('layouts.organiser')
 
-@section('title', "Creation of images for every event")
+@section('title', "Edition of images for every event")
 
 @section('content')
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
-                <h2>Add images to events</h2>
+                <h2>Edit images to events</h2>
                 <nav id="breadcrumbs">
                     <ul>
                         <li>
@@ -26,10 +26,11 @@
             <div id="add-listing">
                 <div class="add-listing-section">
                     <div class="add-listing-headline">
-                        <h3><i class="sl sl-icon-doc"></i>Ajouter une images</h3>
+                        <h3><i class="sl sl-icon-doc"></i>Edite une images</h3>
                     </div>
-                    <form action="{{ route('organiser.images.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('organiser.images.update', $image->key) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="row with-forms">
                             <div class="col-md-6">
                                 <h5>Event Lists</h5>
@@ -52,7 +53,7 @@
                                 >
                             </div>
 
-                            <button type="submit" class="button preview">Save image</button>
+                            <button type="submit" class="button preview">Update image</button>
                         </div>
                     </form>
                 </div>

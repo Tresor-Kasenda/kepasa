@@ -12,7 +12,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-12 col-md-12">
+        <div class="col-lg-12 col-md-12 margin-bottom-35">
             <div class="dashboard-list-box margin-top-0">
                 <h4>Events Listings</h4>
                 <ul>

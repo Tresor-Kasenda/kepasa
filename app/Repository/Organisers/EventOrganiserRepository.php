@@ -5,12 +5,13 @@ namespace App\Repository\Organisers;
 
 use App\Jobs\EventCreated;
 use App\Models\Billing;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
+use App\Models\OnlineEvent;
 use App\Services\FeedCalculation;
 use App\Services\ImageUpload;
-use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -41,27 +42,8 @@ class EventOrganiserRepository
     public function store($attributes): Model|Builder
     {
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
-        $event = Event::query()
-            ->create([
-                'title' => $attributes->input('title'),
-                'subTitle' => $attributes->input('subTitle'),
-                'date' => $attributes->input('date'),
-                'startTime' => $attributes->input('startTime'),
-                'endTime' => $attributes->input('endTime'),
-                'address' => $attributes->input('address'),
-                'ticketNumber' => $attributes->input('ticketNumber'),
-                'prices' => $attributes->input('prices'),
-                'feeOption' => $attributes->input('feeOption'),
-                'commission' => $feedCalculation['2'],
-                'buyerPrice' => $feedCalculation['3'],
-                'country' => $feedCalculation['0']->countryName,
-                'city' => $feedCalculation['1']->cityName,
-                'description' => $attributes->input('description'),
-                'category_id' => $attributes->input('category_id'),
-                'user_id' => auth()->id(),
-                'image' => self::uploadFiles(request: $attributes)
-            ]);
-        $this->createBilling($event, $attributes);
+        $category = $this->getCategory($attributes);
+        $event = $this->storeEvent($attributes, $feedCalculation);
         dispatch(new EventCreated($event, auth()->user()->company))->delay(now()->addSecond(5));
         toast("Evenement enregistrer avec succes",'success');
         return $event;
@@ -71,24 +53,7 @@ class EventOrganiserRepository
     {
         $event = $this->getSingleEvent($key);
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
-
-        $event->update([
-            'title' => $attributes->input('title'),
-            'subTitle' => $attributes->input('subTitle'),
-            'date' => $attributes->input('date'),
-            'startTime' => $attributes->input('startTime'),
-            'endTime' => $attributes->input('endTime'),
-            'address' => $attributes->input('address'),
-            'ticketNumber' => $attributes->input('ticketNumber'),
-            'prices' => $attributes->input('prices'),
-            'feeOption' => $attributes->input('feeOption'),
-            'commission' => $feedCalculation['2'],
-            'buyerPrice' => $feedCalculation['3'],
-            'country' => $feedCalculation['0']->countryName,
-            'city' => $feedCalculation['1']->cityName,
-            'description' => $attributes->input('description'),
-            'category_id' => $attributes->input('category_id')
-        ]);
+        $this->eventUpdate($event, $attributes, $feedCalculation);
         toast("Evenement a ete mise a jours",'success');
         return $event;
     }
@@ -129,12 +94,6 @@ class EventOrganiserRepository
 
     private function createBilling($event, $attributes)
     {
-        $sql = <<<SQL
-SELECT * FROM billings
-inner join events ON events.id = billings.event_id
-inner join companies ON companies.user_id = events.user_id
-SQL;
-
         $event->billing->create([
             'eventTitle' => $attributes->input('title'),
             'eventDate' => $attributes->input('date'),
@@ -142,14 +101,78 @@ SQL;
             'ticketPrice' => $attributes->input('prices'),
             'ticketSold' => $attributes->input('title'),
             'commission' => $attributes->input('title'),
-            'ticketNumber' => $attributes->input('title')
+            'ticketNumber' => $attributes->input('title'),
+            'feeType' => $attributes->input('feed')
         ]);
-
-//        $table->integer('amountSold')->default(0);
-//        $table->integer('ticketPrice')->default(0);
-//        $table->integer('ticketSold')->default(0);
-//        $table->integer('commission')->default(0);
-//        $table->string('feeType');
     }
 
+    private function getCategory($attributes): null|Builder|Model
+    {
+        return Category::query()
+            ->where('id', '=', $attributes->input('category_id'))
+            ->first();
+    }
+
+    private function storeEvent($attributes, array $feedCalculation): Builder|Model
+    {
+        return Event::query()
+            ->create([
+                'title' => $attributes->input('title'),
+                'subTitle' => $attributes->input('subTitle'),
+                'date' => $attributes->input('date'),
+                'startTime' => $attributes->input('startTime'),
+                'endTime' => $attributes->input('endTime'),
+                'address' => $attributes->input('address'),
+                'ticketNumber' => $attributes->input('ticketNumber'),
+                'prices' => $attributes->input('prices'),
+                'feeOption' => $attributes->input('feeOption'),
+                'commission' => $feedCalculation['2'],
+                'buyerPrice' => $feedCalculation['3'],
+                'country' => $feedCalculation['0']->countryName,
+                'city' => $feedCalculation['1']->cityName,
+                'description' => $attributes->input('description'),
+                'category_id' => $attributes->input('category_id'),
+                'user_id' => auth()->id(),
+                'image' => self::uploadFiles(request: $attributes),
+                'company_id' => $attributes->user()->company->id
+            ]);
+    }
+
+    private function eventUpdate($event, $attributes, array $feedCalculation): void
+    {
+        $event->update([
+            'title' => $attributes->input('title'),
+            'subTitle' => $attributes->input('subTitle'),
+            'date' => $attributes->input('date'),
+            'startTime' => $attributes->input('startTime'),
+            'endTime' => $attributes->input('endTime'),
+            'address' => $attributes->input('address'),
+            'ticketNumber' => $attributes->input('ticketNumber'),
+            'prices' => $attributes->input('prices'),
+            'feeOption' => $attributes->input('feeOption'),
+            'commission' => $feedCalculation['2'],
+            'buyerPrice' => $feedCalculation['3'],
+            'country' => $feedCalculation['0']->countryName,
+            'city' => $feedCalculation['1']->cityName,
+            'description' => $attributes->input('description'),
+            'category_id' => $attributes->input('category_id')
+        ]);
+    }
+
+    private function storeOnlineEvent($event, $attributes, string $eventReference, int $moderator_pin): void
+    {
+        OnlineEvent::query()
+            ->create([
+                'event_id' => $event->id,
+                'company_id' => $attributes->user()->company->id,
+                'roomId' => $attributes->inptu(''),
+                'roomName' => $attributes->inptu('title'),
+                'reference' => $eventReference,
+                'moderators' => $attributes->inptu(''),
+                'schedule' => $attributes->inptu(''),
+                'mode' => $attributes->inptu(''),
+                'participantsID' => $attributes->inptu('ticketNumber'),
+                'moderatorID' => $moderator_pin
+            ]);
+    }
 }

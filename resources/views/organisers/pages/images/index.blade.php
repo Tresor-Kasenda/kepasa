@@ -45,10 +45,10 @@
                                 <a href="{{ route('organiser.images.edit', $image->key) }}" class="button gray">
                                     <i class="sl sl-icon-note"></i> Edit
                                 </a>
-                                <a href="{{ route('organiser.images.destroy',$event->key) }}" class="button gray" onclick="event.preventDefault(); document.getElementById('destroy-event').submit();">
+                                <a href="{{ route('organiser.images.destroy',$image->key) }}" class="button gray" onclick="event.preventDefault(); document.getElementById('destroy-event').submit();">
                                     <i class="sl sl-icon-close"></i> Delete
                                 </a>
-                                <form id="destroy-event" action="{{ route('organiser.images.destroy',$event->key) }}" method="POST" class="d-none">
+                                <form id="destroy-event" action="{{ route('organiser.images.destroy',$image->key) }}" method="POST" class="d-none">
                                     @csrf
                                     @method('DELETE')
                                 </form>

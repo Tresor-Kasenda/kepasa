@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers;
 
+use App\Models\Event;
 use App\Models\Images;
 use App\Services\ImageUpload;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class ImagesOrganiserRepository
@@ -21,30 +23,39 @@ class ImagesOrganiserRepository
             ->paginate(8);
     }
 
+    public function getEvents(): Collection|array
+    {
+        return Event::query()
+            ->orderByDesc('created_at')
+            ->get();
+    }
+
     public function create($attributes): Model|Builder
     {
         $image = Images::query()
             ->create([
                 'event_id' => $attributes->input('event_id'),
-                'image' => self::uploadFiles($attributes)
+                'image' => self::uploadFiles($attributes),
+                'company_id' => $attributes->user()->company->id
             ]);
         toast("Image ajouter avec success", 'success');
         return $image;
     }
 
-    public function update(string $key, $attributes)
+    public function update(string $key, $attributes): Model|Builder|null
     {
-        $image = $this->getImageByKey($attributes, $key);
+        $image = $this->getImageByKey(key: $key);
         $this->removePicture($image);
         $image->update([
             'event_id' => $attributes->input('event_id'),
-            'image' => self::uploadFiles($attributes)
+            'image' => self::uploadFiles($attributes),
+            'company_id' => $attributes->user()->company->id
         ]);
         toast("Image a ete mise a jours", 'success');
         return $image;
     }
 
-    public function delete(string $key)
+    public function delete(string $key): Model|Builder|null
     {
         $image = $this->getImageByKey($key);
         $this->removePicture($image);
@@ -53,10 +64,10 @@ class ImagesOrganiserRepository
         return $image;
     }
 
-    public function getImageByKey(string $key): mixed
+    public function getImageByKey(string $key): Model|Builder|null
     {
         return Images::query()
-            ->when('key', fn($query) => $query->where('key', $key))
+            ->where('key', '=', $key)
             ->first();
     }
 }

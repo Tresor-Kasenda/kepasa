@@ -33,7 +33,7 @@ class SuperMiddleware
         }
 
         if (Auth::user()->role_id == 3){
-            return redirect()->route('organiser.home.index');
+            return redirect()->route('organiser.organiser.index');
         }
 
         if (Auth::user()->role_id == 4){

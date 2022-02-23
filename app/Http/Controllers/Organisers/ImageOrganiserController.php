@@ -14,7 +14,9 @@ use Illuminate\Http\RedirectResponse;
 
 class ImageOrganiserController extends Controller
 {
-    public function __construct(public ImagesOrganiserRepository $repository){}
+    public function __construct(
+        public ImagesOrganiserRepository $repository,
+    ){}
 
     public function index(): Renderable
     {
@@ -26,7 +28,7 @@ class ImageOrganiserController extends Controller
     public function create(): Factory|View|Application
     {
         return view('organisers.pages.images.create', [
-            'events' => $this->repository->getContents()
+            'events' => $this->repository->getEvents()
         ]);
     }
 
@@ -39,12 +41,13 @@ class ImageOrganiserController extends Controller
     public function edit(string $key): Factory|View|Application
     {
         $image = $this->repository->getImageByKey(key: $key);
-        return view('organisers.pages.images.create', [
-            'events' => $this->repository->getContents()
+        return view('organisers.pages.images.edit', [
+            'events' => $this->repository->getEvents(),
+            'image' => $image
         ]);
     }
 
-    public function update(string $key, $attributes): RedirectResponse
+    public function update(string $key, ImageRequest $attributes): RedirectResponse
     {
         $this->repository->update(key: $key, attributes: $attributes);
         return redirect()->route('organiser.images.index');
