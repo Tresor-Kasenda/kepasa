@@ -28,8 +28,8 @@ return new class extends Migration
             $table->integer('prices')->default(0);
             $table->enum('feeOption', FeeOptionEnum::$types)
                 ->default(FeeOptionEnum::Inclusive);
-            $table->integer('commission')->default(0);
-            $table->integer('buyerPrice')->default(0);
+            $table->decimal('commission')->default(0);
+            $table->decimal('buyerPrice')->default(0);
             $table->string('country');
             $table->string('city');
             $table->longText('description')->nullable();

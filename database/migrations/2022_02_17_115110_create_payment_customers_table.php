@@ -20,8 +20,8 @@ return new class extends Migration
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->integer('ticketNumber');
-            $table->integer('totalAmount')->default(0);
+            $table->string('ticketNumber', 9);
+            $table->string('totalAmount', 9);
             $table->string('reference')->unique();
             $table->enum('status', [PaymentEnum::$types])->default(PaymentEnum::UNPAID);
             $table->timestamps();

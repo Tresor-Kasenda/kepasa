@@ -21,12 +21,14 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->date('eventDate');
-            $table->string('eventTitle');
-            $table->integer('amountSold')->default(0);
-            $table->integer('ticketPrice')->default(0);
-            $table->integer('ticketSold')->default(0);
-            $table->integer('commission')->default(0);
+            $table->string('amountSold', 9);
+            $table->string('ticketPrice', 9);
+            $table->string('ticketSold', 9);
+            $table->string('commission', 9);
             $table->string('feeType');
+            $table->string('amountPaid', 9);
+            $table->string('payout', 9);
+            $table->string('outAmount', 9);
             $table->timestamps();
         });
     }

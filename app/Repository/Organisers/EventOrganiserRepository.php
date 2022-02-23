@@ -92,17 +92,18 @@ class EventOrganiserRepository
             ->firstOrFail();
     }
 
-    private function createBilling($event, $attributes)
+    private function createBilling($event, $attributes, $feedCalculation)
     {
+        $amountSold = $attributes->input('ticketNumber') * $attributes->input('prices');
         $event->billing->create([
             'eventTitle' => $attributes->input('title'),
             'eventDate' => $attributes->input('date'),
-            'amountSold' => $attributes->input('title'),
+            'amountSold' => $amountSold,
             'ticketPrice' => $attributes->input('prices'),
-            'ticketSold' => $attributes->input('title'),
-            'commission' => $attributes->input('title'),
-            'ticketNumber' => $attributes->input('title'),
-            'feeType' => $attributes->input('feed')
+            'ticketSold' => $attributes->input('ticketNumber'),
+            'commission' => $feedCalculation['2'],
+            'feeType' => $attributes->input('feed'),
+            'user_id' => $attributes->user()->id
         ]);
     }
 

@@ -12,12 +12,11 @@ trait FeedCalculation
         $country = $this->getCountry($attributes);
         $city = $this->getCity($attributes, $country);
 
-        $prices = $attributes->input('prices');
+        $prices = (int)$attributes->input('prices');
+        $commission = $prices * (5 / 100);
         if (request()->input('feeOption') == FeeOptionEnum::Exclusive){
-            $commission = (5 / 100) * $prices;
             $organiser = $prices - $commission;
         } elseif (request()->input('feeOption') == FeeOptionEnum::Inclusive){
-            $commission = (5 / 100) * $prices;
             $organiser = $prices + $commission;
         }
 
