@@ -8,6 +8,7 @@ use App\Repository\HomeRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Stevebauman\Location\Facades\Location;
 
 class HomeController extends Controller
 {
@@ -16,7 +17,7 @@ class HomeController extends Controller
     public function __invoke(): Renderable
     {
         return view('apps.welcome', [
-            'countries' => $this->repository->getCountries()
+            'countries' => $this->repository->getCountries(),
         ]);
     }
 

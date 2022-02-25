@@ -51,9 +51,9 @@
                                             <td class="nk-tb-col tb-col-md">
                                                 <span class="tb-product text-center">
                                                  <img src="{{
-                                                    $event->images == 'avatar3.png' ?
+                                                    $event->image == 'avatar3.png' ?
                                                     asset('admins/images/avatar3.png')  :
-                                                    asset('storage/'.$event->images)
+                                                    asset('storage/'.$event->image)
                                                  }}" alt="{{ $event->title }}" class="thumb">
                                              </span>
                                             </td>

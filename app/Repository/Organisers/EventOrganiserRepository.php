@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Repository\Organisers;
 
 use App\Jobs\EventCreated;
-use App\Models\Billing;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
@@ -12,13 +11,15 @@ use App\Models\Event;
 use App\Models\OnlineEvent;
 use App\Services\FeedCalculation;
 use App\Services\ImageUpload;
+use App\Services\RandomValue;
+use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class EventOrganiserRepository
 {
-    use FeedCalculation, ImageUpload;
+    use FeedCalculation, ImageUpload, RandomValue;
 
     public function getContents(): LengthAwarePaginator
     {
@@ -44,6 +45,10 @@ class EventOrganiserRepository
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
         $category = $this->getCategory($attributes);
         $event = $this->storeEvent($attributes, $feedCalculation);
+        if ($category->name == 'online'){
+            $this->storeOnlineEvent($event, attributes: $attributes);
+        }
+        $this->createBilling($event, $attributes);
         dispatch(new EventCreated($event, auth()->user()->company))->delay(now()->addSecond(5));
         toast("Evenement enregistrer avec succes",'success');
         return $event;
@@ -92,18 +97,23 @@ class EventOrganiserRepository
             ->firstOrFail();
     }
 
-    private function createBilling($event, $attributes, $feedCalculation)
+    private function createBilling($event, $attributes)
     {
         $amountSold = $attributes->input('ticketNumber') * $attributes->input('prices');
-        $event->billing->create([
-            'eventTitle' => $attributes->input('title'),
-            'eventDate' => $attributes->input('date'),
+        $commission = (5 / 100) * $amountSold;
+        $payout = $amountSold - $commission;
+        $event->billings()->create([
+            'eventDate' => $event->date,
             'amountSold' => $amountSold,
-            'ticketPrice' => $attributes->input('prices'),
-            'ticketSold' => $attributes->input('ticketNumber'),
-            'commission' => $feedCalculation['2'],
-            'feeType' => $attributes->input('feed'),
-            'user_id' => $attributes->user()->id
+            'ticketPrice' => $event->prices,
+            'ticketSold' => $event->ticketNumber,
+            'commission' => $commission,
+            'feeType' => $attributes->input('feeOption'),
+            'amountPaid' => $payout,
+            'payout' => $payout,
+            'outAmount' => 0,
+            'user_id' => $attributes->user()->id,
+            'billingCode' => $this->generateRandomTransaction(7)
         ]);
     }
 
@@ -160,8 +170,12 @@ class EventOrganiserRepository
         ]);
     }
 
-    private function storeOnlineEvent($event, $attributes, string $eventReference, int $moderator_pin): void
+    private function storeOnlineEvent($event, $attributes): void
     {
+        $eventReference = random_bytes(30);
+        $pat_pin = rand(100000, 999999);
+        $moderator_pin = rand(100000, 999999);
+
         OnlineEvent::query()
             ->create([
                 'event_id' => $event->id,

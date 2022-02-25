@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Supers;
 
 use App\Http\Controllers\Controller;
 use App\Repository\Suppers\BillingSupperRepository;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class BillingSupperController extends Controller
 {
@@ -14,5 +17,12 @@ class BillingSupperController extends Controller
     {
         $billings = $this->repository->getContents();
         return view('admins.pages.billings.index', compact('billings'));
+    }
+
+    public function show(string $key): Factory|View|Application
+    {
+        return view('admins.pages.billings.show', [
+            'billing' => $this->repository->getBillingByKey(key:  $key)
+        ]);
     }
 }

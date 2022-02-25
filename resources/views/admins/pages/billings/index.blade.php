@@ -32,6 +32,9 @@
                                         <span class="sub-text">Commission</span>
                                     </th>
                                     <th class="nk-tb-col nk-tb-col-tools text-right">
+                                        <span class="sub-text">Pay out</span>
+                                    </th>
+                                    <th class="nk-tb-col nk-tb-col-tools text-right">
                                         <span class="sub-text">Option</span>
                                     </th>
                                     <th class="nk-tb-col nk-tb-col-tools text-right">
@@ -43,19 +46,22 @@
                                     @foreach($billings as $billing)
                                         <tr class="nk-tb-item">
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ strtoupper($billing->event->title) ?? "" }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>${{ $billing->ticketPrice ?? 0 }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>${{ $billing->amountSold ?? 0 }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>${{ $billing->commission ?? 0 }}</span>
                                             </td>
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>${{ $billing->payout ?? 0 }}</span>
+                                            </td>
+                                            <td class="nk-tb-col tb-col-md">
+                                                <span>{{ $billing->feeType ?? " " }}</span>
                                             </td>
                                             <td class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1">
@@ -67,26 +73,10 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li>
-                                                                        <a href="">
+                                                                        <a href="{{ route('supper.billing.show', $billing->key) }}">
                                                                             <em class="icon ni ni-eye"></em>
                                                                             <span>Voir</span>
                                                                         </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="">
-                                                                            <em class="icon ni ni-edit"></em>
-                                                                            <span>Editer</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <form action="" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
-                                                                            @method('DELETE')
-                                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                            <button type="submit" class="btn btn-dim">
-                                                                                <em class="icon ni ni-lock-alt"></em>
-                                                                                <span>Supprimer</span>
-                                                                            </button>
-                                                                        </form>
                                                                     </li>
                                                                 </ul>
                                                             </div>

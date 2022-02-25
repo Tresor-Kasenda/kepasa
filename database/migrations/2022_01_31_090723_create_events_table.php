@@ -35,15 +35,12 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->enum('status', StatusEnum::$status)
                 ->default(StatusEnum::DEACTIVATE);
-            $table->enum('types', TypeEnum::$types)
-                ->default(TypeEnum::PRESENCE);
             $table->string('payout')->nullable();
             $table->enum('payment', [PaymentEnum::UNPAID, PaymentEnum::PAID])
                 ->default(PaymentEnum::UNPAID);
             $table->boolean('promoted')->default(0);
             $table->string('image');
             $table->timestamps();
-
             $table->foreignIdFor(Category::class)
                 ->constrained()
                 ->cascadeOnDelete();

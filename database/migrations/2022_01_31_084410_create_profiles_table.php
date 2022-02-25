@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->timestamps();
-
+            $table->string('image')->nullable();
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();

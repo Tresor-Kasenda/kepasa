@@ -39,10 +39,15 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
     Route::get('countries', CountrySupperController::class)->name('countries.listens');
     Route::get('country/{countryCode}', [CountrySupperController::class, 'show'])->name('country.detail');
     Route::get('country/{countryCode}/edit', [CountrySupperController::class, 'edit'])->name('country.city.edit');
-    Route::get('billings', BillingSupperController::class)->name('billing.index');
+
     Route::resource('category', CategorySupperController::class);
     Route::controller(SettingSupperController::class)->group(function (){
         Route::get('settings', '__invoke')->name('settings.index');
+    });
+
+    Route::controller(BillingSupperController::class)->group(function (){
+        Route::get('billings', '__invoke')->name('billing.index');
+        Route::get('billings/{billingKey}', 'show')->name('billing.show');
     });
 });
 

@@ -6,6 +6,13 @@
                     <a href="{{ route('home.index') }}">
                         <img src="{{ asset('assets/images/logo.png') }}" alt="Logo Kepas">
                     </a>
+                    @if(config('app.env') == 'production')
+                        @php
+                            $ip = request()->ip();
+                            $location = \Stevebauman\Location\Facades\Location::get($ip);
+                        @endphp
+                        <div class="margin-top-8 font-weight-bold">{{ $location->cityName ?? "" }}</div>
+                    @endif
                 </div>
                 <div class="mmenu-trigger">
                     <button class="hamburger hamburger--collapse" type="button">

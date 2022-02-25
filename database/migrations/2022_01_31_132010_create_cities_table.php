@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Enums\CityPromotedEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,8 +24,8 @@ return new class extends Migration
             $table->string('popularCity')->nullable();
             $table->mediumText('mayor')->nullable();
             $table->string('countryCode');
+            $table->enum('promoted', [CityPromotedEnum::$cities])->default(CityPromotedEnum::NOTPROMOTED);
             $table->timestamps();
-
         });
     }
 

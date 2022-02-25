@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Enums\PaymentEnum;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->string('country');
             $table->string('city');
             $table->string('ticketNumber');
-            $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
+            $table->enum('status', [PaymentEnum::$types])->default(PaymentEnum::UNPAID);
             $table->foreignIdFor(\App\Models\Event::class)
                 ->constrained()
                 ->cascadeOnDelete();
