@@ -25,8 +25,9 @@ class SettingSupperController extends Controller
         return back();
     }
 
-    public function updatePassword(string $key, UpdatePassword $request)
+    public function updatePassword(string $key, UpdatePassword $request): RedirectResponse
     {
-        dd($request->all());
+        $this->repository->updatePassword(key: $key, attributes:  $request);
+        return back();
     }
 }

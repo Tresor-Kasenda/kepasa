@@ -28,6 +28,7 @@ class SettingSupperRepository
         $user->update([
             'password' => Hash::make($attributes->input('password'))
         ]);
+        toast("Password is update", 'success');
         return $user;
     }
 
