@@ -11,6 +11,10 @@
         </div>
     </div>
 
+    <div class="row" id="message">
+        @include('organisers.partials._flash')
+    </div>
+
     <div class="row">
         <div class="col-lg-12 col-md-12 margin-bottom-35">
             <div class="dashboard-list-box margin-top-0">

@@ -19,19 +19,6 @@
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="dashboard-list-box margin-top-0">
-                <div class="booking-requests-filter">
-                    <div class="sort-by">
-                        <div class="sort-by-select">
-                            <select data-placeholder="Default order" class="chosen-select-no-single">
-                                <option>All Listings</option>
-                                <option>Burger House</option>
-                                <option>Tom's Restaurant</option>
-                                <option>Hotel Govendor</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
                 <h4>Booking Requests</h4>
                 <ul>
                     @foreach($bookings as $booking)

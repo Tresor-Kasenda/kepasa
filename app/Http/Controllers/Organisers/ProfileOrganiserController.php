@@ -27,13 +27,13 @@ class ProfileOrganiserController extends Controller
     public function update(string $key, ProfileOrganiserRequest $attributes): RedirectResponse
     {
         $this->repository->updatePassword(key: $key, attributes: $attributes);
-        return back();
+        return back()->with('success', "Password changed successfully");
     }
 
     public function updateCompany(CompanyRequest $attributes): RedirectResponse
     {
         $this->repository->updateCompany($attributes);
-        return back();
+        return back()->with('success', "An update has been made for the company");
     }
 
     public function uploadPicture(ProfileImageRequest $attributes): JsonResponse

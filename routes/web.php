@@ -41,8 +41,11 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
     Route::get('country/{countryCode}/edit', [CountrySupperController::class, 'edit'])->name('country.city.edit');
 
     Route::resource('category', CategorySupperController::class);
+
     Route::controller(SettingSupperController::class)->group(function (){
         Route::get('settings', '__invoke')->name('settings.index');
+        Route::put('settings/{adminUid}', 'storeApps')->name('settings.store');
+        Route::put('updatePassword/{adminUid}', 'updatePassword')->name('settings.password');
     });
 
     Route::controller(BillingSupperController::class)->group(function (){
@@ -58,7 +61,11 @@ Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['o
     Route::resource('images', ImageOrganiserController::class);
     Route::resource('events', EventOrganiserController::class);
     Route::resource('events.payment', CheckoutOrganiserController::class);
-    Route::post('confirm-payment', [CheckoutOrganiserController::class, 'confirmed'])->name('confirm.payment.event');
+
+    Route::controller(CheckoutOrganiserController::class)->group(function(){
+        Route::post('confirm-payment', 'confirmed')->name('confirm.payment.event');
+        Route::get('confirmation', 'updateCheckout')->name('checkout.confirmed');
+    });
 
     Route::controller(ProfileOrganiserController::class)->group(function(){
         Route::post('imagesProfile',  'uploadPicture')->name('profile.images');

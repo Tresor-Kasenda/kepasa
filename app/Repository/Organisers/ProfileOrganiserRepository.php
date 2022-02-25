@@ -35,7 +35,6 @@ class ProfileOrganiserRepository
         $company = $this->getCompanyByUser(attributes: $attributes);
         $this->updateUserAuthenticate($attributes);
         $this->companyUpdate($company, $attributes);
-        toast("Une mise a jours a ete faite pour la company", 'success');
         return $company;
     }
 

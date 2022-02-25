@@ -18,7 +18,9 @@
         </div>
     </div>
 
-    <div class="row" id="message"></div>
+    <div class="row" id="message">
+        @include('organisers.partials._flash')
+    </div>
 
     <div class="row">
         <div class="col-lg-6 col-md-12">
