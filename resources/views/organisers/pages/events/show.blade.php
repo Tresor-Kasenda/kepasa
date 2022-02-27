@@ -38,6 +38,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container">
             <div class="col-lg-12 col-md-12">
                 <div class="margin-top-45">
                     <div id="titlebar" class="listing-titlebar">

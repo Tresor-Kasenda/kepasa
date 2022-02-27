@@ -17,9 +17,7 @@
         <div id="dashboard">
             @include('organisers.partials._main')
             <div class="dashboard-content">
-                <main>
-                    @yield('content')
-                </main>
+                @yield('content')
             </div>
         </div>
         @include('organisers.components._footer')

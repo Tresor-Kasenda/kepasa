@@ -49,7 +49,7 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li>
-                                                                        <a href="{{ route('supper.country.detail', $country->countryCode) }}">
+                                                                        <a href="{{ route('supper.countries.show', $country->countryCode) }}">
                                                                             <em class="icon ni ni-eye"></em>
                                                                             <span>Detail</span>
                                                                         </a>

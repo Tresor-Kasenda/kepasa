@@ -33,6 +33,9 @@
                                         <span class="tag">{{ $event->category->name ?? "" }}</span>
                                         <h3>
                                             <a href="{{ route('organiser.events.show', $event->key) }}">{{ strtoupper($event->title) ?? "" }}</a>
+                                            @if($event->status === \App\Enums\StatusEnum::ACTIVE)
+                                                <i class="verified-icon"></i>
+                                            @endif
                                         </h3>
                                         <div class="inner-booking-list">
                                             <h5>Event Date:</h5>

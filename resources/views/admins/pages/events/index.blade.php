@@ -72,8 +72,30 @@
                                             <td class="nk-tb-col tb-col-md">
                                                 <span>{{ $event->ticketNumber ?? 0 }}</span>
                                             </td>
-                                            <td class="nk-tb-col tb-col-md">
-                                                <span>{{ $event->status ?? "Default" }}</span>
+                                            <td class="nk-tb-col tb-col-md text-center">
+                                                @if($event->status === \App\Enums\StatusEnum::DEACTIVATE)
+                                                    <span class="dot bg-danger d-mb-none"></span>
+                                                    <span class="badge badge-sm badge-dot has-bg badge-danger d-none d-mb-inline-flex">{{ $event->status }}</span>
+                                                @elseif($event->status === \App\Enums\StatusEnum::ACTIVE)
+                                                    <span class="dot bg-success d-mb-none"></span>
+                                                    <span class="badge badge-sm badge-dot has-bg badge-success d-none d-mb-inline-flex">{{ $event->status }}</span>
+                                                @else
+                                                    <span class="dot bg-warning d-mb-none"></span>
+                                                    <span class="badge badge-sm badge-dot has-bg badge-warning d-none d-mb-inline-flex">{{ $event->status }}</span>
+                                                @endif
+                                                <span class="d-none" id="key" data-id="{{ $event->key }}"></span>
+                                                <span>
+                                                    <div class="form-control-wrap mt-1">
+                                                        <div class="form-control-select">
+                                                            <select class="form-control" id="status">
+                                                                <option value="{{ $event->status }}">{{ $event->status }}</option>
+                                                                <option value="active">active</option>
+                                                                <option value="postpone">postpone</option>
+                                                                <option value="deactivate">deactivate</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </span>
                                             </td>
                                             <td class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1">
@@ -122,4 +144,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+    @parent
+    <script>
+        $(document).ready(function () {
+            $('#status').change(function(){
+                const id = $(this).val();
+                const key = $('#key').data('id')
+                $.ajax({
+                    type: "POST",
+                    url: `{{ route('supper.update.status') }}`,
+                    data: { id: id, key: key, _token: '{{ csrf_token() }}' },
+                    dataType:"jsonp",
+                    success: function(response){
+                        $( "#result" ).empty().append( response );
+                    }
+                })
+            })
+        })
+    </script>
 @endsection

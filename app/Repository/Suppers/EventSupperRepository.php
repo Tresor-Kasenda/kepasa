@@ -20,9 +20,30 @@ class EventSupperRepository
 
     public function getEventByKey(string $key): Model|Builder
     {
-        $event = Event::query()
+        $event = $this->getFirstOrFail($key);
+        return $event->load(['category', 'media', 'user']);
+    }
+
+    public function delete(string $key): Model|Builder
+    {
+        $event = $this->getFirstOrFail(key: $key);
+        $event->delete();
+        toast("delete event with success", 'success');
+        return $event;
+    }
+
+    public function updateStatus($request): bool|int
+    {
+        $event = $this->getFirstOrFail(key: $request->input('key'));
+        return $event->update([
+            'status' => $request->input('id')
+        ]);
+    }
+
+    private function getFirstOrFail(string $key): Builder|Model
+    {
+        return Event::query()
             ->where('key', '=', $key)
             ->firstOrFail();
-        return $event->load(['category', 'media', 'user']);
     }
 }

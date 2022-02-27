@@ -54,7 +54,7 @@
                         'icon' => 'ni-user-circle'
                     ])
                     @include('admins.partials.navLink', [
-                        'route' => route('supper.countries.listens'),
+                        'route' => route('supper.countries.index'),
                         'name' => 'Countries',
                         'icon' => 'ni-map'
                     ])

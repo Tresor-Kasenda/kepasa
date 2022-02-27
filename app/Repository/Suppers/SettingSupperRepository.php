@@ -65,5 +65,4 @@ class SettingSupperRepository
             'user_id' => $user->id
         ]);
     }
-
 }

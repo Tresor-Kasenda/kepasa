@@ -8,22 +8,17 @@
             <div class="nk-block-head nk-block-head-sm">
                 <div class="nk-block-between">
                     <div class="nk-block-head-content">
-                        <h3 class="nk-block-title page-title">Ville du pays </h3>
+                        <h3 class="nk-block-title page-title">Ville du pays / {{ $country->countryName }} </h3>
+
                     </div>
                     <div class="nk-block-head-content">
                         <div class="toggle-wrap nk-block-tools-toggle">
                             <div class="toggle-expand-content" data-content="pageMenu">
                                 <ul class="nk-block-tools g-3">
                                     <li class="preview-item">
-                                        <a href="{{ route('supper.countries.listens') }}" class="btn btn-outline-secondary btn-sm d-none d-sm-inline-flex">
+                                        <a href="{{ route('supper.countries.index') }}" class="btn btn-outline-secondary btn-sm d-none d-sm-inline-flex">
                                             <em class="icon ni ni-arrow-left"></em>
                                             <span>Back</span>
-                                        </a>
-                                    </li>
-                                    <li class="preview-item">
-                                        <a href="{{ route('supper.countries.listens') }}" class="btn btn-outline-primary btn-sm d-none d-sm-inline-flex">
-                                            <em class="icon ni ni-plus"></em>
-                                            <span>Add City</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -87,13 +82,7 @@
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <ul class="link-list-opt no-bdr">
                                                                 <li>
-                                                                    <a href="">
-                                                                        <em class="icon ni ni-eye"></em>
-                                                                        <span>Voir</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{ route('supper.country.city.edit',$city->cityName) }}">
+                                                                    <a href="{{ route('supper.countries.edit',$city->cityName) }}">
                                                                         <em class="icon ni ni-eye"></em>
                                                                         <span>Editer</span>
                                                                     </a>

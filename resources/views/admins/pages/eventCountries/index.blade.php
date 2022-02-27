@@ -34,10 +34,17 @@
                                     @foreach($countries as $country)
                                         <tr class="nk-tb-item">
                                             <td class="nk-tb-col tb-col-md">
-                                                <span>{{ $country->countryName ?? "" }}</span>
+                                                <span>{{ $country->countryname ?? "" }}</span>
                                             </td>
+                                            @php
+                                                $countEvents = DB::select('SELECT COUNT(*) FROM events where city = ?', [$country->cityName]);
+                                                $number  = 0;
+                                                foreach ($countEvents as $count){
+                                                    $number = $count;
+                                                }
+                                            @endphp
                                             <td class="nk-tb-col tb-col-md">
-                                                <span>{{ $country->events_count ?? "" }}</span>
+                                                <span></span>
                                             </td>
                                             <td class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1">

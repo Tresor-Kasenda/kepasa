@@ -29,6 +29,7 @@ class AdminSupperRepository
     {
         $admin = User::query()
             ->where('email', '=', $attributes->input('email'))
+            ->orWhere('phones', '=', $attributes->input('phones'))
             ->first();
 
         if ($admin !== null){

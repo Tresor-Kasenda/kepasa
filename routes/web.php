@@ -36,11 +36,10 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
     Route::get('eventsCountries', EventCountrySupperController::class)->name('events.country');
     Route::resource('organisers', OrganiserSupperController::class);
     Route::resource('admins', AdminSupperController::class);
-    Route::get('countries', CountrySupperController::class)->name('countries.listens');
-    Route::get('country/{countryCode}', [CountrySupperController::class, 'show'])->name('country.detail');
-    Route::get('country/{countryCode}/edit', [CountrySupperController::class, 'edit'])->name('country.city.edit');
-
     Route::resource('category', CategorySupperController::class);
+    Route::resource('countries', CountrySupperController::class);
+
+    Route::post('updateStatus', [EventSupperController::class, 'updateStatus'])->name('update.status');
 
     Route::controller(SettingSupperController::class)->group(function (){
         Route::get('settings', '__invoke')->name('settings.index');
@@ -95,5 +94,4 @@ Route::get('/event-fees', EventFeeController::class)->name('fee.index');
 Route::get('/term-and-conditions', [EventFeeController::class, 'terms'])->name('term.details');
 Route::get('/contact-us', ContactUsController::class)->name('contact.index');
 Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact.store');
-
 Route::post('country', [HomeController::class, 'getCities'])->name('cities.listens');
