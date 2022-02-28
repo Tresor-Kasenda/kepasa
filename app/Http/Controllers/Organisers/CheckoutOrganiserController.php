@@ -25,4 +25,10 @@ class CheckoutOrganiserController extends Controller
         $token = $this->repository->transactionWithDpo(attributes: $attributes);
         return redirect()->away("https://secure.3gdirectpay.com/dpopayment.php?ID=$token");
     }
+
+    public function updateCheckout(): RedirectResponse
+    {
+        $this->repository->updatePayment();
+        return redirect()->route('organiser.payment.index');
+    }
 }

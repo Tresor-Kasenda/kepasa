@@ -84,7 +84,13 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
     Route::resource('home', HomeUserController::class);
 });
 
-Route::get('/', HomeController::class)->name('home.index');
+Route::controller(HomeController::class)->group(function (){
+    Route::get('/', '__invoke')->name('home.index');
+    Route::post('country', 'getCities')->name('cities.listens');
+    Route::get('events/{detailEvent}', 'show')->name('events.show');
+    Route::get('cityDetails/{cityName}', 'detailsCity')->name('city.detail');
+});
+
 Route::get('/promotion-request', PromotionRequestController::class)->name('promotion.request');
 Route::controller(EventController::class)->group(function (){
     Route::get('/evenements', '__invoke')->name('event.index');
@@ -94,4 +100,3 @@ Route::get('/event-fees', EventFeeController::class)->name('fee.index');
 Route::get('/term-and-conditions', [EventFeeController::class, 'terms'])->name('term.details');
 Route::get('/contact-us', ContactUsController::class)->name('contact.index');
 Route::post('/contact-us', [ContactUsController::class, 'store'])->name('contact.store');
-Route::post('country', [HomeController::class, 'getCities'])->name('cities.listens');

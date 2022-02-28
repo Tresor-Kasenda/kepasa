@@ -160,7 +160,9 @@
                     data: { id: id, key: key, _token: '{{ csrf_token() }}' },
                     dataType:"jsonp",
                     success: function(response){
-                        $( "#result" ).empty().append( response );
+                        if (response){
+                            swal("Good job!", "You clicked the button!", "success");
+                        }
                     }
                 })
             })

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('popularCity')->nullable();
             $table->mediumText('mayor')->nullable();
             $table->string('countryCode');
+            $table->string('image')->nullable();
             $table->enum('promoted', [CityPromotedEnum::$cities])->default(CityPromotedEnum::NOTPROMOTED);
             $table->timestamps();
         });

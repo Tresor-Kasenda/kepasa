@@ -32,12 +32,13 @@ class EventSupperRepository
         return $event;
     }
 
-    public function updateStatus($request): bool|int
+    public function updateStatus($request): Model|Builder
     {
         $event = $this->getFirstOrFail(key: $request->input('key'));
-        return $event->update([
+        $event->update([
             'status' => $request->input('id')
         ]);
+        return $event;
     }
 
     private function getFirstOrFail(string $key): Builder|Model

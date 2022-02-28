@@ -50,9 +50,10 @@ class EventSupperController extends Controller
 
     public function updateStatus(Request $request): JsonResponse
     {
-        $this->repository->updateStatus(request: $request);
+        $event = $this->repository->updateStatus(request: $request);
         return response()->json([
-            'message' => "The status of the event has been successfully changed"
+            'messages' => "The status of the event has been successfully changed",
+            'data' => $event->status
         ], 200);
     }
 

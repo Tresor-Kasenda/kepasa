@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers;
 
+use App\Enums\PaymentEnum;
 use App\Models\Event;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class CheckoutOrganiserRepository
 {
@@ -28,6 +31,7 @@ class CheckoutOrganiserRepository
         $city = $attributes->input('city');
         $name = $attributes->input('nameOrganiser');
         $lastName = $attributes->input('lastNameOrganiser');
+        $confirmed = route('organiser.checkout.confirmed');
 
         $xml = "<?xml version='1.0' encoding='utf-8'?>
             <API3G>
@@ -37,7 +41,7 @@ class CheckoutOrganiserRepository
                 <PaymentAmount>" . $amount . "</PaymentAmount>
                 <PaymentCurrency>USD</PaymentCurrency>
                 <CompanyRef>" . $ref . "</CompanyRef>
-                <RedirectURL>https://kepasa.africa/dashboard/paid.php</RedirectURL>
+                <RedirectURL>" .  $confirmed  ."</RedirectURL>
                 <BackURL>https://kepasa.africa/</BackURL>
                 <customerEmail>" . $email . "</customerEmail>
                 <customerFirstName>" . $name . "</customerFirstName>
@@ -80,5 +84,18 @@ class CheckoutOrganiserRepository
         $token = simplexml_load_string($response);
         $payToken = (array)$token;
         return $payToken['TransToken'];
+    }
+
+    public function updatePayment(): Model|Builder|null
+    {
+        $event = Event::query()
+            ->where('user_id', '=', auth()->id())
+            ->where('company_id', '=', auth()->user()->company->id)
+            ->first();
+        $event->update([
+            'payment' => PaymentEnum::PAID
+        ]);
+        toast("Transaction made with success", 'success');
+        return $event;
     }
 }

@@ -55,86 +55,25 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="simple-slick-carousel dots-nav">
-                        <div class="carousel-item">
-                            <a href="" class="listing-item-container">
-                                <div class="listing-item">
-                                    <img src="" alt="">
-
-                                    <div class="listing-badge now-open">Now Open</div>
-
-                                    <div class="listing-item-content">
-                                        <span class="tag">Eat & Drink</span>
-                                        <h3>Tom's Restaurant <i class="verified-icon"></i></h3>
-                                        <span>964 School Street, New York</span>
+                        @foreach($events as $event)
+                            <div class="carousel-item">
+                                <a href="{{ route('events.show', ['detail' => $event->key]) }}" class="listing-item-container">
+                                    <div class="listing-item">
+                                        <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}">
+                                        <div class="listing-item-details">
+                                            <ul>
+                                                <li>{{ $event->startTime }}-{{ $event->endTime }}, {{ $event->date  }}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="listing-item-content">
+                                            <span class="tag">{{ strtoupper($event->category->name) ?? "" }}</span>
+                                            <h3>{{ strtoupper($event->title) ?? "" }}</h3>
+                                            <span>{{ $event->address ?? "" }}, {{ $event->city }}</span>
+                                        </div>
                                     </div>
-                                    <span class="like-icon"></span>
-                                </div>
-                                <div class="star-rating" data-rating="3.5">
-                                    <div class="rating-counter">(12 reviews)</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a href="" class="listing-item-container">
-                                <div class="listing-item">
-                                    <img src="" alt="">
-                                    <div class="listing-item-details">
-                                        <ul>
-                                            <li>Friday, August 10</li>
-                                        </ul>
-                                    </div>
-                                    <div class="listing-item-content">
-                                        <span class="tag">Events</span>
-                                        <h3>Sticky Band</h3>
-                                        <span>Bishop Avenue, New York</span>
-                                    </div>
-                                    <span class="like-icon"></span>
-                                </div>
-                                <div class="star-rating" data-rating="5.0">
-                                    <div class="rating-counter">(23 reviews)</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a href="" class="listing-item-container">
-                                <div class="listing-item">
-                                    <img src="" alt="">
-                                    <div class="listing-item-details">
-                                        <ul>
-                                            <li>Starting from $59 per night</li>
-                                        </ul>
-                                    </div>
-                                    <div class="listing-item-content">
-                                        <span class="tag">Hotels</span>
-                                        <h3>Hotel Govendor</h3>
-                                        <span>778 Country Street, New York</span>
-                                    </div>
-                                    <span class="like-icon"></span>
-                                </div>
-                                <div class="star-rating" data-rating="2.0">
-                                    <div class="rating-counter">(17 reviews)</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a href="" class="listing-item-container">
-                                <div class="listing-item">
-                                    <img src="" alt="">
-
-                                    <div class="listing-badge now-open">Now Open</div>
-
-                                    <div class="listing-item-content">
-                                        <span class="tag">Eat & Drink</span>
-                                        <h3>Burger House <i class="verified-icon"></i></h3>
-                                        <span>2726 Shinn Street, New York</span>
-                                    </div>
-                                    <span class="like-icon"></span>
-                                </div>
-                                <div class="star-rating" data-rating="5.0">
-                                    <div class="rating-counter">(31 reviews)</div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -161,86 +100,19 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="simple-slick-carousel dots-nav">
-                        <div class="carousel-item">
-                            <a href="" class="listing-item-container">
-                                <div class="listing-item">
-                                    <img src="" alt="">
-
-                                    <div class="listing-badge now-open">Now Open</div>
-
-                                    <div class="listing-item-content">
-                                        <span class="tag">Eat & Drink</span>
-                                        <h3>Tom's Restaurant <i class="verified-icon"></i></h3>
-                                        <span>964 School Street, New York</span>
+                        @foreach($cities as $city)
+                            <div class="carousel-item">
+                                <a href="{{ route('city.detail', ['cityName' => $city->cityName]) }}" class="listing-item-container">
+                                    <div class="listing-item">
+                                        <img src="" alt="{{ $city->cityName }}">
+                                        <div class="listing-item-content">
+                                            <h3>{{ strtoupper($city->cityName) ?? "" }}</h3>
+                                            <span>languages: {{ $event->languages ?? "" }}</span>
+                                        </div>
                                     </div>
-                                    <span class="like-icon"></span>
-                                </div>
-                                <div class="star-rating" data-rating="3.5">
-                                    <div class="rating-counter">(12 reviews)</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a href="" class="listing-item-container">
-                                <div class="listing-item">
-                                    <img src="" alt="">
-                                    <div class="listing-item-details">
-                                        <ul>
-                                            <li>Friday, August 10</li>
-                                        </ul>
-                                    </div>
-                                    <div class="listing-item-content">
-                                        <span class="tag">Events</span>
-                                        <h3>Sticky Band</h3>
-                                        <span>Bishop Avenue, New York</span>
-                                    </div>
-                                    <span class="like-icon"></span>
-                                </div>
-                                <div class="star-rating" data-rating="5.0">
-                                    <div class="rating-counter">(23 reviews)</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a href="" class="listing-item-container">
-                                <div class="listing-item">
-                                    <img src="" alt="">
-                                    <div class="listing-item-details">
-                                        <ul>
-                                            <li>Starting from $59 per night</li>
-                                        </ul>
-                                    </div>
-                                    <div class="listing-item-content">
-                                        <span class="tag">Hotels</span>
-                                        <h3>Hotel Govendor</h3>
-                                        <span>778 Country Street, New York</span>
-                                    </div>
-                                    <span class="like-icon"></span>
-                                </div>
-                                <div class="star-rating" data-rating="2.0">
-                                    <div class="rating-counter">(17 reviews)</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a href="" class="listing-item-container">
-                                <div class="listing-item">
-                                    <img src="" alt="">
-
-                                    <div class="listing-badge now-open">Now Open</div>
-
-                                    <div class="listing-item-content">
-                                        <span class="tag">Eat & Drink</span>
-                                        <h3>Burger House <i class="verified-icon"></i></h3>
-                                        <span>2726 Shinn Street, New York</span>
-                                    </div>
-                                    <span class="like-icon"></span>
-                                </div>
-                                <div class="star-rating" data-rating="5.0">
-                                    <div class="rating-counter">(31 reviews)</div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

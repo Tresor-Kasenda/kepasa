@@ -18,6 +18,8 @@ class HomeController extends Controller
     {
         return view('apps.welcome', [
             'countries' => $this->repository->getCountries(),
+            'events' => $this->repository->getContents(),
+            'cities' => $this->repository->getCities()
         ]);
     }
 
@@ -27,5 +29,11 @@ class HomeController extends Controller
             ->repository
             ->getCitiesInCountry($request);
         return response()->json($data);
+    }
+
+    public function detailsCity(string $city)
+    {
+        $data = $this->repository->getCity($city);
+        return view('apps.pages.cities.show', compact('data'));
     }
 }
