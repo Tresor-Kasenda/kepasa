@@ -37,7 +37,6 @@ class HomeRepository
     {
         return City::query()
             ->where('promoted', '=', CityPromotedEnum::PROMOTION)
-            ->latest()
             ->get();
     }
 

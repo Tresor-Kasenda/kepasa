@@ -41,7 +41,6 @@ class EventOrganiserController extends Controller
     public function create(): Factory|View|Application
     {
         return view('organisers.pages.events.create', [
-            'countries' => $this->repository->getCountries(),
             'categories' => $this->categorySupperRepository->getContents()
         ]);
     }
@@ -56,7 +55,6 @@ class EventOrganiserController extends Controller
     {
         return view('organisers.pages.events.edit', [
             'event' => $this->organiserRepository->getEventById(key: $key),
-            'countries' => $this->repository->getCountries(),
             'categories' => $this->categorySupperRepository->getContents()
         ]);
     }

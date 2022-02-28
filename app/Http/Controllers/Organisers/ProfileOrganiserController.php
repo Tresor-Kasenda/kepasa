@@ -19,9 +19,7 @@ class ProfileOrganiserController extends Controller
 
     public function index(): Renderable
     {
-        return view('organisers.pages.profiles.index', [
-            'countries' => $this->repository->getCountries()
-        ]);
+        return view('organisers.pages.profiles.index');
     }
 
     public function update(string $key, ProfileOrganiserRequest $attributes): RedirectResponse

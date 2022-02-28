@@ -10,6 +10,9 @@
                         @php
                             $ip = request()->ip();
                             $location = \Stevebauman\Location\Facades\Location::get($ip);
+                            session()->put([
+                                'city' => $location->cityName
+                            ]);
                         @endphp
                         <div class="margin-top-8 font-weight-bold">{{ $location->cityName ?? "" }}</div>
                     @endif

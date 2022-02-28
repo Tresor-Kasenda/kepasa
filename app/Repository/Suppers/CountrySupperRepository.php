@@ -11,12 +11,6 @@ use Illuminate\Support\Collection;
 
 class CountrySupperRepository
 {
-    public function getContents(): array|Collection
-    {
-        return Country::query()
-            ->get();
-    }
-
     public function getCitiesInCountry($attributes): Collection|array
     {
         return Country::getCitiesInCountry($attributes);

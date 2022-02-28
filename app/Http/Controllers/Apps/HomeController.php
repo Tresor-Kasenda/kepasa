@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
 use App\Repository\HomeRepository;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Stevebauman\Location\Facades\Location;
@@ -17,21 +20,23 @@ class HomeController extends Controller
     public function __invoke(): Renderable
     {
         return view('apps.welcome', [
-            'countries' => $this->repository->getCountries(),
-            'events' => $this->repository->getContents(),
             'cities' => $this->repository->getCities()
         ]);
     }
 
-    public function getCities(Request $request): JsonResponse
+    public function getCities(Request $request)
     {
         $data['cities'] = $this
             ->repository
             ->getCitiesInCountry($request);
-        return response()->json($data);
+        $views = view('apps.components._select', compact('data'))->render();
+        return response()->json([
+            'views' => $views,
+            'status' => true
+        ]);
     }
 
-    public function detailsCity(string $city)
+    public function detailsCity(string $city): Factory|View|Application
     {
         $data = $this->repository->getCity($city);
         return view('apps.pages.cities.show', compact('data'));

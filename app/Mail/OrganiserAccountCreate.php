@@ -17,11 +17,8 @@ class OrganiserAccountCreate extends Mailable
     public function build(): static
     {
         return $this
-            ->from('no-replay@eventall.com', 'Kepasa')
+            ->from('no-replay@kepasa.com', 'Kepasa')
             ->view('emails.registration')
-            ->with([
-                'name' => "Creation de l'evenement",
-                'user' => $this->user
-            ]);
+            ->with(['name' => "Creation de l'evenement", 'user' => $this->user]);
     }
 }

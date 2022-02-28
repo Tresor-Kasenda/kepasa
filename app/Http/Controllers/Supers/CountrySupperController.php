@@ -18,8 +18,7 @@ class CountrySupperController extends Controller
 
     public function index(): Renderable
     {
-        $countries = $this->repository->getContents();
-        return view('admins.pages.countries.index', compact('countries'));
+        return view('admins.pages.countries.index');
     }
 
     public function show(string $countryCode): Factory|View|Application
