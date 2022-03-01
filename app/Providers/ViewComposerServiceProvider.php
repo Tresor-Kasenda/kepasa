@@ -29,9 +29,13 @@ class ViewComposerServiceProvider extends ServiceProvider
             'apps.welcome',
             'admins.pages.countries',
             'admins.pages.eventCountries.index',
-            'admins.pages.events.edit'
+            'admins.pages.events.edit',
+            'admins.pages.countries.*'
         ], CountryComposer::class);
 
-        View::composer(['apps.welcome', 'apps.pages.events.index'], EventComposer::class);
+        View::composer([
+            'apps.welcome',
+            'apps.pages.events.index'
+        ], EventComposer::class);
     }
 }

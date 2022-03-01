@@ -10,6 +10,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 
 class EventController extends Controller
 {
@@ -22,20 +23,21 @@ class EventController extends Controller
 
     public function show(string $key): Factory|View|Application
     {
-        return view('apps.pages.events.show');
+        $event = $this->repository->getEventByKey(key: $key);
+        return view('apps.pages.events.show', compact('event'));
     }
 
-    public function searchEvents(EventSearchRequest $request)
+    public function searchEvents(EventSearchRequest $request): JsonResponse
     {
         $events = $this->repository->searchEvent(attributes: $request);
         if (count($events) > 0){
             $contents = view('apps.components._search', compact('events'))->render();
             return response()->json([
                 'search' => $contents
-            ], 200);
+            ]);
         }
         return response()->json([
-            'messages' => "Event not exist for search"
+            'messages' => "Event not exist for this search"
         ]);
     }
 }

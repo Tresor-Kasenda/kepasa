@@ -221,21 +221,6 @@
                     </div>
                     <a href="" class="button book-now fullwidth margin-top-5">Request To Book</a>
                 </div>
-                <div class="coupon-widget" style="background-image: url();">
-                    <a href="#" class="coupon-top">
-                        <span class="coupon-link-icon"></span>
-                        <h3>Order 1 burger and get 50% off on second!</h3>
-                        <div class="coupon-valid-untill">Expires 25/10/2019</div>
-                        <div class="coupon-how-to-use">
-                            <strong>How to use?</strong>
-                            Just show us this coupon on a screen of your smartphone!
-                        </div>
-                    </a>
-                    <div class="coupon-bottom">
-                        <div class="coupon-scissors-icon"></div>
-                        <div class="coupon-code">L1ST30</div>
-                    </div>
-                </div>
                 <div class="boxed-widget opening-hours margin-top-35">
                     <div class="listing-badge now-open">Now Open</div>
                     <h3>

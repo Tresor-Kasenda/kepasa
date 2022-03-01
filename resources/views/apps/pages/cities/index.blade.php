@@ -41,7 +41,7 @@
             </div>
             <div class="col-md-8">
                 <div id="contact-message"></div>
-                <form action="" method="POST">
+                <form action="{{ route('promotion.store') }}" method="POST">
                     @csrf
                     <h4 class="headline margin-bottom-35">Contact Us</h4>
                     <div class="row">
@@ -109,7 +109,7 @@
                         <div class="col-md-6">
                             <input
                                 name="position"
-                                type="email"
+                                type="text"
                                 id="position"
                                 placeholder="Position/Title"
                                 required="required"
@@ -157,6 +157,7 @@
                             ></textarea>
                         </div>
                     </div>
+                    <button class="pull-right submit button" type="submit">Submit</button>
                 </form>
             </div>
         </div>

@@ -7,7 +7,9 @@ use App\Enums\PaymentEnum;
 use App\Enums\StatusEnum;
 use App\Models\Country;
 use App\Models\Event;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class EventUserRepository
 {
@@ -22,5 +24,14 @@ class EventUserRepository
             ->where('payment', '=', PaymentEnum::PAID)
             ->where('status', '=', StatusEnum::ACTIVE)
             ->get();
+    }
+
+    public function getEventByKey(string $key): Model|Builder|null
+    {
+        return Event::query()
+            ->where('key', '=', $key)
+            ->where('payment', '=', PaymentEnum::PAID)
+            ->where('status', '=', StatusEnum::ACTIVE)
+            ->first();
     }
 }

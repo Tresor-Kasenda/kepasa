@@ -41,9 +41,7 @@
         <div class="container">
             <div id="error" class="padding-top-15"></div>
             <div class="row">
-                <div class="col-md-12">
-                    <div class="renderSearch"></div>
-                </div>
+                <div class="renderSearch"></div>
             </div>
         </div>
     </section>

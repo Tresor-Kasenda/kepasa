@@ -91,7 +91,11 @@ Route::controller(HomeController::class)->group(function (){
     Route::get('cityDetails/{cityName}', 'detailsCity')->name('city.detail');
 });
 
-Route::get('/promotion-request', PromotionRequestController::class)->name('promotion.request');
+Route::controller(PromotionRequestController::class)->group(function (){
+    Route::get('promotion-request', '__invoke')->name('promotion.request');
+    Route::post('promotion-request', 'store')->name('promotion.store');
+});
+
 Route::controller(EventController::class)->group(function (){
     Route::get('/evenements', '__invoke')->name('event.index');
     Route::get('/evenements/{event}','show')->name('event.show');

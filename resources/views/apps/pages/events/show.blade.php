@@ -10,16 +10,13 @@
             <div class="col-lg-8 col-md-8 padding-right-30">
                 <div id="titlebar" class="listing-titlebar">
                     <div class="listing-titlebar-title">
-                        <h2>Sunny and Modern Apartment<span class="listing-tag">Apartments</span></h2>
+                        <h2>{{ strtoupper($event->title) ?? "" }}<span class="listing-tag">{{ $event->category->name ?? "" }}</span></h2>
                         <span>
-						<a href="#listing-location" class="listing-address">
-							<i class="fa fa-map-marker"></i>
-							2726 Shinn Street, New York
-						</a>
-					</span>
-                        <div class="star-rating" data-rating="5">
-                            <div class="rating-counter"><a href="#listing-reviews">(31 reviews)</a></div>
-                        </div>
+                            <a href="#listing-location" class="listing-address">
+                                <i class="fa fa-map-marker"></i>
+                                {{ $event->address }}, {{ $event->city }}
+                            </a>
+                        </span>
                     </div>
                 </div>
 
@@ -87,10 +84,19 @@
                 <div id="listing-gallery" class="listing-section">
                     <h3 class="listing-desc-headline margin-top-70">Gallery</h3>
                     <div class="listing-slider-small mfp-gallery-container margin-bottom-0">
-                        <a href="images/single-listing-02a.jpg" data-background-image="images/single-listing-02a.jpg" class="item mfp-gallery" title="Title 2"></a>
-                        <a href="images/single-listing-01a.jpg" data-background-image="images/single-listing-01a.jpg" class="item mfp-gallery" title="Title 1"></a>
-                        <a href="images/single-listing-03a.jpg" data-background-image="images/single-listing-03a.jpg" class="item mfp-gallery" title="Title 3"></a>
-                        <a href="images/single-listing-04a.jpg" data-background-image="images/single-listing-04a.jpg" class="item mfp-gallery" title="Title 3"></a>
+                        @forelse($event->media as $image)
+                            <a
+                                href="{{ asset('storage/'.$image->images) }}"
+                                data-background-image="{{ asset('storage/'.$image->images) }}"
+                                class="item mfp-gallery" title="{{ $image->key ?? "" }}"
+                            ></a>
+                        @empty
+                            <a
+                                href="{{ asset('storage/'.$event->image) }}"
+                                data-background-image="{{ asset('storage/'.$event->image) }}"
+                                class="item mfp-gallery" title="{{ $event->title ?? "" }}"
+                            ></a>
+                        @endforelse
                     </div>
                 </div>
 

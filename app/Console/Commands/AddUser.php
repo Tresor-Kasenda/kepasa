@@ -75,7 +75,9 @@ class AddUser extends Command
                         'user_id' => $user->id
                     ]);
                 Setting::query()
-                    ->create(['user_id', $user->id]);
+                    ->create([
+                        'user_id' => $user->id
+                    ]);
                 $this->info(sprintf('User %s <%s> created', $name, $email));
                 exit();
             } catch (\Exception $exception) {

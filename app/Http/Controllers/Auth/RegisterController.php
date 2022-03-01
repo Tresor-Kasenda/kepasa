@@ -8,6 +8,7 @@ use App\Jobs\OrganiserAccountCreate;
 use App\Notifications\WelcomeNotification;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Services\RedirectAuthentication;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -19,14 +20,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected string $redirectTo = RouteServiceProvider::HOME;
+    use RegistersUsers, RedirectAuthentication;
 
     /**
      * @return void
