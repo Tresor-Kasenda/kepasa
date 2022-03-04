@@ -63,7 +63,9 @@
                             </a>
                         @endif
                         @if(auth()->user()->role_id == 4)
-                            <a href="{{ route('user.home.index') }}" class="button {{ Request::url() === route('user.home.index') ? 'current' : '' }}">
+                            <a
+                                href="{{ route('user.home.index') }}"
+                                class="button {{ Request::url() === route('user.home.index') ? 'current' : '' }}">
                                 Profile <i class="sl sl-icon-user"></i>
                             </a>
                         @endif

@@ -34,8 +34,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         ], CountryComposer::class);
 
         View::composer([
-            'apps.welcome',
-            'apps.pages.events.index'
+            'apps.welcome'
         ], EventComposer::class);
     }
 }
