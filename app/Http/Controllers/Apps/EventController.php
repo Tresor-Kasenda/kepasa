@@ -18,7 +18,9 @@ class EventController extends Controller
 
     public function __invoke(): Renderable
     {
-        return view('apps.pages.events.index');
+        return view('apps.pages.events.index', [
+            'events' => $this->repository->getContents()
+        ]);
     }
 
     public function show(string $key): Factory|View|Application

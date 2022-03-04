@@ -59,7 +59,7 @@ class EventOrganiserController extends Controller
         ]);
     }
 
-    public function update(string $key, Request $attributes): RedirectResponse
+    public function update(string $key, EventUpdateRequest $attributes): RedirectResponse
     {
         $this->organiserRepository->updateEvent(key: $key, attributes: $attributes);
         return redirect()->route('organiser.events.index');

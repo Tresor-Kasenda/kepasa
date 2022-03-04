@@ -29,7 +29,7 @@ class EventRequest extends FormRequest
             "prices" => ['required', 'min:1'],
             "feeOption" => ['required', Rule::in(FeeOptionEnum::$types)],
             "country" => ['required', Rule::exists('countries', 'countryCode')],
-            "cityName" => ['required', Rule::exists('cities', 'id')],
+            "cityName" => ['required', Rule::exists('cities', 'cityName')],
             "description" => ['nullable', 'min:10'],
             "image" => ['required', 'image', 'mimes:jpeg,jpg,png']
         ];

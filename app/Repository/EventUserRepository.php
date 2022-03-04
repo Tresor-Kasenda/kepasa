@@ -7,12 +7,22 @@ use App\Enums\PaymentEnum;
 use App\Enums\StatusEnum;
 use App\Models\Country;
 use App\Models\Event;
-use Illuminate\Database\Eloquent\Builder;
+use App\Services\GetSingleService;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 class EventUserRepository
 {
+    use GetSingleService;
+
+    public function getContents(): Collection|array
+    {
+        return Event::query()
+            ->where('payment', '=', PaymentEnum::PAID)
+            ->where('status', '=', StatusEnum::ACTIVE)
+            ->orderByDesc('created_at')
+            ->get();
+    }
+
     public function searchEvent($attributes): Collection|array
     {
         $country = Country::query()
@@ -24,14 +34,5 @@ class EventUserRepository
             ->where('payment', '=', PaymentEnum::PAID)
             ->where('status', '=', StatusEnum::ACTIVE)
             ->get();
-    }
-
-    public function getEventByKey(string $key): Model|Builder|null
-    {
-        return Event::query()
-            ->where('key', '=', $key)
-            ->where('payment', '=', PaymentEnum::PAID)
-            ->where('status', '=', StatusEnum::ACTIVE)
-            ->first();
     }
 }

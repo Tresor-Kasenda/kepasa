@@ -43,11 +43,7 @@ class EventOrganiserRepository
     public function store($attributes): Model|Builder
     {
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
-        $category = $this->getCategory($attributes);
         $event = $this->storeEvent($attributes, $feedCalculation);
-        if ($category->name == 'online'){
-            $this->storeOnlineEvent($event, attributes: $attributes);
-        }
         $this->createBilling($event, $attributes);
         dispatch(new EventCreated($event, auth()->user()->company))->delay(now()->addSecond(5));
         toast("Evenement enregistrer avec succes",'success');
@@ -124,7 +120,7 @@ class EventOrganiserRepository
             ->first();
     }
 
-    private function storeEvent($attributes, array $feedCalculation): Builder|Model
+    private function storeEvent($attributes, $feedCalculation): Builder|Model
     {
         return Event::query()
             ->create([
@@ -137,10 +133,10 @@ class EventOrganiserRepository
                 'ticketNumber' => $attributes->input('ticketNumber'),
                 'prices' => $attributes->input('prices'),
                 'feeOption' => $attributes->input('feeOption'),
-                'commission' => $feedCalculation['2'],
-                'buyerPrice' => $feedCalculation['3'],
+                'commission' => $feedCalculation['1'],
+                'buyerPrice' => $feedCalculation['2'],
                 'country' => $feedCalculation['0']->countryName,
-                'city' => $feedCalculation['1']->cityName,
+                'city' => $attributes->input('cityName'),
                 'description' => $attributes->input('description'),
                 'category_id' => $attributes->input('category_id'),
                 'user_id' => auth()->id(),
@@ -161,10 +157,10 @@ class EventOrganiserRepository
             'ticketNumber' => $attributes->input('ticketNumber'),
             'prices' => $attributes->input('prices'),
             'feeOption' => $attributes->input('feeOption'),
-            'commission' => $feedCalculation['2'],
-            'buyerPrice' => $feedCalculation['3'],
+            'commission' => $feedCalculation['1'],
+            'buyerPrice' => $feedCalculation['2'],
             'country' => $feedCalculation['0']->countryName,
-            'city' => $feedCalculation['1']->cityName,
+            'city' => $attributes->input('cityName'),
             'description' => $attributes->input('description'),
             'category_id' => $attributes->input('category_id')
         ]);
