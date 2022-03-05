@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <section class="fullwidth padding-top-50 padding-bottom-70" data-background-color="#ffffff">
+    <section class="fullwidth padding-top-30 padding-bottom-40" data-background-color="#ffffff">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -69,7 +69,7 @@
                         <div class="simple-slick-carousel dots-nav">
                             @foreach($events as $event)
                                 <div class="carousel-item">
-                                    <a href="{{ route('events.show', ['detail' => $event->key]) }}" class="listing-item-container">
+                                    <a href="{{ route('event.show',$event->key) }}" class="listing-item-container">
                                         <div class="listing-item">
                                             <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}">
                                             <div class="listing-item-details">
@@ -79,7 +79,12 @@
                                             </div>
                                             <div class="listing-item-content">
                                                 <span class="tag">{{ strtoupper($event->category->name) ?? "" }}</span>
-                                                <h3>{{ strtoupper($event->title) ?? "" }}</h3>
+                                                <h3>
+                                                    {{ strtoupper($event->title) ?? "" }}
+                                                    @if($event->promoted == true)
+                                                        <i class="verified-icon"></i>
+                                                    @endif
+                                                </h3>
                                                 <span>{{ $event->address ?? "" }}, {{ $event->city }}</span>
                                             </div>
                                         </div>
@@ -150,7 +155,7 @@
                     url: `{{ route('cities.listens') }}`,
                     data: {
                         country: country,
-                        _token: '{{csrf_token()}}'
+                        _token: '{{ csrf_token() }}'
                     },
                     dataType : 'json',
                     success: function(response){
@@ -178,7 +183,7 @@
                             $('.renderSearch').html(response.search)
                         }else {
                             console.log(response.messages)
-                            $('#error').html('<div class="col-md-12"><div class="notification success closeable margin-bottom-30"> <p><strong>Sorry </strong>' + response.messages+ '</p> <a class="close"></a> </div> </div>');
+                            $('#error').html('<div class="col-md-12"><div class="notification success closeable margin-bottom-30"><p><strong>Sorry</strong>' + response.messages+ '</p><a class="close"></a></div></div>');
                         }
                     }
                 })

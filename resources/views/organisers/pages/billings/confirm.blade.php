@@ -23,22 +23,21 @@
                             @csrf
                             <div class="col-md-6">
                                 <h5>Category</h5>
-                                <input  type="text" value="{{ $event->category->name ?? "" }}" readonly required>
+                                <input  type="text" name="name" value="{{ $event->category->name ?? "" }}" readonly required>
                             </div>
-                            <input type="hidden" name="nameOrganiser" value="{{ $category->user->name ?? "" }}">
-                            <input type="hidden" name="lastNameOrganiser" value="{{ $category->user->lastName ?? "" }}">
-                            <input type="hidden" name="address" value="{{ $event->user->company->address ?? $event->address }}">
+                            <input type="hidden" name="nameOrganiser" value="{{ $event->user->name ?? "" }}">
+                            <input type="hidden" name="lastNameOrganiser" value="{{ $event->user->lastName ?? "" }}">
                             <div class="col-md-6">
                                 <h5>Event Name</h5>
-                                <input type="text" readonly required value="{{ $event->title ?? "" }}" name="eventName">
+                                <input type="text" readonly required value="{{ $event->title ?? "" }}" name="title">
                             </div>
                             <div class="col-md-6">
                                 <h5>Subtitle</h5>
-                                <input type="text" value="{{ $event->subTitle ?? "" }}" name="subtitle">
+                                <input type="text" value="{{ $event->subTitle ?? "" }}" name="subTitle">
                             </div>
                             <div class="col-md-6">
                                 <h5>Event Date</h5>
-                                <input type="date" readonly required value="{{ $event->date ?? "" }}" name="eventDate">
+                                <input type="date" readonly required value="{{ $event->date ?? "" }}" name="date">
                             </div>
                             <div class="col-md-6">
                                 <h5>Start Time</h5>
@@ -50,11 +49,11 @@
                             </div>
                             <div class="col-md-6">
                                 <h5>Ticket Price</h5>
-                                <input type="number" name="price" value="{{ $event->prices ?? "" }}" readonly required>
+                                <input type="number" name="prices" value="{{ $event->prices ?? "" }}" readonly required>
                             </div>
                             <div class="col-md-6">
                                 <h5>Event Venue</h5>
-                                <input type="text" name="venueName" value="{{ $event->address ?? "" }}" readonly required>
+                                <input type="text" name="address" value="{{ $event->address ?? "" }}" readonly required>
                             </div>
                             <div class="col-md-6">
                                 <h5>Number Of Tickets</h5>

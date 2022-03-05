@@ -18,8 +18,8 @@ class CheckoutOrganiserRepository
     public function transactionWithDpo($attributes)
     {
         $event = Event::query()
-            ->where('title', '=', $attributes->input('eventName'))
-            ->where('date', '=', $attributes->input('eventDate'))
+            ->where('title', '=', $attributes->input('title'))
+            ->where('date', '=', $attributes->input('date'))
             ->firstOrFail();
 
         $amount = $event->prices;

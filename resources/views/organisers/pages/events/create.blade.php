@@ -168,9 +168,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <h5>City</h5>
-                                    <select name="cityName" id="cityName" class="chosen-select">
-                                        <span id="response"></span>
-                                    </select>
+                                    <div class="viewRender"></div>
                                 </div>
                             </div>
                         </div>
@@ -223,26 +221,23 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $(".countries").change(function () {
-                let selectedCountry = $(".countries option:selected").val();
-                $('select#cityName').hide()
+            $("#country").change(function () {
+                const country = $("#country option:selected").val()
                 $.ajax({
-                    type: "POST",
-                    url: "{{ route('cities.listens') }}",
+                    type: "post",
+                    url: `{{ route('cities.listens') }}`,
                     data: {
-                        countries: selectedCountry,
+                        country: country,
                         _token: '{{csrf_token()}}'
+                    },
+                    dataType : 'json',
+                    success: function(response){
+                        if (response){
+                            $('.viewRender').html(response.views);
+                        }
                     }
-                }).done(function (response) {
-                    if (response){
-                        $('select#cityName').show()
-                        $('#cityName').html('<option>Select City</option>')
-                        $.each(response.cities,function(key,value){
-                            $('#cityName').append('<option value=" ' + value.id + '">' + value.cityName + '</option>');
-                        });
-                    }
-                });
-            });
+                })
+            })
         });
 
         function calculate() {

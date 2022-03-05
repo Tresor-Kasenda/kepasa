@@ -10,7 +10,6 @@ trait FeedCalculation
     public function feedCalculationEvent($attributes): array
     {
         $country = $this->getCountry($attributes);
-        $city = $this->getCity($attributes, $country);
 
         $prices = (int)$attributes->input('prices');
         $commission = $prices * (5 / 100);
@@ -22,7 +21,6 @@ trait FeedCalculation
 
         return [
             $country,
-            $city,
             $commission,
             $organiser
         ];

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admins\EventCountryAdminController;
 use App\Http\Controllers\Admins\EventOrganiserAdminController;
 use App\Http\Controllers\Admins\EventsAdminController;
 use App\Http\Controllers\Admins\HomeAdminController;
+use App\Http\Controllers\Apps\BookingController;
 use App\Http\Controllers\Apps\ContactUsController;
 use App\Http\Controllers\Apps\EventController;
 use App\Http\Controllers\Apps\EventFeeController;
@@ -82,12 +83,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
 
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'auth']], function(){
     Route::resource('home', HomeUserController::class);
+    Route::post('confirm/{key}/bookings', [BookingController::class, 'confirmation'])->name('booking.confirmation');
 });
 
 Route::controller(HomeController::class)->group(function (){
     Route::get('/', '__invoke')->name('home.index');
     Route::post('country', 'getCities')->name('cities.listens');
-    Route::get('events/{detailEvent}', 'show')->name('events.show');
     Route::get('cityDetails/{cityName}', 'detailsCity')->name('city.detail');
 });
 
@@ -101,6 +102,7 @@ Route::controller(EventController::class)->group(function (){
     Route::get('/evenements/{event}','show')->name('event.show');
     Route::get('search-events', 'searchEvents')->name('search.events');
 });
+Route::get('evenements/{key}/bookings', [BookingController::class, 'bookings'])->name('booking.event');
 Route::get('/event-fees', EventFeeController::class)->name('fee.index');
 Route::get('/term-and-conditions', [EventFeeController::class, 'terms'])->name('term.details');
 Route::get('/contact-us', ContactUsController::class)->name('contact.index');

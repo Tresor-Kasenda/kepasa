@@ -24,8 +24,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-8 padding-right-30 padding-bottom-20">
-                <h3 class="margin-top-0 margin-bottom-30">Personal Details</h3>
-                <form action="{{ route('user.booking.confirmation') }}" method="post">
+                <h3 class="margin-top-0 margin-bottom-30">Event book Details</h3>
+                <form action="{{ route('user.booking.confirmation', $event->key) }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -44,18 +44,17 @@
                             <label>Event Date</label>
                             <input type="date" required readonly name="date" id="date" value="{{ $event->date ?? "" }}">
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Event City</label>
-                                <input type="text" required readonly name="city" id="city" value="{{ $event->city ?? "" }}">
-                            </div>
-                            <div class="col-md-6">
-                                <label>Event Country</label>
-                                <input type="text" required readonly name="country" id="country"  value="{{ $event->country ?? "" }}">
-                            </div>
+                        <div class="col-md-12">
+                            <label>Event City</label>
+                            <input type="text" required readonly name="city" id="city" value="{{ $event->city ?? "" }}">
                         </div>
                         <div class="col-md-12">
-                            <label>Event Date</label>
+                            <label>Event Country</label>
+                            <input type="text" required readonly name="country" id="country"  value="{{ $event->country ?? "" }}">
+                        </div>
+                        <input type="hidden" name="user_id" id="user_id", value="{{ auth()->user()->key ?? "" }}">
+                        <div class="col-md-12">
+                            <label>Ticket numbers</label>
                             <select class="input-text" type="password" name="tickets" id="tickets" onchange="getValues(this)" required>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -118,25 +117,27 @@
                 </form>
             </div>
             <div class="col-lg-4 col-md-4 margin-top-0 margin-bottom-60">
-                <div class="listing-item-container compact order-summary-widget">
-                    <div class="listing-item">
-                        <img src="{{ asset('storage/'.$event->image) }}" alt="">
+                <a href="{{ route('event.show', $event->key) }}">
+                    <div class="listing-item-container compact order-summary-widget">
+                        <div class="listing-item">
+                            <img src="{{ asset('storage/'.$event->image) }}" alt="">
 
-                        <div class="listing-item-content">
-                            <div class="numerical-rating" data-rating="5.0"></div>
-                            <h3>{{ strtoupper($event->title) ?? "" }}</h3>
-                            <span>{{ $event->address ?? "" }}, {{ $event->city ?? "" }}</span>
+                            <div class="listing-item-content">
+                                <span class="tag">{{ strtoupper($event->category->name) ?? "" }}</span>
+                                <h3>{{ strtoupper($event->title) ?? "" }}</h3>
+                                <span>{{ $event->address ?? "" }}, {{ $event->city ?? "" }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="boxed-widget opening-hours summary margin-top-0">
-                    <h3><i class="fa fa-calendar-check-o"></i> Booking Summary</h3>
-                    <ul>
-                        <li>Date <span>{{ $event->date ?? "" }}</span></li>
-                        <li>Hour <span>{{ $event->startTime ?? "" }}-{{ $event->endTime ?? "" }}</span></li>
-                        <li>Prices <span>${{ $event->prices ?? "" }}</span></li>
-                    </ul>
-                </div>
+                    <div class="boxed-widget opening-hours summary margin-top-0">
+                        <h3><i class="fa fa-calendar-check-o"></i> Booking Summary</h3>
+                        <ul>
+                            <li>Date <span>{{ $event->date ?? "" }}</span></li>
+                            <li>Hour <span>{{ $event->startTime ?? "" }} at {{ $event->endTime ?? "" }}</span></li>
+                            <li>Prices <span>${{ $event->prices ?? "" }}</span></li>
+                        </ul>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

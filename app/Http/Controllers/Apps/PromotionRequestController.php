@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ShareRequest;
+use App\Notifications\SharedNotification;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class PromotionRequestController extends Controller
 {
@@ -15,8 +18,9 @@ class PromotionRequestController extends Controller
         return view('apps.pages.cities.index');
     }
 
-    public function store(ShareRequest $request)
+    public function store(ShareRequest $request): RedirectResponse
     {
-        dd($request->all());
+        Notification::send($request->input('email'), new SharedNotification($request));
+        return back()->with('success', "Message envoyer avec succes");
     }
 }
