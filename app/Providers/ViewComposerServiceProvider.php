@@ -36,9 +36,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         View::composer([
             'apps.welcome',
-            'apps.pages.events.*'
+            'apps.pages.events.show'
         ], EventComposer::class);
-
-        View::composer(['apps.*'], UserLocation::class);
     }
 }

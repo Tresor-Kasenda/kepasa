@@ -3,8 +3,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Apps;
 
+use App\Enums\PaymentEnum;
+use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Repository\HomeRepository;
+use App\Services\GetLocation;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;

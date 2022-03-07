@@ -9,7 +9,9 @@ use App\Enums\StatusEnum;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
+use App\Services\GetLocation;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class HomeRepository
@@ -27,10 +29,13 @@ class HomeRepository
 
     public function getContents(): LengthAwarePaginator
     {
-        return Event::query()
-            ->where('payment', '=', PaymentEnum::PAID)
-            ->where('status', '=', StatusEnum::ACTIVE)
-            ->where('promoted', '=', true)
+        $location = GetLocation::location();
+        if ($location == null){
+            return $this->getEvents()
+                ->paginate(6);
+        }
+        return $this->getEvents()
+            ->when('city', fn($query) => $query->where('city', $location->cityName ))
             ->paginate(6);
     }
 
@@ -46,12 +51,17 @@ class HomeRepository
         $city = City::query()
             ->where('promoted', '=', CityPromotedEnum::PROMOTION)
             ->first();
-        $event = Event::query()
-            ->where('payment', '=', PaymentEnum::PAID)
-            ->where('status', '=', StatusEnum::ACTIVE)
+        $event = $this->getEvents()
             ->where('city', '=', $city->cityName)
-            ->first();
+            ->get();
         return [$city, $event];
     }
 
+    private function getEvents(): Builder
+    {
+        return Event::query()
+            ->where('payment', '=', PaymentEnum::PAID)
+            ->where('status', '=', StatusEnum::ACTIVE)
+            ->where('promoted', '=', true);
+    }
 }
