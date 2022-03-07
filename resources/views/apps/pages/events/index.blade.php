@@ -32,7 +32,7 @@
                                     <div class="listing-item">
                                         <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}">
                                         <div class="listing-item-content">
-                                            <<span class="tag">{{ strtoupper($event->category->name) ?? "" }}</span>
+                                            <span class="tag">{{ strtoupper($event->category->name) ?? "" }}</span>
                                             <h3>
                                                 {{ strtoupper($event->title) ?? "" }}
                                                 @if($event->promoted == true)
@@ -57,7 +57,9 @@
                     <div class="widget margin-top-40">
                         <h3 class="margin-top-0 margin-bottom-30">Popular Events in Africa</h3>
                         <ul class="widget-tabs">
-                            <x-sidebar/>
+                            <x-sidebar>
+                                @each('apps.partials.card', $events, 'event', '')
+                            </x-sidebar>
                         </ul>
                     </div>
                 </div>

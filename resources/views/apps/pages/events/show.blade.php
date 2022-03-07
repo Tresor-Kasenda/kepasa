@@ -67,7 +67,7 @@
                         <h3 class="margin-top-0 margin-bottom-30">Popular Events in Africa</h3>
                         <ul class="widget-tabs">
                             <x-sidebar>
-
+                                @each('apps.partials.card', $events, 'event', '')
                             </x-sidebar>
                         </ul>
                     </div>

@@ -8,17 +8,8 @@ use Illuminate\View\Component;
 
 class Sidebar extends Component
 {
-    /**
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(){}
 
-    /**
-     * @return View|\Closure|string
-     */
     public function render(): View|string|\Closure
     {
         return view('apps.components.sidebar');

@@ -18,10 +18,6 @@ class WelcomeNotification extends Notification implements ShouldQueue
         return ['mail'];
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return MailMessage
-     */
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
@@ -32,10 +28,6 @@ class WelcomeNotification extends Notification implements ShouldQueue
             ->attach(asset('assets/images/logo.png'));
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function toArray($notifiable): array
     {
         return [

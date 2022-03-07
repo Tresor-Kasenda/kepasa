@@ -9,6 +9,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,7 +23,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function getCities(Request $request): \Illuminate\Http\JsonResponse
+    public function getCities(Request $request): JsonResponse
     {
         $data['cities'] = $this
             ->repository

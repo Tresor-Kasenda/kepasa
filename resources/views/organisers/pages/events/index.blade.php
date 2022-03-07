@@ -65,9 +65,12 @@
                                 </div>
                             </div>
                             <div class="buttons-to-right">
-                                <a href="{{ route('organiser.events.payment.index', $event) }}" class="button gray approve">
-                                    <i class="sl sl-icon-check"></i> Booking
-                                </a>
+                                @if($event->status == 'active')
+                                @else
+                                    <a href="{{ route('organiser.events.payment.index', $event) }}" class="button gray approve">
+                                        <i class="sl sl-icon-check"></i> Booking
+                                    </a>
+                                @endif
                                 <a href="{{ route('organiser.events.edit', $event->key) }}" class="button gray">
                                     <i class="sl sl-icon-note"></i> Edit
                                 </a>

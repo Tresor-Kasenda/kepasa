@@ -1,5 +1,5 @@
 @foreach($events as $event)
-    <div class="col-lg-6 col-md-12">
+    <div class="col-lg-4 col-md-6">
         <a href="{{ route('event.show', $event->key) }}" class="listing-item-container">
             <div class="listing-item">
                 <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}">
@@ -13,7 +13,6 @@
                     </h3>
                     <span>{{ $event->address ?? "" }}, {{ $event->city ?? "" }}</span>
                 </div>
-                <span class="like-icon"></span>
             </div>
         </a>
     </div>

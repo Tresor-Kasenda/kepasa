@@ -9,6 +9,7 @@ use App\Enums\StatusEnum;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class HomeRepository
@@ -24,13 +25,13 @@ class HomeRepository
         return Country::getCitiesInCountry($attributes->all());
     }
 
-    public function getContents(): Collection|array
+    public function getContents(): LengthAwarePaginator
     {
         return Event::query()
             ->where('payment', '=', PaymentEnum::PAID)
             ->where('status', '=', StatusEnum::ACTIVE)
-            ->orderByDesc('created_at')
-            ->get();
+            ->where('promoted', '=', true)
+            ->paginate(6);
     }
 
     public function getCities(): Collection|array

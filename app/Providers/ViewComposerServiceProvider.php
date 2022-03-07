@@ -5,6 +5,7 @@ namespace App\Providers;
 
 use App\View\Composers\CountryComposer;
 use App\View\Composers\EventComposer;
+use App\View\Composers\UserLocation;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,7 +35,10 @@ class ViewComposerServiceProvider extends ServiceProvider
         ], CountryComposer::class);
 
         View::composer([
-            'apps.welcome'
+            'apps.welcome',
+            'apps.pages.events.*'
         ], EventComposer::class);
+
+        View::composer(['apps.*'], UserLocation::class);
     }
 }
