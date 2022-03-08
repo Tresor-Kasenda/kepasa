@@ -87,7 +87,6 @@
 @endsection
 
 @section('scripts')
-    <script src="https://www.paypal.com/sdk/js?client-id={{ env('PAYPAL_SANDBOX_CLIENT_ID') }}&locale=en_US"></script>
     <script>
         paypal.Buttons({
             style: {

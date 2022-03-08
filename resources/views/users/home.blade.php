@@ -9,10 +9,20 @@
                 <div class="col-md-12">
                     <div class="user-profile-titlebar">
                         <div class="user-profile-avatar">
-                            <img src="{{ asset('storage/'.auth()->user()->profile->image) }}" alt="{{ auth()->user()->name ?? "" }}">
+                            <img
+                                @if(auth()->user()->profile->image == null)
+                                    src="{{ asset('assets/images/profile.jpg') }}"
+                                    alt="{{ auth()->user()->name ?? "" }}"
+                                @else
+                                    src="{{ asset('storage/'.auth()->user()->profile->image) }}"
+                                    alt="{{ auth()->user()->name ?? "" }}"
+                                @endif
+                            >
                         </div>
                         <div class="user-profile-name">
-                            <h2>{{ auth()->user()->name ?? "" }}  {{ auth()->user()->lastName ?? "" }}</h2>
+                            <a href="{{ route('user.home.index') }}">
+                                <h2>{{ auth()->user()->name ?? "" }}  {{ auth()->user()->lastName ?? "" }}</h2>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -47,6 +57,7 @@
                             <i class="fa fa-times"></i>
                             City: {{ auth()->user()->profile->city ?? "" }}
                         </li>
+
                     </ul>
 
                     <div id="small-dialog" class="zoom-anim-dialog mfp-hide">
@@ -61,10 +72,19 @@
 
                     <a href="#small-dialog" class="send-message-to-owner button popup-with-zoom-anim"><i class="sl sl-icon-envelope-open"></i> Send Message</a>
                 </div>
+                <div class="text-center justify-content-center">
+                    <a href="{{ route('logout') }}" class="send-message-to-owner button" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="sl sl-icon-logout"></i>
+                        <span>Sign out</span>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
             </div>
 
             <div class="col-lg-8 col-md-8 padding-left-30">
-                <h3 class="margin-top-0 margin-bottom-40">{{ auth()->user()->name ?? "" }}'s Listings events</h3>
+                <h3 class="margin-top-0 margin-bottom-40">{{ auth()->user()->name ?? "" }}'s events</h3>
                 <div class="row">
                     @foreach(auth()->user()->events as $event)
                         <div class="col-lg-12 col-md-12">

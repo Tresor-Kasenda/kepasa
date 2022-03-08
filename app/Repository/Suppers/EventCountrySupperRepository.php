@@ -11,10 +11,6 @@ class EventCountrySupperRepository
 {
     public function getContents()
     {
-//        $totalRecord = DB::select('SELECT COUNT(*) As total_records FROM events
-//    INNER JOIN cities ON cities.cityName = events.city
-//    INNER JOIN countries ON countries.countrycode = cities.countryCode');
-
         $getCountries = DB::select('SELECT DISTINCT cities.cityName, countryname FROM events
     INNER JOIN cities ON cities.cityName = events.city
     INNER JOIN countries ON countries.countrycode = cities.countryCode');

@@ -23,6 +23,7 @@ class CategorySupperRepository
             ->create([
                 'name' => $attributes->input('name')
             ]);
+        toast('New category as stored', 'success');
         return $category;
     }
 
@@ -32,6 +33,7 @@ class CategorySupperRepository
         $category->update([
             'name' => $attributes->input('name')
         ]);
+        toast('Category has updated', 'success');
         return $category;
     }
 
@@ -39,6 +41,7 @@ class CategorySupperRepository
     {
         $category = $this->getSingleCategory($key);
         $category->delete();
+        toast('category as deleted', 'info');
         return $category;
     }
 

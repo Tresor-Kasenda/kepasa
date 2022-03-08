@@ -26,15 +26,13 @@ return new class extends Migration
             $table->string('address');
             $table->integer('ticketNumber')->default(0);
             $table->integer('prices')->default(0);
-            $table->enum('feeOption', FeeOptionEnum::$types)
-                ->default(FeeOptionEnum::Inclusive);
+            $table->enum('feeOption', FeeOptionEnum::$types)->default(FeeOptionEnum::Inclusive);
             $table->decimal('commission')->default(0);
             $table->decimal('buyerPrice')->default(0);
             $table->string('country');
             $table->string('city');
             $table->longText('description')->nullable();
-            $table->enum('status', StatusEnum::$status)
-                ->default(StatusEnum::DEACTIVATE);
+            $table->enum('status', StatusEnum::$status)->default(StatusEnum::DEACTIVATE);
             $table->string('payout')->nullable();
             $table->enum('payment', [PaymentEnum::UNPAID, PaymentEnum::PAID])
                 ->default(PaymentEnum::UNPAID);

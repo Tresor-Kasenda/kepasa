@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class PaymentOrganiser extends Mailable
+class PaymentConfirmationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,7 +16,7 @@ class PaymentOrganiser extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(public $user, public $event)
     {
         //
     }
@@ -28,6 +28,11 @@ class PaymentOrganiser extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this
+            ->to($this->user['email'])
+            ->subject('')
+            ->view('emails.event', [
+                'events' => $this->event
+            ]);
     }
 }

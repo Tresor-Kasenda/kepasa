@@ -3,16 +3,15 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers;
 
-use App\Jobs\EventCreated;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
 use App\Models\OnlineEvent;
+use App\Services\EnableX\CreateRoomService;
 use App\Services\FeedCalculation;
 use App\Services\ImageUpload;
 use App\Services\RandomValue;
-use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -33,10 +32,7 @@ class EventOrganiserRepository
 
     public function getEventById(string $key): Model|Builder
     {
-        $event = Event::query()
-            ->where('key', '=', $key)
-            ->where('user_id', '=', auth()->id())
-            ->firstOrFail();
+        $event = $this->getSingleEvent(key: $key);
         return $event->load(['category', 'media', 'payments']);
     }
 
@@ -44,8 +40,13 @@ class EventOrganiserRepository
     {
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
         $event = $this->storeEvent($attributes, $feedCalculation);
+        $category = Category::query()
+            ->where('id', '=', $attributes->input('category_id'))
+            ->first();
+        if ($category->name === 'online'){
+            $this->storeOnlineEvent($event, $attributes);
+        }
         $this->createBilling($event, $attributes);
-        dispatch(new EventCreated($event, auth()->user()->company))->delay(now()->addSecond(5));
         toast("Evenement enregistrer avec succes",'success');
         return $event;
     }
@@ -61,10 +62,7 @@ class EventOrganiserRepository
 
     public function deleteEvent(string $key): Model|Builder
     {
-        $event = Event::query()
-            ->where('user_id', '=', auth()->id())
-            ->where('key', '=', $key)
-            ->firstOrFail();
+        $event = $this->getSingleEvent(key: $key);
         $event->delete();
         toast("Evenement supprimer avec succes", 'success');
         return $event;
@@ -168,10 +166,8 @@ class EventOrganiserRepository
 
     private function storeOnlineEvent($event, $attributes): void
     {
-        $eventReference = random_bytes(30);
-        $pat_pin = rand(100000, 999999);
-        $moderator_pin = rand(100000, 999999);
-
+        $room = new CreateRoomService($event, $attributes);
+        $onlineEvent = $room->createRoom();
         OnlineEvent::query()
             ->create([
                 'event_id' => $event->id,

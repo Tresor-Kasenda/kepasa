@@ -74,13 +74,6 @@
                                 Profile <i class="sl sl-icon-user"></i>
                             </a>
                         @endif
-                        <a href="{{ route('logout') }}" class="sign-in popup-with-zoom-anim mr-5" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="sl sl-icon-logout"></i>
-                            <span>Sign out</span>
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
                     @else
                         <a href="{{ route('login') }}" class="sign-in {{ Request::url() === route('login') ? 'current' : '' }}">
                             <i class="sl sl-icon-login"></i> Sign In

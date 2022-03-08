@@ -41,7 +41,7 @@ class CountrySupperRepository
             "popularCity" => $attributes->input('popularCity'),
             "mayor" => $attributes->input('mayor'),
             "promoted" => $attributes->input('promoted'),
-            "history" => $attributes->input('history')
+            "history" => $attributes->input('history'),
         ]);
         toast("City is update", 'success');
         return $city;

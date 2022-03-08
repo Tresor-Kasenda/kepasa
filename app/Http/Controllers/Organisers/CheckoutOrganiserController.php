@@ -29,6 +29,6 @@ class CheckoutOrganiserController extends Controller
     public function updateCheckout(): RedirectResponse
     {
         $this->repository->updatePayment();
-        return redirect()->route('organiser.payment.index');
+        return redirect()->route('organiser.events.index');
     }
 }

@@ -22,8 +22,7 @@ class BookingRequest extends FormRequest
             "date" => ['required', Rule::exists('events', 'date')],
             "city" => ['required', Rule::exists('events', 'city')],
             "country" => ['required', Rule::exists('events', 'country')],
-            "tickets" => ['required', 'min:1', 'integer'],
-            "cardType" => "creditCard",
+            "tickets" => ['required', 'min:1', 'integer']
         ];
     }
 }

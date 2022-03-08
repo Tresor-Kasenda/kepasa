@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Notifications;
 
@@ -8,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WelcomeNotification extends Notification implements ShouldQueue
+class CheckEventSubscriptionNotification extends Notification
 {
     use Queueable;
 
@@ -17,7 +16,7 @@ class WelcomeNotification extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public $user)
+    public function __construct()
     {
         //
     }
@@ -28,7 +27,7 @@ class WelcomeNotification extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable): array
+    public function via($notifiable)
     {
         return ['mail'];
     }
@@ -37,13 +36,13 @@ class WelcomeNotification extends Notification implements ShouldQueue
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return MailMessage
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
                     ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/organiser/organiser'))
+                    ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
     }
 
@@ -53,7 +52,7 @@ class WelcomeNotification extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable): array
+    public function toArray($notifiable)
     {
         return [
             //

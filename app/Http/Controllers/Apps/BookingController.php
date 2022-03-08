@@ -20,6 +20,6 @@ class BookingController extends Controller
 
     public function confirmation(BookingRequest $attributes)
     {
-
+        dd($attributes->all());
     }
 }

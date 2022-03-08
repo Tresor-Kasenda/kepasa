@@ -86,19 +86,21 @@
                     <div class="payment">
                         <div class="payment-tab payment-tab-active">
                             <div class="payment-tab-trigger">
-                                <input checked id="paypal" name="cardType" type="radio" value="paypal">
+                                <input checked id="paypal" type="radio" value="paypal">
                                 <label for="paypal">PayPal</label>
                                 <img class="payment-logo paypal" src="{{ asset('images/paypal.png') }}" alt="">
                             </div>
 
                             <div class="payment-tab-content">
-                                <div id="paypal-button-container"></div>
+                                <div class="row">
+                                    <div id="paypal-button"></div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="payment-tab">
                             <div class="payment-tab-trigger">
-                                <input type="radio" name="cardType" id="creditCart" value="creditCard">
+                                <input type="radio" id="creditCart" value="creditCard">
                                 <label for="creditCart">DPO</label>
                                 <img class="payment-logo" src="{{ asset('images/dpo.png') }}" alt="">
                             </div>
@@ -144,7 +146,6 @@
 @endsection
 
 @section('scripts')
-    <script src="https://www.paypal.com/sdk/js?client-id=test&locale=en_US" data-namespace="paypal_sdk"></script>
     <script>
         paypal.Buttons({
             style: {
@@ -169,7 +170,7 @@
                     }
                 });
             }
-        }).render('#paypal-button-container');
+        }).render('#paypal-button');
     </script>
     <script>
         function getValues(number){

@@ -61,10 +61,18 @@
                                             @endif
                                             <span class="message-by">{{ $event->billings_count ?? 0 }} ticket(s) </span>
                                         </div>
+                                        <div class="start-rating">
+                                            @if($event->category_id == 1)
+                                                @include('organisers.partials.join', with($event))
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="buttons-to-right">
+                                @if($event->category_id == 1)
+                                    @include('organisers.partials.join', with($event))
+                                @endif
                                 @if($event->status == 'active')
                                 @else
                                     <a href="{{ route('organiser.events.payment.index', $event) }}" class="button gray approve">

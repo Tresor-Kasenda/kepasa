@@ -19,10 +19,6 @@ trait FeedCalculation
             $organiser = $prices + $commission;
         }
 
-        return [
-            $country,
-            $commission,
-            $organiser
-        ];
+        return [$country, $commission, $organiser];
     }
 }

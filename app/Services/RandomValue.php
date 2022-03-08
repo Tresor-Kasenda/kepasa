@@ -7,12 +7,17 @@ trait RandomValue
 {
     public function  generateRandomTransaction(int $values): string
     {
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghilkmnopqrstuvwxyz';
+        $characters = '0123456789#ABCDEFGHILKMNOPQRSTUVWXYZ#abcdefghilkmnopqrstuvwxyz';
         $randomString = '';
         for ($i = 0; $i < $values; $i++) {
             $index = rand(0, strlen($characters) - 1);
             $randomString .= $characters[$index];
         }
         return strtoupper($randomString);
+    }
+
+    public function generateNumericValues(int $firstValue, int $secondValue): int
+    {
+        return rand($firstValue, $secondValue);
     }
 }

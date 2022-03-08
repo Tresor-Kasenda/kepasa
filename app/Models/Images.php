@@ -18,4 +18,9 @@ class Images extends Model
     {
         return $this->belongsTo(Event::class, 'event_id');
     }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
 }

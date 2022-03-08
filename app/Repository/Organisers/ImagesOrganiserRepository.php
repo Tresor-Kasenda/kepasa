@@ -19,6 +19,7 @@ class ImagesOrganiserRepository
     {
         return Images::query()
             ->with('event')
+            ->where('company_id', '=', auth()->user()->company->id)
             ->orderByDesc('created_at')
             ->paginate(8);
     }

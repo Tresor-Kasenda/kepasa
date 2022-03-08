@@ -4,15 +4,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\OrganiserAccountCreate;
-use App\Notifications\WelcomeNotification;
-use App\Providers\RouteServiceProvider;
+use App\Mail\CustomerMail;
 use App\Models\User;
+use App\Notifications\WelcomeNotification;
 use App\Services\RedirectAuthentication;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
@@ -46,11 +44,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * @param  array  $data
-     * @return Builder|Model
-     */
-    protected function create(array $data): Model|Builder
+    protected function create(array $data)
     {
         $user = User::query()
             ->create([
@@ -65,15 +59,14 @@ class RegisterController extends Controller
             $user->company()->create([
                 'email' => $data['email']
             ]);
-            dispatch(new OrganiserAccountCreate($user))->delay(now()->addSecond(5));
+            Notification::send($user, new WelcomeNotification($user));
             return $user;
         } else if($data['role'] = 4){
             $user->profile()->create([
                 'alternativePhones' => $data['phones']
             ]);
-            Notification::send($user, new WelcomeNotification($user));
+            Mail::send(new CustomerMail($user));
             return $user;
         }
-        return $user;
     }
 }

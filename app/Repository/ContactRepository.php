@@ -11,13 +11,12 @@ class ContactRepository
 {
     public function store($attributes): Model|Builder
     {
-        $contact = Contact::query()
+        return Contact::query()
             ->create([
                'name' => $attributes->input('name'),
                'email' => $attributes->input('email'),
                 'subject' => $attributes->input('subject'),
                 'messages' => $attributes->input('messages')
             ]);
-        return $contact;
     }
 }

@@ -12,7 +12,9 @@
                             <img src="{{ asset('storage/',auth()->user()->profile->images) }}" alt="{{ auth()->user()->name ?? "" }}">
                         </div>
                         <div class="user-profile-name">
-                            <h2>{{ auth()->user()->name ?? "" }}  {{ auth()->user()->lastName ?? "" }}</h2>
+                            <a href="{{ route('user.home.index') }}">
+                                <h2>{{ auth()->user()->name ?? "" }}  {{ auth()->user()->lastName ?? "" }}</h2>
+                            </a>
                         </div>
                     </div>
                 </div>
