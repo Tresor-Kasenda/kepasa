@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Mail;
 
@@ -7,26 +8,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class PaymentConfirmationMail extends Mailable
+class PaymentConfirmationMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.
-     *
      * @return void
      */
-    public function __construct(public $user, public $event)
-    {
-        //
-    }
+    public function __construct(public $user, public $event){}
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
+    public function build(): PaymentConfirmationMail
     {
         return $this
             ->to($this->user['email'])

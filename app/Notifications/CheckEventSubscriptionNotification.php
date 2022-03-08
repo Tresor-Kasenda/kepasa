@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Notifications;
 
@@ -7,19 +8,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CheckEventSubscriptionNotification extends Notification
+class CheckEventSubscriptionNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
-     * Create a new notification instance.
-     *
      * @return void
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(){}
 
     /**
      * Get the notification's delivery channels.
@@ -27,14 +23,12 @@ class CheckEventSubscriptionNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
 
     /**
-     * Get the mail representation of the notification.
-     *
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
@@ -47,8 +41,6 @@ class CheckEventSubscriptionNotification extends Notification
     }
 
     /**
-     * Get the array representation of the notification.
-     *
      * @param  mixed  $notifiable
      * @return array
      */

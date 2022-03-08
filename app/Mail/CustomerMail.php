@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Mail;
 
@@ -12,21 +13,11 @@ class CustomerMail extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.
-     *
      * @return void
      */
-    public function __construct(public $user)
-    {
-        //
-    }
+    public function __construct(public $user){}
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
+    public function build(): CustomerMail
     {
         return $this
             ->to($this->user['email'])

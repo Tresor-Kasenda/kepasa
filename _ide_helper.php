@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.81.0.
+ * Generated for Laravel 8.83.3.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -2349,6 +2349,17 @@
         public static function render($string, $data = [], $deleteCachedView = false)
         {
                         return \Illuminate\View\Compilers\BladeCompiler::render($string, $data, $deleteCachedView);
+        }
+                    /**
+         * Render a component instance to HTML.
+         *
+         * @param \Illuminate\View\Component $component
+         * @return string 
+         * @static 
+         */ 
+        public static function renderComponent($component)
+        {
+                        return \Illuminate\View\Compilers\BladeCompiler::renderComponent($component);
         }
                     /**
          * Strip the parentheses from the given expression.
@@ -8936,7 +8947,7 @@
                     /**
          * Push a new job onto the queue.
          *
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @param string|null $queue
          * @return mixed 
@@ -8965,7 +8976,7 @@
          * Push a new job onto the queue after a delay.
          *
          * @param \DateTimeInterface|\DateInterval|int $delay
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @param string|null $queue
          * @return mixed 
@@ -8980,7 +8991,7 @@
          * Push a new job onto the queue.
          *
          * @param string $queue
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @return mixed 
          * @static 
@@ -8995,7 +9006,7 @@
          *
          * @param string $queue
          * @param \DateTimeInterface|\DateInterval|int $delay
-         * @param string $job
+         * @param string|object $job
          * @param mixed $data
          * @return mixed 
          * @static 
@@ -9066,6 +9077,83 @@
                         return $instance->setConnectionName($name);
         }
                     /**
+         * Release a reserved job back onto the queue.
+         *
+         * @param string $queue
+         * @param \Illuminate\Queue\Jobs\DatabaseJobRecord $job
+         * @param int $delay
+         * @return mixed 
+         * @static 
+         */ 
+        public static function release($queue, $job, $delay)
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        return $instance->release($queue, $job, $delay);
+        }
+                    /**
+         * Delete a reserved job from the queue.
+         *
+         * @param string $queue
+         * @param string $id
+         * @return void 
+         * @throws \Throwable
+         * @static 
+         */ 
+        public static function deleteReserved($queue, $id)
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        $instance->deleteReserved($queue, $id);
+        }
+                    /**
+         * Delete a reserved job from the reserved queue and release it.
+         *
+         * @param string $queue
+         * @param \Illuminate\Queue\Jobs\DatabaseJob $job
+         * @param int $delay
+         * @return void 
+         * @static 
+         */ 
+        public static function deleteAndRelease($queue, $job, $delay)
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        $instance->deleteAndRelease($queue, $job, $delay);
+        }
+                    /**
+         * Delete all of the jobs from the queue.
+         *
+         * @param string $queue
+         * @return int 
+         * @static 
+         */ 
+        public static function clear($queue)
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        return $instance->clear($queue);
+        }
+                    /**
+         * Get the queue or return the default.
+         *
+         * @param string|null $queue
+         * @return string 
+         * @static 
+         */ 
+        public static function getQueue($queue)
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        return $instance->getQueue($queue);
+        }
+                    /**
+         * Get the underlying database instance.
+         *
+         * @return \Illuminate\Database\Connection 
+         * @static 
+         */ 
+        public static function getDatabase()
+        {
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
+                        return $instance->getDatabase();
+        }
+                    /**
          * Get the backoff for an object-based queue handler.
          *
          * @param mixed $job
@@ -9074,7 +9162,7 @@
          */ 
         public static function getJobBackoff($job)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->getJobBackoff($job);
         }
                     /**
@@ -9086,7 +9174,7 @@
          */ 
         public static function getJobExpiration($job)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->getJobExpiration($job);
         }
                     /**
@@ -9098,7 +9186,7 @@
          */ 
         public static function createPayloadUsing($callback)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        \Illuminate\Queue\SyncQueue::createPayloadUsing($callback);
+                        \Illuminate\Queue\DatabaseQueue::createPayloadUsing($callback);
         }
                     /**
          * Get the container instance being used by the connection.
@@ -9108,7 +9196,7 @@
          */ 
         public static function getContainer()
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         return $instance->getContainer();
         }
                     /**
@@ -9120,7 +9208,7 @@
          */ 
         public static function setContainer($container)
         {            //Method inherited from \Illuminate\Queue\Queue         
-                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        /** @var \Illuminate\Queue\DatabaseQueue $instance */
                         $instance->setContainer($container);
         }
          
@@ -16087,12 +16175,511 @@
      *
      */ 
         class Str {
+                    /**
+         * 
+         *
+         * @see \JustSteveKing\KeyFactory\KeyFactoryServiceProvider::boot()
+         * @param string $prefix
+         * @param int|null $length
+         * @static 
+         */ 
+        public static function key($prefix, $length = null)
+        {
+                        return \Illuminate\Support\Str::key($prefix, $length);
+        }
          
     }
      
 }
 
-        namespace Facade\Ignition\Facades { 
+        namespace RealRashid\SweetAlert\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class Alert {
+                    /**
+         * The default configuration for middleware alert.
+         *
+         * @return \RealRashid\SweetAlert\$config 
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function middleware()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->middleware();
+        }
+                    /**
+         * Flash an alert message.
+         *
+         * @param string $title
+         * @param string $text
+         * @param array $icon
+         * @return void 
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function alert($title = '', $text = '', $icon = null)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        $instance->alert($title, $text, $icon);
+        }
+                    /**
+         * Display a success typed alert message with a text and a title.
+         *
+         * @param string $title
+         * @param string $text
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function success($title = '', $text = '')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->success($title, $text);
+        }
+                    /**
+         * Display a info typed alert message with a text and a title.
+         *
+         * @param string $title
+         * @param string $text
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function info($title = '', $text = '')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->info($title, $text);
+        }
+                    /**
+         * Display a warning typed alert message with a text and a title.
+         *
+         * @param string $title
+         * @param string $text
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function warning($title = '', $text = '')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->warning($title, $text);
+        }
+                    /**
+         * Display a question typed alert message with a text and a title.
+         *
+         * @param string $title
+         * @param string $text
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function question($title = '', $text = '')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->question($title, $text);
+        }
+                    /**
+         * Display a error typed alert message with a text and a title.
+         *
+         * @param string $title
+         * @param string $text
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function error($title = '', $text = '')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->error($title, $text);
+        }
+                    /**
+         * Display a message with a custom image and CSS animation disabled.
+         *
+         * @param string $title
+         * @param string $text
+         * @param string $imageUrl
+         * @param integer $imageWidth
+         * @param integer $imageHeight
+         * @param string $imageAlt
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function image($title, $text, $imageUrl, $imageWidth, $imageHeight, $imageAlt)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->image($title, $text, $imageUrl, $imageWidth, $imageHeight, $imageAlt);
+        }
+                    /**
+         * Display a html typed alert message with html code.
+         *
+         * @param string $title
+         * @param string $code
+         * @param string $icon
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function html($title = '', $code = '', $icon = '')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->html($title, $code, $icon);
+        }
+                    /**
+         * Display a toast message
+         *
+         * @param string $title
+         * @param string $icon
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function toast($title = '', $icon = '')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->toast($title, $icon);
+        }
+                    /**
+         * Convert any alert modal to Toast
+         *
+         * @param string $position
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function toToast($position = '')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->toToast($position);
+        }
+                    /**
+         * Convert any alert modal to html
+         *
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function toHtml()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->toHtml();
+        }
+                    /**
+         * Add a custom image to alert
+         *
+         * @param string $imageUrl
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function addImage($imageUrl)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->addImage($imageUrl);
+        }
+                    /**
+         * Add footer section to alert()
+         *
+         * @param string $code
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function footer($code)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->footer($code);
+        }
+                    /**
+         * positioned alert dialog
+         *
+         * @param string $position
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function position($position = 'top-end')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->position($position);
+        }
+                    /**
+         * Modal window width
+         * including paddings
+         * (box-sizing: border-box).
+         * 
+         * Can be in px or %. The default width is 32rem
+         *
+         * @param string $width
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function width($width = '32rem')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->width($width);
+        }
+                    /**
+         * Modal window padding.
+         * 
+         * The default padding is 1.25rem.
+         *
+         * @param string $padding
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function padding($padding = '1.25rem')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->padding($padding);
+        }
+                    /**
+         * Modal window background
+         * (CSS background property).
+         * 
+         * The default background is '#fff'.
+         *
+         * @param string $background
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function background($background = '#fff')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->background($background);
+        }
+                    /**
+         * Set to false if you want to
+         * focus the first element in tab
+         * order instead of "Confirm"-button by default.
+         *
+         * @param boolean $focus
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function focusConfirm($focus = true)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->focusConfirm($focus);
+        }
+                    /**
+         * Set to true if you want to focus the
+         * "Cancel"-button by default.
+         *
+         * @param boolean $focus
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function focusCancel($focus = false)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->focusCancel($focus);
+        }
+                    /**
+         * Custom animation with [Animate.css](https://daneden.github.io/animate.css/)
+         * CSS classes for animations when showing a popup (fade in):
+         * CSS classes for animations when hiding a popup (fade out):
+         *
+         * @param string $showAnimation
+         * @param string $hideAnimation
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function animation($showAnimation, $hideAnimation)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->animation($showAnimation, $hideAnimation);
+        }
+                    /**
+         * Persistent the alert modal
+         *
+         * @param boolean $showConfirmBtn
+         * @param boolean $showCloseBtn
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function persistent($showConfirmBtn = true, $showCloseBtn = false)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->persistent($showConfirmBtn, $showCloseBtn);
+        }
+                    /**
+         * auto close alert modal after
+         * specifid time
+         *
+         * @param integer $milliseconds
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function autoClose($milliseconds = 5000)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->autoClose($milliseconds);
+        }
+                    /**
+         * Display confirm button
+         *
+         * @param string $btnText
+         * @param string $btnColor
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function showConfirmButton($btnText = 'Ok', $btnColor = '#3085d6')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->showConfirmButton($btnText, $btnColor);
+        }
+                    /**
+         * Display cancel button
+         *
+         * @param string $btnText
+         * @param string $btnColor
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function showCancelButton($btnText = 'Cancel', $btnColor = '#aaa')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->showCancelButton($btnText, $btnColor);
+        }
+                    /**
+         * Display close button
+         *
+         * @param string $closeButtonAriaLabel
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function showCloseButton($closeButtonAriaLabel = 'aria-label')
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->showCloseButton($closeButtonAriaLabel);
+        }
+                    /**
+         * Hide close button from alert or toast
+         *
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function hideCloseButton()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->hideCloseButton();
+        }
+                    /**
+         * Apply default styling to buttons.
+         * 
+         * If you want to use your own classes (e.g. Bootstrap classes)
+         * set this parameter to false.
+         *
+         * @param boolean $buttonsStyling
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function buttonsStyling($buttonsStyling)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->buttonsStyling($buttonsStyling);
+        }
+                    /**
+         * Use any HTML inside icons (e.g. Font Awesome)
+         *
+         * @param string $iconHtml
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function iconHtml($iconHtml)
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->iconHtml($iconHtml);
+        }
+                    /**
+         * If set to true, the timer will have a progress bar at the bottom of a popup.
+         * 
+         * Mostly, this feature is useful with toasts.
+         *
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function timerProgressBar()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->timerProgressBar();
+        }
+                    /**
+         * Reverse buttons position
+         *
+         * @author Faber44 <https://github.com/Faber44>
+         * @static 
+         */ 
+        public static function reverseButtons()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->reverseButtons();
+        }
+                    /**
+         * Flash the config options for alert.
+         *
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function flash()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->flash();
+        }
+                    /**
+         * Build Flash config options for flashing.
+         *
+         * @author Rashid Ali <realrashid05@gmail.com>
+         * @static 
+         */ 
+        public static function buildConfig()
+        {
+                        /** @var \RealRashid\SweetAlert\Toaster $instance */
+                        return $instance->buildConfig();
+        }
+         
+    }
+     
+}
+
+    namespace Stevebauman\Location\Facades { 
+            /**
+     * 
+     *
+     * @see \Stevebauman\Location\Location
+     */ 
+        class Location {
+                    /**
+         * Set the current driver to use.
+         *
+         * @param \Stevebauman\Location\Drivers\Driver $driver
+         * @static 
+         */ 
+        public static function setDriver($driver)
+        {
+                        /** @var \Stevebauman\Location\Location $instance */
+                        return $instance->setDriver($driver);
+        }
+                    /**
+         * Set the default location driver to use.
+         *
+         * @throws DriverDoesNotExistException
+         * @static 
+         */ 
+        public static function setDefaultDriver()
+        {
+                        /** @var \Stevebauman\Location\Location $instance */
+                        return $instance->setDefaultDriver();
+        }
+                    /**
+         * Attempt to retrieve the location of the user.
+         *
+         * @param string|null $ip
+         * @return \Stevebauman\Location\Position|bool 
+         * @static 
+         */ 
+        public static function get($ip = null)
+        {
+                        /** @var \Stevebauman\Location\Location $instance */
+                        return $instance->get($ip);
+        }
+         
+    }
+     
+}
+
+    namespace Facade\Ignition\Facades { 
             /**
      * Class Flare.
      *
@@ -16378,6 +16965,39 @@
         {
                         /** @var \Facade\FlareClient\Flare $instance */
                         return $instance->group($groupName, $properties);
+        }
+         
+    }
+     
+}
+
+    namespace Srmklive\PayPal\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class PayPal {
+                    /**
+         * Get specific PayPal API provider object to use.
+         *
+         * @throws Exception
+         * @return \Srmklive\PayPal\Services\PayPal 
+         * @static 
+         */ 
+        public static function getProvider()
+        {
+                        return \Srmklive\PayPal\PayPalFacadeAccessor::getProvider();
+        }
+                    /**
+         * Set PayPal API Client to use.
+         *
+         * @throws \Exception
+         * @return \Srmklive\PayPal\Services\PayPal 
+         * @static 
+         */ 
+        public static function setProvider()
+        {
+                        return \Srmklive\PayPal\PayPalFacadeAccessor::setProvider();
         }
          
     }
@@ -19972,7 +20592,10 @@ namespace  {
             class URL extends \Illuminate\Support\Facades\URL {}
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
+            class Alert extends \RealRashid\SweetAlert\Facades\Alert {}
+            class Location extends \Stevebauman\Location\Facades\Location {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
+            class PayPal extends \Srmklive\PayPal\Facades\PayPal {}
      
 }
 
