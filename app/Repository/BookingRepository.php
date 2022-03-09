@@ -5,11 +5,10 @@ namespace App\Repository;
 
 use App\Models\Event;
 use App\Services\GetSingleService;
-use App\Services\PaymentSOAP;
 
 class BookingRepository
 {
-    use GetSingleService, PaymentSOAP;
+    use GetSingleService;
 
     public function confirmedPayment($attributes)
     {

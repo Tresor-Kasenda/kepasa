@@ -37,7 +37,20 @@
                                 <i class="fa fa-times"></i>
                                 Time : {{ $event->startTime ?? "" }}-{{ $event->endTime ?? "" }}
                             </a>
-                        </span>
+                        </span> <br>
+                        @auth()
+                            @if($event->category_id = 1)
+                                <span>
+                                <form action="" method="post" class="d-inline">
+                                    @csrf
+                                    <input type="hidden" name="title" value="{{ $event->title ?? "" }}">
+                                    <button type="submit" class="listing-tag">
+                                        <i class="sl sl-icon-camrecorder"></i> Join event
+                                    </button>
+                                </form>
+                            </span>
+                            @endif
+                        @endauth
                     </div>
                 </div>
 
@@ -57,7 +70,8 @@
                     </div>
                     <a
                         href="{{ route('booking.event', $event->key) }}"
-                        class="button fullwidth margin-top-25">Book</a>
+                        class="button fullwidth margin-top-25"
+                    >Book</a>
                 </div>
             </div>
 
@@ -67,7 +81,7 @@
                         <h3 class="margin-top-0 margin-bottom-30">Popular Events in Africa</h3>
                         <ul class="widget-tabs">
                             <x-sidebar>
-                                @each('apps.partials.card', $events, 'event', '')
+                                @each('apps.partials.card', $events, 'event', 'apps.pages.events._empty')
                             </x-sidebar>
                         </ul>
                     </div>

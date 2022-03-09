@@ -32,15 +32,6 @@ class EventSupperRepository
         return $event;
     }
 
-    public function updateStatus($request): Model|Builder
-    {
-        $event = $this->getFirstOrFail(key: $request->input('key'));
-        $event->update([
-            'status' => $request->input('id')
-        ]);
-        return $event;
-    }
-
     private function getFirstOrFail(string $key): Builder|Model
     {
         return Event::query()

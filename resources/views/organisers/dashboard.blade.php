@@ -21,31 +21,30 @@
         @include('organisers.components._stat', [
             'number' => \App\Models\Event::query()->where('user_id', '=', auth()->id())->count(),
             'name' => "Evénement",
-            'icon' => 'im-icon-Clothing-Store'
+            'icon' => 'im-icon-Clothing-Store',
+            'color' => 'color-1'
         ])
 
         @include('organisers.components._stat', [
             'number' => 0,
             'name' => "Billing",
-            'icon' => 'im-icon-Money-2'
+            'icon' => 'im-icon-Money-2',
+            'color' => 'color-2'
+        ])
+
+        @include('organisers.components._stat', [
+            'number' => \App\Models\Images::query()->where('company_id', '=', auth()->user()->company->id)->count(),
+            'name' => "Images",
+            'icon' => 'im-icon-Cloud-Picture',
+            'color' => 'color-3'
         ])
     </div>
 
     <div class="row margin-bottom-30">
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-12 col-md-12">
             <div class="dashboard-list-box invoices with-icons margin-top-20">
                 <h4>Payout History</h4>
-                <ul>
-                    @foreach($payments as $payment)
-                        <li><i class="list-box-icon sl sl-icon-wallet"></i>
-                            <strong>$84.50</strong>
-                            <ul>
-                                <li class="unpaid">Unpaid</li>
-                                <li>Period: 02/2019</li>
-                            </ul>
-                        </li>
-                    @endforeach
-                </ul>
+                <canva></canva>
             </div>
         </div>
     </div>

@@ -67,30 +67,7 @@
                 <div class="col-md-12">
                     @if(count($events) > 0)
                         <div class="simple-slick-carousel dots-nav">
-                            @foreach($events as $event)
-                                <div class="carousel-item">
-                                    <a href="{{ route('event.show',$event->key) }}" class="listing-item-container">
-                                        <div class="listing-item">
-                                            <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->title }}">
-                                            <div class="listing-item-details">
-                                                <ul>
-                                                    <li>{{ $event->startTime }}-{{ $event->endTime }}, {{ $event->date  }}</li>
-                                                </ul>
-                                            </div>
-                                            <div class="listing-item-content">
-                                                <span class="tag">{{ strtoupper($event->category->name) ?? "" }}</span>
-                                                <h3>
-                                                    {{ strtoupper($event->title) ?? "" }}
-                                                    @if($event->promoted == true)
-                                                        <i class="verified-icon"></i>
-                                                    @endif
-                                                </h3>
-                                                <span>{{ $event->address ?? "" }}, {{ $event->city }}</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
+                            @each('apps.components._card', $events, 'event', 'apps.components._empty')
                         </div>
                     @else
                        <div class="text-center justify-content-center">
@@ -182,7 +159,6 @@
                         if (response.search){
                             $('.renderSearch').html(response.search)
                         }else {
-                            console.log(response.messages)
                             $('#error').html('<div class="col-md-12"><div class="notification success closeable margin-bottom-30"><p><strong>Sorry</strong>' + response.messages+ '</p><a class="close"></a></div></div>');
                         }
                     }

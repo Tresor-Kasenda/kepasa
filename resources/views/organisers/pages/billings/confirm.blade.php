@@ -87,6 +87,7 @@
 @endsection
 
 @section('scripts')
+    <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.sandbox.client_id') }}&currency=USD" data-sdk-integration-source="button-factory"></script>
     <script>
         paypal.Buttons({
             style: {
@@ -107,7 +108,7 @@
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                     if(details.status === 'COMPLETED'){
-                        window.location = "{{ route('organiser.checkout.confirmed', ['companyRed' => $event->key ]) }}&verify="+ details.status;
+                        window.location = "{{ route('organiser.checkout.confirmed', ['companyRed' => $event->key ]) }}";
                     }
                 });
             }

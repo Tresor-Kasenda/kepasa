@@ -26,6 +26,7 @@ use App\Http\Controllers\Supers\EventCountrySupperController;
 use App\Http\Controllers\Supers\EventSupperController;
 use App\Http\Controllers\Supers\HomeSuperController;
 use App\Http\Controllers\Supers\OrganiserSupperController;
+use App\Http\Controllers\Supers\PromotedEventSuperController;
 use App\Http\Controllers\Supers\SettingSupperController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,7 +41,11 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
     Route::resource('category', CategorySupperController::class);
     Route::resource('countries', CountrySupperController::class);
 
-    Route::post('updateStatus', [EventSupperController::class, 'updateStatus'])->name('update.status');
+    Route::controller(PromotedEventSuperController::class)->group(function(){
+        Route::put('promotedEvent/{key}', 'promoted')->name('event.promoted');
+        Route::put('RemovePromotion/{key}', 'notPromoted')->name('event.notPromoted');
+        Route::put('changeStatus/{eventKey}/update', 'changeStatus')->name('status.update');
+    });
 
     Route::controller(SettingSupperController::class)->group(function (){
         Route::get('settings', '__invoke')->name('settings.index');
@@ -64,7 +69,7 @@ Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['o
 
     Route::controller(CheckoutOrganiserController::class)->group(function(){
         Route::post('confirm-payment', 'confirmed')->name('confirm.payment.event');
-        Route::get('confirmation', 'updateCheckout')->name('checkout.confirmed');
+        Route::post('confirmation', 'updateCheckout')->name('checkout.confirmed');
     });
 
     Route::controller(ProfileOrganiserController::class)->group(function(){

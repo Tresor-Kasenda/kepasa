@@ -20,12 +20,53 @@
                                             <span>Back</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <div class="drodown">
+                                            <div class="form-control-wrap">
+                                                <select name="status" id="status" class="form-select form-control form-control-lg">
+                                                    <option value="default_option">Select Status</option>
+                                                    <option value="active">Activated</option>
+                                                    <option value="deactivate">Deactivated</option>
+                                                    <option value="postpone">PostPoned</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="preview-item">
+                                        @if ($event->promoted == false)
+                                            @include('admins.partials._update', [
+                                                'route' => route('supper.event.promoted', $event->key),
+                                                'button' => 'btn-outline-success btn-sm',
+                                                'icon' => 'ni-check-circle',
+                                                'title' => 'Promoted'
+                                            ])
+                                        @else
+                                            @include('admins.partials._update', [
+                                                'route' => route('supper.event.notPromoted', $event->key),
+                                                'button' => 'btn-outline-danger btn-sm',
+                                                'icon' => 'ni-check-circle',
+                                                'title' => 'unPromoted'
+                                            ])
+                                        @endif
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @if($event->promoted == false)
+                <div class="alert alert-danger alert-icon " role="alert">
+                    <em class="icon ni ni-alert-circle"></em>
+                    Cette salle ne pas encore activé. Veillez l'activer pour qu'elle soie visible
+                </div>
+            @endif
+            @if($event->status == \App\Enums\StatusEnum::POSTPONE)
+                <div class="alert alert-info alert-icon " role="alert">
+                    <em class="icon ni ni-bell"></em>
+                    Desoler l'evenement a ete reporter pour des raisons de sécurié
+                </div>
+            @endif
             <div class="nk-block">
                 <div class="nk-block nk-block-lg">
                     <div class="justify-content text-center p-2">
@@ -138,4 +179,30 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#status').on('change', function(){
+                const status = $("#status option:selected").val()
+                $.ajax({
+                    type: "put",
+                    url: `{{ route('supper.status.update',$event->key) }}`,
+                    data: {
+                        status: status,
+                        key: `{{ $event->key }}`,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    dataType : 'json',
+                    success: function(response){
+                        if (response){
+                            Swal.fire(`${response.message}`, "update", "success");
+                            console.log(response.message)
+                        }
+                    }
+                })
+            })
+        })
+    </script>
 @endsection

@@ -1,10 +1,7 @@
-<form action="" method="post">
+<form action="" method="post" class="d-inline">
     @csrf
     <input type="hidden" name="title" value="{{ $event->title ?? "" }}">
     <button type="submit">
-        <span class="message-by">
-            <i class="sl sl-icon-camrecorder"></i>
-            Join
-        </span>
+        <i class="sl sl-icon-camrecorder"></i> Join
     </button>
 </form>
