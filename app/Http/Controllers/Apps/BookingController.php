@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BookingRequest;
 use App\Repository\BookingRepository;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 
 class BookingController extends Controller
 {
@@ -18,8 +19,10 @@ class BookingController extends Controller
         return view('apps.pages.bookings.book', compact('event'));
     }
 
-    public function confirmation(BookingRequest $attributes)
+    public function confirmation(BookingRequest $attributes): RedirectResponse
     {
-        dd($attributes->all());
+
+        $token = $this->repository->confirmedPayment(attributes: $attributes);
+        return redirect()->away("https://secure.3gdirectpay.com/dpopayment.php?ID=$token");
     }
 }

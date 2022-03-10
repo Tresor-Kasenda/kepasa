@@ -12,9 +12,6 @@ class PaymentConfirmationMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    /**
-     * @return void
-     */
     public function __construct(public $user, public $event){}
 
     public function build(): PaymentConfirmationMail
