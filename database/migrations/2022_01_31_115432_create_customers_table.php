@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('country');
             $table->string('city');
             $table->string('ticketNumber');
+            $table->integer('reference')->unique();
             $table->enum('status', [PaymentEnum::$types])->default(PaymentEnum::UNPAID);
             $table->foreignIdFor(\App\Models\Event::class)
                 ->constrained()

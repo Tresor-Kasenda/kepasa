@@ -70,50 +70,27 @@
                         </div>
                         <div class="col-md-12">
                             <p class="form-row form-row-wide">
-                                <label for="password1">
-                                    <span style="font-weight: 700;">Price Per Ticket</span>
-                                    <h2>${{ $event->prices ?? "" }}</h2>
-                                </label>
+                                <span style="font-weight: 700;">Price Per Ticket</span>
+                                <h2>${{ $event->prices ?? "" }}</h2>
                             </p>
 
                             <p class="form-row form-row-wide">
                                 <label for="password1"><span style="font-weight: 700;">Total Amount</span>
-                            <h2 class="form-control" name="amount" id="answer"></h2>
+                                <h2 class="form-control" name="amount" id="answer"></h2>
                             </p>
                         </div>
                     </div>
                     <h3 class="margin-top-55 margin-bottom-30">Payment Method</h3>
-                    <div class="payment">
-                        <div class="payment-tab payment-tab-active">
-                            <div class="payment-tab-trigger">
-                                <input checked id="paypal" type="radio" value="paypal">
-                                <label for="paypal">PayPal</label>
-                                <img class="payment-logo paypal" src="{{ asset('images/paypal.png') }}" alt="">
-                            </div>
-
-                            <div class="payment-tab-content">
-                                <div class="row">
-                                    <div id="paypal-button"></div>
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6">
+                            <div id="paypal-button"></div>
                         </div>
-
-                        <div class="payment-tab">
-                            <div class="payment-tab-trigger">
-                                <input type="radio" id="creditCart" value="creditCard">
-                                <label for="creditCart">DPO</label>
-                                <img class="payment-logo" src="{{ asset('images/dpo.png') }}" alt="">
-                            </div>
-
-                            <div class="payment-tab-content">
-                                <div class="row">
-                                    <button style="box-shadow: none; border: none;">
-                                        <div class="payment_icon">
-                                            <img src="{{ asset('images/dpo.png') }}" class="dpo">
-                                        </div>
-                                    </button>
+                        <div class="col-md-6 col-lg-6">
+                            <button style="box-shadow: none; border: none;">
+                                <div class="payment_icon">
+                                    <img src="{{ asset('images/dpo.png') }}" class="dpo">
                                 </div>
-                            </div>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -126,7 +103,7 @@
 
                             <div class="listing-item-content">
                                 <span class="tag">{{ strtoupper($event->category->name) ?? "" }}</span>
-                                <h3>{{ strtoupper($event->title) ?? "" }}</h3>
+                                <h3>{{ $event->title ?? "" }}</h3>
                                 <span>{{ $event->address ?? "" }}, {{ $event->city ?? "" }}</span>
                             </div>
                         </div>
@@ -166,7 +143,7 @@
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                     if(details.status === 'COMPLETED'){
-                        window.location = "{{ route('organiser.checkout.confirmed', ['companyRed' => $event->key ]) }}&verify="+ details.status;
+                        window.location = "{{ route('user.confirmation.payment', $event->key) }}";
                     }
                 });
             }

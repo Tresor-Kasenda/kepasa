@@ -14,6 +14,7 @@ use App\Http\Controllers\Apps\PromotionRequestController;
 use App\Http\Controllers\HomeUserController;
 use App\Http\Controllers\Organisers\BookingOrganiserController;
 use App\Http\Controllers\Organisers\CheckoutOrganiserController;
+use App\Http\Controllers\Organisers\EnableXTokenController;
 use App\Http\Controllers\Organisers\EventOrganiserController;
 use App\Http\Controllers\Organisers\HomeOrganiserController;
 use App\Http\Controllers\Organisers\ImageOrganiserController;
@@ -69,12 +70,16 @@ Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['o
 
     Route::controller(CheckoutOrganiserController::class)->group(function(){
         Route::post('confirm-payment', 'confirmed')->name('confirm.payment.event');
-        Route::post('confirmation', 'updateCheckout')->name('checkout.confirmed');
+        Route::get('confirmation/{event}/update', 'updateCheckout')->name('checkout.confirmed');
     });
 
     Route::controller(ProfileOrganiserController::class)->group(function(){
         Route::post('imagesProfile',  'uploadPicture')->name('profile.images');
         Route::post('updateCompany', 'updateCompany')->name('company.update');
+    });
+
+    Route::controller(EnableXTokenController::class)->group(function(){
+        Route::post('createToken', 'createToken')->name('enable.token');
     });
 });
 
@@ -88,7 +93,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
 
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'auth']], function(){
     Route::resource('home', HomeUserController::class);
-    Route::post('confirm/{key}/bookings', [BookingController::class, 'confirmation'])->name('booking.confirmation');
+    Route::controller(BookingController::class)->group(function(){
+        Route::post('confirm/{key}/bookings', 'confirmation')->name('booking.confirmation');
+        Route::get('payment/{eventId}', 'confirmationPayment')->name('confirmation.payment');
+
+    });
 });
 
 Route::controller(HomeController::class)->group(function (){

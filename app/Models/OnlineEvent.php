@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,23 +28,23 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Company $company
  * @property-read \App\Models\Event $event
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent query()
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereCompanyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereEventId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereMode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereModeratorID($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereModerators($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereParticipantsID($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereReference($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereRoomId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereRoomName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereSchedule($value)
- * @method static \Illuminate\Database\Eloquent\Builder|OnlineEvent whereUpdatedAt($value)
+ * @method static Builder|OnlineEvent newModelQuery()
+ * @method static Builder|OnlineEvent newQuery()
+ * @method static Builder|OnlineEvent query()
+ * @method static Builder|OnlineEvent whereCompanyId($value)
+ * @method static Builder|OnlineEvent whereCreatedAt($value)
+ * @method static Builder|OnlineEvent whereEventId($value)
+ * @method static Builder|OnlineEvent whereId($value)
+ * @method static Builder|OnlineEvent whereKey($value)
+ * @method static Builder|OnlineEvent whereMode($value)
+ * @method static Builder|OnlineEvent whereModeratorID($value)
+ * @method static Builder|OnlineEvent whereModerators($value)
+ * @method static Builder|OnlineEvent whereParticipantsID($value)
+ * @method static Builder|OnlineEvent whereReference($value)
+ * @method static Builder|OnlineEvent whereRoomId($value)
+ * @method static Builder|OnlineEvent whereRoomName($value)
+ * @method static Builder|OnlineEvent whereSchedule($value)
+ * @method static Builder|OnlineEvent whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class OnlineEvent extends Model
@@ -60,5 +61,15 @@ class OnlineEvent extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public static function getOnlineEvents($key)
+    {
+        return OnlineEvent::query()
+            ->select('roomId')
+            ->join('events', 'events.id', '=', 'online_events.event_id')
+            ->where('events.user_id', auth()->id())
+            ->where('events.id', $key)
+            ->first();
     }
 }

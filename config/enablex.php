@@ -13,7 +13,6 @@
 
 return [
     'url' => env('ENABLE_URL', default: 'https://api.enablex.io/v1'),
-
     'app_id' => env('ENABLE_ID', ''),
     'app_key' => env('ENABLE_KEY', '')
 ];

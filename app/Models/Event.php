@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 
 /**
@@ -26,7 +28,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string $feeOption
  * @property string $commission
  * @property string $buyerPrice
- * @property \App\Models\Country|null $country
+ * @property Country|null $country
  * @property string $city
  * @property string|null $description
  * @property string $status
@@ -34,24 +36,24 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string $payment
  * @property int $promoted
  * @property string $image
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int $category_id
  * @property int $user_id
  * @property int $company_id
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Billing[] $billings
+ * @property-read Collection|Billing[] $billings
  * @property-read int|null $billings_count
- * @property-read \App\Models\Category $category
- * @property-read \App\Models\Company $company
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Customer[] $customers
+ * @property-read Category $category
+ * @property-read Company $company
+ * @property-read Collection|Customer[] $customers
  * @property-read int|null $customers_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Images[] $media
+ * @property-read Collection|Images[] $media
  * @property-read int|null $media_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OnlineEvent[] $onlineEvent
+ * @property-read Collection|OnlineEvent[] $onlineEvent
  * @property-read int|null $online_event_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PaymentCustomer[] $payments
+ * @property-read Collection|PaymentCustomer[] $payments
  * @property-read int|null $payments_count
- * @property-read \App\Models\User $user
+ * @property-read User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Event newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Event newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Event query()
@@ -119,9 +121,9 @@ class Event extends Model
         return $this->belongsTo(Country::class, 'countryCode');
     }
 
-    public function onlineEvent(): HasMany
+    public function onlineEvent(): HasOne
     {
-        return $this->hasMany(OnlineEvent::class);
+        return $this->hasOne(OnlineEvent::class);
     }
 
     public function payments(): HasMany

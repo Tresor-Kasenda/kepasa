@@ -25,4 +25,9 @@ class BookingController extends Controller
         $token = $this->repository->confirmedPayment(attributes: $attributes);
         return redirect()->away("https://secure.3gdirectpay.com/dpopayment.php?ID=$token");
     }
+
+    public function confirmationPayment(string $key)
+    {
+        dd($key);
+    }
 }

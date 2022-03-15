@@ -19,6 +19,7 @@
     </div>
     @include('apps.components._footer')
     @include('apps.partials.scripts._scripts')
+    <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.sandbox.client_id') }}&currency=USD" data-sdk-integration-source="button-factory"></script>
     @yield('scripts')
 </body>
 </html>

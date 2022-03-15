@@ -1,31 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services\Transaction;
+namespace App\Services\Payment;
 
-use App\Enums\PaymentEnum;
-use App\Mail\PaymentConfirmationMail;
-use App\Models\Event;
-use App\Models\PaymentCustomer;
-use App\Services\RandomValue;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Mail;
-
-trait PaymentService
+class DpoPayment
 {
-    use RandomValue;
-
-    public function transactionWithDpo($attributes)
+    public function pay($event, $attributes)
     {
-        $event = Event::query()
-            ->where('title', '=', $attributes->input('title'))
-            ->where('date', '=', $attributes->input('date'))
-            ->firstOrFail();
-
-        $amount = $event->prices;
-        $ref = $event->key;
-        $eventName = $event->title;
+        $price = $event->prices;
+        $reference = $event->key;
+        $title = $event->title;
         $phones = auth()->user()->phones;
         $organiserAddress = $attributes->input('address') ?? $event->address;
         $email = $attributes->input('email');
@@ -38,9 +22,9 @@ trait PaymentService
               <CompanyToken>9F416C11-127B-4DE2-AC7F-D5710E4C5E0A</CompanyToken>
               <Request>createToken</Request>
               <Transaction>
-                <PaymentAmount>" . $amount . "</PaymentAmount>
+                <PaymentAmount>" . $price . "</PaymentAmount>
                 <PaymentCurrency>USD</PaymentCurrency>
-                <CompanyRef>" . $ref . "</CompanyRef>
+                <CompanyRef>" . $reference . "</CompanyRef>
                 <RedirectURL>https://kepasa.africa/organiser/confirmation</RedirectURL>
                 <BackURL>https://kepasa.africa/</BackURL>
                 <customerEmail>" . $email . "</customerEmail>
@@ -55,7 +39,7 @@ trait PaymentService
               <Services>
                 <Service>
                   <ServiceType>3854</ServiceType>
-                  <ServiceDescription>" . $eventName . "</ServiceDescription>
+                  <ServiceDescription>" . $title . "</ServiceDescription>
                   <ServiceDate>" . date('Y/m/d h:i:s') . "</ServiceDate>
                 </Service>
               </Services>
@@ -83,34 +67,5 @@ trait PaymentService
         $token = simplexml_load_string($response);
         $payToken = (array)$token;
         return $payToken['TransToken'];
-    }
-
-    public function updatePayment(): Model|Builder|null
-    {
-        $event = Event::query()
-            ->where('user_id', '=', auth()->id())
-            ->where('company_id', '=', auth()->user()->company->id)
-            ->first();
-        $event->update([
-            'payment' => PaymentEnum::PAID
-        ]);
-        $this->updateTransaction(event: $event);
-        Mail::send(new PaymentConfirmationMail(auth()->user(), $event));
-        toast("Transaction made with success", 'success');
-        return $event;
-    }
-
-    private function updateTransaction($event)
-    {
-        $total = $event->ticketNumber * $event->prices;
-        PaymentCustomer::query()
-            ->create([
-                'event_id' => $event->id,
-                'user_id' => auth()->id(),
-                'ticketNumber' => $event->ticketNumber,
-                'totalAmount' => $total,
-                'reference' => $this->generateNumericValues(1000, 999999),
-                'status' => PaymentEnum::PAID
-            ]);
     }
 }

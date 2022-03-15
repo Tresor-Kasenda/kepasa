@@ -20,4 +20,10 @@ trait RandomValue
     {
         return rand($firstValue, $secondValue);
     }
+
+    public function generateStringValues(int $firstValue, int $secondValue): string
+    {
+        return strval(rand($firstValue, $secondValue));
+    }
+
 }

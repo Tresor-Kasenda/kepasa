@@ -7,7 +7,7 @@
         </div>
         <div class="widget-text">
             <h5>
-                <a href="{{ route('event.show', $event->key) }}">{{ strtoupper($event->title) ?? "" }}</a>
+                <a href="{{ route('event.show', $event->key) }}">{{ $event->title ?? "" }}</a>
             </h5>
             <span>{{ $event->date ?? "" }} to {{ $event->startTime }}</span>
         </div>

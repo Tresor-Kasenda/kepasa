@@ -9,7 +9,15 @@
                 <div class="col-md-12">
                     <div class="user-profile-titlebar">
                         <div class="user-profile-avatar">
-                            <img src="{{ asset('storage/',auth()->user()->profile->images) }}" alt="{{ auth()->user()->name ?? "" }}">
+                            <img
+                                @if(auth()->user()->profile->image == null)
+                                    src="{{ asset('assets/images/profile.jpg') }}"
+                                    alt="{{ auth()->user()->name ?? "" }}"
+                                @else
+                                    src="{{ asset('storage/'.auth()->user()->profile->image) }}"
+                                    alt="{{ auth()->user()->name ?? "" }}"
+                                @endif
+                            >
                         </div>
                         <div class="user-profile-name">
                             <a href="{{ route('user.home.index') }}">
@@ -87,8 +95,8 @@
                             <label>Image</label>
                             <input type="file"
                                    class="form-control-file text-success font-weight-bold"
-                                   required name="images"
-                                   id="images"
+                                   required name="image"
+                                   id="image"
                                    data-title="Click or Drag in your images(Max size: 10MB)">
                         </div>
                     </div>

@@ -46,6 +46,102 @@
         </div>
     </section>
 
+    <div class="container" id="listenCities">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="headline centered margin-bottom-35 margin-top-70">Popular Cities <span>Browse listings in popular places</span></h3>
+            </div>
+
+            @foreach($cities as $key => $city)
+                @if(count($cities)  == 1)
+                    <div class="col-md-12">
+                        <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-01.jpg">
+                            <div class="img-box-content visible">
+                                <h4>New York </h4>
+                                <span>14 Listings</span>
+                            </div>
+                        </a>
+                    </div>
+                @elseif(count($cities) == 2)
+                    <div class="col-md-4">
+                        <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-01.jpg">
+                            <div class="img-box-content visible">
+                                <h4>New York </h4>
+                                <span>14 Listings</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-02.jpg">
+                            <div class="img-box-content visible">
+                                <h4>Los Angeles</h4>
+                                <span>24 Listings</span>
+                            </div>
+                        </a>
+                    </div>
+                @elseif(count($cities) == 3)
+                    <div class="col-md-4">
+                        <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-01.jpg">
+                            <div class="img-box-content visible">
+                                <h4>New York </h4>
+                                <span>14 Listings</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-02.jpg">
+                            <div class="img-box-content visible">
+                                <h4>Los Angeles</h4>
+                                <span>24 Listings</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-03.jpg">
+                            <div class="img-box-content visible">
+                                <h4>San Francisco </h4>
+                                <span>12 Listings</span>
+                            </div>
+                        </a>
+                    </div>
+                @elseif(count($cities) == 4)
+                    <div class="col-md-4">
+                        <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-01.jpg">
+                            <div class="img-box-content visible">
+                                <h4>New York </h4>
+                                <span>14 Listings</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-02.jpg">
+                            <div class="img-box-content visible">
+                                <h4>Los Angeles</h4>
+                                <span>24 Listings</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-03.jpg">
+                            <div class="img-box-content visible">
+                                <h4>San Francisco </h4>
+                                <span>12 Listings</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-04.jpg">
+                            <div class="img-box-content visible">
+                                <h4>Miami</h4>
+                                <span>9 Listings</span>
+                            </div>
+                        </a>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+    </div>
+
     <div id="titlebar" class="gradient">
         <div class="container">
             <div class="row">
@@ -61,7 +157,7 @@
         </div>
     </div>
 
-    <section class="fullwidth padding-top-30 padding-bottom-40" data-background-color="#ffffff">
+    <section id="eventsListens" class="fullwidth padding-top-30 padding-bottom-40" data-background-color="#ffffff">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -78,48 +174,6 @@
             </div>
         </div>
     </section>
-
-    <div id="titlebar" class="gradient">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Featured Cities</h2>
-                    <nav id="breadcrumbs">
-                        <ul>
-                            <li><a class="text-teal-dim" href="{{ route('promotion.request') }}">Promote Your City.</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @if(count($cities) > 0)
-        <section class="fullwidth padding-top-50 padding-bottom-70" data-background-color="#ffffff">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="simple-slick-carousel dots-nav">
-                            @foreach($cities as $city)
-                                <div class="carousel-item">
-                                    <a href="{{ route('city.detail', ['cityName' => $city->cityName]) }}" class="listing-item-container">
-                                        <div class="listing-item">
-                                            <img src="" alt="{{ $city->cityName }}">
-                                            <div class="listing-item-content">
-                                                <h3>{{ strtoupper($city->cityName) ?? "" }}</h3>
-                                                <span>languages: {{ $event->languages ?? "" }}</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endif
-
 @endsection
 
 @section('scripts')
@@ -158,6 +212,9 @@
                     success: function(response){
                         if (response.search){
                             $('.renderSearch').html(response.search)
+                            $('#titlebar').hide()
+                            $('#listenCities').hide()
+                            $('#eventsListens').hide()
                         }else {
                             $('#error').html('<div class="col-md-12"><div class="notification success closeable margin-bottom-30"><p><strong>Sorry</strong>' + response.messages+ '</p><a class="close"></a></div></div>');
                         }

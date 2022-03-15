@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Organisers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventRequest;
 use App\Http\Requests\EventUpdateRequest;
-use App\Repository\HomeRepository;
 use App\Repository\Organisers\EventOrganiserRepository;
 use App\Repository\Suppers\CategorySupperRepository;
 use Illuminate\Contracts\Foundation\Application;
@@ -14,12 +13,10 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class EventOrganiserController extends Controller
 {
     public function __construct(
-        public HomeRepository $repository,
         public CategorySupperRepository $categorySupperRepository,
         public EventOrganiserRepository $organiserRepository
     ){}
@@ -47,7 +44,7 @@ class EventOrganiserController extends Controller
 
     public function store(EventRequest $attributes): RedirectResponse
     {
-        $event = $this->organiserRepository->store(attributes: $attributes);
+        $event = $this->organiserRepository->storeEvents(attributes: $attributes);
         return redirect()->route('organiser.events.payment.index', compact('event'));
     }
 

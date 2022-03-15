@@ -9,7 +9,7 @@ use App\Enums\StatusEnum;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
-use App\Services\GetLocation;
+use App\Services\LocationService\GetLocation;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;

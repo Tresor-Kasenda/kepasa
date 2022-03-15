@@ -34,7 +34,7 @@
                                         <div class="listing-item-content">
                                             <span class="tag">{{ strtoupper($event->category->name) ?? "" }}</span>
                                             <h3>
-                                                {{ strtoupper($event->title) ?? "" }}
+                                                {{ $event->title ?? "" }}
                                                 @if($event->promoted == true)
                                                     <i class="verified-icon"></i>
                                                 @endif

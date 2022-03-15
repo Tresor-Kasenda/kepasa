@@ -108,7 +108,7 @@
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                     if(details.status === 'COMPLETED'){
-                        window.location = "{{ route('organiser.checkout.confirmed', ['companyRed' => $event->key ]) }}";
+                        window.location = "{{ route('organiser.checkout.confirmed', $event->key) }}";
                     }
                 });
             }

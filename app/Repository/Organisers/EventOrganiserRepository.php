@@ -7,7 +7,6 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
-use App\Models\OnlineEvent;
 use App\Services\EnableX\CreateRoomService;
 use App\Services\FeedCalculation;
 use App\Services\ImageUpload;
@@ -23,7 +22,7 @@ class EventOrganiserRepository
     public function getContents(): LengthAwarePaginator
     {
         return Event::query()
-            ->with(['category', 'media'])
+            ->with(['category', 'onlineEvent'])
             ->withCount('payments')
             ->where('user_id', '=', request()->user()->id)
             ->orderByDesc('created_at')
@@ -36,17 +35,19 @@ class EventOrganiserRepository
         return $event->load(['category', 'media', 'payments']);
     }
 
-    public function store($attributes): Model|Builder
+    public function storeEvents($attributes): Model|Builder
     {
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
-        $event = $this->storeEvent($attributes, $feedCalculation);
-        $category = Category::query()
-            ->where('id', '=', $attributes->input('category_id'))
-            ->first();
-        if ($category->name === 'online'){
-            $this->storeOnlineEvent($event, $attributes);
+        $category = $this->getCategory(attributes: $attributes);
+        $event = $this->storeEvent(attributes: $attributes, feedCalculation: $feedCalculation);
+        if ($category->id === 1){
+            $online = new CreateRoomService();
+            $online->storeOnlineEvent(attributes: $attributes,event: $event);
+            $this->createBilling(event: $event, attributes: $attributes);
+            toast("Evenement enregistrer avec succes",'success');
+            return $event;
         }
-        $this->createBilling($event, $attributes);
+        $this->createBilling(event: $event, attributes: $attributes);
         toast("Evenement enregistrer avec succes",'success');
         return $event;
     }
@@ -54,6 +55,7 @@ class EventOrganiserRepository
     public function updateEvent(string $key, $attributes): Model|Builder
     {
         $event = $this->getSingleEvent($key);
+        $this->removePicture($event);
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
         $this->eventUpdate($event, $attributes, $feedCalculation);
         toast("Evenement a ete mise a jours",'success');
@@ -63,6 +65,7 @@ class EventOrganiserRepository
     public function deleteEvent(string $key): Model|Builder
     {
         $event = $this->getSingleEvent(key: $key);
+        $this->removePicture($event);
         $event->delete();
         toast("Evenement supprimer avec succes", 'success');
         return $event;
@@ -162,24 +165,5 @@ class EventOrganiserRepository
             'description' => $attributes->input('description'),
             'category_id' => $attributes->input('category_id')
         ]);
-    }
-
-    private function storeOnlineEvent($event, $attributes): void
-    {
-        $room = new CreateRoomService($event, $attributes);
-        $onlineEvent = $room->createRoom();
-        OnlineEvent::query()
-            ->create([
-                'event_id' => $event->id,
-                'company_id' => $attributes->user()->company->id,
-                'roomId' => $attributes->inptu(''),
-                'roomName' => $attributes->inptu('title'),
-                'reference' => $eventReference,
-                'moderators' => $attributes->inptu(''),
-                'schedule' => $attributes->inptu(''),
-                'mode' => $attributes->inptu(''),
-                'participantsID' => $attributes->inptu('ticketNumber'),
-                'moderatorID' => $moderator_pin
-            ]);
     }
 }

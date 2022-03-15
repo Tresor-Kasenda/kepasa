@@ -38,19 +38,19 @@
                                 Time : {{ $event->startTime ?? "" }}-{{ $event->endTime ?? "" }}
                             </a>
                         </span> <br>
-                        @auth()
-                            @if($event->category_id = 1)
-                                <span>
-                                <form action="" method="post" class="d-inline">
-                                    @csrf
-                                    <input type="hidden" name="title" value="{{ $event->title ?? "" }}">
-                                    <button type="submit" class="listing-tag">
-                                        <i class="sl sl-icon-camrecorder"></i> Join event
-                                    </button>
-                                </form>
-                            </span>
-                            @endif
-                        @endauth
+{{--                        @auth()--}}
+{{--                            @if($event->category_id = 1)--}}
+{{--                                <span>--}}
+{{--                                <form action="" method="post" class="d-inline">--}}
+{{--                                    @csrf--}}
+{{--                                    <input type="hidden" name="title" value="{{ $event->title ?? "" }}">--}}
+{{--                                    <button type="submit" class="listing-tag">--}}
+{{--                                        <i class="sl sl-icon-camrecorder"></i> Join event--}}
+{{--                                    </button>--}}
+{{--                                </form>--}}
+{{--                            </span>--}}
+{{--                            @endif--}}
+{{--                        @endauth--}}
                     </div>
                 </div>
 

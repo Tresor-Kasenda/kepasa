@@ -18,8 +18,8 @@ class EventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => ['required', 'min:4'],
-            "subTitle" => ['required', 'min:4'],
+            "title" => ['required', 'min:4', Rule::unique('events', 'title')],
+            "subTitle" => ['required', 'min:4', Rule::unique('events', 'subTitle')],
             "category_id" => ['required', Rule::exists('categories', 'id')],
             "date" => ['required', 'date', 'after:tomorrow'],
             "startTime" => ['required', 'date_format:H:i', 'required_with:endTime'],
