@@ -64,7 +64,7 @@ class EventOrganiserController extends Controller
 
     public function destroy(string $key): RedirectResponse
     {
-        $this->organiserRepository->deleteEvent(key: $key);
+        $this->organiserRepository->deletedEvent(key: $key);
         return redirect()->route('organiser.events.index');
     }
 }

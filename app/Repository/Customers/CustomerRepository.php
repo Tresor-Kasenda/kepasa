@@ -5,7 +5,7 @@ namespace App\Repository\Customers;
 
 use App\Models\Country;
 use App\Models\User;
-use App\Services\ImageUpload;
+use App\Traits\ImageUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;

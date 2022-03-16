@@ -9,17 +9,8 @@ use Illuminate\Support\ServiceProvider;
 
 class RepositoriesServiceProvider extends ServiceProvider
 {
-    /**
-     * @return void
-     */
-    public function register()
-    {
-        //
-    }
+    public function register(){}
 
-    /**
-     * @return void
-     */
     public function boot()
     {
         $this->app->bind(

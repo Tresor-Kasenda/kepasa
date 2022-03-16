@@ -87,8 +87,13 @@
 @endsection
 
 @section('scripts')
-    <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.sandbox.client_id') }}&currency=USD" data-sdk-integration-source="button-factory"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.sandbox.client_id') }}&currency=USD"></script>
     <script>
+        let content = {
+            'title': $('#title').val(),
+            'lastNameOrganiser': $('#lastNameOrganiser').val(),
+            'name': $('#name').val()
+        };
         paypal.Buttons({
             style: {
                 shape: 'rect',
@@ -99,11 +104,10 @@
             createOrder: function(data, actions) {
                 return fetch(`{{ route('organiser.paypal.execute') }}`, {
                     method: 'post',
-                    body: JSON.stringify({
-                        'title': $('#title').val(),
-                        'lastNameOrganiser': $('#lastNameOrganiser').val(),
-                        'name': $('#name').val()
-                    })
+                    headers: {
+                        "X-CSRF-Token": $('input[name="_token"]').val()
+                    },
+                    body: content
                 }).then(function(res) {
                     return res.json();
                 }).then(function(orderData) {

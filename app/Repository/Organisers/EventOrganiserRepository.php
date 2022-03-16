@@ -3,22 +3,23 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers;
 
+use App\Jobs\OnlineEventCreatedJob;
+use App\Jobs\OnlineEventDeletedJob;
+use App\Models\Billing;
 use App\Models\Category;
-use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
 use App\Services\EnableX\CreateRoomService;
-use App\Services\EnableX\EnableXHttpService;
-use App\Services\FeedCalculation;
-use App\Services\ImageUpload;
-use App\Services\RandomValue;
+use App\Traits\FeedCalculation;
+use App\Traits\ImageUpload;
+use App\Traits\RandomValue;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class EventOrganiserRepository
 {
-    use FeedCalculation, ImageUpload, RandomValue, EnableXHttpService;
+    use FeedCalculation, ImageUpload, RandomValue;
 
     public function getContents(): LengthAwarePaginator
     {
@@ -32,7 +33,7 @@ class EventOrganiserRepository
 
     public function getEventById(string $key): Model|Builder
     {
-        $event = $this->getSingleEvent(key: $key);
+        $event = $this->getEventByKey(key: $key);
         return $event->load(['category', 'media', 'payments']);
     }
 
@@ -40,34 +41,41 @@ class EventOrganiserRepository
     {
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
         $category = $this->getCategory(attributes: $attributes);
-        $event = $this->storeEvent(attributes: $attributes, feedCalculation: $feedCalculation);
+        $event = $this->storedEvent(attributes: $attributes, feedCalculation: $feedCalculation);
         if ($category->id === 1){
             $online = new CreateRoomService();
             $online->storeOnlineEvent(attributes: $attributes,event: $event);
-            $this->createBilling(event: $event, attributes: $attributes);
+            $this->createdBilling(event: $event, attributes: $attributes);
             toast("Evenement enregistrer avec succes",'success');
             return $event;
         }
-        $this->createBilling(event: $event, attributes: $attributes);
+        $this->createdBilling(event: $event, attributes: $attributes);
         toast("Evenement enregistrer avec succes",'success');
         return $event;
     }
 
     public function updateEvent(string $key, $attributes): Model|Builder
     {
-        $event = $this->getSingleEvent($key);
+        $event = $this->getEventByKey($key);
         $this->removePicture($event);
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
-        $this->eventUpdate($event, $attributes, $feedCalculation);
+        $category = $this->getCategory(attributes: $attributes);
+        if ($category->id === 1){
+            $online = new CreateRoomService();
+            $this->updatedBilling(event: $event, attributes: $attributes);
+            toast("Evenement mise a jours avec succes",'success');
+            return $event;
+        }
+        $this->updatedEvent($event, $attributes, $feedCalculation);
         toast("Evenement a ete mise a jours",'success');
         return $event;
     }
 
-    public function deleteEvent(string $key): Model|Builder
+    public function deletedEvent(string $key): Model|Builder
     {
-        $event = $this->getSingleEvent(key: $key);
+        $event = $this->getEventByKey(key: $key);
         $this->removePicture($event);
-        $this->request()->delete(config('enablex.url')."rooms/". $event->onlineEvent->roomId);
+        dispatch(new OnlineEventDeletedJob($event))->delay(now()->addSecond(6));
         $event->delete();
         toast("Evenement supprimer avec succes", 'success');
         return $event;
@@ -80,15 +88,7 @@ class EventOrganiserRepository
             ->firstOrFail();
     }
 
-    private function getCity($attributes, $country): Builder|Model
-    {
-        return City::query()
-            ->where('id', '=', $attributes->input('cityName'))
-            ->where('countryCode', '=', $country->countryCode)
-            ->firstOrFail();
-    }
-
-    private function getSingleEvent(string $key): Model|Builder
+    private function getEventByKey(string $key): Model|Builder
     {
         $event = Event::query()
             ->where('user_id', '=', auth()->id())
@@ -97,7 +97,7 @@ class EventOrganiserRepository
         return $event->load('onlineEvent');
     }
 
-    private function createBilling($event, $attributes)
+    private function createdBilling($event, $attributes)
     {
         $amountSold = $attributes->input('ticketNumber') * $attributes->input('prices');
         $commission = (5 / 100) * $amountSold;
@@ -117,6 +117,26 @@ class EventOrganiserRepository
         ]);
     }
 
+    private function updatedBilling($event, $attributes)
+    {
+        $amountSold = $attributes->input('ticketNumber') * $attributes->input('prices');
+        $commission = (5 / 100) * $amountSold;
+        $payout = $amountSold - $commission;
+        $billing = Billing::query()
+            ->where('event_id', '=', $event->id)
+            ->first();
+        $billing->update([
+            'eventDate' => $event->date,
+            'amountSold' => $amountSold,
+            'ticketPrice' => $event->prices,
+            'ticketSold' => $event->ticketNumber,
+            'commission' => $commission,
+            'feeType' => $attributes->input('feeOption'),
+            'amountPaid' => $payout,
+            'payout' => $payout,
+        ]);
+    }
+
     private function getCategory($attributes): null|Builder|Model
     {
         return Category::query()
@@ -124,7 +144,7 @@ class EventOrganiserRepository
             ->first();
     }
 
-    private function storeEvent($attributes, $feedCalculation): Builder|Model
+    private function storedEvent($attributes, $feedCalculation): Builder|Model
     {
         return Event::query()
             ->create([
@@ -149,7 +169,7 @@ class EventOrganiserRepository
             ]);
     }
 
-    private function eventUpdate($event, $attributes, array $feedCalculation): void
+    private function updatedEvent($event, $attributes, array $feedCalculation): void
     {
         $event->update([
             'title' => $attributes->input('title'),

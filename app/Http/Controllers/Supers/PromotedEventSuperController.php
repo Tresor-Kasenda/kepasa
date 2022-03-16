@@ -27,9 +27,14 @@ class PromotedEventSuperController extends Controller
 
     public function changeStatus(UpdateStatusEvent $event): JsonResponse
     {
-        $this->repository->changeStatus(attributes: $event);
+        $event = $this->repository->changeStatus(attributes: $event);
+        if ($event != false){
+            return response()->json([
+                'message' => "The status has been successfully updated"
+            ]);
+        }
         return response()->json([
-            'message' => "The status has been successfully updated"
+            'message' => "Le paiement ne pas encore effectuer pour activer cette evenement"
         ]);
     }
 }

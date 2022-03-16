@@ -13,20 +13,25 @@ class StatusEventRepository
     public function changeStatus($attributes): bool|int
     {
         $event = $this->getEvent($attributes);
-
-        return $event->update([
-            'status' => $attributes->input('status')
-        ]);
+        if ($event != null){
+            return $event->update([
+                'status' => $attributes->input('status')
+            ]);
+        }
+        return false;
     }
 
     public function promoted(string $key): Model|Event|Builder|null
     {
         $event = $this->getSingleEvent($key);
-        $event->update([
-            'promoted' => true
-        ]);
-        toast("L'evenement a ete promus", 'success');
-        return $event;
+        if ($event != null){
+            $event->update([
+                'promoted' => true
+            ]);
+            toast("L'evenement a ete promus", 'success');
+            return $event;
+        }
+        return null;
     }
 
     public function unPromoted(string $key): Model|Event|Builder|null

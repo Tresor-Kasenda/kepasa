@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Supers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventUpdateRequest;
+use App\Repository\Suppers\CategorySupperRepository;
 use App\Repository\Suppers\EventSupperRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -14,7 +15,10 @@ use Illuminate\Http\RedirectResponse;
 
 class EventSupperController extends Controller
 {
-    public function __construct(public EventSupperRepository $repository){}
+    public function __construct(
+        public EventSupperRepository $repository,
+        public CategorySupperRepository $categorySupperRepository
+    ){}
 
     public function index(): Renderable
     {
@@ -31,8 +35,10 @@ class EventSupperController extends Controller
 
     public function edit(string $key): Factory|View|Application
     {
-        $event = $this->repository->getEventByKey(key: $key);
-        return view('admins.pages.events.edit', compact('event'));
+        return view('admins.pages.events.edit', [
+            'event' => $this->repository->getEventByKey(key: $key),
+            'categories' => $this->categorySupperRepository->getContents()
+        ]);
     }
 
     public function update(string $key, EventUpdateRequest $attributes)

@@ -58,7 +58,7 @@
             @if($event->promoted == false)
                 <div class="alert alert-danger alert-icon " role="alert">
                     <em class="icon ni ni-alert-circle"></em>
-                    Cette salle ne pas encore activé. Veillez l'activer pour qu'elle soie visible
+                    La promotion ne peut etre faite que si le paiemment a ete deja effectuer
                 </div>
             @endif
             @if($event->status == \App\Enums\StatusEnum::POSTPONE)

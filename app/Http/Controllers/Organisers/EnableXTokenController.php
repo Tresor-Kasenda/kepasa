@@ -14,5 +14,6 @@ class EnableXTokenController extends Controller
     public function createToken(EnableXTokenRequest $attributes)
     {
         $event = $this->repository->joinOnlineEvent($attributes);
+        dd($event);
     }
 }

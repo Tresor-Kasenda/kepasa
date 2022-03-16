@@ -18,7 +18,7 @@
                         <div class="card-inner">
                             <table class="datatable-init nowrap nk-tb-list nk-tb-ulist" data-auto-responsive="false">
                                 <thead>
-                                <tr class="nk-tb-item nk-tb-head">
+                                <tr class="nk-tb-item nk-tb-head text-center">
                                     <th class="nk-tb-col tb-col-mb">
                                         <span class="sub-text">Images</span>
                                     </th>
@@ -47,7 +47,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($events as $event)
-                                        <tr class="nk-tb-item">
+                                        <tr class="nk-tb-item text-center">
                                             <td class="nk-tb-col tb-col-md">
                                                 <span class="tb-product text-center">
                                                  <img src="{{

@@ -26,8 +26,6 @@ class CheckoutOrganiserController extends Controller
         return redirect()->away("https://secure.3gdirectpay.com/dpopayment.php?ID=$token");
     }
 
-
-
     public function updateCheckout(string $key): RedirectResponse
     {
         $this->repository->updatePayment(key: $key);

@@ -81,11 +81,11 @@ Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['o
 
     Route::controller(EnableXTokenController::class)->group(function(){
         Route::post('createToken', 'createToken')->name('enable.token');
+        Route::get('joinRoom/{token}/{roomId}/{role}/{user_ref}/{event}', 'joinRoom')->name('enable.joinRoom');
     });
 
-    Route::group(['prefix' => 'paypal'], function (){
-        Route::post('execute', [PaypalController::class, 'execute'])->name('paypal.execute');
-    });
+    Route::post('execute', [PaypalController::class, 'execute'])->name('paypal.execute');
+    Route::post('capture', [PaypalController::class, 'capture'])->name('paypal.capture');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function(){
@@ -101,7 +101,6 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
     Route::controller(BookingController::class)->group(function(){
         Route::post('confirm/{key}/bookings', 'confirmation')->name('booking.confirmation');
         Route::get('payment/{eventId}', 'confirmationPayment')->name('confirmation.payment');
-
     });
 });
 

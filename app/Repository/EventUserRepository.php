@@ -7,12 +7,12 @@ use App\Enums\PaymentEnum;
 use App\Enums\StatusEnum;
 use App\Models\Country;
 use App\Models\Event;
-use App\Services\GetSingleService;
+use App\Traits\GetSingleEvent;
 use Illuminate\Database\Eloquent\Collection;
 
 class EventUserRepository
 {
-    use GetSingleService;
+    use GetSingleEvent;
 
     public function getContents(): Collection|array
     {

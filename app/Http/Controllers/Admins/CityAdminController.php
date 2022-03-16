@@ -11,7 +11,6 @@ class CityAdminController extends Controller
 {
     public function index(City $city): Renderable
     {
-        dd($city);
         return view('supervisor.pages.cities.index');
     }
 }

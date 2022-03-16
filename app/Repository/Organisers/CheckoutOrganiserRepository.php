@@ -8,7 +8,7 @@ use App\Mail\PaymentConfirmationMail;
 use App\Models\Event;
 use App\Models\PaymentCustomer;
 use App\Services\Payment\DpoPayment;
-use App\Services\RandomValue;
+use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;

@@ -7,14 +7,14 @@ use App\Enums\PaymentEnum;
 use App\Enums\StatusEnum;
 use App\Mail\CustomerTransactionMail;
 use App\Models\Event;
-use App\Services\GetSingleService;
+use App\Traits\GetSingleEvent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 
 class BookingRepository
 {
-    use GetSingleService;
+    use GetSingleEvent;
 
     public function confirmedPayment($attributes)
     {

@@ -5,7 +5,7 @@ namespace App\Repository\Organisers;
 
 use App\Models\Event;
 use App\Models\Images;
-use App\Services\ImageUpload;
+use App\Traits\ImageUpload;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

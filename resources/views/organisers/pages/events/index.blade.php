@@ -61,12 +61,14 @@
                                             @endif
                                             <span class="message-by">{{ $event->billings_count ?? 0 }} ticket(s) </span>
                                         </div>
-                                        @if($event->onlineEvent->mode == "group")
-                                            <div class="start-rating d-block">
-                                                @if($event->category_id == 1 && $event->onlineEvent->event_id == $event->id)
-                                                    @include('organisers.partials.join', with($event))
-                                                @endif
-                                            </div>
+                                        @if($event->onlineEvent != null)
+                                            @if($event->onlineEvent->mode == "group")
+                                                <div class="start-rating d-block">
+                                                    @if($event->category_id == 1 && $event->onlineEvent->event_id == $event->id)
+                                                        @include('organisers.partials.join', with($event))
+                                                    @endif
+                                                </div>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>

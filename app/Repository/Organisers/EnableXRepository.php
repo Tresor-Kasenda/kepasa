@@ -15,7 +15,7 @@ class EnableXRepository implements OrganiserRepositoryInterface
 
     public function joinOnlineEvent($attributes)
     {
-         $event = $this->joinRoomParticipant(attributes:  $attributes);
+        $event = $this->joinRoomParticipant(attributes:  $attributes);
 
         $data = [
             "name"=> auth()->user()->name,
@@ -38,28 +38,18 @@ class EnableXRepository implements OrganiserRepositoryInterface
         if ($json_error){
             $error = Errors::getError( "4003");
             $error["desc"] = $json_error;
-            return json_encode($error);
+            return $error;
         }
 
         if ($data['name'] && $data['role'] && $data['roomId']){
             $ret = $this->createToken($data);
-            dd($ret);
             if ($ret){
-                $result = json_decode($ret,true);
-                if($result['token']){
-                    echo "<script>window.location.href ='../../room/index.php?token=".$result['token']."&roomId=".$event->roomId."&role=".$event->role."&user_ref=".$event->user_ref."&event=".$event."';</script>'";
-                } else {
-                    echo "<script>window.location.href =document.referrer;</script>";
-                    exit;
-                }
+                return [$ret, $data];
             }
         }else{
-            $error = $ARR_ERROR["4004"];					// Required JSON Key missing
+            $error = Errors::getError( "4004");
             $error["desc"] = "JSON keys missing: name, role or roomId";
-            $error = json_encode($error);
-            //print $error;
-            echo "<script>window.location.href =document.referrer;</script>";
-            exit;
+            return $error;
         }
     }
 
@@ -85,12 +75,5 @@ class EnableXRepository implements OrganiserRepositoryInterface
     {
         $key = $attributes->input('key');
         return OnlineEvent::getOnlineEvents(key: $key);
-    }
-
-    private function getOnlineEvent(string $key): Model|Builder|OnlineEvent|null
-    {
-        return OnlineEvent::query()
-            ->where('reference', '=', $key)
-            ->first();
     }
 }
