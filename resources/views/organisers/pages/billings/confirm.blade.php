@@ -23,13 +23,13 @@
                             @csrf
                             <div class="col-md-6">
                                 <h5>Category</h5>
-                                <input  type="text" name="name" value="{{ $event->category->name ?? "" }}" readonly required>
+                                <input  type="text" id="name" name="name" value="{{ $event->category->name ?? "" }}" readonly required>
                             </div>
                             <input type="hidden" name="nameOrganiser" value="{{ $event->user->name ?? "" }}">
-                            <input type="hidden" name="lastNameOrganiser" value="{{ $event->user->lastName ?? "" }}">
+                            <input type="hidden" id="lastNameOrganiser" name="lastNameOrganiser" value="{{ $event->user->lastName ?? "" }}">
                             <div class="col-md-6">
                                 <h5>Event Name</h5>
-                                <input type="text" readonly required value="{{ $event->title ?? "" }}" name="title">
+                                <input type="text" id="title" readonly required value="{{ $event->title ?? "" }}" name="title">
                             </div>
                             <div class="col-md-6">
                                 <h5>Subtitle</h5>
@@ -97,19 +97,58 @@
                 label: 'pay',
             },
             createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: { value: '{{ $event->ticketNumber }}' },
-                        'event': "{{ $event }}",
-                        'user_id' : "{{ auth()->user()->id }}",
-                    }]
+                return fetch(`{{ route('organiser.paypal.execute') }}`, {
+                    method: 'post',
+                    body: JSON.stringify({
+                        'title': $('#title').val(),
+                        'lastNameOrganiser': $('#lastNameOrganiser').val(),
+                        'name': $('#name').val()
+                    })
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    return orderData.id;
                 });
             },
+
+            // Call your server to finalize the transaction
             onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    if(details.status === 'COMPLETED'){
-                        window.location = "{{ route('organiser.checkout.confirmed', $event->key) }}";
+                return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
+                    method: 'post'
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(orderData) {
+                    // Three cases to handle:
+                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                    //   (2) Other non-recoverable errors -> Show a failure message
+                    //   (3) Successful transaction -> Show confirmation or thank you
+
+                    // This example reads a v2/checkout/orders capture response, propagated from the server
+                    // You could use a different API or structure for your 'orderData'
+                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                        return actions.restart(); // Recoverable state, per:
+                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
                     }
+
+                    if (errorDetail) {
+                        var msg = 'Sorry, your transaction could not be processed.';
+                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                        return alert(msg); // Show a failure message (try to avoid alerts in production environments)
+                    }
+
+                    // Successful capture! For demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
                 });
             }
         }).render('#paypal-button-container');

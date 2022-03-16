@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CreateRoomService
 {
-    use RandomValue;
+    use RandomValue, EnableXHttpService;
 
     public function storeOnlineEvent($attributes, $event): Model|Builder|OnlineEvent
     {
@@ -21,28 +21,29 @@ class CreateRoomService
             ->create([
                 'event_id' => $event->id,
                 'company_id' => $attributes->user()->company->id,
-                'roomId' => $onlineEventCreate[0]['room_id'],
-                'roomName' => $onlineEventCreate[0]['name'],
-                'reference' => bin2hex(random_bytes(30)),
-                'moderators' => $onlineEventCreate[1]['moderators'],
+                'roomId' => $onlineEventCreate['room']['room_id'],
+                'roomName' => $onlineEventCreate['room']['name'],
+                'reference' => $onlineEventCreate['room']['owner_ref'],
+                'moderators' => $onlineEventCreate['room']['settings']['moderators'],
                 'schedule' => $date,
-                'mode' => $onlineEventCreate[1]['mode'],
+                'duration' => $onlineEventCreate['room']['settings']['duration'],
+                'participants' => $onlineEventCreate['room']['settings']['participants'],
+                'mode' => $onlineEventCreate['room']['settings']['mode'],
                 'participantsID' => $this->generateNumericValues(100000, 999999),
                 'moderatorID' => $this->generateNumericValues(100000, 999999)
             ]);
     }
 
-    private function CreateRoom($event): array
+    private function CreateRoom($event)
     {
         $participants = $event->ticketNumber;
         list($date, $duration) = $this->dateCalculation($event);
         $Room = $this->createRoomMeta($event, $participants, $duration, $date);
         $Room_Meta = json_encode($Room);
-        $headers = array(
-            'Content-Type: application/json',
-            'Authorization: Basic '. base64_encode( env('ENABLE_ID') . ":". env('ENABLE_KEY'))
-        );
-        return $this->storedOnlineEvent($headers, $Room_Meta);
+
+        return $this->request()
+            ->post(config('enablex.url') ."rooms/", $Room)
+            ->json();
 
     }
 
@@ -86,21 +87,5 @@ class CreateRoomService
                 "enabled" => false
             )
         );
-    }
-
-    private function storedOnlineEvent(array $headers, bool|string $Room_Meta): array
-    {
-        /* CURL POST Request */
-        $ch = curl_init(config('enablex.url') . "/rooms");
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $Room_Meta);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        $obj = (array)json_decode($response);
-        $room = (array)$obj['room'];
-        $settings = (array)$room['settings'];
-        return [$room, $settings];
     }
 }

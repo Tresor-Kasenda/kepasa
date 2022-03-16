@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
 use App\Services\EnableX\CreateRoomService;
+use App\Services\EnableX\EnableXHttpService;
 use App\Services\FeedCalculation;
 use App\Services\ImageUpload;
 use App\Services\RandomValue;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventOrganiserRepository
 {
-    use FeedCalculation, ImageUpload, RandomValue;
+    use FeedCalculation, ImageUpload, RandomValue, EnableXHttpService;
 
     public function getContents(): LengthAwarePaginator
     {
@@ -66,6 +67,7 @@ class EventOrganiserRepository
     {
         $event = $this->getSingleEvent(key: $key);
         $this->removePicture($event);
+        $this->request()->delete(config('enablex.url')."rooms/". $event->onlineEvent->roomId);
         $event->delete();
         toast("Evenement supprimer avec succes", 'success');
         return $event;
@@ -88,10 +90,11 @@ class EventOrganiserRepository
 
     private function getSingleEvent(string $key): Model|Builder
     {
-        return Event::query()
+        $event = Event::query()
             ->where('user_id', '=', auth()->id())
             ->where('key', '=', $key)
             ->firstOrFail();
+        return $event->load('onlineEvent');
     }
 
     private function createBilling($event, $attributes)

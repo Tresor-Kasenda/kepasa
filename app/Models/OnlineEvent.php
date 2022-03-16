@@ -63,10 +63,10 @@ class OnlineEvent extends Model
         return $this->belongsTo(Company::class, 'company_id');
     }
 
-    public static function getOnlineEvents($key)
+    public static function getOnlineEvents($key): Model|Builder|null
     {
         return OnlineEvent::query()
-            ->select('roomId')
+            ->select('*')
             ->join('events', 'events.id', '=', 'online_events.event_id')
             ->where('events.user_id', auth()->id())
             ->where('events.id', $key)

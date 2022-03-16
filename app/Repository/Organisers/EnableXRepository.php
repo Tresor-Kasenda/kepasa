@@ -5,12 +5,14 @@ namespace App\Repository\Organisers;
 use App\EnxRtc\Errors;
 use App\Models\OnlineEvent;
 use App\Repository\OrganiserRepositoryInterface;
+use App\Services\EnableX\EnableXHttpService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\JsonResponse;
 
 class EnableXRepository implements OrganiserRepositoryInterface
 {
+    use EnableXHttpService;
+
     public function joinOnlineEvent($attributes)
     {
          $event = $this->joinRoomParticipant(attributes:  $attributes);
@@ -19,7 +21,10 @@ class EnableXRepository implements OrganiserRepositoryInterface
             "name"=> auth()->user()->name,
             "role"=> "moderator",
             "roomId"=> $event->roomId,
-            "user_ref" => auth()->user()->name
+            "user_ref" => $event->reference,
+            'duration' => $event->duration,
+            'participants' => $event->participants,
+            'scheduled_time' => $event->schedule
         ];
 
         if (!json_encode($event)){
@@ -58,30 +63,25 @@ class EnableXRepository implements OrganiserRepositoryInterface
         }
     }
 
-    public function createToken($onlineEvent): bool|string
+    public function createToken($onlineEvent)
     {
-        $Token = Array(
+        $token = [
             "name"			=> $onlineEvent['name'],
-            "role"			=> $onlineEvent['role'],
-            "user_ref"		=> $onlineEvent['user_ref']
-        );
-        $Token_Payload = json_encode($Token);
-        $headers = array(
-            'Content-Type: application/json',
-            'Authorization: Basic '. base64_encode(config('enablex.app_id') . ":". config('enablex.app_key'))
-        );
+            "owner_ref"		=> $onlineEvent['user_ref'],
+            'duration'      => $onlineEvent['duration'],
+            'participants'  => $onlineEvent['participants'],
+            'scheduled_time' => $onlineEvent['scheduled_time'],
+            'scheduled'     => true,
+            'user_ref'      => auth()->user()->name,
+            'role'          => $onlineEvent['role']
+        ];
 
-        $ch = curl_init(config('enablex.url')."/rooms/". $data->roomId . "/tokens");
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $Token_Payload);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        return $response;
+        return $this->request()
+            ->post(config('enablex.url')."rooms/". $onlineEvent['roomId']. "/tokens", $token)
+            ->json();
     }
 
-    public function joinRoomParticipant($attributes)
+    public function joinRoomParticipant($attributes): Model|Builder|null
     {
         $key = $attributes->input('key');
         return OnlineEvent::getOnlineEvents(key: $key);

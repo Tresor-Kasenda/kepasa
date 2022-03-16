@@ -18,6 +18,7 @@ use App\Http\Controllers\Organisers\EnableXTokenController;
 use App\Http\Controllers\Organisers\EventOrganiserController;
 use App\Http\Controllers\Organisers\HomeOrganiserController;
 use App\Http\Controllers\Organisers\ImageOrganiserController;
+use App\Http\Controllers\Organisers\PaypalController;
 use App\Http\Controllers\Organisers\ProfileOrganiserController;
 use App\Http\Controllers\Supers\AdminSupperController;
 use App\Http\Controllers\Supers\BillingSupperController;
@@ -80,6 +81,10 @@ Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['o
 
     Route::controller(EnableXTokenController::class)->group(function(){
         Route::post('createToken', 'createToken')->name('enable.token');
+    });
+
+    Route::group(['prefix' => 'paypal'], function (){
+        Route::post('execute', [PaypalController::class, 'execute'])->name('paypal.execute');
     });
 });
 
