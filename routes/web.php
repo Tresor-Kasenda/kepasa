@@ -81,7 +81,7 @@ Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['o
 
     Route::controller(EnableXTokenController::class)->group(function(){
         Route::post('createToken', 'createToken')->name('enable.token');
-        Route::get('joinRoom/{token}/{roomId}/{role}/{user_ref}/{event}', 'joinRoom')->name('enable.joinRoom');
+        Route::get('getRoom/{room?}', "joinRoom")->name('enable.joinRoom');
     });
 
     Route::post('execute', [PaypalController::class, 'execute'])->name('paypal.execute');

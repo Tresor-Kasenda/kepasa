@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers;
 
-use App\Jobs\OnlineEventCreatedJob;
-use App\Jobs\OnlineEventDeletedJob;
 use App\Models\Billing;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Event;
 use App\Services\EnableX\CreateRoomService;
+use App\Services\EnableX\EnableXHttpService;
 use App\Traits\FeedCalculation;
 use App\Traits\ImageUpload;
 use App\Traits\RandomValue;
@@ -19,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventOrganiserRepository
 {
-    use FeedCalculation, ImageUpload, RandomValue;
+    use FeedCalculation, ImageUpload, RandomValue, EnableXHttpService;
 
     public function getContents(): LengthAwarePaginator
     {
@@ -75,7 +74,7 @@ class EventOrganiserRepository
     {
         $event = $this->getEventByKey(key: $key);
         $this->removePicture($event);
-        dispatch(new OnlineEventDeletedJob($event))->delay(now()->addSecond(6));
+        $this->request()->delete(config('enablex.url')."rooms/". $event->onlineEvent->roomId);
         $event->delete();
         toast("Evenement supprimer avec succes", 'success');
         return $event;
