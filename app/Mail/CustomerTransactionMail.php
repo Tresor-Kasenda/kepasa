@@ -15,7 +15,7 @@ class CustomerTransactionMail extends Mailable
     public function __construct(public $user, public $event){}
 
 
-    public function build(): CustomerTransactionMail
+    public function build()
     {
         return $this
             ->to($this->user['email'])

@@ -12,12 +12,9 @@ class CityCustomerMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    /**
-     * @return void
-     */
     public function __construct(public $promoted){}
 
-    public function build(): CityCustomerMail
+    public function build()
     {
         return $this
             ->to($this->promoted['email'])

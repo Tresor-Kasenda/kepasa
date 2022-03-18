@@ -12,12 +12,9 @@ class CustomerMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    /**
-     * @return void
-     */
     public function __construct(public $user){}
 
-    public function build(): CustomerMail
+    public function build()
     {
         return $this
             ->to($this->user['email'])
