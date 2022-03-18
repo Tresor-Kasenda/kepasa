@@ -26,9 +26,9 @@ clear: vendor/autoload.php ## vide le cache de l'application
 serve: vendor/autoload.php ## lance, le serve de development
 	php artisan serve
 
-.PHONY: analyse
-analyse: vendor/autoload.php
-    ./vendor/bin/phpstan analyse app tests --level=5 && ./vendor/bin/psalm
+.PHONE: worker
+worker: vendor/autoload.php
+	php artisan queue:work
 
 vendor/autoload.php: composer.lock
 	composer install
