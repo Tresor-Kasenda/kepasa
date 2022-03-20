@@ -37,7 +37,7 @@ Auth::routes(['verify' => true]);
 Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper', 'auth']], function(){
     Route::resource('dashboard', HomeSuperController::class);
     Route::resource('viewEvents', EventSupperController::class);
-    Route::get('eventsCountries', EventCountrySupperController::class)->name('events.country');
+    Route::resource('eventsCountries', EventCountrySupperController::class);
     Route::resource('organisers', OrganiserSupperController::class);
     Route::resource('admins', AdminSupperController::class);
     Route::resource('category', CategorySupperController::class);

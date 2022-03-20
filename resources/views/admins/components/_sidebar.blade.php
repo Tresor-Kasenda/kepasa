@@ -39,7 +39,7 @@
                         'icon' => 'ni-box'
                     ])
                     @include('admins.partials.navLink', [
-                        'route' => route('supper.events.country'),
+                        'route' => route('supper.eventsCountries.index'),
                         'name' => 'Events Country',
                         'icon' => 'ni-location'
                     ])

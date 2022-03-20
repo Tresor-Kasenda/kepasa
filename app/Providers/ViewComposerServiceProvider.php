@@ -5,7 +5,6 @@ namespace App\Providers;
 
 use App\View\Composers\CountryComposer;
 use App\View\Composers\EventComposer;
-use App\View\Composers\UserLocation;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 

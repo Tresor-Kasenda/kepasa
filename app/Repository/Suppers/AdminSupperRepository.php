@@ -3,14 +3,19 @@ declare(strict_types=1);
 
 namespace App\Repository\Suppers;
 
+use App\Mail\CreatedAdminEmail;
 use App\Models\User;
+use App\Repository\Contracts\AdminRepositoryInterface;
+use App\Repository\Contracts\ReadRepositoryInterface;
+use App\Repository\Contracts\WriteRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
-class AdminSupperRepository
+class AdminSupperRepository implements AdminRepositoryInterface, WriteRepositoryInterface, ReadRepositoryInterface
 {
     public function getContents(): array|Collection
     {
@@ -20,12 +25,12 @@ class AdminSupperRepository
             ->get();
     }
 
-    public function getAdminByKey(string $key): Model|Builder|null
+    public function getElementByKey(string $key): Model|Builder|null
     {
         return $this->getAdmin($key);
     }
 
-    public function create($attributes): Model|Builder|RedirectResponse
+    public function created($attributes): Model|Builder|RedirectResponse
     {
         $admin = User::query()
             ->where('email', '=', $attributes->input('email'))
@@ -46,11 +51,12 @@ class AdminSupperRepository
                 "password" => Hash::make($attributes->input('password')),
                 'role_id' => 2
             ]);
+        Mail::send(new CreatedAdminEmail($user));
         toast("Un nouveau admin a ete cree", 'success');
         return $user;
     }
 
-    public function updateAdmin($attributes, $key): Model|Builder|null
+    public function updated($attributes, $key): Model|Builder|null
     {
         $admin = $this->getAdmin(key: $key);
         $admin->update([

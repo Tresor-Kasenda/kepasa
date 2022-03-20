@@ -4,21 +4,27 @@ declare(strict_types=1);
 namespace App\Repository\Suppers;
 
 use App\Models\Country;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Event;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class EventCountrySupperRepository
 {
-    public function getContents()
+    public function getContents(): Collection
     {
-        $getCountries = DB::select('SELECT DISTINCT cities.cityName, countryname FROM events
-    INNER JOIN cities ON cities.cityName = events.city
-    INNER JOIN countries ON countries.countrycode = cities.countryCode');
-        $countEvents = [];
-        foreach ($getCountries as $country){
-            $countEvents = DB::select('SELECT COUNT(*) FROM events where city = ?', [$country->cityName]);
-        }
-        return $getCountries;
+        return DB::table('events')
+            ->orderBy("created_at")
+            ->select('country', DB::raw('count(*) as total'))
+            ->groupBy('country')
+            ->get();
+    }
+
+    public function getEventByCountry(string $country): Collection|array
+    {
+        $events = Event::query()
+            ->where('country', '=', base64_decode($country))
+            ->get();
+        return $events->load(['onlineEvent', 'user']);
     }
 
 }

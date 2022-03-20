@@ -29,19 +29,19 @@ class AdminSupperController extends Controller
 
     public function store(AdminRequest $attributes): RedirectResponse
     {
-        $this->repository->create(attributes: $attributes);
+        $this->repository->created(attributes: $attributes);
         return redirect()->route('supper.admins.index');
     }
 
     public function edit(string $key): Factory|View|Application
     {
-        $admin = $this->repository->getAdminByKey(key: $key);
+        $admin = $this->repository->getElementByKey(key: $key);
         return view('admins.pages.users.edit', compact('admin'));
     }
 
     public function update(AdminRequest $attributes, $key): RedirectResponse
     {
-        $this->repository->updateAdmin(attributes: $attributes, key: $key);
+        $this->repository->updated(attributes: $attributes, key: $key);
         return redirect()->route('supper.admins.index');
     }
 

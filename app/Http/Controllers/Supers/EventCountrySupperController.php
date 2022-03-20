@@ -11,9 +11,17 @@ class EventCountrySupperController extends Controller
 {
     public function __construct(public EventCountrySupperRepository $repository){}
 
-    public function __invoke(): Renderable
+    public function index(): Renderable
     {
-        $countries = $this->repository->getContents();
-        return view('admins.pages.eventCountries.index', compact('countries'));
+        return view('admins.pages.eventCountries.index', [
+            'events' => $this->repository->getContents()
+        ]);
+    }
+
+    public function show(string $country): Renderable
+    {
+        return view('admins.pages.eventCountries.show', [
+            'events' => $this->repository->getEventByCountry(country: $country)
+        ]);
     }
 }

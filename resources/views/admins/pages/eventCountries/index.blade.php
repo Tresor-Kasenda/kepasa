@@ -31,20 +31,13 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($countries as $country)
+                                    @foreach($events as $event)
                                         <tr class="nk-tb-item">
                                             <td class="nk-tb-col tb-col-md">
-                                                <span>{{ $country->countryname ?? "" }}</span>
+                                                <span>{{ $event->country ?? "" }}</span>
                                             </td>
-                                            @php
-                                                $countEvents = DB::select('SELECT COUNT(*) FROM events where city = ?', [$country->cityName]);
-                                                $number  = 0;
-                                                foreach ($countEvents as $count){
-                                                    $number = $count;
-                                                }
-                                            @endphp
                                             <td class="nk-tb-col tb-col-md">
-                                                <span></span>
+                                                <span>{{ $event->total ?? 0 }}</span>
                                             </td>
                                             <td class="nk-tb-col nk-tb-col-tools">
                                                 <ul class="nk-tb-actions gx-1">
@@ -56,7 +49,7 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li>
-                                                                        <a href="">
+                                                                        <a href="{{ route('supper.eventsCountries.show', base64_encode($event->country)) }}">
                                                                             <em class="icon ni ni-eye"></em>
                                                                             <span>Voir</span>
                                                                         </a>
