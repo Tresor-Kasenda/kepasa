@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers;
 
+use App\Mail\CreationEventMail;
 use App\Models\Billing;
 use App\Models\Category;
 use App\Models\Country;
@@ -15,6 +16,7 @@ use App\Traits\RandomValue;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 class EventOrganiserRepository
 {
@@ -41,6 +43,7 @@ class EventOrganiserRepository
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
         $category = $this->getCategory(attributes: $attributes);
         $event = $this->storedEvent(attributes: $attributes, feedCalculation: $feedCalculation);
+
         if ($category->id === 1){
             $online = new CreateRoomService();
             $online->storeOnlineEvent(attributes: $attributes,event: $event);
@@ -48,6 +51,7 @@ class EventOrganiserRepository
             toast("Evenement enregistrer avec succes",'success');
             return $event;
         }
+        Mail::send(new CreationEventMail($event, $attributes));
         $this->createdBilling(event: $event, attributes: $attributes);
         toast("Evenement enregistrer avec succes",'success');
         return $event;
@@ -74,7 +78,9 @@ class EventOrganiserRepository
     {
         $event = $this->getEventByKey(key: $key);
         $this->removePicture($event);
-        $this->request()->delete(config('enablex.url')."rooms/". $event->onlineEvent->roomId);
+        if ($event->onlineEvent != null){
+            $this->request()->delete(config('enablex.url')."rooms/". $event->onlineEvent->roomId);
+        }
         $event->delete();
         toast("Evenement supprimer avec succes", 'success');
         return $event;

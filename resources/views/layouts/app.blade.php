@@ -3,6 +3,7 @@
 <head>
     <title>{{ config('app.name') }} | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/admins/css/dashlite.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admins/css/dashlite2.9.css') }}">
     @yield('styles')
 </head>
 

@@ -30,7 +30,6 @@ class CheckoutOrganiserRepository
             ->firstOrFail();
         $payment = new DpoPayment();
         return $payment->pay(event: $event, attributes: $attributes);
-
     }
 
     public function updatePayment(string $key): Model|Builder|null

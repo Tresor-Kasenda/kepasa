@@ -10,23 +10,20 @@
                     <div class="nk-block-between g-3">
                         <div class="nk-block-head-content">
                             <h3 class="nk-block-title page-title">Invoice
-                                <strong class="text-primary small">#746F5K2</strong>
+                                <strong class="text-primary small">#{{ $billing->billingCode }}</strong>
                             </h3>
                             <div class="nk-block-des text-soft">
                                 <ul class="list-inline">
                                     <li>Created At:
-                                        <span class="text-base">18 Dec, 2019 01:02 PM</span>
+                                        <span class="text-base">{{ $billing->created_at->format('Y-m-d H:m') }}</span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="nk-block-head-content">
-                            <a href="/demo1/hotel/invoice-list.html" class="btn btn-outline-light bg-white d-none d-sm-inline-flex">
+                            <a href="{{ route('supper.billing.index') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex">
                                 <em class="icon ni ni-arrow-left"></em>
                                 <span>Back</span>
-                            </a>
-                            <a href="/demo1/hotel/invoice-list.html" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none">
-                                <em class="icon ni ni-arrow-left"></em>
                             </a>
                         </div>
                     </div>
@@ -34,26 +31,37 @@
                 <div class="nk-block">
                     <div class="invoice">
                         <div class="invoice-action">
-                            <a class="btn btn-icon btn-lg btn-white btn-dim btn-outline-primary" href="/demo1/hotel/invoice-print.html" target="_blank">
+                            <a class="btn btn-icon btn-lg btn-white btn-dim btn-outline-primary"
+                               href="{{ route('supper.billing.invoice', $billing->key) }}" target="_blank">
                                 <em class="icon ni ni-printer-fill"></em>
                             </a>
                         </div>
                         <div class="invoice-wrap">
                             <div class="invoice-brand text-center">
-                                <img src="/demo1/images/logo-dark.png" srcset="/demo1/images/logo-dark2x.png 2x" alt="">
+                                <img
+                                    @if($billing->user->company->images)
+                                        src="{{ asset('storage/'.$billing->user->company->images) }}"
+                                        srcset="{{ asset('storage/'.$billing->user->company->images) }} 2x"
+                                        alt="{{ $billing->user->company->companyName }}"
+                                    @else
+                                        src="{{ asset('assets/images/logo.png') }}"
+                                        srcset="{{ asset('assets/images/logo.png') }} 2x"
+                                        alt="{{ $billing->user->name }}"
+                                    @endif
+                                >
                             </div>
                             <div class="invoice-head">
                                 <div class="invoice-contact">
                                     <span class="overline-title">Invoice To</span>
                                     <div class="invoice-contact-info">
-                                        <h4 class="title">Gregory Ander son</h4>
+                                        <h4 class="title">{{ $billing->user->company->companyName ?? $billing->user->name }}</h4>
                                         <ul class="list-plain">
                                             <li>
                                                 <em class="icon ni ni-map-pin-fill"></em>
-                                                <span>House #65, 4328 Marion Street<br>Newbury, VT 05051</span>
+                                                <span>{{ $billing->user->company->address ?? "" }}<br>{{ $billing->user->company->city ?? "" }}, {{ $billing->user->company->country ?? "" }}</span>
                                             </li>
                                             <li><em class="icon ni ni-call-fill"></em>
-                                                <span>+012 8764 556</span>
+                                                <span>{{ $billing->user->company->phones ?? $billing->user->phones }}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -63,79 +71,36 @@
                                     <ul class="list-plain">
                                         <li class="invoice-id">
                                             <span>Invoice ID</span>:
-                                            <span>66K5W3</span>
+                                            <span>{{ $billing->billingCode }}</span>
                                         </li>
                                         <li class="invoice-date">
                                             <span>Date</span>:
-                                            <span>26 Jan, 2020</span>
+                                            <span>{{ $billing->created_at->isoFormat('MMM Do YY') }}</span>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="invoice-bills">
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped text-center">
                                         <thead>
                                         <tr>
-                                            <th class="w-150px">Item ID</th>
-                                            <th class="w-60">Description</th>
-                                            <th>Price</th>
-                                            <th>Qty</th>
-                                            <th>Amount</th>
+                                            <th>Event Name</th>
+                                            <th>Unit Prices</th>
+                                            <th>Ticket Number</th>
+                                            <th>Commission</th>
+                                            <th>Payout Amount</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>24108054</td>
-                                            <td>Dashlite - Conceptual App Dashboard - Regular License</td>
-                                            <td>$40.00</td>
-                                            <td>5</td>
-                                            <td>$200.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>24108054</td>
-                                            <td>6 months premium support</td>
-                                            <td>$25.00</td>
-                                            <td>1</td>
-                                            <td>$25.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>23604094</td>
-                                            <td>Invest Management Dashboard - Regular License</td>
-                                            <td>$131.25</td>
-                                            <td>1</td>
-                                            <td>$131.25</td>
-                                        </tr>
-                                        <tr>
-                                            <td>23604094</td>
-                                            <td>6 months premium support</td>
-                                            <td>$78.75</td>
-                                            <td>1</td>
-                                            <td>$78.75</td>
+                                            <td>{{ $billing->event->title ?? "" }}</td>
+                                            <td>$ {{ $billing->event->prices ?? 0 }}</td>
+                                            <td>{{ $billing->event->ticketNumber ?? 0 }}</td>
+                                            <td>% {{ $billing->commission ?? 0 }}</td>
+                                            <td>$ {{ $billing->payout ?? 0 }}</td>
                                         </tr>
                                         </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <td colspan="2"></td>
-                                            <td colspan="2">Subtotal</td>
-                                            <td>$435.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2"></td>
-                                            <td colspan="2">Processing fee</td>
-                                            <td>$10.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2"></td>
-                                            <td colspan="2">TAX</td>
-                                            <td>$43.50</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2"></td>
-                                            <td colspan="2">Grand Total</td>
-                                            <td>$478.50</td>
-                                        </tr>
-                                        </tfoot>
                                     </table>
                                     <div class="nk-notes ff-italic fs-12px text-soft">
                                         Invoice was created on a computer and is valid without the signature and seal.

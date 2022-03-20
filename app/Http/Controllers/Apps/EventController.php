@@ -39,7 +39,7 @@ class EventController extends Controller
             ]);
         }
         return response()->json([
-            'messages' => "Event not exist for this search"
+            'messages' => "Event not exist for this town or country"
         ]);
     }
 }

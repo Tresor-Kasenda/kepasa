@@ -58,6 +58,7 @@ Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper'
     Route::controller(BillingSupperController::class)->group(function (){
         Route::get('billings', '__invoke')->name('billing.index');
         Route::get('billings/{billingKey}', 'show')->name('billing.show');
+        Route::get('invoice/{key}', 'invoice')->name('billing.invoice');
     });
 });
 
@@ -81,11 +82,8 @@ Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['o
 
     Route::controller(EnableXTokenController::class)->group(function(){
         Route::post('createToken', 'createToken')->name('enable.token');
-        Route::get('getRoom/{room?}', "joinRoom")->name('enable.joinRoom');
+        Route::get('getRoom/{token}/{roomId}', "joinRoom")->name('enable.joinRoom');
     });
-
-    Route::post('execute', [PaypalController::class, 'execute'])->name('paypal.execute');
-    Route::post('capture', [PaypalController::class, 'capture'])->name('paypal.capture');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function(){

@@ -49,7 +49,7 @@
                             </div>
                             <div class="col-md-6">
                                 <h5>Ticket Price</h5>
-                                <input type="number" name="prices" value="{{ $event->prices ?? "" }}" readonly required>
+                                <input type="number" name="prices" id="prices" value="{{ $event->prices ?? "" }}" readonly required>
                             </div>
                             <div class="col-md-6">
                                 <h5>Event Venue</h5>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-md-6">
                                 <h5>Number Of Tickets</h5>
-                                <input type="number" name="numberOfTickets" value="{{ $event->ticketNumber ?? "" }}" readonly required>
+                                <input type="number" name="numberOfTickets" id="numberOfTickets" value="{{ $event->ticketNumber ?? "" }}" readonly required>
                             </div>
                             <div class="col-md-6">
                                 <h5>Your Email</h5>
@@ -89,11 +89,6 @@
 @section('scripts')
     <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.sandbox.client_id') }}&currency=USD"></script>
     <script>
-        let content = {
-            'title': $('#title').val(),
-            'lastNameOrganiser': $('#lastNameOrganiser').val(),
-            'name': $('#name').val()
-        };
         paypal.Buttons({
             style: {
                 shape: 'rect',
@@ -102,12 +97,19 @@
                 label: 'pay',
             },
             createOrder: function(data, actions) {
-                return fetch(`{{ route('organiser.paypal.execute') }}`, {
-                    method: 'post',
+                return fetch(`{{ route('paypal.transaction') }}`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        title: $('#title').val(),
+                        lastNameOrganiser: $('#lastNameOrganiser').val(),
+                        name: $('#name').val(),
+                        price: $('#prices').val(),
+                        ticketNumber: $('#numberOfTickets').val()
+                    }),
                     headers: {
+                        "Content-type": "application/json; charset=UTF-8",
                         "X-CSRF-Token": $('input[name="_token"]').val()
-                    },
-                    body: content
+                    }
                 }).then(function(res) {
                     return res.json();
                 }).then(function(orderData) {

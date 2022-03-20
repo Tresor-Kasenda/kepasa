@@ -5,7 +5,7 @@ namespace App\Repository\Contracts;
 
 use Illuminate\Http\JsonResponse;
 
-interface OrganiserRepositoryInterface
+interface OnlineRepositoryInterface
 {
     public function createdToken($attributes);
 }

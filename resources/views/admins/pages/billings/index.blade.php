@@ -18,7 +18,7 @@
                         <div class="card-inner">
                             <table class="datatable-init nowrap nk-tb-list nk-tb-ulist" data-auto-responsive="false">
                                 <thead>
-                                <tr class="nk-tb-item nk-tb-head">
+                                <tr class="nk-tb-item nk-tb-head text-center">
                                     <th class="nk-tb-col tb-col-mb">
                                         <span class="sub-text">Event Name</span>
                                     </th>
@@ -38,13 +38,13 @@
                                         <span class="sub-text">Option</span>
                                     </th>
                                     <th class="nk-tb-col nk-tb-col-tools text-right">
-                                        <span class="sub-text">Actions</span>
+                                        <span class="sub-text">Action</span>
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($billings as $billing)
-                                        <tr class="nk-tb-item">
+                                        <tr class="nk-tb-item text-center">
                                             <td class="nk-tb-col tb-col-md">
                                                 <span>{{ strtoupper($billing->event->title) ?? "" }}</span>
                                             </td>
@@ -73,7 +73,7 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <ul class="link-list-opt no-bdr">
                                                                     <li>
-                                                                        <a href="{{ route('supper.billing.show', $billing->key) }}">
+                                                                        <a href="{{ route('supper.billing.show', base64_encode($billing->key)) }}">
                                                                             <em class="icon ni ni-eye"></em>
                                                                             <span>Voir</span>
                                                                         </a>

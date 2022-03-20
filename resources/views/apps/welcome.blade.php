@@ -216,7 +216,11 @@
                             $('#listenCities').hide()
                             $('#eventsListens').hide()
                         }else {
-                            $('#error').html('<div class="col-md-12"><div class="notification success closeable margin-bottom-30"><p><strong>Sorry</strong>' + response.messages+ '</p><a class="close"></a></div></div>');
+                            $('#error').html('<div class="col-md-12">' +
+                                '<div class="notification success closeable margin-bottom-30">' +
+                                    '<p> <strong>Sorry </strong>' + response.messages+ '</p><a class="close"></a>' +
+                                '</div>' +
+                            '</div>');
                         }
                     }
                 })

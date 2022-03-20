@@ -22,7 +22,14 @@ class BillingSupperController extends Controller
     public function show(string $key): Factory|View|Application
     {
         return view('admins.pages.billings.show', [
-            'billing' => $this->repository->getBillingByKey(key:  $key)
+            'billing' => $this->repository->getBillingByKey(key:  base64_decode($key))
+        ]);
+    }
+
+    public function invoice(string $key): Factory|View|Application
+    {
+        return view('admins.pages.billings.invoice', [
+            'billing' => $this->repository->getBillingByKey(key:$key)
         ]);
     }
 }

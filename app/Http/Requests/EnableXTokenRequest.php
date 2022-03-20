@@ -8,17 +8,11 @@ use Illuminate\Validation\Rule;
 
 class EnableXTokenRequest extends FormRequest
 {
-    /**
-     * @return bool
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * @return array
-     */
     public function rules(): array
     {
         return [
