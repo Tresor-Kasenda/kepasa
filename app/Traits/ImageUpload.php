@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Storage;
 
 trait ImageUpload
 {
-    public static function uploadFiles(Request $request): string
+    public static function uploadFile($request): string
     {
         return $request->file('image')
             ->storePublicly('/', ['disk' => 'public']);
     }
 
-    public static function uploadProfile(Request $request): string
+    public static function uploadProfile($request): string
     {
         return $request->file('images')
             ->storePublicly('/', ['disk' => 'public']);

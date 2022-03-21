@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="js">
 <head>
     <title>Billet d'evenement</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="" href="https://fonts.googleapis.com/css?family=Arvo">
+    <meta charset="utf-8">
     <style>
         body {
             background-color: #fff;
             font-family: Arvo, sans-serif !important;
             font-weight: 200 !important;
         }
+
         .ticket {
             font-family: Arvo, sans-serif !important;
             background-repeat: no-repeat;
@@ -26,29 +28,33 @@
             margin: 10% auto auto auto;
             color: #fff;;
         }
+
         .date {
             margin: 15px;
             -webkit-filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
             filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
         }
+
         .date .day{
             font-size: 80px;
             float: left;
         }
+
         .date .month-and-time {
             float: left;
             margin: 15px 0 0 0;
             font-weight: 200;
         }
+
         .artist {
             font-size: 30px;
-
             margin: 10px 100px 0 40px;
             float: left;
             font-weight: 200;
             -webkit-filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
             filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
         }
+
         .rip {
             border-right: 10px solid transparent;
             padding: 5px;
@@ -58,6 +64,7 @@
             top: 0;
             left: 600px;
         }
+
         .cta {
             font-family: Arvo, sans-serif !important;
             position: absolute;
@@ -66,7 +73,6 @@
             display: block;
             font-size: 10px;
             font-weight: 200;
-
             padding: 10px 20px;
             border-radius: 25px;
             color: #fff;
@@ -74,6 +80,7 @@
             -webkit-filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
             filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
         }
+
         .cta2 {
             font-family: Arvo, sans-serif !important;
             position: absolute;
@@ -82,7 +89,6 @@
             display: block;
             font-size: 10px;
             font-weight: 200;
-
             padding: 10px 20px;
             border-radius: 25px;
             color: #fff;
@@ -90,54 +96,56 @@
             -webkit-filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
             filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.3));
         }
+
         .small {
             font-weight: 200;
             font-size: 20px;
         }
+
         .ticket-1 {
             background-image: url(ticket.jpeg);
             border-radius: 15px;
         }
+
         .artist{
             height: 100%;
             margin-top: 3rem;
             display: block;
-
         }
-        .venue{
 
+        .venue{
             position: absolute;
             bottom: 3rem;
-
-
         }
-        .artist div{
 
+        .artist div{
             margin-bottom: 1rem;
         }
+
         .time{
-
             padding-top: 2rem !important;
-
         }
+
         .time span{
             float: right;
             padding-right: 4rem;
         }
+
         .qr .logo{
             height: 8rem;
             position: absolute;
             bottom: 1rem;
             left: 1rem;
         }
+
         .logo2 #logo{
             height: 9rem;
             width: 8rem;
             position: absolute;
             bottom: 1rem;
             right: 1rem;
-
         }
+
         .name{
             font-size: 20px;
         }
@@ -185,7 +193,7 @@
                 <span class="small">&nbsp;</span>
             </div>
             <div class="cta2">
-                <span class="small"><span></span>
+                <span class="small"></span>
             </div>
             <div class="qr">
                 <img src="" class="logo">

@@ -65,7 +65,7 @@
                             </div>
                             <h6 style="color: #F96; font-size: 25px; font-weight: 400;">Payment Options</h6>
                             <div class="col-md-6">
-                                <div id="paypal-button-container"></div>
+                                <div id="paypal-button"></div>
                             </div>
                             <div class="col-md-6">
                                 <div class="payment_icon">
@@ -87,17 +87,15 @@
 @endsection
 
 @section('scripts')
-    <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.sandbox.client_id') }}&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=Aa82oiB4Dtv2KxR4Lly6TmmnFmuzWXaQOJiG4ePTlm03aDVNXW3hmavc_PgqPab1fY86TmiDOR1RRsiX&currency=USD"></script>
+
     <script>
         paypal.Buttons({
             style: {
-                shape: 'rect',
-                color: 'gold',
-                layout: 'horizontal',
-                label: 'pay',
+                layout: 'horizontal'
             },
             createOrder: function(data, actions) {
-                return fetch(`{{ route('paypal.transaction') }}`, {
+                return fetch(`{{ route('paypal.create.transaction') }}`, {
                     method: "POST",
                     body: JSON.stringify({
                         title: $('#title').val(),
@@ -107,7 +105,7 @@
                         ticketNumber: $('#numberOfTickets').val()
                     }),
                     headers: {
-                        "Content-type": "application/json; charset=UTF-8",
+                        "Content-type": "application/json",
                         "X-CSRF-Token": $('input[name="_token"]').val()
                     }
                 }).then(function(res) {
@@ -157,6 +155,7 @@
                     // Or go to another URL:  actions.redirect('thank_you.html');
                 });
             }
-        }).render('#paypal-button-container');
+
+        }).render('#paypal-button');
     </script>
 @endsection

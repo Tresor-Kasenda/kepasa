@@ -18,4 +18,14 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_can_create_user()
+    {
+        $user = \App\Models\User::factory()->create();
+        $this->actingAs($user);
+        $response = $this->post('api.paypal.create.transaction', [
+            $user
+        ]);
+        $response->assertOk();
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\Billing;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Event;
+use App\Notifications\CreatedEventNotification;
 use App\Services\EnableX\CreateRoomService;
 use App\Services\EnableX\EnableXHttpService;
 use App\Traits\FeedCalculation;
@@ -17,6 +18,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class EventOrganiserRepository
 {
@@ -51,7 +53,6 @@ class EventOrganiserRepository
             toast("Evenement enregistrer avec succes",'success');
             return $event;
         }
-        Mail::send(new CreationEventMail($event, $attributes));
         $this->createdBilling(event: $event, attributes: $attributes);
         toast("Evenement enregistrer avec succes",'success');
         return $event;
@@ -151,7 +152,7 @@ class EventOrganiserRepository
 
     private function storedEvent($attributes, $feedCalculation): Builder|Model
     {
-        return Event::query()
+        $events = Event::query()
             ->create([
                 'title' => $attributes->input('title'),
                 'subTitle' => $attributes->input('subTitle'),
@@ -169,9 +170,10 @@ class EventOrganiserRepository
                 'description' => $attributes->input('description'),
                 'category_id' => $attributes->input('category_id'),
                 'user_id' => auth()->id(),
-                'image' => self::uploadFiles(request: $attributes),
+                'image' => self::uploadFile(request: $attributes),
                 'company_id' => $attributes->user()->company->id
             ]);
+        return $events;
     }
 
     private function updatedEvent($event, $attributes, array $feedCalculation): void

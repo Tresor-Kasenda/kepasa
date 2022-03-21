@@ -30,10 +30,5 @@ class RepositoriesServiceProvider extends ServiceProvider
             JoinRoomRepositoryInterface::class,
             OnlineEventRepository::class
         );
-
-        $this->app->bind(
-            PaymentRepositoryInterface::class,
-            PaypalRepository::class
-        );
     }
 }

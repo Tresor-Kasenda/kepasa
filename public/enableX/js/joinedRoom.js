@@ -87,7 +87,7 @@ if(localStorage.getItem("domain_info") !== null)
         if(data.credits.enabled)
         {
             document.querySelector("#powered_by_link").href=data.credits.target_url;
-            if(data.credits.logo_url == undefined || data.credits.logo_url == "")
+            if(data.credits.logo_url === undefined || data.credits.logo_url === "")
             {
                 document.querySelector("#powered_by_link").innerHTML = data.credits.name;
             }
@@ -104,21 +104,21 @@ if(localStorage.getItem("domain_info") !== null)
     from_email = data.email.from_email;
     from_name = data.email.from_name;
 }
-if(logo_file != "")
+if(logo_file !== "")
 {
     document.querySelector("#logo_file").src = logo_file;
     document.querySelector("#logo_file").style.visibility = 'visible';
 }
-if(copyright_text != "")
+if(copyright_text !== "")
 {
     document.querySelector("#copy_txt").innerHTML=copyright_text;
 }
-if(exit_url == "")
+if(exit_url === "")
 {
     exit_url = "https://irmacongo.org/PCL irma/live/"
 }
 
-if (localStorage.recording_enable == "false") {
+if (localStorage.recording_enable === "false") {
     $("#recording_btn").remove();
 }
 function change_favicon(img) {

@@ -1,28 +1,7 @@
 var attendanceApp = angular.module("userJoinListApp",[]);
 attendanceApp.controller("userJoinListController",function($scope) {
-    $scope.updateAttendanceLayout = function(data){
-        $scope.attendanceTemplate = {url: render};
-        $scope.attendee = data.user_list;
-        $scope.isModerator = data.is_mod;
-    }
 
-    $scope.class='fa-sort-alpha-down'
-    $scope.reverse = true;
-    $scope.orderByMe = function(x) {
-        if ($scope.class === "fa-sort-alpha-down")
-            $scope.class = "fa-sort-alpha-up";
-        else
-            $scope.class = "fa-sort-alpha-down";
-        $scope.reverse = !$scope.reverse ;
-    }
-    $scope.hide  = true;
-    $scope.show = function(x) {
-        $scope.hide = !$scope.hide ;
-    }
-    $scope.updateAttendanceLayout([]);
-});
-
-let render  =  `
+    let render  =  `
 <div class="rh-search-sort">
     <div class="pcr__search" >
         <input type="search" ng-model="q" id="" class="pcr__searchfield" placeholder="Search">
@@ -63,3 +42,25 @@ let render  =  `
         <div class="no-particpants">No participants to show.</div>
     </div>
 </div>`;
+
+    $scope.updateAttendanceLayout = function(data){
+        $scope.attendanceTemplate = {url: render};
+        $scope.attendee = data.user_list;
+        $scope.isModerator = data.is_mod;
+    }
+
+    $scope.class='fa-sort-alpha-down'
+    $scope.reverse = true;
+    $scope.orderByMe = function(x) {
+        if ($scope.class === "fa-sort-alpha-down")
+            $scope.class = "fa-sort-alpha-up";
+        else
+            $scope.class = "fa-sort-alpha-down";
+        $scope.reverse = !$scope.reverse ;
+    }
+    $scope.hide  = true;
+    $scope.show = function(x) {
+        $scope.hide = !$scope.hide ;
+    }
+    $scope.updateAttendanceLayout([]);
+});

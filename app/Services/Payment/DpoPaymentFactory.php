@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App\Services\Payment;
 
-class DpoPayment
+class DpoPaymentFactory
 {
-    public function pay($event, $attributes)
+    public static function pay($event, $attributes)
     {
         $price = $event->prices;
         $reference = $event->key;

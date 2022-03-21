@@ -49,7 +49,7 @@
                                                 <li>{{ $event->city ?? "" }}/{{ $event->address ?? "" }}</li>
                                             </ul>
                                         </div>
-                                        <div class="star-rating">
+                                        <div class="star-rating margin-bottom-5">
                                             @if($event->status == 'desactive')
                                                 <span class="pending-data">pending</span>
                                             @endif

@@ -29,7 +29,7 @@ function addElement(elem_id, stream) {
         el.setAttribute("id", "con_" + stream.getID())
         elem.appendChild(el);
         stream.play("con_" + stream.getID(), options);
-        if (stream.player.stream == undefined) {
+        if (stream.player.stream === undefined) {
             removeElement(stream.getID());
         }
     }
@@ -51,7 +51,7 @@ var send_mail = function (details, callback) {
 var inviteRoom = function (details, callback) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             callback(this.responseText);
         }
     };
@@ -164,7 +164,7 @@ $( "#btn-invite" ).click(function() {
 var inviteRoom = function(details,callback){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status == 200) {
             callback(this.responseText);
         }
     };
@@ -176,7 +176,7 @@ var send_mail = function(details,callback){
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status == 200) {
             callback(this.responseText);
         }
     };

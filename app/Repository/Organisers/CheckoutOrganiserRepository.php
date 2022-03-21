@@ -7,7 +7,7 @@ use App\Enums\PaymentEnum;
 use App\Mail\PaymentConfirmationMail;
 use App\Models\Event;
 use App\Models\PaymentCustomer;
-use App\Services\Payment\DpoPayment;
+use App\Services\Payment\DpoPaymentFactory;
 use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -28,13 +28,13 @@ class CheckoutOrganiserRepository
             ->where('title', '=', $attributes->input('title'))
             ->where('date', '=', $attributes->input('date'))
             ->firstOrFail();
-        $payment = new DpoPayment();
-        return $payment->pay(event: $event, attributes: $attributes);
+        return DpoPaymentFactory::pay(event: $event, attributes: $attributes);
     }
 
     public function updatePayment(string $key): Model|Builder|null
     {
         $event = Event::query()
+            ->where('key', '=', $key)
             ->where('user_id', '=', auth()->id())
             ->where('company_id', '=', auth()->user()->company->id)
             ->first();
