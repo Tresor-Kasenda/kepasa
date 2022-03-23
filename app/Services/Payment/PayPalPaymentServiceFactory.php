@@ -4,18 +4,18 @@ declare(strict_types=1);
 namespace App\Services\Payment;
 
 use App\Enums\PaymentEnum;
-use App\Enums\StatusEnum;
 use App\Mail\ConfirmationTransaction;
 use App\Models\Customer;
 use App\Models\Event;
+use App\Traits\PaypalConfiguration;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
-use Srmklive\PayPal\Services\PayPal;
 use Throwable;
 
 class PayPalPaymentServiceFactory
 {
+    use PaypalConfiguration;
     /**
      * @throws Throwable
      */
@@ -53,16 +53,6 @@ class PayPalPaymentServiceFactory
         return response()->json($capture);
     }
 
-    /**
-     * @throws Throwable
-     */
-    private static function paypalConfiguration(): PayPal
-    {
-        $provider = new PayPal;
-        $provider->setApiCredentials(config('paypal'));
-        $provider->getAccessToken();
-        return $provider;
-    }
     private static function createOrder($order, $payment)
     {
         $total = $payment->prices * $payment->ticketNumber ;

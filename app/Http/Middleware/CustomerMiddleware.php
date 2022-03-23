@@ -18,10 +18,14 @@ class CustomerMiddleware
      * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return Response|RedirectResponse
      */
-    public function handle(Request $request, Closure $next): Response|RedirectResponse
+    public function handle(Request $request, Closure $next)
     {
         if(!Auth::check()){
             return redirect()->route('login');
+        }
+
+        if (Auth::user()->role_id == 4){
+            return $next($request);
         }
 
         if (Auth::user()->role_id == 1) {
@@ -34,10 +38,6 @@ class CustomerMiddleware
 
         if (Auth::user()->role_id == 3){
             return redirect()->route('organiser.organiser.index');
-        }
-
-        if (Auth::user()->role_id == 4){
-            return $next($request);
         }
     }
 }

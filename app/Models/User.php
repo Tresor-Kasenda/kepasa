@@ -32,8 +32,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Setting|null $app
  * @property-read \App\Models\Company|null $company
- * @property-read \App\Models\Event|null $customer
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
+ * @property-read Event|null $customer
+ * @property-read \Illuminate\Database\Eloquent\Collection|Event[] $events
  * @property-read int|null $events_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
@@ -87,6 +87,11 @@ class User extends Authenticatable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function payment(): HasMany
+    {
+        return $this->hasMany(PaymentCustomer::class);
     }
 
     public function events(): HasMany

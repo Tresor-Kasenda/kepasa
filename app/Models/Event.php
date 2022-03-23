@@ -123,7 +123,7 @@ class Event extends Model
 
     public function payments(): HasMany
     {
-        return $this->hasMany(Customer::class);
+        return $this->hasMany(PaymentCustomer::class);
     }
 
     public function company(): BelongsTo
