@@ -39,7 +39,7 @@ class CreatedEventNotification extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail(mixed $notifiable): MailMessage
+    public function toMail(mixed $notifiable)
     {
         return (new MailMessage)
                     ->line('The introduction to the notification.')

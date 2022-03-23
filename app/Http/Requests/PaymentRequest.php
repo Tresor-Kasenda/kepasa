@@ -17,10 +17,7 @@ class PaymentRequest extends FormRequest
     {
         return [
             "title" => ['required', Rule::exists('events', 'title')],
-            "lastNameOrganiser" => ['required', Rule::exists('users', 'lastName')],
-            "name" => ['required', Rule::exists('categories', 'name')],
             "prices" => ['required', Rule::exists('events', 'prices')],
-            "ticketNumber" => ['required', 'numeric']
         ];
     }
 }

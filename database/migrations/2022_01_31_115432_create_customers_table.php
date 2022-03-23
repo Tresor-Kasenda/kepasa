@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('key')->unique();
-            $table->string('name');
-            $table->string('surname');
-            $table->string('email');
-            $table->string('phones');
-            $table->string('country');
-            $table->string('city');
-            $table->string('ticketNumber');
+            $table->string('name')->nullable();
+            $table->string('surname')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phones')->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
             $table->integer('reference')->unique();
+            $table->string('ticketNumber', 9);
+            $table->string('totalAmount', 9);
             $table->enum('status', [PaymentEnum::$types])->default(PaymentEnum::UNPAID);
             $table->foreignIdFor(\App\Models\Event::class)
                 ->constrained()

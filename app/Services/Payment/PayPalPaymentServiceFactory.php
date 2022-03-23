@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Services\Payment;
 
 use Illuminate\Http\JsonResponse;
-use Psr\Http\Message\StreamInterface;
 use Srmklive\PayPal\Services\PayPal;
 use Throwable;
 
@@ -13,30 +12,34 @@ class PayPalPaymentServiceFactory
     /**
      * @throws Throwable
      */
-    public static function process($attributes, $payment): array|StreamInterface|string
+    public static function process($data, $payment): JsonResponse
     {
         $provider = self::paypalConfiguration();
-        $total = $payment->prices * $attributes->ticket;
-        return $provider->createOrder([
+        $total = $payment->prices * $payment->ticketNumber;
+        $order = $provider->createOrder([
             'intent' => "CAPTURE",
-            'purchase_units' => [
-                'amount' => [
-                    'currency_code' => "USD",
-                    'value' => $total
-                ],
-                'description' => $payment->title
+            "purchase_units" => [
+                0 => [
+                    "amount" => [
+                        'currency_code' => "USD",
+                        'value' => $total
+                    ]
+                ]
             ]
         ]);
+        return response()->json($order);
     }
 
     /**
      * @throws Throwable
      */
-    public static function capture($attributes): array|StreamInterface|string
+    public static function capture($attributes): JsonResponse
     {
-        $order = $attributes['orderId'];
+        dd($attributes);
         $provider = self::paypalConfiguration();
-        return $provider->capturePaymentOrder(order_id: $order);
+        $order = $attributes['orderId'];
+        $capture = $provider->capturePaymentOrder(order_id: $order);
+        return response()->json($capture);
     }
 
     /**
@@ -46,8 +49,7 @@ class PayPalPaymentServiceFactory
     {
         $provider = new PayPal;
         $provider->setApiCredentials(config('paypal'));
-        $token = $provider->getAccessToken();
-        $provider->setAccessToken($token);
+        $provider->getAccessToken();
         return $provider;
     }
 }

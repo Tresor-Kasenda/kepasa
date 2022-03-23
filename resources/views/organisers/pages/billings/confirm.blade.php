@@ -87,7 +87,7 @@
 @endsection
 
 @section('scripts')
-    <script src="https://www.paypal.com/sdk/js?client-id=Aa82oiB4Dtv2KxR4Lly6TmmnFmuzWXaQOJiG4ePTlm03aDVNXW3hmavc_PgqPab1fY86TmiDOR1RRsiX&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.sandbox.client_id') }}&currency=USD"></script>
 
     <script>
         paypal.Buttons({
@@ -99,10 +99,7 @@
                     method: "POST",
                     body: JSON.stringify({
                         title: $('#title').val(),
-                        lastNameOrganiser: $('#lastNameOrganiser').val(),
-                        name: $('#name').val(),
-                        price: $('#prices').val(),
-                        ticketNumber: $('#numberOfTickets').val()
+                        prices: $('#prices').val(),
                     }),
                     headers: {
                         "Content-type": "application/json",
@@ -117,23 +114,18 @@
 
             // Call your server to finalize the transaction
             onApprove: function(data, actions) {
-                return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
-                    method: 'post'
+                return fetch('{{ route('paypal.capture.transaction') }}', {
+                    method: 'post',
+                    body: JSON.stringify({
+                        orderId : data['orderID']
+                    })
                 }).then(function(res) {
                     return res.json();
                 }).then(function(orderData) {
-                    // Three cases to handle:
-                    //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-                    //   (2) Other non-recoverable errors -> Show a failure message
-                    //   (3) Successful transaction -> Show confirmation or thank you
-
-                    // This example reads a v2/checkout/orders capture response, propagated from the server
-                    // You could use a different API or structure for your 'orderData'
-                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+                    var errorDetail = Array.isArray(orderData['details']) && orderData['details'][0];
 
                     if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
                         return actions.restart(); // Recoverable state, per:
-                        // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
                     }
 
                     if (errorDetail) {

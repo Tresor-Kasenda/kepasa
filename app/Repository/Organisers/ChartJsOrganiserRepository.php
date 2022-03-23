@@ -2,6 +2,7 @@
 
 namespace App\Repository\Organisers;
 
+use App\Models\Customer;
 use App\Models\PaymentCustomer;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,7 +12,7 @@ class ChartJsOrganiserRepository
 {
     public function getPaymentForEventOrganiserByDay(): array|Collection
     {
-        return PaymentCustomer::query()
+        return Customer::query()
             ->where('user_id', '=', auth()->id())
             ->select(
                 DB::raw("COUNT(*) as count"),

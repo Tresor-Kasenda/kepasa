@@ -3,10 +3,11 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers;
 
+use App\Enums\PaymentEnum;
+use App\Models\Customer;
 use App\Models\Event;
 use App\Services\Payment\PayPalPaymentServiceFactory;
 use Illuminate\Http\JsonResponse;
-use Srmklive\PayPal\Facades\PayPal;
 use Throwable;
 
 class PaypalRepository
@@ -21,9 +22,11 @@ class PaypalRepository
             ->where('prices', '=', $attributes->input('prices'))
             ->first();
         $data = json_decode($attributes->getContent(), true);
-        $order = PayPalPaymentServiceFactory::process(attributes:  $data, payment: $payment);
-        $this->createOrder(attributes: $attributes, order: $order);
-        return response()->json($order);
+        $order = PayPalPaymentServiceFactory::process(data:  $data, payment: $payment);
+        dd($order);
+        $this->createOrder(attributes: $data, order: $order, payment: $payment);
+        $this->updateTicketEvent(event: $payment, data: $data);
+        return $order;
     }
 
     /**
@@ -33,18 +36,44 @@ class PaypalRepository
     {
         $data = json_decode($attributes->getContent(), true);
         $process = PayPalPaymentServiceFactory::capture(attributes: $data);
-        $this->updateOrder(attributes: $attributes, process: $process);
-        return response()->json($process);
+       $this->updateOrder(attributes: $attributes, process: $process);
+        return $process;
     }
 
 
-    private function createOrder($attributes, $order)
+    private function createOrder($attributes, $order, $payment)
     {
-
+        $total = $payment->prices * $payment->ticketNumber ;
+        Customer::query()
+            ->create([
+                'event_id' => $payment->id,
+                'user_id' => auth()->id(),
+                'ticketNumber' => $payment->ticketNumber,
+                'totalAmount' => $total,
+                'reference' => $order->id,
+                'name' => auth()->user()->company->companyName,
+                'surname' => auth()->user()->lastName,
+                'email' => auth()->user()->company->email,
+                'phones' => auth()->user()->company->phones,
+                'country' => auth()->user()->company->country,
+                'city' => auth()->user()->company->country,
+                'status' => PaymentEnum::UNPAID
+            ]);
     }
 
     private function updateOrder($attributes, $process)
     {
+    }
+
+    private function updateTicketEvent($event, $data)
+    {
+        $tickets = $event->ticketNumber - $data->ticket;
+        Event::query()
+            ->where('id', '=', $event->id)
+            ->where('title', '=', $event->title)
+            ->update([
+                'ticketNumber' => $tickets
+            ]);
     }
 
 }

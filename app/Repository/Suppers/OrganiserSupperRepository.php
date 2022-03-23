@@ -5,12 +5,15 @@ namespace App\Repository\Suppers;
 
 use App\Models\Company;
 use App\Models\User;
+use App\Traits\ImageUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class OrganiserSupperRepository
 {
+    use ImageUpload;
+
     public function getContents(): array|Collection
     {
         return Company::query()
@@ -30,6 +33,7 @@ class OrganiserSupperRepository
         $user = User::query()
             ->where('id', '=', $company->user_id)
             ->first();
+        $this->removeProfile($company);
         $user->delete();
         toast("Organiser supprimer du systeme", 'success');
         return $user;

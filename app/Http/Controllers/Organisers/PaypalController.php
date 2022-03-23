@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Organisers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaymentRequest;
 use App\Repository\Organisers\PaypalRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class PaypalController extends Controller
     /**
      * @throws Throwable
      */
-    public function create(Request $attributes): JsonResponse
+    public function create(PaymentRequest $attributes): JsonResponse
     {
         return $this->repository->pay(attributes: $attributes);
     }

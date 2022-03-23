@@ -32,7 +32,7 @@
                     ])
                 </div>
                 <div class="row  g-gs">
-                    <div class="col-xxl-6">
+                    <div class="col-xxl-12">
                         <div class="card">
                             <div class="card-inner">
                                 <div>

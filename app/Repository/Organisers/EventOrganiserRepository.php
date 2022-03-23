@@ -50,11 +50,11 @@ class EventOrganiserRepository
             $online = new CreateRoomService();
             $online->storeOnlineEvent(attributes: $attributes,event: $event);
             $this->createdBilling(event: $event, attributes: $attributes);
-            toast("Evenement enregistrer avec succes",'success');
             return $event;
         }
+
         $this->createdBilling(event: $event, attributes: $attributes);
-        toast("Evenement enregistrer avec succes",'success');
+        Notification::send(auth()->user(), new CreatedEventNotification($event));
         return $event;
     }
 
@@ -64,14 +64,14 @@ class EventOrganiserRepository
         $this->removePicture($event);
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
         $category = $this->getCategory(attributes: $attributes);
+
         if ($category->id === 1){
             $online = new CreateRoomService();
             $this->updatedBilling(event: $event, attributes: $attributes);
-            toast("Evenement mise a jours avec succes",'success');
             return $event;
         }
+
         $this->updatedEvent($event, $attributes, $feedCalculation);
-        toast("Evenement a ete mise a jours",'success');
         return $event;
     }
 
@@ -83,7 +83,6 @@ class EventOrganiserRepository
             $this->request()->delete(config('enablex.url')."rooms/". $event->onlineEvent->roomId);
         }
         $event->delete();
-        toast("Evenement supprimer avec succes", 'success');
         return $event;
     }
 
@@ -152,7 +151,7 @@ class EventOrganiserRepository
 
     private function storedEvent($attributes, $feedCalculation): Builder|Model
     {
-        $events = Event::query()
+        return Event::query()
             ->create([
                 'title' => $attributes->input('title'),
                 'subTitle' => $attributes->input('subTitle'),
@@ -173,7 +172,6 @@ class EventOrganiserRepository
                 'image' => self::uploadFile(request: $attributes),
                 'company_id' => $attributes->user()->company->id
             ]);
-        return $events;
     }
 
     private function updatedEvent($event, $attributes, array $feedCalculation): void

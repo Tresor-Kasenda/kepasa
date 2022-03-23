@@ -136,8 +136,8 @@
                 return fetch('{{ route('user.paypal.create.transaction') }}', {
                     method: 'post',
                     body: JSON.stringify({
-                        "value": $('#prices').val(),
-                        "tickets": $('#tickets').val(),
+                        "prices": $('#prices').val(),
+                        "ticketNumber": $('#tickets').val(),
                         "title": $('#title').val()
                     })
                 }).then(function(res) {

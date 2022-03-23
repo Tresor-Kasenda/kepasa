@@ -5,8 +5,8 @@ namespace App\Repository\Organisers;
 
 use App\Enums\PaymentEnum;
 use App\Mail\PaymentConfirmationMail;
+use App\Models\Customer;
 use App\Models\Event;
-use App\Models\PaymentCustomer;
 use App\Services\Payment\DpoPaymentFactory;
 use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
@@ -28,6 +28,7 @@ class CheckoutOrganiserRepository
             ->where('title', '=', $attributes->input('title'))
             ->where('date', '=', $attributes->input('date'))
             ->firstOrFail();
+        self::createTransaction(event: $event, attributes: $attributes);
         return DpoPaymentFactory::pay(event: $event, attributes: $attributes);
     }
 
@@ -47,16 +48,32 @@ class CheckoutOrganiserRepository
         return $event;
     }
 
-    private function updateTransaction($event)
+    private function createTransaction($event, $attributes)
     {
         $total = $event->ticketNumber * $event->prices;
-        PaymentCustomer::query()
+        Customer::query()
             ->create([
                 'event_id' => $event->id,
                 'user_id' => auth()->id(),
                 'ticketNumber' => $event->ticketNumber,
                 'totalAmount' => $total,
                 'reference' => $this->generateNumericValues(1000, 999999),
+                'name' => auth()->user()->company->companyName,
+                'surname' => auth()->user()->lastName,
+                'email' => auth()->user()->company->email,
+                'phones' => auth()->user()->company->phones,
+                'country' => auth()->user()->company->country,
+                'city' => auth()->user()->company->country,
+            ]);
+    }
+
+    private function updateTransaction($event)
+    {
+        Customer::query()
+            ->where('user_id', '=', auth()->id())
+            ->where('event_id', '=', $event->id)
+            ->where('name', '=', auth()->user()->company->companyName)
+            ->update([
                 'status' => PaymentEnum::PAID
             ]);
     }

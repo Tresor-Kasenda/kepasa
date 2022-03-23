@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -45,44 +46,43 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property-read int|null $billings_count
  * @property-read Category $category
  * @property-read Company $company
- * @property-read Collection|Customer[] $customers
  * @property-read int|null $customers_count
  * @property-read Collection|Images[] $media
  * @property-read int|null $media_count
  * @property-read Collection|OnlineEvent[] $onlineEvent
  * @property-read int|null $online_event_count
- * @property-read Collection|PaymentCustomer[] $payments
+ * @property-read Collection|Customer[] $payments
  * @property-read int|null $payments_count
  * @property-read User $user
- * @method static \Illuminate\Database\Eloquent\Builder|Event newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Event newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Event query()
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereBuyerPrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereCategoryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereCity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereCommission($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereCompanyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereCountry($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereEndTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereFeeOption($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event wherePayment($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event wherePayout($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event wherePrices($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event wherePromoted($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereStartTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereSubTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereTicketNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereUserId($value)
+ * @method static Builder|Event newModelQuery()
+ * @method static Builder|Event newQuery()
+ * @method static Builder|Event query()
+ * @method static Builder|Event whereAddress($value)
+ * @method static Builder|Event whereBuyerPrice($value)
+ * @method static Builder|Event whereCategoryId($value)
+ * @method static Builder|Event whereCity($value)
+ * @method static Builder|Event whereCommission($value)
+ * @method static Builder|Event whereCompanyId($value)
+ * @method static Builder|Event whereCountry($value)
+ * @method static Builder|Event whereCreatedAt($value)
+ * @method static Builder|Event whereDate($value)
+ * @method static Builder|Event whereDescription($value)
+ * @method static Builder|Event whereEndTime($value)
+ * @method static Builder|Event whereFeeOption($value)
+ * @method static Builder|Event whereId($value)
+ * @method static Builder|Event whereImage($value)
+ * @method static Builder|Event whereKey($value)
+ * @method static Builder|Event wherePayment($value)
+ * @method static Builder|Event wherePayout($value)
+ * @method static Builder|Event wherePrices($value)
+ * @method static Builder|Event wherePromoted($value)
+ * @method static Builder|Event whereStartTime($value)
+ * @method static Builder|Event whereStatus($value)
+ * @method static Builder|Event whereSubTitle($value)
+ * @method static Builder|Event whereTicketNumber($value)
+ * @method static Builder|Event whereTitle($value)
+ * @method static Builder|Event whereUpdatedAt($value)
+ * @method static Builder|Event whereUserId($value)
  * @mixin \Eloquent
  */
 class Event extends Model
@@ -106,11 +106,6 @@ class Event extends Model
         return $this->hasMany(Images::class);
     }
 
-    public function customers(): HasMany
-    {
-        return $this->hasMany(Customer::class);
-    }
-
     public function billings(): HasMany
     {
         return $this->hasMany(Billing::class);
@@ -128,7 +123,7 @@ class Event extends Model
 
     public function payments(): HasMany
     {
-        return $this->hasMany(PaymentCustomer::class);
+        return $this->hasMany(Customer::class);
     }
 
     public function company(): BelongsTo

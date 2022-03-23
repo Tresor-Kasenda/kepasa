@@ -4,12 +4,15 @@ declare(strict_types=1);
 namespace App\Repository\Suppers;
 
 use App\Models\Event;
+use App\Traits\ImageUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class EventSupperRepository
 {
+    use ImageUpload;
+
     public function getContents(): array|Collection
     {
         return Event::query()
@@ -27,6 +30,7 @@ class EventSupperRepository
     public function delete(string $key): Model|Builder
     {
         $event = $this->getFirstOrFail(key: $key);
+        $this->removePicture($event);
         $event->delete();
         toast("delete event with success", 'success');
         return $event;
