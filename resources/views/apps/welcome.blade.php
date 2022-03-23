@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <section class="fullwidth padding-top-10 padding-bottom-10" data-background-color="#ffffff">
+    <section class="fullwidth padding-top-50 padding-bottom-10" data-background-color="#ffffff">
         <div class="container">
             <div id="error" class="padding-top-15"></div>
             <div class="row">

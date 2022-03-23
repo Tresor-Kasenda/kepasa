@@ -100,6 +100,11 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
         Route::post('confirm/{key}/bookings', 'confirmation')->name('booking.confirmation');
         Route::get('payment/{eventId}', 'confirmationPayment')->name('confirmation.payment');
     });
+
+    Route::controller(PaypalController::class)->group(function (){
+        Route::post('/order/create', 'create')->name('paypal.create.transaction');
+        Route::post('/order/capture', 'capture')->name('paypal.capture.transaction');
+    });
 });
 
 Route::controller(HomeController::class)->group(function (){
