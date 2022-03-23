@@ -170,6 +170,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        Milon\Barcode\BarcodeServiceProvider::class,
 
 
         /*
@@ -238,8 +239,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
-        'Location' => \Stevebauman\Location\Facades\Location::class
-
+        'Location' => \Stevebauman\Location\Facades\Location::class,
+        'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
+        'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
 
     ],
 

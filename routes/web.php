@@ -30,6 +30,7 @@ use App\Http\Controllers\Supers\HomeSuperController;
 use App\Http\Controllers\Supers\OrganiserSupperController;
 use App\Http\Controllers\Supers\PromotedEventSuperController;
 use App\Http\Controllers\Supers\SettingSupperController;
+use App\Http\Controllers\Users\InvoiceCustomerController;
 use App\Http\Controllers\Users\PaypalCustomerController;
 use Illuminate\Support\Facades\Route;
 
@@ -111,6 +112,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
         Route::post('/order/create', 'create')->name('paypal.create');
         Route::post('/order/capture', 'capture')->name('paypal.capture');
     });
+
+    Route::get('invoice/{customerId}/download', [InvoiceCustomerController::class, 'download'])->name('invoice.download');
 
     Route::get('evenements/{key}/bookings', [BookingController::class, 'bookings'])->name('booking.event');
 });

@@ -11,11 +11,11 @@
                         <div class="user-profile-avatar">
                             <img
                                 @if(auth()->user()->profile->image == null)
-                                    src="{{ asset('assets/images/profile.jpg') }}"
-                                    alt="{{ auth()->user()->name ?? "" }}"
+                                src="{{ asset('assets/images/profile.jpg') }}"
+                                alt="{{ auth()->user()->name ?? "" }}"
                                 @else
-                                    src="{{ asset('storage/'.auth()->user()->profile->image) }}"
-                                    alt="{{ auth()->user()->name ?? "" }}"
+                                src="{{ asset('storage/'.auth()->user()->profile->image) }}"
+                                alt="{{ auth()->user()->name ?? "" }}"
                                 @endif
                             >
                         </div>
@@ -86,27 +86,58 @@
             <div class="col-lg-8 col-md-8 padding-left-30">
                 <h3 class="margin-top-0 margin-bottom-40">{{ auth()->user()->name ?? "" }}'s events</h3>
                 <div class="row">
-                    @foreach($invoices as $invoice)
-                        <div class="col-lg-12 col-md-12">
-                            <div class="listing-item-container list-layout">
-                                <a href="{{ route('user.home.show', $invoice->key) }}" class="listing-item">
-                                    <div class="listing-item-image">
-                                        <img src="{{ asset('storage/'.$invoice->event->image) }}" alt="{{ $invoice->event->title }}">
-                                        <span class="tag">{{ $invoice->event->category->name }}</span>
-                                    </div>
-                                    <div class="listing-item-content">
-                                        @if($invoice->event->status == \App\Enums\StatusEnum::POSTPONE)
-                                            <div class="listing-badge now-open">Event reporter</div>
-                                        @endif
-                                        <div class="listing-item-inner">
-                                            <h3>{{ $invoice->event->title ?? "" }}</h3>
-                                            <span>{{ $invoice->event->address ?? "" }}, {{ $invoice->event->address ?? "" }}</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
+                    <div id="titlebar" class="listing-titlebar">
+                        <div class="listing-titlebar-title">
+                            <h2>
+                                {{ strtoupper($invoice->event->title) ?? "" }}
+                                <span class="listing-tag">{{ $invoice->event->category->name ?? "" }}</span>
+                            </h2>
+                            <span>
+                            <a href="#listing-location" class="listing-address">
+                                <i class="fa fa-map-marker"></i>
+                                {{ $invoice->event->address }}, {{ $invoice->event->city }}
+                            </a> <br>
+                            <a href="#listing-location" class="listing-address">
+                                <i class="fa fa-map-signs"></i>
+                                Country: {{ $invoice->event->country }},
+                            </a> <br>
+                            <a href="#listing-location" class="listing-address">
+                                <i class="fa fa-calendar-times-o"></i>
+                                Date : {{ $invoice->event->date }}
+                            </a>
+                        </span> <br>
+                            <span>
+                            <a href="#listing-location" class="listing-address">
+                                <i class="fa fa-money"></i>
+                                Prices: $ {{ $invoice->totalAmount ?? "" }}
+                            </a><br>
+                            <a href="#listing-location" class="listing-address">
+                                <i class="fa fa-times"></i>
+                                Time : {{ $invoice->event->startTime ?? "" }}-{{ $invoice->event->endTime ?? "" }}
+                            </a>
+                        </span>
                         </div>
-                    @endforeach
+                    </div>
+
+                    <div class="listing-section">
+                        <p>
+                            {{ $invoice->event->description ?? "" }}
+                        </p>
+
+                        <h3 class="listing-desc-headline margin-top-70">Gallery</h3>
+                        <div class="listing-slider-small mfp-gallery-container margin-bottom-0">
+                            <a
+                                href="{{ asset('storage/'.$invoice->event->image) }}"
+                                data-background-image="{{ asset('storage/'.$invoice->event->image) }}"
+                                class="item mfp-gallery" title="{{ $invoice->event->title ?? "" }}"
+                            ></a>
+                            @each('apps.components._image', $invoice->event->media, 'image')
+                        </div>
+                        <a
+                            href="{{ route('user.invoice.download', $invoice->key) }}"
+                            class="button fullwidth margin-top-25"
+                        >Download Invoice</a>
+                    </div>
                 </div>
             </div>
         </div>

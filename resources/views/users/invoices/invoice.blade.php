@@ -58,7 +58,7 @@
         .rip {
             border-right: 10px solid transparent;
             padding: 5px;
-            background-image: url(line3.png);
+            background-image: url({{ asset('images/line3.png') }});
             height: 400px;
             position: absolute;
             top: 0;
@@ -103,7 +103,7 @@
         }
 
         .ticket-1 {
-            background-image: url(ticket.jpeg);
+            background-image: url({{ asset('images/ticket.jpeg') }});
             border-radius: 15px;
         }
 
@@ -132,7 +132,7 @@
         }
 
         .qr .logo{
-            height: 8rem;
+            margin-top: -10%;
             position: absolute;
             bottom: 1rem;
             left: 1rem;
@@ -159,26 +159,26 @@
     <div >
         <div class="ticket ticket-1" id="wrapper_tickets">
             <div class="date">
-                <span class="day"></span>
-                <span class="month-and-time"> <br>
-                    <span class="small"></span>
+                <span class="day">{{ date('d', strtotime($invoice->event->date)) }}</span>
+                <span class="month-and-time">{{ date('m', strtotime($invoice->event->date)) }}<br>
+                    <span class="small">{{ date('Y', strtotime($invoice->event->date)) }}</span>
                 </span>
             </div>
             <div class="artist">
                 <div>
-                    <span class="name">Event Name: </span>
+                    <span class="name">Event Name: {{ strtoupper($invoice->event->title) }}</span>
                 </div>
                 <div>
-                    <span class="live small">TICKET #:</span>
+                    <span class="live small">TICKET #:{{ $invoice->reference }}</span>
                 </div>
                 <div class="location">
                     <div class="venue">
                         <div>
-                            <span class="small"></span>
+                            <span class="small">{{ $invoice->event->city }}</span>
                         </div>
                         <div>
                             <span class="small">
-                                <span>Venue: </span>
+                                <span>Address: {{ $invoice->event->address }}</span>
                             </span>
                         </div>
                     </div>
@@ -186,20 +186,22 @@
             </div>
             <div class="rip"></div>
             <div class="time">
-                <span>Time:</span>
+                <span>Time: {{ substr($invoice->event->startTime,0,5) }}</span>
             </div>
             <div class="cta">
                 <span class="small">Ticket Holder:</span><br>
-                <span class="small">&nbsp;</span>
+                <span class="small">{{ ucfirst(auth()->user()->name) }}  {{ ucfirst(auth()->user()->lastName) }}</span>
             </div>
             <div class="cta2">
                 <span class="small"></span>
             </div>
             <div class="qr">
-                <img src="" class="logo">
+                <span class="logo">
+                    {!! DNS2D::getBarcodeHTML($invoice->reference, 'QRCODE')!!}
+                </span>
             </div>
             <div class="logo2">
-                <img src="" id = "logo">
+                <img src="{{ asset('images/logo3.png') }}" id = "logo">
             </div>
         </div>
         <script type="text/javascript">
