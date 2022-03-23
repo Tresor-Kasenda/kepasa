@@ -3,7 +3,14 @@ declare(strict_types=1);
 
 namespace App\Services\Payment;
 
+use App\Enums\PaymentEnum;
+use App\Enums\StatusEnum;
+use App\Mail\ConfirmationTransaction;
+use App\Models\Customer;
+use App\Models\Event;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\PayPal;
 use Throwable;
 
@@ -27,6 +34,7 @@ class PayPalPaymentServiceFactory
                 ]
             ]
         ]);
+        self::createOrder(order: $order, payment: $payment);
         return response()->json($order);
     }
 
@@ -35,10 +43,13 @@ class PayPalPaymentServiceFactory
      */
     public static function capture($attributes): JsonResponse
     {
-        dd($attributes);
         $provider = self::paypalConfiguration();
         $order = $attributes['orderId'];
         $capture = $provider->capturePaymentOrder(order_id: $order);
+        if ($capture['status'] == "COMPLETED"){
+            self::updateOrder(attributes: $attributes, process: $capture);
+            self::updateEvent();
+        }
         return response()->json($capture);
     }
 
@@ -51,5 +62,47 @@ class PayPalPaymentServiceFactory
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
         return $provider;
+    }
+    private static function createOrder($order, $payment)
+    {
+        $total = $payment->prices * $payment->ticketNumber ;
+        Customer::query()
+            ->create([
+                'event_id' => $payment->id,
+                'user_id' => auth()->id(),
+                'ticketNumber' => $payment->ticketNumber,
+                'totalAmount' => $total,
+                'reference' => $order['id'],
+                'name' => auth()->user()->company->companyName,
+                'surname' => auth()->user()->lastName,
+                'email' => auth()->user()->company->email,
+                'phones' => auth()->user()->company->phones,
+                'country' => auth()->user()->company->country,
+                'city' => auth()->user()->company->country,
+                'status' => PaymentEnum::UNPAID
+            ]);
+    }
+
+    private static function updateOrder($attributes, $process)
+    {
+        Customer::query()
+            ->where('reference', '=', $process['id'])
+            ->update([
+                'status' => PaymentEnum::PAID,
+                'updated_at' => Carbon::now()
+            ]);
+    }
+
+    public static function updateEvent(): bool|int
+    {
+        $event = Event::query()
+            ->where('user_id', '=', auth()->id())
+            ->where('company_id', '=', auth()->user()->company->id)
+            ->update([
+                'payment' => PaymentEnum::PAID,
+                'updated_at' => Carbon::now()
+            ]);
+        Mail::send(new ConfirmationTransaction($event));
+        return $event;
     }
 }

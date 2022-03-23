@@ -95,7 +95,7 @@
                 layout: 'horizontal'
             },
             createOrder: function(data, actions) {
-                return fetch(`{{ route('paypal.create.transaction') }}`, {
+                return fetch(`{{ route('organiser.paypal.create.transaction') }}`, {
                     method: "POST",
                     body: JSON.stringify({
                         title: $('#title').val(),
@@ -114,37 +114,31 @@
 
             // Call your server to finalize the transaction
             onApprove: function(data, actions) {
-                return fetch('{{ route('paypal.capture.transaction') }}', {
+                return fetch('{{ route('organiser.paypal.capture.transaction') }}', {
                     method: 'post',
                     body: JSON.stringify({
-                        orderId : data['orderID']
-                    })
+                        orderId : data['orderID'],
+                        title: $('#title').val(),
+                        prices: $('#prices').val(),
+                    }),
+                    headers: {
+                        "Content-type": "application/json",
+                        "X-CSRF-Token": $('input[name="_token"]').val()
+                    }
                 }).then(function(res) {
                     return res.json();
                 }).then(function(orderData) {
-                    var errorDetail = Array.isArray(orderData['details']) && orderData['details'][0];
-
+                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
                     if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
                         return actions.restart(); // Recoverable state, per:
                     }
-
                     if (errorDetail) {
                         var msg = 'Sorry, your transaction could not be processed.';
                         if (errorDetail.description) msg += '\n\n' + errorDetail.description;
                         if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
-                        return alert(msg); // Show a failure message (try to avoid alerts in production environments)
+                        return alert(msg);
                     }
-
-                    // Successful capture! For demo purposes:
-                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                    var transaction = orderData.purchase_units[0].payments.captures[0];
-                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
-
-                    // Replace the above to show a success message within this page, e.g.
-                    // const element = document.getElementById('paypal-button-container');
-                    // element.innerHTML = '';
-                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                    // Or go to another URL:  actions.redirect('thank_you.html');
+                    window.history.back();
                 });
             }
 

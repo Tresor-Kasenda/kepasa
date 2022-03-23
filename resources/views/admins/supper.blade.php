@@ -55,7 +55,6 @@
     <script>
         $(function(){
             let cData = JSON.parse(`{{ $events }}`);
-            console.log(cData)
             let ctx = $("#canvas");
 
             let data = {

@@ -30,6 +30,7 @@ use App\Http\Controllers\Supers\HomeSuperController;
 use App\Http\Controllers\Supers\OrganiserSupperController;
 use App\Http\Controllers\Supers\PromotedEventSuperController;
 use App\Http\Controllers\Supers\SettingSupperController;
+use App\Http\Controllers\Users\PaypalCustomerController;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
@@ -84,6 +85,11 @@ Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['o
         Route::post('createToken', 'createToken')->name('enable.token');
         Route::get('getRoom/{token}/{roomId}', "joinRoom")->name('enable.joinRoom');
     });
+
+    Route::controller(PaypalController::class)->group(function (){
+        Route::post('/order/create', 'create')->name('paypal.create.transaction');
+        Route::post('/order/capture', 'capture')->name('paypal.capture.transaction');
+    });
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function(){
@@ -101,10 +107,12 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
         Route::get('payment/{eventId}', 'confirmationPayment')->name('confirmation.payment');
     });
 
-    Route::controller(PaypalController::class)->group(function (){
-        Route::post('/order/create', 'create')->name('paypal.create.transaction');
-        Route::post('/order/capture', 'capture')->name('paypal.capture.transaction');
+    Route::controller(PaypalCustomerController::class)->group(function (){
+        Route::post('/order/create', 'create')->name('paypal.create');
+        Route::post('/order/capture', 'capture')->name('paypal.capture');
     });
+
+    Route::get('evenements/{key}/bookings', [BookingController::class, 'bookings'])->name('booking.event');
 });
 
 Route::controller(HomeController::class)->group(function (){
@@ -123,7 +131,7 @@ Route::controller(EventController::class)->group(function (){
     Route::get('/evenements/{event}','show')->name('event.show');
     Route::get('search-events', 'searchEvents')->name('search.events');
 });
-Route::get('evenements/{key}/bookings', [BookingController::class, 'bookings'])->name('booking.event');
+
 Route::get('/event-fees', EventFeeController::class)->name('fee.index');
 Route::get('/term-and-conditions', [EventFeeController::class, 'terms'])->name('term.details');
 Route::get('/contact-us', ContactUsController::class)->name('contact.index');

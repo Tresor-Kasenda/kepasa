@@ -48,7 +48,7 @@ class CustomerRepository
             "alternativePhones" => $attributes->input('alternativePhones'),
             "city" => $attributes->input('city'),
             "country" => $attributes->input('country'),
-            'image' => self::uploadFiles($attributes)
+            'image' => self::uploadFile($attributes)
         ]);
     }
 }

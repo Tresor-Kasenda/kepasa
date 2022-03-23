@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phones')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
-            $table->integer('reference')->unique();
+            $table->string('reference')->unique();
             $table->string('ticketNumber', 9);
             $table->string('totalAmount', 9);
             $table->enum('status', [PaymentEnum::$types])->default(PaymentEnum::UNPAID);

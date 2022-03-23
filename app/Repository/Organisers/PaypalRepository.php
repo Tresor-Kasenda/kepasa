@@ -22,11 +22,7 @@ class PaypalRepository
             ->where('prices', '=', $attributes->input('prices'))
             ->first();
         $data = json_decode($attributes->getContent(), true);
-        $order = PayPalPaymentServiceFactory::process(data:  $data, payment: $payment);
-        dd($order);
-        $this->createOrder(attributes: $data, order: $order, payment: $payment);
-        $this->updateTicketEvent(event: $payment, data: $data);
-        return $order;
+        return PayPalPaymentServiceFactory::process(data:  $data, payment: $payment);
     }
 
     /**
@@ -35,45 +31,6 @@ class PaypalRepository
     public function capture($attributes): JsonResponse
     {
         $data = json_decode($attributes->getContent(), true);
-        $process = PayPalPaymentServiceFactory::capture(attributes: $data);
-       $this->updateOrder(attributes: $attributes, process: $process);
-        return $process;
+        return PayPalPaymentServiceFactory::capture(attributes: $data);
     }
-
-
-    private function createOrder($attributes, $order, $payment)
-    {
-        $total = $payment->prices * $payment->ticketNumber ;
-        Customer::query()
-            ->create([
-                'event_id' => $payment->id,
-                'user_id' => auth()->id(),
-                'ticketNumber' => $payment->ticketNumber,
-                'totalAmount' => $total,
-                'reference' => $order->id,
-                'name' => auth()->user()->company->companyName,
-                'surname' => auth()->user()->lastName,
-                'email' => auth()->user()->company->email,
-                'phones' => auth()->user()->company->phones,
-                'country' => auth()->user()->company->country,
-                'city' => auth()->user()->company->country,
-                'status' => PaymentEnum::UNPAID
-            ]);
-    }
-
-    private function updateOrder($attributes, $process)
-    {
-    }
-
-    private function updateTicketEvent($event, $data)
-    {
-        $tickets = $event->ticketNumber - $data->ticket;
-        Event::query()
-            ->where('id', '=', $event->id)
-            ->where('title', '=', $event->title)
-            ->update([
-                'ticketNumber' => $tickets
-            ]);
-    }
-
 }

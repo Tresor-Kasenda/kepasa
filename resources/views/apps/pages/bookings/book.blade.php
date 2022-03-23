@@ -133,13 +133,17 @@
             },
             // Call your server to set up the transaction
             createOrder: function(data, actions) {
-                return fetch('{{ route('user.paypal.create.transaction') }}', {
+                return fetch('{{ route('user.paypal.create') }}', {
                     method: 'post',
                     body: JSON.stringify({
                         "prices": $('#prices').val(),
                         "ticketNumber": $('#tickets').val(),
                         "title": $('#title').val()
-                    })
+                    }),
+                    headers: {
+                        "Content-type": "application/json",
+                        "X-CSRF-Token": $('input[name="_token"]').val()
+                    }
                 }).then(function(res) {
                     return res.json();
                 }).then(function(orderData) {
@@ -150,11 +154,15 @@
             // Call your server to finalize the transaction
             onApprove: function(data, actions) {
                 console.log(data.orderId)
-                return fetch('{{ route('user.paypal.capture.transaction') }}', {
+                return fetch('{{ route('user.paypal.capture') }}', {
                     method: 'post',
                     body: JSON.stringify({
                         "orderId": data.orderId
-                    })
+                    }),
+                    headers: {
+                        "Content-type": "application/json",
+                        "X-CSRF-Token": $('input[name="_token"]').val()
+                    }
                 }).then(function(res) {
                     return res.json();
                 }).then(function(orderData) {
