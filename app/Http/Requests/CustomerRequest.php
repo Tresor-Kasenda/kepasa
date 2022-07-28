@@ -23,7 +23,7 @@ class CustomerRequest extends FormRequest
             "alternativePhones" => ['required', 'string', 'min:10'],
             "city" => ['required', 'string'],
             "country" => ['required'],
-            "image" => ['required', 'image', 'mimes:jpeg,jpg,png', 'max:5000']
+            "image" => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:5000']
         ];
     }
 }

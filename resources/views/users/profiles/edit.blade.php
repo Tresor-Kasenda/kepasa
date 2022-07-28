@@ -95,7 +95,7 @@
                             <label>Image</label>
                             <input type="file"
                                    class="form-control-file text-success font-weight-bold"
-                                   required name="image"
+                                   name="image"
                                    id="image"
                                    data-title="Click or Drag in your images(Max size: 10MB)">
                         </div>
