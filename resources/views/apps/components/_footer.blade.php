@@ -31,7 +31,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="copyrights">© {{ now()->format('Y') }} {{ config('app.name') }}. All Rights Reserved.</div>
+                <div class="copyrights">© {{ now()->format('Y') }} NgomaDigiTech. All Rights Reserved.</div>
             </div>
         </div>
     </div>
