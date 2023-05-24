@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\View\Composers;
@@ -8,10 +9,12 @@ use Illuminate\View\View;
 
 class EventComposer
 {
-    public function __construct(public HomeRepository $repository){}
-
-    public function compose(View $view)
+    public function __construct(public HomeRepository $repository)
     {
-        $view->with('events' ,$this->repository->getContents());
+    }
+
+    public function compose(View $view): void
+    {
+        $view->with('events', $this->repository->getContents());
     }
 }

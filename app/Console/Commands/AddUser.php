@@ -11,7 +11,7 @@ use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Exception;
 
 class AddUser extends Command
 {
@@ -39,27 +39,26 @@ class AddUser extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $this->comment('Add User Command Interactive Wizard');
 
-        process : {
+        process :
             $name = ucwords($this->anticipate('name', ['admin', 'kepasa manager']));
-            $email = strtolower($this->ask('email'));
-            $password = $this->secret('password');
-            $password_confirmation = $this->secret('confirm password');
+        $email = mb_strtolower($this->ask('email'));
+        $password = $this->secret('password');
+        $password_confirmation = $this->secret('confirm password');
 
-            $validator = validator(
-                compact('name', 'email', 'password', 'password_confirmation'),
-                [
-                    'name' => ['required', 'string', 'max:255'],
-                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                    'password' => ['required', 'string', 'min:8', 'confirmed'],
-                ]
-            );
-        }
+        $validator = validator(
+            compact('name', 'email', 'password', 'password_confirmation'),
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]
+        );
 
-        if (!$validator->fails()) {
+        if ( ! $validator->fails()) {
             try {
                 $password = Hash::make($password);
                 $role = Role::query()
@@ -72,20 +71,20 @@ class AddUser extends Command
                 $user->save();
                 Profile::query()
                     ->create([
-                        'user_id' => $user->id
+                        'user_id' => $user->id,
                     ]);
                 Setting::query()
                     ->create([
-                        'user_id' => $user->id
+                        'user_id' => $user->id,
                     ]);
                 $this->info(sprintf('User %s <%s> created', $name, $email));
                 exit();
-            } catch (\Exception $exception) {
+            } catch (Exception $exception) {
                 $this->error('Something went wrong run the command with -v for more details');
                 dd($exception);
             }
         } else {
-            $this->error("some values are wrong !");
+            $this->error('some values are wrong !');
             $this->table(['Errors'], $validator->errors()->messages());
             goto process;
         }

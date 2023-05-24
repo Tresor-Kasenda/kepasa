@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Traits;
@@ -13,9 +14,10 @@ trait PaypalConfiguration
      */
     private static function paypalConfiguration(): PayPal
     {
-        $provider = new PayPal;
+        $provider = new PayPal();
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
+
         return $provider;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Notifications;
@@ -15,13 +16,14 @@ class CheckEventSubscriptionNotification extends Notification implements ShouldQ
     /**
      * @return void
      */
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
     /**
      * Get the notification's delivery channels.
      *
      * @param  mixed  $notifiable
-     * @return array
      */
     public function via($notifiable): array
     {
@@ -34,10 +36,10 @@ class CheckEventSubscriptionNotification extends Notification implements ShouldQ
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return (new MailMessage())
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -47,7 +49,7 @@ class CheckEventSubscriptionNotification extends Notification implements ShouldQ
     public function toArray($notifiable)
     {
         return [
-            //
+
         ];
     }
 }

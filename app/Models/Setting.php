@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -21,6 +22,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Setting newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Setting newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Setting query()
@@ -33,11 +35,13 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Setting extends Model
 {
-    use HasFactory, HasKey;
+    use HasFactory;
+    use HasKey;
 
     protected $guarded = [];
 

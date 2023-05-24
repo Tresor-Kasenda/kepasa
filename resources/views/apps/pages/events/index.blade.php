@@ -12,7 +12,8 @@
                     <nav id="breadcrumbs">
                         <ul>
                             <li>
-                                <a href="{{ route('home.index') }}">Home</a></li>
+                                <a href="{{ route('home.index') }}">Home</a>
+                            </li>
                             <li>Events</li>
                         </ul>
                     </nav>

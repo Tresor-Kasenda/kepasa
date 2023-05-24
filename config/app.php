@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 return [
 
@@ -172,7 +173,6 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Milon\Barcode\BarcodeServiceProvider::class,
 
-
         /*
          * Application Service Providers...
          */
@@ -182,7 +182,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
-        App\Providers\RepositoriesServiceProvider::class
+        App\Providers\RepositoriesServiceProvider::class,
     ],
 
     /*

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository;
@@ -28,6 +29,7 @@ class EventUserRepository
         $country = Country::query()
             ->where('countryCode', '=', $attributes->input('country'))
             ->first();
+
         return Event::query()
             ->where('city', '=', $attributes->input('city'))
             ->where('country', '=', $country->countryName)

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -29,6 +30,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property Carbon|null $updated_at
  * @property-read Event $event
  * @property-read User $user
+ *
  * @method static Builder|Customer newModelQuery()
  * @method static Builder|Customer newQuery()
  * @method static Builder|Customer query()
@@ -46,11 +48,13 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Customer whereTicketNumber($value)
  * @method static Builder|Customer whereUpdatedAt($value)
  * @method static Builder|Customer whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Customer extends Model
 {
-    use HasFactory, HasKey;
+    use HasFactory;
+    use HasKey;
 
     protected $guarded = [];
 

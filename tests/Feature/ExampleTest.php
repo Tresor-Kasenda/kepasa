@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -12,19 +13,19 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_example(): void
     {
         $response = $this->get('/');
 
         $response->assertStatus(200);
     }
 
-    public function test_can_create_user()
+    public function test_can_create_user(): void
     {
         $user = \App\Models\User::factory()->create();
         $this->actingAs($user);
         $response = $this->post('api.paypal.create.transaction', [
-            $user
+            $user,
         ]);
         $response->assertOk();
     }

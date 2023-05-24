@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Middleware;
@@ -12,29 +13,27 @@ use Illuminate\Support\Facades\Auth;
 class AdminMiddleware
 {
     /**
-     * @param Request $request
      * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return Response|RedirectResponse
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        if(!Auth::check()){
+        if ( ! Auth::check()) {
             return redirect()->route('login');
         }
 
-        if (Auth::user()->role_id == 1) {
-            return redirect()->route('supper.dashboard.index');
+        if (1 === Auth::user()->role_id) {
+            return redirect()->route('supper.dashboard');
         }
 
-        if (Auth::user()->role_id == 2) {
+        if (2 === Auth::user()->role_id) {
             return $next($request);
         }
 
-        if (Auth::user()->role_id == 3){
+        if (3 === Auth::user()->role_id) {
             return redirect()->route('organiser.organiser.index');
         }
 
-        if (Auth::user()->role_id == 4){
+        if (4 === Auth::user()->role_id) {
             return redirect()->route('user.home.index');
         }
     }

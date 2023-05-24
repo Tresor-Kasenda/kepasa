@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Organisers;
@@ -9,12 +10,14 @@ use Illuminate\Contracts\Support\Renderable;
 
 class BookingOrganiserController extends Controller
 {
-    public function __construct(public BookingOrganiserRepository $repository){}
+    public function __construct(public BookingOrganiserRepository $repository)
+    {
+    }
 
-    public function index(): Renderable
+    public function __invoke(): Renderable
     {
         return view('organisers.pages.billings.index', [
-            'bookings' => $this->repository->getContent()
+            'bookings' => $this->repository->getContent(),
         ]);
     }
 }

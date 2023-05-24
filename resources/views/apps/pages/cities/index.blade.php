@@ -41,7 +41,7 @@
             </div>
             <div class="col-md-8">
                 <div id="contact-message"></div>
-                <form action="{{ route('promotion.store') }}" method="POST">
+                <form action="{{ route('promoted.store') }}" method="POST">
                     @csrf
                     <h4 class="headline margin-bottom-35">Contact Us</h4>
                     <div class="row">
@@ -54,47 +54,46 @@
                         </div>
                         <div class="col-md-6">
                             <input
-                                name="First Name"
+                                name="username"
                                 type="text"
-                                id="firstName"
+                                id="username"
+                                placeholder="User Name"
+                                required
+                            />
+                        </div>
+                        <div class="col-md-6">
+                            <input
+                                name="firstname"
+                                type="text"
+                                id="firstname"
                                 placeholder="First Name"
-                                required="required"
+                                required
                             />
                         </div>
                         <div class="col-md-6">
                             <input
-                                name="middleName"
+                                name="lastname"
                                 type="text"
-                                id="middleName"
-                                placeholder="Middle Name"
-                                required="required"
-                            />
-                        </div>
-                        <div class="col-md-6">
-                            <input
-                                name="lastName"
-                                type="text"
-                                id="lastName"
+                                id="lastname"
                                 placeholder="Last Name"
-                                required="required"
+                                required
                             />
                         </div>
                         <div class="col-md-6">
                             <input
-                                name="contact"
+                                name="phones"
                                 type="text"
-                                id="contact"
+                                id="phones"
                                 placeholder="Mobile Number"
-                                required="required"
+                                required
                             />
                         </div>
                         <div class="col-md-6">
                             <input
-                                name="secondContact"
+                                name="alternate_number"
                                 type="text"
-                                id="secondContact"
+                                id="alternate_number"
                                 placeholder="Alternative Number"
-                                required="required"
                             />
                         </div>
                         <div class="col-md-6">
@@ -103,7 +102,7 @@
                                 type="email"
                                 id="email"
                                 placeholder="Email Address"
-                                required="required"
+                                required
                             />
                         </div>
                         <div class="col-md-6">
@@ -112,7 +111,7 @@
                                 type="text"
                                 id="position"
                                 placeholder="Position/Title"
-                                required="required"
+                                requir
                             />
                         </div>
                         <div class="col-md-6">
@@ -120,7 +119,7 @@
                                 name="department"
                                 type="text"
                                 placeholder="Goverment Dpt./Inst."
-                                required="required"
+                                required
                             />
                         </div>
                         <div class="col-md-6">
@@ -129,16 +128,16 @@
                                 type="text"
                                 id="city"
                                 placeholder="City"
-                                required="required"
+                                required
                             />
                         </div>
                         <div class="col-md-6">
                             <input
-                                name="province"
+                                name="state"
                                 type="text"
-                                id="province"
+                                id="state"
                                 placeholder="Province/State"
-                                required="required"
+                                required
                             />
                         </div>
                         <div class="col-md-6">
@@ -153,7 +152,7 @@
                                 id="comments"
                                 placeholder="Message"
                                 spellcheck="true"
-                                required="required"
+                                required
                             ></textarea>
                         </div>
                     </div>

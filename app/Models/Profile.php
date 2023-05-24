@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -23,6 +24,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string|null $image
  * @property int $user_id
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Profile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Profile newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Profile query()
@@ -37,11 +39,13 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static \Illuminate\Database\Eloquent\Builder|Profile wherePhones($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Profile whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Profile extends Model
 {
-    use HasFactory, HasKey;
+    use HasFactory;
+    use HasKey;
 
     protected $guarded = [];
 

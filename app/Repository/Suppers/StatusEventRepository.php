@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Suppers;
@@ -13,24 +14,27 @@ class StatusEventRepository
     public function changeStatus($attributes): bool|int
     {
         $event = $this->getEvent($attributes);
-        if ($event != null){
+        if (null !== $event) {
             return $event->update([
-                'status' => $attributes->input('status')
+                'status' => $attributes->input('status'),
             ]);
         }
+
         return false;
     }
 
     public function promoted(string $key): Model|Event|Builder|null
     {
         $event = $this->getSingleEvent($key);
-        if ($event != null){
+        if (null !== $event) {
             $event->update([
-                'promoted' => true
+                'promoted' => true,
             ]);
             toast("L'evenement a ete promus", 'success');
+
             return $event;
         }
+
         return null;
     }
 
@@ -38,9 +42,10 @@ class StatusEventRepository
     {
         $event = $this->getSingleEvent($key);
         $event->update([
-            'promoted' => false
+            'promoted' => false,
         ]);
         toast("L'evenement a ete retirer de la promotion", 'success');
+
         return $event;
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -18,6 +19,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\City $city
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|CityMedia newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CityMedia newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CityMedia query()
@@ -27,11 +29,13 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static \Illuminate\Database\Eloquent\Builder|CityMedia whereImages($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CityMedia whereKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CityMedia whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class CityMedia extends Model
 {
-    use HasFactory, HasKey;
+    use HasFactory;
+    use HasKey;
 
     protected $guarded = [];
 

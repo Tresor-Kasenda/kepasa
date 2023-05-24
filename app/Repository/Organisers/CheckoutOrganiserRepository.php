@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Organisers;
@@ -29,6 +30,7 @@ class CheckoutOrganiserRepository
             ->where('date', '=', $attributes->input('date'))
             ->firstOrFail();
         self::createTransaction(event: $event, attributes: $attributes);
+
         return DpoPaymentFactory::pay(event: $event, attributes: $attributes);
     }
 
@@ -40,15 +42,16 @@ class CheckoutOrganiserRepository
             ->where('company_id', '=', auth()->user()->company->id)
             ->first();
         $event->update([
-            'payment' => PaymentEnum::PAID
+            'payment' => PaymentEnum::PAID,
         ]);
         $this->updateTransaction(event: $event);
         Mail::send(new PaymentConfirmationMail(auth()->user(), $event));
-        toast("Transaction made with success", 'success');
+        toast('Transaction made with success', 'success');
+
         return $event;
     }
 
-    private function createTransaction($event, $attributes)
+    private function createTransaction($event, $attributes): void
     {
         $total = $event->ticketNumber * $event->prices;
         Customer::query()
@@ -67,14 +70,14 @@ class CheckoutOrganiserRepository
             ]);
     }
 
-    private function updateTransaction($event)
+    private function updateTransaction($event): void
     {
         Customer::query()
             ->where('user_id', '=', auth()->id())
             ->where('event_id', '=', $event->id)
             ->where('name', '=', auth()->user()->company->companyName)
             ->update([
-                'status' => PaymentEnum::PAID
+                'status' => PaymentEnum::PAID,
             ]);
     }
 }

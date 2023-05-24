@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Users;
@@ -11,7 +12,9 @@ use Throwable;
 
 class PaypalCustomerController extends Controller
 {
-    public function __construct(public PaymentCustomerRepository $repository){}
+    public function __construct(public PaymentCustomerRepository $repository)
+    {
+    }
 
     /**
      * @throws Throwable

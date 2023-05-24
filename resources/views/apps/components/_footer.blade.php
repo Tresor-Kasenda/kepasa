@@ -2,15 +2,17 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5 col-sm-6">
-                <img class="footer-logo" src="" alt="">
+                <img class="footer-logo" src="{{ asset('assets/images/logo.png') }}" alt="images du systeme">
                 <br><br>
-                <p>Morbi convallis bibendum urna ut viverra. Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper.</p>
+                <p>
+                    Collaboratively administrate channels whereas virtual. Objectively seize scalable metrics whereas proactive e-services.
+                </p>
             </div>
             <div class="col-md-4 col-sm-6 ">
                 <h4>Helpful Links</h4>
                 <ul class="footer-links">
                     <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="#">Pricing</a></li>
+                    <li><a href="{{ route('fee.index') }}">Pricing</a></li>
                     <li><a href="{{ route('term.details') }}">Privacy Policy</a></li>
                 </ul>
                 <ul class="footer-links">
@@ -24,8 +26,8 @@
                 <h4>Contact Us</h4>
                 <div class="text-widget">
                     <span>12345 Little Lonsdale St, Melbourne</span> <br>
-                    Phone: <span>(123) 123-456 </span><br>
-                    E-Mail:<span> <a href="#">office@example.com</a> </span><br>
+                    Phone: <span>(+27) 662 669364 </span><br>
+                    E-Mail:<span> <a href="#">info@ngomadigitech.com</a></span><br>
                 </div>
             </div>
         </div>

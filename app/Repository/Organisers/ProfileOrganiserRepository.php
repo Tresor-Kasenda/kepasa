@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Organisers;
@@ -35,6 +36,7 @@ class ProfileOrganiserRepository
         $company = $this->getCompanyByUser(attributes: $attributes);
         $this->updateUserAuthenticate($attributes);
         $this->companyUpdate($company, $attributes);
+
         return $company;
     }
 
@@ -44,8 +46,9 @@ class ProfileOrganiserRepository
             ->where('key', '=', $key)
             ->firstOrFail();
         $user->update([
-            'password' => Hash::make($attributes->input('password'))
+            'password' => Hash::make($attributes->input('password')),
         ]);
+
         return $user;
     }
 
@@ -54,12 +57,13 @@ class ProfileOrganiserRepository
         $organiser = $this->getCompanyByUser($attributes);
         $this->removeProfile($organiser);
         $organiser->update([
-            'images' => self::uploadProfile($attributes)
+            'images' => self::uploadProfile($attributes),
         ]);
+
         return $organiser;
     }
 
-    private function updateUserAuthenticate($attributes)
+    private function updateUserAuthenticate($attributes): void
     {
         $user = User::query()
             ->where('id', '=', $attributes->user()->id)

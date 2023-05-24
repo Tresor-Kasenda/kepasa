@@ -3,7 +3,7 @@
 <head>
     <title>{{ config('app.name') }} | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/admins/css/dashlite.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/admins/css/dashlite2.9.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admins/css/skins/theme-green.css') }}">
     @yield('styles')
 </head>
 
@@ -16,7 +16,7 @@
                     @include('admins.components._header')
                     <div class="nk-content">
                         <div class="container-fluid">
-                            @yield('content')
+                            {{ $slot }}
                         </div>
                     </div>
                     @include('admins.components._footer')

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services\Payment;
@@ -16,6 +17,7 @@ use Throwable;
 class PayPalPaymentServiceFactory
 {
     use PaypalConfiguration;
+
     /**
      * @throws Throwable
      */
@@ -24,17 +26,18 @@ class PayPalPaymentServiceFactory
         $provider = self::paypalConfiguration();
         $total = $payment->prices * $payment->ticketNumber;
         $order = $provider->createOrder([
-            'intent' => "CAPTURE",
-            "purchase_units" => [
+            'intent' => 'CAPTURE',
+            'purchase_units' => [
                 0 => [
-                    "amount" => [
-                        'currency_code' => "USD",
-                        'value' => $total
-                    ]
-                ]
-            ]
+                    'amount' => [
+                        'currency_code' => 'USD',
+                        'value' => $total,
+                    ],
+                ],
+            ],
         ]);
         self::createOrder(order: $order, payment: $payment);
+
         return response()->json($order);
     }
 
@@ -46,16 +49,17 @@ class PayPalPaymentServiceFactory
         $provider = self::paypalConfiguration();
         $order = $attributes['orderId'];
         $capture = $provider->capturePaymentOrder(order_id: $order);
-        if ($capture['status'] == "COMPLETED"){
+        if ('COMPLETED' === $capture['status']) {
             self::updateOrder(attributes: $attributes, process: $capture);
             self::updateEvent();
         }
+
         return response()->json($capture);
     }
 
-    private static function createOrder($order, $payment)
+    private static function createOrder($order, $payment): void
     {
-        $total = $payment->prices * $payment->ticketNumber ;
+        $total = $payment->prices * $payment->ticketNumber;
         Customer::query()
             ->create([
                 'event_id' => $payment->id,
@@ -69,17 +73,17 @@ class PayPalPaymentServiceFactory
                 'phones' => auth()->user()->company->phones,
                 'country' => auth()->user()->company->country,
                 'city' => auth()->user()->company->country,
-                'status' => PaymentEnum::UNPAID
+                'status' => PaymentEnum::UNPAID,
             ]);
     }
 
-    private static function updateOrder($attributes, $process)
+    private static function updateOrder($attributes, $process): void
     {
         Customer::query()
             ->where('reference', '=', $process['id'])
             ->update([
                 'status' => PaymentEnum::PAID,
-                'updated_at' => Carbon::now()
+                'updated_at' => Carbon::now(),
             ]);
     }
 
@@ -90,9 +94,10 @@ class PayPalPaymentServiceFactory
             ->where('company_id', '=', auth()->user()->company->id)
             ->update([
                 'payment' => PaymentEnum::PAID,
-                'updated_at' => Carbon::now()
+                'updated_at' => Carbon::now(),
             ]);
         Mail::send(new ConfirmationTransaction($event));
+
         return $event;
     }
 }

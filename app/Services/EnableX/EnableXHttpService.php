@@ -1,17 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services\EnableX;
 
 use Illuminate\Http\Client\PendingRequest;
+use Http;
 
 trait EnableXHttpService
 {
     public function request(): PendingRequest
     {
-        return \Http::withHeaders([
-                'Content-Type: application/json',
-            ])
-            ->withBasicAuth(config('enablex.app_id'),config('enablex.app_key'));
+        return Http::withHeaders([
+            'Content-Type: application/json',
+        ])
+            ->withBasicAuth(config('enablex.app_id'), config('enablex.app_key'));
     }
 }

@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Organisers;
 
-use App\Mail\CreationEventMail;
 use App\Models\Billing;
 use App\Models\Category;
 use App\Models\Country;
@@ -17,12 +17,14 @@ use App\Traits\RandomValue;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
 class EventOrganiserRepository
 {
-    use FeedCalculation, ImageUpload, RandomValue, EnableXHttpService;
+    use EnableXHttpService;
+    use FeedCalculation;
+    use ImageUpload;
+    use RandomValue;
 
     public function getContents(): LengthAwarePaginator
     {
@@ -37,6 +39,7 @@ class EventOrganiserRepository
     public function getEventById(string $key): Model|Builder
     {
         $event = $this->getEventByKey(key: $key);
+
         return $event->load(['category', 'media', 'payments']);
     }
 
@@ -46,15 +49,17 @@ class EventOrganiserRepository
         $category = $this->getCategory(attributes: $attributes);
         $event = $this->storedEvent(attributes: $attributes, feedCalculation: $feedCalculation);
 
-        if ($category->id === 1){
+        if (1 === $category->id) {
             $online = new CreateRoomService();
-            $online->storeOnlineEvent(attributes: $attributes,event: $event);
+            $online->storeOnlineEvent(attributes: $attributes, event: $event);
             $this->createdBilling(event: $event, attributes: $attributes);
+
             return $event;
         }
 
         $this->createdBilling(event: $event, attributes: $attributes);
         Notification::send(auth()->user(), new CreatedEventNotification($event));
+
         return $event;
     }
 
@@ -65,13 +70,15 @@ class EventOrganiserRepository
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
         $category = $this->getCategory(attributes: $attributes);
 
-        if ($category->id === 1){
+        if (1 === $category->id) {
             $online = new CreateRoomService();
             $this->updatedBilling(event: $event, attributes: $attributes);
+
             return $event;
         }
 
         $this->updatedEvent($event, $attributes, $feedCalculation);
+
         return $event;
     }
 
@@ -79,10 +86,11 @@ class EventOrganiserRepository
     {
         $event = $this->getEventByKey(key: $key);
         $this->removePicture($event);
-        if ($event->onlineEvent != null){
-            $this->request()->delete(config('enablex.url')."rooms/". $event->onlineEvent->roomId);
+        if (null !== $event->onlineEvent) {
+            $this->request()->delete(config('enablex.url').'rooms/'.$event->onlineEvent->roomId);
         }
         $event->delete();
+
         return $event;
     }
 
@@ -99,10 +107,11 @@ class EventOrganiserRepository
             ->where('user_id', '=', auth()->id())
             ->where('key', '=', $key)
             ->firstOrFail();
+
         return $event->load('onlineEvent');
     }
 
-    private function createdBilling($event, $attributes)
+    private function createdBilling($event, $attributes): void
     {
         $amountSold = $attributes->input('ticketNumber') * $attributes->input('prices');
         $commission = (5 / 100) * $amountSold;
@@ -118,11 +127,11 @@ class EventOrganiserRepository
             'payout' => $payout,
             'outAmount' => 0,
             'user_id' => $attributes->user()->id,
-            'billingCode' => $this->generateRandomTransaction(7)
+            'billingCode' => $this->generateRandomTransaction(7),
         ]);
     }
 
-    private function updatedBilling($event, $attributes)
+    private function updatedBilling($event, $attributes): void
     {
         $amountSold = $attributes->input('ticketNumber') * $attributes->input('prices');
         $commission = (5 / 100) * $amountSold;
@@ -170,7 +179,7 @@ class EventOrganiserRepository
                 'category_id' => $attributes->input('category_id'),
                 'user_id' => auth()->id(),
                 'image' => self::uploadFile(request: $attributes),
-                'company_id' => $attributes->user()->company->id
+                'company_id' => $attributes->user()->company->id,
             ]);
     }
 
@@ -191,7 +200,7 @@ class EventOrganiserRepository
             'country' => $feedCalculation['0']->countryName,
             'city' => $attributes->input('cityName'),
             'description' => $attributes->input('description'),
-            'category_id' => $attributes->input('category_id')
+            'category_id' => $attributes->input('category_id'),
         ]);
     }
 }

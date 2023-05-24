@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Organisers;
@@ -10,21 +11,24 @@ use Illuminate\Contracts\Support\Renderable;
 
 class HomeOrganiserController extends Controller
 {
-    public function __construct(public HomeOrganiserRepository $repository, public ChartJsOrganiserRepository $organiserRepository){}
+    public function __construct(public HomeOrganiserRepository $repository, public ChartJsOrganiserRepository $organiserRepository)
+    {
+    }
 
     public function index(): Renderable
     {
-        $bookings = $this->organiserRepository->getPaymentForEventOrganiserByDay();
+        $bookings = [];
         $data = [];
 
-        foreach($bookings as $row) {
+        foreach ($bookings as $row) {
             $data['label'][] = $row->day_name;
             $data['data'][] = (int) $row->count;
         }
         $data['chart_data'] = json_encode($data);
+
         return view('organisers.dashboard', [
             'payments' => $this->repository->getContents(),
-            'data' => $data
+            'data' => $data,
         ]);
     }
 }

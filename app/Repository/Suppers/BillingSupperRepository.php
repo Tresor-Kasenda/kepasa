@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Suppers;
@@ -22,6 +23,7 @@ class BillingSupperRepository
         $billing = Billing::query()
             ->where('key', '=', $key)
             ->first();
+
         return $billing->load(['event', 'user']);
     }
 }

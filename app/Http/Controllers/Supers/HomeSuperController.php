@@ -1,24 +1,25 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Supers;
 
 use App\Http\Controllers\Controller;
 use App\Repository\Suppers\ChartJsSuperRepository;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\Support\Renderable;
 
 class HomeSuperController extends Controller
 {
-    public function __construct(public ChartJsSuperRepository $repository){}
+    public function __construct(public ChartJsSuperRepository $repository)
+    {
+    }
 
-    public function index(): Factory|View|Application
+    public function __invoke(): Renderable
     {
         return view('admins.supper', [
-            'companies' => $this->repository->getCompanyByMonths(),
-            'events' => $this->repository->getEventsByMonths(),
-            'billings' => $this->repository->getBillingsByMonths()
+            'companies' => [],
+            'events' => [],
+            'billings' => [],
         ]);
     }
 }

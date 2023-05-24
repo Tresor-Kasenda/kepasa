@@ -7,17 +7,17 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <div class="style-1">
+                <div class="style-1" x-data="{ currentTab: $persist('login') }">
                     <ul class="tabs-nav">
-                        <li>
-                            <a href="#tab1">Log In</a>
+                        <li @click.prevent="currentTab='login'" :class="currentTab === 'login' ? 'active' : ''">
+                            <a href="#login" @click.prevent="currentTab='login'" :class="currentTab === 'login' ? 'active' : ''">Log In</a>
                         </li>
-                        <li>
-                            <a href="#tab2">Register</a>
+                        <li @click.prevent="currentTab='register'" :class="currentTab === 'register' ? 'active' : ''">
+                            <a href="#register" @click.prevent="currentTab='register'" :class="currentTab === 'register' ? 'active' : ''">Register</a>
                         </li>
                     </ul>
                     <div class="tabs-container alt">
-                        <div class="tab-content mb-4" id="tab1" style="display: none;">
+                        <div class="tab-content mb-4" id="login"  style="display: none;" :class="currentTab === 'login' ? 'active' : ''">
                             <form method="post" class="login" action="{{ route('login') }}">
                                 @csrf
                                 <p class="form-row form-row-wide">
@@ -31,6 +31,7 @@
                                             value="{{ old('email') }}"
                                         />
                                     </label>
+                                    @error('email')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="password">
@@ -43,7 +44,7 @@
                                         />
                                     </label>
                                     <span class="lost_password">
-                                        <a href="#" >Lost Your Password?</a>
+                                        <a href="{{ route('password.request') }}" >Lost Your Password?</a>
                                     </span>
                                 </p>
                                 <div class="form-row">
@@ -54,7 +55,7 @@
                             </form>
                         </div>
 
-                        <div class="tab-content mb-4" id="tab2" style="display: none;">
+                        <div class="tab-content mb-4" id="register" style="display: none;" :class="currentTab === 'register' ? 'active' : ''">
                             <form method="post" class="register" action="{{ route('register') }}">
                                 @csrf
                                 <p class="form-row form-row-wide">
@@ -63,16 +64,15 @@
                                         <select class="input-text" name="role" id="role" required>
                                             @php
                                                 $roles = \App\Models\Role::query()
-                                                                ->select('name', 'id')
-                                                                ->where('id', '!=', 1)
-                                                                ->where('id', '!=', 2)
-                                                                ->get()
+                                                                ->whereNotIn('id',[1,2])
+                                                                ->get(['name', 'id'])
                                             @endphp
                                             @foreach($roles as $role)
                                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                                             @endforeach
                                         </select>
                                     </label>
+                                    @error('role')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="name">
@@ -85,6 +85,7 @@
                                             value="{{ old('name') }}"
                                         />
                                     </label>
+                                    @error('name')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="lastName">
@@ -98,6 +99,7 @@
                                             value="{{ old('lastName') }}"
                                         />
                                     </label>
+                                    @error('lastName')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="email">
@@ -110,6 +112,7 @@
                                             value="{{ old('email') }}"
                                         />
                                     </label>
+                                    @error('email')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="phones">
@@ -123,6 +126,7 @@
                                             value="{{ old('phones') }}"
                                         />
                                     </label>
+                                    @error('phones')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="password">
@@ -136,6 +140,7 @@
                                             autocomplete="new-password"
                                         />
                                     </label>
+                                    @error('password')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="password_confirmation">
@@ -147,8 +152,12 @@
                                             id="password_confirmation"
                                         />
                                     </label>
+                                    <span class="lost_password">
+                                        You have a account <a href="{{ route('login') }}" >Login</a>
+                                    </span>
+                                    @error('password_confirmation')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
-                                <button type="submit" class="button border fw margin-top-10">
+                                <button type="submit" class="button border fw margin-top-10" style="justify-content: center">
                                     Register
                                 </button>
                             </form>
@@ -159,4 +168,9 @@
             <div class="col-md-3"></div>
         </div>
     </div>
+@endsection
+
+
+@section('alpines')
+
 @endsection

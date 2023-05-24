@@ -1,48 +1,47 @@
-@extends('layouts.app')
+<x-app-layout>
+    @section('title', "Facture par evenement")
 
-@section('title', "Facture par evenement")
-
-@section('content')
-    <div class="nk-content-inner">
-        <div class="nk-content-body">
-            <div class="nk-block-head nk-block-head-sm">
-                <div class="nk-block-between">
-                    <div class="nk-block-head-content">
-                        <h3 class="nk-block-title page-title">Factures</h3>
+    @section('content')
+        <div class="nk-content-inner">
+            <div class="nk-content-body">
+                <div class="nk-block-head nk-block-head-sm">
+                    <div class="nk-block-between">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">Factures</h3>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="nk-block">
-                <div class="nk-block nk-block-lg">
-                    <div class="card card-preview">
-                        <div class="card-inner">
-                            <table class="datatable-init nowrap nk-tb-list nk-tb-ulist" data-auto-responsive="false">
-                                <thead>
-                                <tr class="nk-tb-item nk-tb-head text-center">
-                                    <th class="nk-tb-col tb-col-mb">
-                                        <span class="sub-text">Event Name</span>
-                                    </th>
-                                    <th class="nk-tb-col tb-col-md">
-                                        <span class="sub-text">Ticket Price</span>
-                                    </th>
-                                    <th class="nk-tb-col tb-col-md">
-                                        <span class="sub-text">Amount Sold</span>
-                                    </th>
-                                    <th class="nk-tb-col nk-tb-col-tools text-right">
-                                        <span class="sub-text">Commission</span>
-                                    </th>
-                                    <th class="nk-tb-col nk-tb-col-tools text-right">
-                                        <span class="sub-text">Pay out</span>
-                                    </th>
-                                    <th class="nk-tb-col nk-tb-col-tools text-right">
-                                        <span class="sub-text">Option</span>
-                                    </th>
-                                    <th class="nk-tb-col nk-tb-col-tools text-right">
-                                        <span class="sub-text">Action</span>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                <div class="nk-block">
+                    <div class="nk-block nk-block-lg">
+                        <div class="card card-preview">
+                            <div class="card-inner">
+                                <table class="datatable-init nowrap nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                                    <thead>
+                                    <tr class="nk-tb-item nk-tb-head text-center">
+                                        <th class="nk-tb-col tb-col-mb">
+                                            <span class="sub-text">Event Name</span>
+                                        </th>
+                                        <th class="nk-tb-col tb-col-md">
+                                            <span class="sub-text">Ticket Price</span>
+                                        </th>
+                                        <th class="nk-tb-col tb-col-md">
+                                            <span class="sub-text">Amount Sold</span>
+                                        </th>
+                                        <th class="nk-tb-col nk-tb-col-tools text-right">
+                                            <span class="sub-text">Commission</span>
+                                        </th>
+                                        <th class="nk-tb-col nk-tb-col-tools text-right">
+                                            <span class="sub-text">Pay out</span>
+                                        </th>
+                                        <th class="nk-tb-col nk-tb-col-tools text-right">
+                                            <span class="sub-text">Option</span>
+                                        </th>
+                                        <th class="nk-tb-col nk-tb-col-tools text-right">
+                                            <span class="sub-text">Action</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
                                     @foreach($billings as $billing)
                                         <tr class="nk-tb-item text-center">
                                             <td class="nk-tb-col tb-col-md">
@@ -86,12 +85,14 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection
+</x-app-layout>
+

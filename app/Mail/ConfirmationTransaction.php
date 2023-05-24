@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -9,7 +11,8 @@ use Illuminate\Queue\SerializesModels;
 
 class ConfirmationTransaction extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new message instance.
@@ -18,7 +21,7 @@ class ConfirmationTransaction extends Mailable implements ShouldQueue
      */
     public function __construct(public $event)
     {
-        //
+
     }
 
     /**

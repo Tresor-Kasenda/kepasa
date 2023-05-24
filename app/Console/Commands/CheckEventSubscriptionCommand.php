@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Console\Commands;
@@ -21,7 +22,7 @@ class CheckEventSubscriptionCommand extends Command
         parent::__construct();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $events = Event::query()
             ->where('date', '<=', Carbon::now()->addDay(7)->toDateString())
@@ -29,10 +30,10 @@ class CheckEventSubscriptionCommand extends Command
             ->where('status', '=', StatusEnum::ACTIVE)
             ->get();
 
-        foreach ($events as $event){
+        foreach ($events as $event) {
             $customers = Customer::query()->get();
-            foreach ($customers as $customer){
-                if ($event->id == $customers->id){
+            foreach ($customers as $customer) {
+                if ($event->id === $customers->id) {
 
                 }
             }

@@ -33,7 +33,7 @@
         ])
 
         @include('organisers.components._stat', [
-            'number' => \App\Models\Images::query()->where('company_id', '=', auth()->user()->company->id)->count(),
+            'number' => 0,
             'name' => "Images",
             'icon' => 'im-icon-Cloud-Picture',
             'color' => 'color-3'
@@ -78,7 +78,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
         $(function(){
-            let cData = JSON.parse(`<?php echo $data['chart_data'] ?>`);
+            let cData = JSON.parse(``);
             let ctx = $("#canvas");
 
             let data = {

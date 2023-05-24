@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Suppers;
@@ -21,9 +22,10 @@ class CategorySupperRepository
     {
         $category = Category::query()
             ->create([
-                'name' => $attributes->input('name')
+                'name' => $attributes->input('name'),
             ]);
         toast('New category as stored', 'success');
+
         return $category;
     }
 
@@ -31,9 +33,10 @@ class CategorySupperRepository
     {
         $category = $this->getSingleCategory($key);
         $category->update([
-            'name' => $attributes->input('name')
+            'name' => $attributes->input('name'),
         ]);
         toast('Category has updated', 'success');
+
         return $category;
     }
 
@@ -42,6 +45,7 @@ class CategorySupperRepository
         $category = $this->getSingleCategory($key);
         $category->delete();
         toast('category as deleted', 'info');
+
         return $category;
     }
 

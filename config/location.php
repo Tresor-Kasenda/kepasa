@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -82,7 +84,7 @@ return [
 
         'local' => [
 
-            'path' => database_path('maxmind/GeoLite2-City.mmdb')
+            'path' => database_path('maxmind/GeoLite2-City.mmdb'),
 
         ],
 

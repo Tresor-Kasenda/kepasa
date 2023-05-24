@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Organisers;
@@ -37,9 +38,10 @@ class ImagesOrganiserRepository
             ->create([
                 'event_id' => $attributes->input('event_id'),
                 'image' => self::uploadFile($attributes),
-                'company_id' => $attributes->user()->company->id
+                'company_id' => $attributes->user()->company->id,
             ]);
-        toast("Image ajouter avec success", 'success');
+        toast('Image ajouter avec success', 'success');
+
         return $image;
     }
 
@@ -50,9 +52,10 @@ class ImagesOrganiserRepository
         $image->update([
             'event_id' => $attributes->input('event_id'),
             'image' => self::uploadFile($attributes),
-            'company_id' => $attributes->user()->company->id
+            'company_id' => $attributes->user()->company->id,
         ]);
-        toast("Image a ete mise a jours", 'success');
+        toast('Image a ete mise a jours', 'success');
+
         return $image;
     }
 
@@ -61,7 +64,8 @@ class ImagesOrganiserRepository
         $image = $this->getImageByKey($key);
         $this->removePicture($image);
         $image->delete();
-        toast("Image a ete supprimer", 'success');
+        toast('Image a ete supprimer', 'success');
+
         return $image;
     }
 

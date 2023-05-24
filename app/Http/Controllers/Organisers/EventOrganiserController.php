@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Organisers;
@@ -19,32 +20,34 @@ class EventOrganiserController extends Controller
     public function __construct(
         public CategorySupperRepository $categorySupperRepository,
         public EventOrganiserRepository $organiserRepository
-    ){}
+    ) {
+    }
 
     public function index(): Renderable
     {
         return view('organisers.pages.events.index', [
-            'events' => $this->organiserRepository->getContents()
+            'events' => $this->organiserRepository->getContents(),
         ]);
     }
 
     public function show(string $key): Factory|View|Application
     {
         return view('organisers.pages.events.show', [
-            'event' => $this->organiserRepository->getEventById(key: $key)
+            'event' => $this->organiserRepository->getEventById(key: $key),
         ]);
     }
 
     public function create(): Factory|View|Application
     {
         return view('organisers.pages.events.create', [
-            'categories' => $this->categorySupperRepository->getContents()
+            'categories' => $this->categorySupperRepository->getContents(),
         ]);
     }
 
     public function store(EventRequest $attributes): RedirectResponse
     {
         $event = $this->organiserRepository->storeEvents(attributes: $attributes);
+
         return redirect()->route('organiser.events.payment.index', compact('event'));
     }
 
@@ -52,19 +55,21 @@ class EventOrganiserController extends Controller
     {
         return view('organisers.pages.events.edit', [
             'event' => $this->organiserRepository->getEventById(key: $key),
-            'categories' => $this->categorySupperRepository->getContents()
+            'categories' => $this->categorySupperRepository->getContents(),
         ]);
     }
 
     public function update(string $key, EventUpdateRequest $attributes): RedirectResponse
     {
         $this->organiserRepository->updateEvent(key: $key, attributes: $attributes);
+
         return redirect()->route('organiser.events.index');
     }
 
     public function destroy(string $key): RedirectResponse
     {
         $this->organiserRepository->deletedEvent(key: $key);
+
         return redirect()->route('organiser.events.index');
     }
 }

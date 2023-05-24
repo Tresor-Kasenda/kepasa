@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Mail;
@@ -10,9 +11,12 @@ use Illuminate\Queue\SerializesModels;
 
 class PaymentConfirmationMail extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
-    public function __construct(public $user, public $event){}
+    public function __construct(public $user, public $event)
+    {
+    }
 
     public function build()
     {
@@ -20,7 +24,7 @@ class PaymentConfirmationMail extends Mailable implements ShouldQueue
             ->to($this->user['email'])
             ->subject('')
             ->view('emails.event', [
-                'events' => $this->event
+                'events' => $this->event,
             ]);
     }
 }

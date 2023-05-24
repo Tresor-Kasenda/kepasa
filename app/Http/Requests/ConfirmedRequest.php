@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -27,7 +28,7 @@ class ConfirmedRequest extends FormRequest
             'title' => ['required', Rule::exists('events', 'title')],
             'name' => ['required', Rule::exists('categories', 'name')],
             'nameOrganiser' => ['required', Rule::exists('users', 'name')],
-            'lastNameOrganiser' => ['required', Rule::exists('users', 'lastName')]
+            'lastNameOrganiser' => ['required', Rule::exists('users', 'lastName')],
         ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions;
 
 use Exception;
@@ -8,7 +10,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -19,7 +20,7 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<Throwable>>
      */
     protected $dontReport = [
-        //
+
     ];
 
     /**
@@ -38,14 +39,14 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->reportable(function (Throwable $e): void {
+
         });
     }
 
-    public function report(Exception|Throwable $e)
+    public function report(Exception|Throwable $e): void
     {
         parent::report($e);
     }
@@ -57,8 +58,7 @@ class Handler extends ExceptionHandler
                 'error' => true,
                 'message' => 'Method is not allowed for the requested route',
             ], 405);
-        }
-        elseif($e instanceof NotFoundHttpException){
+        } elseif ($e instanceof NotFoundHttpException) {
             return response()->json([
                 'error' => true,
                 'message' => 'Intended route is not found.',

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Apps;
@@ -11,7 +12,9 @@ use Illuminate\Http\JsonResponse;
 
 class ContactUsController extends Controller
 {
-    public function __construct(public ContactRepository $repository){}
+    public function __construct(public ContactRepository $repository)
+    {
+    }
 
     public function __invoke(): Renderable
     {
@@ -21,8 +24,9 @@ class ContactUsController extends Controller
     public function store(ContactRequest $contactRequest): JsonResponse
     {
         $this->repository->store($contactRequest);
+
         return response()->json([
-            'message' => "Votre message a ete envoyer avec success"
+            'message' => 'Votre message a ete envoyer avec success',
         ], 200);
     }
 }

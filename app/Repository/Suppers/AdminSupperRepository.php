@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Suppers;
@@ -37,22 +38,24 @@ class AdminSupperRepository implements AdminRepositoryInterface, WriteRepository
             ->orWhere('phones', '=', $attributes->input('phones'))
             ->first();
 
-        if ($admin !== null){
-            toast("Cet email est deja utiliser", 'error');
+        if (null !== $admin) {
+            toast('Cet email est deja utiliser', 'error');
+
             return back();
         }
 
         $user = User::query()
             ->create([
-                "name" => $attributes->input('name'),
-                "lastName" => $attributes->input('lastName'),
-                "email" => $attributes->input('email'),
-                "phones" => $attributes->input('phones'),
-                "password" => Hash::make($attributes->input('password')),
-                'role_id' => 2
+                'name' => $attributes->input('name'),
+                'lastName' => $attributes->input('lastName'),
+                'email' => $attributes->input('email'),
+                'phones' => $attributes->input('phones'),
+                'password' => Hash::make($attributes->input('password')),
+                'role_id' => 2,
             ]);
         Mail::send(new CreatedAdminEmail($user));
-        toast("Un nouveau admin a ete cree", 'success');
+        toast('Un nouveau admin a ete cree', 'success');
+
         return $user;
     }
 
@@ -60,13 +63,14 @@ class AdminSupperRepository implements AdminRepositoryInterface, WriteRepository
     {
         $admin = $this->getAdmin(key: $key);
         $admin->update([
-            "name" => $attributes->input('name'),
-            "lastName" => $attributes->input('lastName'),
-            "email" => $attributes->input('email'),
-            "phones" => $attributes->input('phones'),
-            "password" => Hash::make($attributes->input('password')),
+            'name' => $attributes->input('name'),
+            'lastName' => $attributes->input('lastName'),
+            'email' => $attributes->input('email'),
+            'phones' => $attributes->input('phones'),
+            'password' => Hash::make($attributes->input('password')),
         ]);
         toast("L'admin a ete mise a jours", 'success');
+
         return $admin;
     }
 
@@ -74,7 +78,8 @@ class AdminSupperRepository implements AdminRepositoryInterface, WriteRepository
     {
         $admin = $this->getAdmin(key: $key);
         $admin->delete();
-        toast("un administrateur a ete supprimer", 'success');
+        toast('un administrateur a ete supprimer', 'success');
+
         return $admin;
     }
 

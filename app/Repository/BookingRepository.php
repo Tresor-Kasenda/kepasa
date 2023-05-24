@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository;
@@ -18,7 +19,7 @@ class BookingRepository
 
     public function confirmedPayment($attributes)
     {
-        $event = Event::query()
+        return Event::query()
             ->where('title', '=', $attributes->input('title'))
             ->where('date', '=', $attributes->input('date'))
             ->when('city', fn ($query) => $query->where('city', $attributes->input('city')))
@@ -33,10 +34,11 @@ class BookingRepository
             ->where('company_id', '=', auth()->user()->company->id)
             ->first();
         $event->update([
-            'payment' => PaymentEnum::PAID
+            'payment' => PaymentEnum::PAID,
         ]);
         Mail::send(new CustomerTransactionMail(auth()->user(), $event));
-        toast("Transaction made with success", 'success');
+        toast('Transaction made with success', 'success');
+
         return $event;
     }
 }

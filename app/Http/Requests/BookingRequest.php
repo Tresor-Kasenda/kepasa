@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -16,13 +17,13 @@ class BookingRequest extends FormRequest
     public function rules()
     {
         return [
-            "title" => ['required', Rule::exists('events', 'title')],
-            "prices" => ['required', Rule::exists('events', 'prices')],
-            "startTime" => ['required', Rule::exists('events', 'startTime')],
-            "date" => ['required', Rule::exists('events', 'date')],
-            "city" => ['required', Rule::exists('events', 'city')],
-            "country" => ['required', Rule::exists('events', 'country')],
-            "tickets" => ['required', 'min:1', 'integer']
+            'title' => ['required', Rule::exists('events', 'title')],
+            'prices' => ['required', Rule::exists('events', 'prices')],
+            'startTime' => ['required', Rule::exists('events', 'startTime')],
+            'date' => ['required', Rule::exists('events', 'date')],
+            'city' => ['required', Rule::exists('events', 'city')],
+            'country' => ['required', Rule::exists('events', 'country')],
+            'tickets' => ['required', 'min:1', 'integer'],
         ];
     }
 }

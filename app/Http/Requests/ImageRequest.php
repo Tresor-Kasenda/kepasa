@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -18,7 +19,7 @@ class ImageRequest extends FormRequest
         return [
             'image' => ['required', 'image', 'mimes:jpeg,jpg,png'],
             'event_id' => ['required'],
-            'event_id.*' => [Rule::exists('events', 'id')]
+            'event_id.*' => [Rule::exists('events', 'id')],
         ];
     }
 }

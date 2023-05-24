@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -18,7 +19,7 @@ class ContactRequest extends FormRequest
             'name' => ['required', 'min:5'],
             'email' => ['required', 'email'],
             'subject' => ['required', 'min:5'],
-            'messages' => ['required', 'min:5']
+            'messages' => ['required', 'min:5'],
         ];
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Suppers;
@@ -18,7 +19,8 @@ class SettingSupperRepository
         $this->updateAdmin($user, $attributes);
         $setting = $this->getSetting($user);
         $this->updateSetting($setting, $attributes, $user);
-        toast("Settings is update", 'success');
+        toast('Settings is update', 'success');
+
         return $setting;
     }
 
@@ -26,9 +28,10 @@ class SettingSupperRepository
     {
         $user = $this->getAdmin(key: $key);
         $user->update([
-            'password' => Hash::make($attributes->input('password'))
+            'password' => Hash::make($attributes->input('password')),
         ]);
-        toast("Password is update", 'success');
+        toast('Password is update', 'success');
+
         return $user;
     }
 
@@ -42,10 +45,10 @@ class SettingSupperRepository
     private function updateAdmin($user, $attributes): void
     {
         $user->update([
-            'name' => $attributes->input("username"),
-            'lastName' => $attributes->input("lastname"),
-            'phones' => $attributes->input("phones"),
-            'email' => $attributes->input("adminEmail")
+            'name' => $attributes->input('username'),
+            'lastName' => $attributes->input('lastname'),
+            'phones' => $attributes->input('phones'),
+            'email' => $attributes->input('adminEmail'),
         ]);
     }
 
@@ -59,10 +62,10 @@ class SettingSupperRepository
     private function updateSetting($setting, $attributes, $user): void
     {
         $setting->update([
-            'name' => $attributes->input("name"),
-            'email' => $attributes->input("email"),
-            'copyright' => $attributes->input("copyright"),
-            'user_id' => $user->id
+            'name' => $attributes->input('name'),
+            'email' => $attributes->input('email'),
+            'copyright' => $attributes->input('copyright'),
+            'user_id' => $user->id,
         ]);
     }
 }

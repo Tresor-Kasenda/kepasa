@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -31,6 +32,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property Carbon|null $updated_at
  * @property-read Event $event
  * @property-read User $user
+ *
  * @method static Builder|Billing newModelQuery()
  * @method static Builder|Billing newQuery()
  * @method static Builder|Billing query()
@@ -50,11 +52,13 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Billing whereTicketSold($value)
  * @method static Builder|Billing whereUpdatedAt($value)
  * @method static Builder|Billing whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Billing extends Model
 {
-    use HasFactory, HasKey;
+    use HasFactory;
+    use HasKey;
 
     protected $guarded = [];
 

@@ -1,10 +1,12 @@
 <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
-            <a href="{{ route('supper.dashboard.index') }}" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="{{ asset('assets/images/logo.png') }}" srcset="{{ asset('assets/images/logo.png') }} 2x" alt="logo">
-                <img class="logo-dark logo-img" src="{{ asset('assets/images/logo.png') }}" srcset="{{ asset('assets/images/logo.png') }} 2x" alt="logo-dark">
-                <img class="logo-small logo-img logo-img-small" src="{{ asset('assets/images/logo.png') }}" srcset="{{ asset('assets/images/logo.png') }} 2x" alt="logo-small">
+            <a href="{{ route('supper.dashboard') }}" class="logo-link nk-sidebar-logo">
+                <img
+                    class="logo-small logo-img logo-img-small"
+                    src="{{ asset('assets/images/logo.png') }}"
+                    srcset="{{ asset('assets/images/logo.png') }} 2x"
+                    alt="logo-small">
             </a>
         </div>
         <div class="nk-menu-trigger mr-n2">
@@ -21,7 +23,7 @@
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
                     @include('admins.partials.navLink', [
-                        'route' => route('supper.dashboard.index'),
+                        'route' => route('supper.dashboard'),
                         'name' => 'Dashboard',
                         'icon' => 'ni-grid-alt'
                     ])
@@ -29,7 +31,7 @@
                         <h6 class="overline-title text-primary-alt">Administration</h6>
                     </li>
                     @include('admins.partials.navLink', [
-                        'route' => route('supper.viewEvents.index'),
+                        'route' => route('supper.events.index'),
                         'name' => 'Events',
                         'icon' => 'ni-swap-alt'
                     ])

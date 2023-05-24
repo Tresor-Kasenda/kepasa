@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
@@ -9,7 +10,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers, RedirectAuthentication;
+    use AuthenticatesUsers;
+    use RedirectAuthentication;
 
     public function __construct()
     {

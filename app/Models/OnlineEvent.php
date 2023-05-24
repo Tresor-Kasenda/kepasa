@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -28,6 +29,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Company $company
  * @property-read \App\Models\Event $event
+ *
  * @method static Builder|OnlineEvent newModelQuery()
  * @method static Builder|OnlineEvent newQuery()
  * @method static Builder|OnlineEvent query()
@@ -45,11 +47,13 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|OnlineEvent whereRoomName($value)
  * @method static Builder|OnlineEvent whereSchedule($value)
  * @method static Builder|OnlineEvent whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class OnlineEvent extends Model
 {
-    use HasFactory, HasKey;
+    use HasFactory;
+    use HasKey;
 
     protected $guarded = [];
 

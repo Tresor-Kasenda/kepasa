@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http;
@@ -61,6 +62,6 @@ class Kernel extends HttpKernel
         'supper' => SuperMiddleware::class,
         'admin' => AdminMiddleware::class,
         'organiser' => OrganiserMiddleware::class,
-        'user' => CustomerMiddleware::class
+        'user' => CustomerMiddleware::class,
     ];
 }

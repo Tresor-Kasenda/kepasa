@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Mail;
@@ -10,9 +11,12 @@ use Illuminate\Queue\SerializesModels;
 
 class CustomerMail extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
-    public function __construct(public $user){}
+    public function __construct(public $user)
+    {
+    }
 
     public function build()
     {

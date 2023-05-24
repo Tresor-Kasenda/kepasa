@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -18,7 +19,7 @@ class EnableXTokenRequest extends FormRequest
         return [
             'key' => ['required', Rule::exists('events', 'id')],
             'name' => ['required', Rule::exists('users', 'key')],
-            'reference' => ['required', Rule::exists('online_events', 'reference')]
+            'reference' => ['required', Rule::exists('online_events', 'reference')],
         ];
     }
 }

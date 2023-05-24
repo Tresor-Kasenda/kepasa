@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Organisers;
@@ -20,35 +21,37 @@ class EnableXRepository implements OnlineRepositoryInterface
 
     public function createdToken($attributes): JsonResponse|array
     {
-        $event = $this->getOnlineEventByKey(attributes:  $attributes);
+        $event = $this->getOnlineEventByKey(attributes: $attributes);
 
         $data = [
-            "name"              => auth()->user()->name,
-            "role"              => "moderator",
-            "roomId"            => $event->roomId,
-            "user_ref"          => $event->reference,
-            'duration'          => $event->duration,
-            'participants'      => $event->participants,
-            'scheduled_time'    => $event->schedule
+            'name' => auth()->user()->name,
+            'role' => 'moderator',
+            'roomId' => $event->roomId,
+            'user_ref' => $event->reference,
+            'duration' => $event->duration,
+            'participants' => $event->participants,
+            'scheduled_time' => $event->schedule,
         ];
 
-
-        if ($data['name'] && $data['role'] && $data['roomId']){
-            $token = new CreateRoomTokenService;
+        if ($data['name'] && $data['role'] && $data['roomId']) {
+            $token = new CreateRoomTokenService();
             Mail::send(new TokenCreateMail($token));
+
             return [
                 $token->createToken($data),
-                $data
+                $data,
             ];
         }
         $error = Errors::getError(4004);
-        $error["desc"] = "JSON keys missing: name, role or roomId";
+        $error['desc'] = 'JSON keys missing: name, role or roomId';
+
         return response()->json($error);
     }
 
     public function getOnlineEventByKey($attributes): Model|Builder|null
     {
         $key = $attributes->input('key');
+
         return OnlineEvent::getOnlineEvents(key: $key);
     }
 }

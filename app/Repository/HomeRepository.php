@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository;
@@ -30,12 +31,13 @@ class HomeRepository
     public function getContents(): LengthAwarePaginator
     {
         $location = GetLocation::location();
-        if ($location == null){
+        if (null === $location) {
             return $this->getEvents()
                 ->paginate(6);
         }
+
         return $this->getEvents()
-            ->when('city', fn($query) => $query->where('city', $location->cityName ))
+            ->when('city', fn ($query) => $query->where('city', $location->cityName))
             ->paginate(6);
     }
 
@@ -54,6 +56,7 @@ class HomeRepository
         $event = $this->getEvents()
             ->where('city', '=', $city->cityName)
             ->get();
+
         return [$city, $event];
     }
 

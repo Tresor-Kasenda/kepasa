@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -17,7 +18,7 @@ class EventSearchRequest extends FormRequest
     {
         return [
             'city' => ['required', 'string', Rule::exists('cities', 'cityName')],
-            'country' => ['required', 'string', Rule::exists('countries', 'countryCode')]
+            'country' => ['required', 'string', Rule::exists('countries', 'countryCode')],
         ];
     }
 }

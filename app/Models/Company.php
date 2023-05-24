@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -33,6 +34,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OnlineEvent[] $onlineEvents
  * @property-read int|null $online_events_count
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Company newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Company newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Company query()
@@ -52,11 +54,13 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereWebsite($value)
+ *
  * @mixin \Eloquent
  */
 class Company extends Model
 {
-    use HasFactory, HasKey;
+    use HasFactory;
+    use HasKey;
 
     protected $guarded = [];
 

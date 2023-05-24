@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Customers;
@@ -34,17 +35,18 @@ class PaymentCustomerRepository
 
         $provider = self::paypalConfiguration();
         $order = $provider->createOrder([
-            'intent' => "CAPTURE",
-            "purchase_units" => [
+            'intent' => 'CAPTURE',
+            'purchase_units' => [
                 0 => [
-                    "amount" => [
-                        'currency_code' => "USD",
-                        'value' => $total
-                    ]
-                ]
-            ]
+                    'amount' => [
+                        'currency_code' => 'USD',
+                        'value' => $total,
+                    ],
+                ],
+            ],
         ]);
         self::createOrder(order: $order, payment: $payment, data: $attributes);
+
         return response()->json($order);
     }
 
@@ -57,14 +59,15 @@ class PaymentCustomerRepository
         $provider = self::paypalConfiguration();
         $order = $data['orderId'];
         $capture = $provider->capturePaymentOrder(order_id: $order);
-        if ($capture['status'] == "COMPLETED"){
+        if ('COMPLETED' === $capture['status']) {
             self::updateOrder(capture: $capture);
             self::updateTicketNumber($attributes);
         }
+
         return response()->json($capture);
     }
 
-    private static function createOrder($order, $payment, $data)
+    private static function createOrder($order, $payment, $data): void
     {
         $total = $data->prices * $data->ticketNumber;
         PaymentCustomer::query()
@@ -74,17 +77,17 @@ class PaymentCustomerRepository
                 'ticketNumber' => $data->ticketNumber,
                 'totalAmount' => $total,
                 'reference' => $order['id'],
-                'status' => PaymentEnum::UNPAID
+                'status' => PaymentEnum::UNPAID,
             ]);
     }
 
-    private static function updateOrder($capture)
+    private static function updateOrder($capture): void
     {
         PaymentCustomer::query()
             ->where('reference', '=', $capture['id'])
             ->update([
                 'status' => PaymentEnum::PAID,
-                'updated_at' => Carbon::now()
+                'updated_at' => Carbon::now(),
             ]);
     }
 
@@ -99,6 +102,7 @@ class PaymentCustomerRepository
             'ticketNumber' => $discount,
         ]);
         Mail::send(new ConfirmationTransaction($event));
+
         return $event;
     }
 }

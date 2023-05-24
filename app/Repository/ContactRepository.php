@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository;
@@ -13,10 +14,10 @@ class ContactRepository
     {
         return Contact::query()
             ->create([
-               'name' => $attributes->input('name'),
-               'email' => $attributes->input('email'),
+                'name' => $attributes->input('name'),
+                'email' => $attributes->input('email'),
                 'subject' => $attributes->input('subject'),
-                'messages' => $attributes->input('messages')
+                'messages' => $attributes->input('messages'),
             ]);
     }
 }

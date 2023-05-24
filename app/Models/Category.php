@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -21,6 +22,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property Carbon|null $updated_at
  * @property-read Collection|\App\Models\Event[] $event
  * @property-read int|null $event_count
+ *
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
  * @method static Builder|Category query()
@@ -29,11 +31,13 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Category whereKey($value)
  * @method static Builder|Category whereName($value)
  * @method static Builder|Category whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Category extends Model
 {
-    use HasFactory, HasKey;
+    use HasFactory;
+    use HasKey;
 
     protected $guarded = [];
 

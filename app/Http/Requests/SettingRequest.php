@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -21,7 +22,7 @@ class SettingRequest extends FormRequest
             'username' => ['required', 'string', 'min:4'],
             'lastname' => ['required', 'string', 'min:4'],
             'phones' => ['required', 'min:10', 'unique:users'],
-            'adminEmail' => ['required', 'email']
+            'adminEmail' => ['required', 'email'],
         ];
     }
 }

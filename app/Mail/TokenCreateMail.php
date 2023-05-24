@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Mail;
@@ -10,9 +11,12 @@ use Illuminate\Queue\SerializesModels;
 
 class TokenCreateMail extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
-    public function __construct(public $token){}
+    public function __construct(public $token)
+    {
+    }
 
     public function build()
     {
@@ -20,7 +24,7 @@ class TokenCreateMail extends Mailable implements ShouldQueue
             ->to($this->token['email'])
             ->subject('')
             ->view('emails.token', [
-                'token' => $this->token
+                'token' => $this->token,
             ]);
     }
 }

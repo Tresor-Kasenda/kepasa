@@ -182,8 +182,8 @@
             $("#country").change(function () {
                 const country = $("#country option:selected").val()
                 $.ajax({
-                    type: "post",
-                    url: `{{ route('cities.listens') }}`,
+                    type: "get",
+                    url: `{{ route('country.index') }}`,
                     data: {
                         country: country,
                         _token: '{{ csrf_token() }}'
@@ -203,7 +203,7 @@
                 const city = $('#cityName').val()
                 $.ajax({
                     type: "get",
-                    url: `{{ route('search.events') }}`,
+                    url: `{{ route('event.search') }}`,
                     data: {
                         country: country,
                         city: city

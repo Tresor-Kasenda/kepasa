@@ -1,10 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Organisers;
 
-use App\Enums\PaymentEnum;
-use App\Models\Customer;
 use App\Models\Event;
 use App\Services\Payment\PayPalPaymentServiceFactory;
 use Illuminate\Http\JsonResponse;
@@ -22,7 +21,8 @@ class PaypalRepository
             ->where('prices', '=', $attributes->input('prices'))
             ->first();
         $data = json_decode($attributes->getContent(), true);
-        return PayPalPaymentServiceFactory::process(data:  $data, payment: $payment);
+
+        return PayPalPaymentServiceFactory::process(data: $data, payment: $payment);
     }
 
     /**
@@ -31,6 +31,7 @@ class PaypalRepository
     public function capture($attributes): JsonResponse
     {
         $data = json_decode($attributes->getContent(), true);
+
         return PayPalPaymentServiceFactory::capture(attributes: $data);
     }
 }

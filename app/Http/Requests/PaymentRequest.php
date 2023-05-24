@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -16,8 +17,8 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            "title" => ['required', Rule::exists('events', 'title')],
-            "prices" => ['required', Rule::exists('events', 'prices')],
+            'title' => ['required', Rule::exists('events', 'title')],
+            'prices' => ['required', Rule::exists('events', 'prices')],
         ];
     }
 }

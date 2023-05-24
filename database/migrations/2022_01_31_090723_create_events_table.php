@@ -1,22 +1,27 @@
 <?php
+
 declare(strict_types=1);
 
 use App\Enums\FeeOptionEnum;
 use App\Enums\PaymentEnum;
 use App\Enums\StatusEnum;
-use App\Enums\TypeEnum;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    public function up()
+return new class () extends Migration {
+    public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table): void {
             $table->id();
+            $table->foreignIdFor(Category::class)
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignIdFor(User::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string('key')->unique();
             $table->string('title')->unique();
             $table->string('subTitle')->unique();
@@ -39,16 +44,10 @@ return new class extends Migration
             $table->boolean('promoted')->default(0);
             $table->string('image');
             $table->timestamps();
-            $table->foreignIdFor(Category::class)
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->foreignIdFor(User::class)
-                ->constrained()
-                ->cascadeOnDelete();
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('events');
     }

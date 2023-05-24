@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -15,7 +16,7 @@ class ProfileImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'images' => ['required', 'image']
+            'images' => ['required', 'image'],
         ];
     }
 }

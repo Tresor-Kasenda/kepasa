@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\Suppers;
 
 use App\Models\Billing;
@@ -13,36 +15,36 @@ class ChartJsSuperRepository
     public function getCompanyByMonths(): Collection
     {
         return Company::select(
-                DB::raw("COUNT(*) as count"),
-                DB::raw("MONTHNAME(created_at) as month_name")
-            )
+            [DB::raw('COUNT(*) as count'),
+                DB::raw('MONTHNAME(created_at) as month_name')]
+        )
             ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('id','ASC')
+            ->groupBy(DB::raw('month_name'))
+            ->orderBy('id', 'ASC')
             ->pluck('count', 'month_name');
     }
 
     public function getEventsByMonths(): Collection
     {
         return Event::select(
-                DB::raw("COUNT(*) as count"),
-                DB::raw("MONTHNAME(created_at) as month_name")
-            )
+            DB::raw('COUNT(*) as count'),
+            DB::raw('MONTHNAME(created_at) as month_name')
+        )
             ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('id','ASC')
+            ->groupBy(DB::raw('month_name'))
+            ->orderBy('id', 'ASC')
             ->pluck('count', 'month_name');
     }
 
     public function getBillingsByMonths(): Collection
     {
         return Billing::select(
-                DB::raw("COUNT(*) as count"),
-                DB::raw("MONTHNAME(created_at) as month_name")
-            )
+            DB::raw('COUNT(*) as count'),
+            DB::raw('MONTHNAME(created_at) as month_name')
+        )
             ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('id','ASC')
+            ->groupBy(DB::raw('month_name'))
+            ->orderBy('id', 'ASC')
             ->pluck('count', 'month_name');
 
     }

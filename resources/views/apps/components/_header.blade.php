@@ -14,7 +14,9 @@
                                 'city' => $location->cityName
                             ]);
                         @endphp
-                        <div class="margin-top-8 font-weight-bold">{{ $location->cityName ?? "" }}</div>
+                        <div class="margin-top-8 font-weight-bold" style="color: white;font-weight: bold; font-size: 16px">
+                            {{ $location->cityName ?? "" }}
+                        </div>
                     @endif
                 </div>
                 <div class="mmenu-trigger">
@@ -40,8 +42,8 @@
                         </li>
                         <li>
                             <a
-                                class="{{ Request::url() === route('promotion.request') ? 'current' : '' }}"
-                                href="{{ route('promotion.request') }}"
+                                class="{{ Request::url() === route('promoted.index') ? 'current' : '' }}"
+                                href="{{ route('promoted.index') }}"
                             >Promote your City</a>
                         </li>
                         <li>

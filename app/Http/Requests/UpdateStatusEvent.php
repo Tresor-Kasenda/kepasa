@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -18,7 +19,7 @@ class UpdateStatusEvent extends FormRequest
     {
         return [
             'status' => ['required', Rule::in(StatusEnum::$status)],
-            'key' => ['required', Rule::exists('events', 'key')]
+            'key' => ['required', Rule::exists('events', 'key')],
         ];
     }
 }

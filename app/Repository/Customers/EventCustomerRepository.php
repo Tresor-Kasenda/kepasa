@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Customers;
@@ -7,6 +8,7 @@ use App\Models\PaymentCustomer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class EventCustomerRepository
@@ -25,22 +27,19 @@ class EventCustomerRepository
             ->where('key', '=', $key)
             ->where('user_id', '=', auth()->id())
             ->first();
+
         return $invoice->load('event');
     }
 
-    public function getUserPosition()
+    public function getUserPosition($latitude, $longitude): Collection
     {
-        $lat = '';
-        $lon = '';
-
-        $data = DB::table("events")
-            ->select("events.id"
-                ,DB::raw("6371 * acos(cos(radians(" . $lat . "))
+        return DB::table('events')
+            ->select('events.id', DB::raw('6371 * acos(cos(radians('.$latitude.'))
                 * cos(radians(events.latitude))
-                * cos(radians(events.longitude) - radians(" . $lon . "))
-                + sin(radians(" .$lat. "))
-                * sin(radians(events.latitude))) AS distance"))
-            ->groupBy("events.id")
+                * cos(radians(events.longitude) - radians('.$longitude.'))
+                + sin(radians('.$latitude.'))
+                * sin(radians(events.latitude))) AS distance'))
+            ->groupBy('events.id')
             ->get();
     }
 }

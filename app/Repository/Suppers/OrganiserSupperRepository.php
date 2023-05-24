@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Suppers;
@@ -24,7 +25,8 @@ class OrganiserSupperRepository
     public function getCompanyByKey(string $key): Model|Builder|null
     {
         $company = $this->getCompany($key);
-        return $company->load(['user','events']);
+
+        return $company->load(['user', 'events']);
     }
 
     public function delete(string $key): Model|Builder|null
@@ -35,7 +37,8 @@ class OrganiserSupperRepository
             ->first();
         $this->removeProfile($company);
         $user->delete();
-        toast("Organiser supprimer du systeme", 'success');
+        toast('Organiser supprimer du systeme', 'success');
+
         return $user;
     }
 

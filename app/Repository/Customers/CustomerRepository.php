@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Customers;
@@ -27,28 +28,29 @@ class CustomerRepository
             ->first();
         $this->updateUser($user, $attributes);
         $this->UpdateProfile($user, $attributes);
+
         return $user;
     }
 
     private function updateUser($user, $attributes): void
     {
         $user->update([
-            "name" => $attributes->input('name'),
-            "lastName" => $attributes->input('lastName'),
-            "phones" => $attributes->input('phones'),
-            "email" => $attributes->input('email'),
+            'name' => $attributes->input('name'),
+            'lastName' => $attributes->input('lastName'),
+            'phones' => $attributes->input('phones'),
+            'email' => $attributes->input('email'),
         ]);
     }
 
     private function UpdateProfile($user, $attributes): void
     {
         $user->profile->update([
-            "phones" => $attributes->input('phones'),
-            "lastName" => $attributes->input('lastName'),
-            "alternativePhones" => $attributes->input('alternativePhones'),
-            "city" => $attributes->input('city'),
-            "country" => $attributes->input('country'),
-            'image' => self::uploadFile($attributes)
+            'phones' => $attributes->input('phones'),
+            'lastName' => $attributes->input('lastName'),
+            'alternativePhones' => $attributes->input('alternativePhones'),
+            'city' => $attributes->input('city'),
+            'country' => $attributes->input('country'),
+            'image' => self::uploadFile($attributes),
         ]);
     }
 }

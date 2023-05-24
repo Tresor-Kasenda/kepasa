@@ -8,10 +8,13 @@ use BenSampo\Enum\Enum;
 
 final class RoleEnum extends Enum
 {
-    const SUPER =   1;
-    const ADMIN =   2;
-    const ORGANISER = 3;
-    const USERS = 4;
+    public const SUPER = 1;
+
+    public const ADMIN = 2;
+
+    public const ORGANISER = 3;
+
+    public const USERS = 4;
 
     public static array $types = [
         self::ORGANISER,

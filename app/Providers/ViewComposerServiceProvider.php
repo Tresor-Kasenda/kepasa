@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Providers;
@@ -13,15 +14,15 @@ class ViewComposerServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        //
+
     }
 
     /**
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         View::composer([
             'organisers.pages.profiles.*',
@@ -30,12 +31,12 @@ class ViewComposerServiceProvider extends ServiceProvider
             'admins.pages.countries',
             'admins.pages.eventCountries.index',
             'admins.pages.events.edit',
-            'admins.pages.countries.*'
+            'admins.pages.countries.*',
         ], CountryComposer::class);
 
         View::composer([
             'apps.welcome',
-            'apps.pages.events.show'
+            'apps.pages.events.show',
         ], EventComposer::class);
     }
 }

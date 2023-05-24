@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Suppers;
@@ -32,18 +33,19 @@ class CountrySupperRepository
     {
         $city = $this->getCity(key: $cityName);
         $city->update([
-            "cityName" => $attributes->input('cityName'),
-            "facts" => $attributes->input('facts'),
-            "overview" => $attributes->input('overview'),
-            "currency" => $attributes->input('currency'),
-            "languages" => $attributes->input('languages'),
-            "population" => $attributes->input('population'),
-            "popularCity" => $attributes->input('popularCity'),
-            "mayor" => $attributes->input('mayor'),
-            "promoted" => $attributes->input('promoted'),
-            "history" => $attributes->input('history'),
+            'cityName' => $attributes->input('cityName'),
+            'facts' => $attributes->input('facts'),
+            'overview' => $attributes->input('overview'),
+            'currency' => $attributes->input('currency'),
+            'languages' => $attributes->input('languages'),
+            'population' => $attributes->input('population'),
+            'popularCity' => $attributes->input('popularCity'),
+            'mayor' => $attributes->input('mayor'),
+            'promoted' => $attributes->input('promoted'),
+            'history' => $attributes->input('history'),
         ]);
-        toast("City is update", 'success');
+        toast('City is update', 'success');
+
         return $city;
     }
 

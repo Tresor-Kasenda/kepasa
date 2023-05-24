@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Repository\Suppers;
@@ -24,6 +25,7 @@ class EventSupperRepository
     public function getEventByKey(string $key): Model|Builder
     {
         $event = $this->getFirstOrFail($key);
+
         return $event->load(['category', 'media', 'user']);
     }
 
@@ -32,7 +34,8 @@ class EventSupperRepository
         $event = $this->getFirstOrFail(key: $key);
         $this->removePicture($event);
         $event->delete();
-        toast("delete event with success", 'success');
+        toast('delete event with success', 'success');
+
         return $event;
     }
 
