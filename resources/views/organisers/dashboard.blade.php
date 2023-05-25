@@ -1,15 +1,12 @@
-@extends('layouts.organiser')
-
-@section('title', "Espance administration organisateur")
-
-@section('content')
+<x-organiser-layout>
+    <h1>Espance administration organisateur</h1>
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
                 <h2>{{ auth()->user()->name ?? "" }}  {{ auth()->user()->lastName ?? "" }}</h2>
                 <nav id="breadcrumbs">
                     <ul>
-                        <li><a href="{{ route('organiser.organiser.index') }}">Home</a></li>
+                        <li><a href="{{ route('organiser.index') }}">Home</a></li>
                         <li>Dashboard</li>
                     </ul>
                 </nav>
@@ -71,69 +68,69 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-        $(function(){
-            let cData = JSON.parse(``);
-            let ctx = $("#canvas");
+    @section('scripts')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script>
+            $(function(){
+                let cData = JSON.parse(``);
+                let ctx = $("#canvas");
 
-            let data = {
-                labels: cData.label,
-                datasets: [
-                    {
-                        label: "Reservations",
-                        data: cData.data,
-                        backgroundColor: [
-                            "#5ce0aa",
-                            "#A9A9A9",
-                            "#DC143C",
-                            "#F4A460",
-                            "#2E8B57",
-                            "#1D7A46",
-                            "#5ce0aa",
-                        ],
-                        borderColor: [
-                            "#5ce0aa",
-                            "#989898",
-                            "#CB252B",
-                            "#E39371",
-                            "#1D7A46",
-                            "#5ce0aa",
-                            "#CDA776",
-                        ],
-                        borderWidth: [1, 1, 1, 1, 1,1,1]
-                    }
-                ]
-            };
-
-            let chart = new Chart(ctx, {
-                type: "bar",
-                data: {
-                    labels: data.labels,
-                    datasets: data.datasets
-                },
-                options: {
-                    legend: {
-                        display: data.legend ? data.legend : false,
-                        labels: {
-                            boxWidth: 12,
-                            padding: 20,
-                            fontColor: '#6783b8'
+                let data = {
+                    labels: cData.label,
+                    datasets: [
+                        {
+                            label: "Reservations",
+                            data: cData.data,
+                            backgroundColor: [
+                                "#5ce0aa",
+                                "#A9A9A9",
+                                "#DC143C",
+                                "#F4A460",
+                                "#2E8B57",
+                                "#1D7A46",
+                                "#5ce0aa",
+                            ],
+                            borderColor: [
+                                "#5ce0aa",
+                                "#989898",
+                                "#CB252B",
+                                "#E39371",
+                                "#1D7A46",
+                                "#5ce0aa",
+                                "#CDA776",
+                            ],
+                            borderWidth: [1, 1, 1, 1, 1,1,1]
                         }
+                    ]
+                };
+
+                let chart = new Chart(ctx, {
+                    type: "bar",
+                    data: {
+                        labels: data.labels,
+                        datasets: data.datasets
                     },
-                    scales: {
-                        myScale: {
-                            type: 'logarithmic',
-                            position: 'right',
+                    options: {
+                        legend: {
+                            display: data.legend ? data.legend : false,
+                            labels: {
+                                boxWidth: 12,
+                                padding: 20,
+                                fontColor: '#6783b8'
+                            }
+                        },
+                        scales: {
+                            myScale: {
+                                type: 'logarithmic',
+                                position: 'right',
+                            }
                         }
                     }
-                }
+                });
             });
-        });
-    </script>
-@endsection
+        </script>
+    @endsection
 
+</x-organiser-layout>

@@ -37,7 +37,7 @@ class CustomerMiddleware
         }
 
         if (3 === Auth::user()->role_id) {
-            return redirect()->route('organiser.organiser.index');
+            return redirect()->route('organiser.index');
         }
     }
 }

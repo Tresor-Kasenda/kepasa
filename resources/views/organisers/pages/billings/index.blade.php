@@ -1,4 +1,4 @@
-@extends('layouts.organiser')
+<x-organiser-layou
 
 @section('title', "Information sur le paiement")
 

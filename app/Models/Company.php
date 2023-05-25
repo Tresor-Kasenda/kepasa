@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 
 /**
@@ -26,34 +29,34 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string|null $city
  * @property string $activeStatus
  * @property string|null $images
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int $user_id
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $events
+ * @property-read Collection|Event[] $events
  * @property-read int|null $events_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OnlineEvent[] $onlineEvents
+ * @property-read Collection|OnlineEvent[] $onlineEvents
  * @property-read int|null $online_events_count
- * @property-read \App\Models\User $user
+ * @property-read User $user
  *
- * @method static \Illuminate\Database\Eloquent\Builder|Company newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Company newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Company query()
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereActiveStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereAlternativeNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereCity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereCompanyName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereCountry($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereImages($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company wherePhones($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereSocialMedia($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereWebsite($value)
+ * @method static Builder|Company newModelQuery()
+ * @method static Builder|Company newQuery()
+ * @method static Builder|Company query()
+ * @method static Builder|Company whereActiveStatus($value)
+ * @method static Builder|Company whereAddress($value)
+ * @method static Builder|Company whereAlternativeNumber($value)
+ * @method static Builder|Company whereCity($value)
+ * @method static Builder|Company whereCompanyName($value)
+ * @method static Builder|Company whereCountry($value)
+ * @method static Builder|Company whereCreatedAt($value)
+ * @method static Builder|Company whereEmail($value)
+ * @method static Builder|Company whereId($value)
+ * @method static Builder|Company whereImages($value)
+ * @method static Builder|Company whereKey($value)
+ * @method static Builder|Company wherePhones($value)
+ * @method static Builder|Company whereSocialMedia($value)
+ * @method static Builder|Company whereUpdatedAt($value)
+ * @method static Builder|Company whereUserId($value)
+ * @method static Builder|Company whereWebsite($value)
  *
  * @mixin \Eloquent
  */

@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
             } elseif (Auth::guard($guard)->check() && 2 === Auth::user()->role_id) {
                 return redirect()->route('admin.admin.index');
             } elseif (Auth::guard($guard)->check() && 3 === Auth::user()->role_id) {
-                return redirect()->route('organiser.organiser.index');
+                return redirect()->route('organiser.index');
             } elseif (Auth::guard($guard)->check() && 4 === Auth::user()->role_id) {
                 return redirect()->route('user.home.index');
             }

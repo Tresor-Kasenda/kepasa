@@ -11,11 +11,13 @@ use Illuminate\Contracts\Support\Renderable;
 
 class HomeOrganiserController extends Controller
 {
-    public function __construct(public HomeOrganiserRepository $repository, public ChartJsOrganiserRepository $organiserRepository)
-    {
+    public function __construct(
+        protected readonly HomeOrganiserRepository $repository,
+        protected readonly ChartJsOrganiserRepository $organiserRepository
+    ){
     }
 
-    public function index(): Renderable
+    public function __invoke(): Renderable
     {
         $bookings = [];
         $data = [];

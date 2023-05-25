@@ -20,7 +20,7 @@ trait RedirectAuthentication
                 return $this->redirectTo;
                 break;
             case 3:
-                $this->redirectTo = route('organiser.organiser.index');
+                $this->redirectTo = route('organiser.index');
 
                 return $this->redirectTo;
                 break;

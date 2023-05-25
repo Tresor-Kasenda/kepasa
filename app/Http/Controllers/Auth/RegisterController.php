@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\CustomerMail;
+use App\Models\Company;
+use App\Models\Profile;
 use App\Models\User;
 use App\Notifications\WelcomeNotification;
 use App\Traits\RedirectAuthentication;
@@ -39,7 +41,6 @@ class RegisterController extends Controller
             'phones' => [
                 'required',
                 'min:10',
-                'regex:/^1[0-9]{10}$/'
             ],
             'email' => [
                 'required',
@@ -52,9 +53,6 @@ class RegisterController extends Controller
                 'required',
                 'string',
                 'confirmed',
-                Password::min(8)
-                    ->mixedCase()
-                    ->numbers()
             ],
             'role' => ['required', Rule::in(3, 4)],
         ]);
@@ -62,7 +60,6 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        dd($data['role']);
         $user = User::query()
             ->create([
                 'name' => $data['name'],
@@ -72,17 +69,19 @@ class RegisterController extends Controller
                 'phones' => $data['phones'],
                 'password' => Hash::make($data['password']),
             ]);
-        if (3 === $data['role']) {
-            $user->company()->create([
-                'email' => $data['email'],
+        if ((int)$data['role'] === 3){
+            Company::query()->create([
+                'user_id' => $user->id
             ]);
             Notification::send($user, new WelcomeNotification($user));
 
             return $user;
-        } elseif ($data['role'] = 4) {
-            $user->profile()->create([
-                'alternativePhones' => $data['phones'],
-            ]);
+        } elseif ($data['role'] === 4) {
+            Profile::query()
+                ->create([
+                    'user_id' => $user->id,
+                    'alternativePhones' => $data['phones']
+                ]);
             Mail::send(new CustomerMail($user));
 
             return $user;

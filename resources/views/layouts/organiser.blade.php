@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name') }} | @yield('title')</title>
+    <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main-color.css') }}" id="colors">
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
@@ -17,7 +17,7 @@
         <div id="dashboard">
             @include('organisers.partials._main')
             <div class="dashboard-content">
-                @yield('content')
+                {{ $slot }}
             </div>
         </div>
         @include('organisers.components._footer')

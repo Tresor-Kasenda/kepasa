@@ -1,11 +1,12 @@
 <a href="#" class="dashboard-responsive-nav-trigger">
-    <i class="fa fa-reorder"></i> Dashboard Navigation
+    <i class="fa fa-reorder"></i>
+    Dashboard Navigation
 </a>
 <div class="dashboard-nav">
     <div class="dashboard-nav-inner">
         <ul data-submenu-title="Main">
-            <li class="{{ Request::url() === route('organiser.organiser.index') ? 'active' : '' }}">
-                <a href="{{ route('organiser.organiser.index') }}">
+            <li class="{{ Request::url() === route('organiser.index') ? 'active' : '' }}">
+                <a href="{{ route('organiser.index') }}">
                     <i class="sl sl-icon-settings"></i> Dashboard
                 </a>
             </li>

@@ -25,7 +25,7 @@ class SuperMiddleware
         }
 
         if (3 === Auth::user()->role_id) {
-            return redirect()->route('organiser.organiser.index');
+            return redirect()->route('organiser.index');
         }
 
         if (4 === Auth::user()->role_id) {

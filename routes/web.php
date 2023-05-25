@@ -81,7 +81,7 @@ Route::middleware('auth')->group(function (): void {
     });
 
     Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['organiser']], function (): void {
-        Route::resource('organiser', HomeOrganiserController::class);
+        Route::get('/', HomeOrganiserController::class)->name('index');
         Route::resource('profile', ProfileOrganiserController::class);
         Route::resource('bookings', BookingOrganiserController::class);
         Route::resource('images', ImageOrganiserController::class);
