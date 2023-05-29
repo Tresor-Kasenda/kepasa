@@ -30,7 +30,7 @@ trait RedirectAuthentication
                 return $this->redirectTo;
                 break;
             case 1:
-                $this->redirectTo = route('supper.dashboard.index');
+                $this->redirectTo = route('supper.dashboard');
 
                 return $this->redirectTo;
                 break;

@@ -18,7 +18,7 @@ class PaymentConfirmationMail extends Mailable implements ShouldQueue
     {
     }
 
-    public function build()
+    public function build(): PaymentConfirmationMail
     {
         return $this
             ->to($this->user['email'])

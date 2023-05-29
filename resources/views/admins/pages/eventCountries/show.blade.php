@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<x-app-layout>
+    @section('title', "Detail sur les evenement en fonction d'un pays")
 
-@section('title', "Detail sur les evenement en fonction d'un pays")
-
-@section('content')
     <div class="nk-content-inner">
         <div class="nk-content-body">
             <div class="nk-block-head nk-block-head-sm">
@@ -94,19 +92,19 @@
                                                         <div class="dropdown-menu dropdown-menu-right">
                                                             <ul class="link-list-opt no-bdr">
                                                                 <li>
-                                                                    <a href="{{ route('supper.viewEvents.show', $event->key) }}">
+                                                                    <a href="{{ route('supper.events.show', $event->key) }}">
                                                                         <em class="icon ni ni-eye"></em>
                                                                         <span>Voir</span>
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a href="{{ route('supper.viewEvents.edit', $event->key) }}">
+                                                                    <a href="{{ route('supper.events.edit', $event->key) }}">
                                                                         <em class="icon ni ni-edit"></em>
                                                                         <span>Editer</span>
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <form action="{{ route('supper.viewEvents.destroy',$event->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                    <form action="{{ route('supper.events.destroy',$event->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                         @method('DELETE')
                                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                         <button type="submit" class="btn btn-dim">
@@ -131,4 +129,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>

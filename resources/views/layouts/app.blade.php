@@ -4,10 +4,12 @@
     <title>{{ config('app.name') }} | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/admins/css/dashlite.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admins/css/skins/theme-green.css') }}">
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @yield('styles')
 </head>
 
-<body class="nk-body bg-lighter npc-general has-sidebar">
+<body class="nk-body bg-lighter npc-general has-sidebar ui-clean">
     <div>
         <div class="nk-app-root">
             <div class="nk-main">

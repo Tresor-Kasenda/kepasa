@@ -1,12 +1,10 @@
-@extends('layouts.organiser')
+<x-organiser-layout>
+    @section('title', "Events lists")
 
-@section('title', "Modification des informations de l'organteur d'evenement")
-
-@section('content')
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
-                <h2>Listens events</h2>
+                <h2>Events</h2>
             </div>
         </div>
     </div>
@@ -98,54 +96,54 @@
             {{ $events->links('organisers.partials._pagination') }}
         </div>
     </div>
-@endsection
 
-@section('styles')
-    <style>
-        .list-box-listing-content .inner{
-            top: 0;
-        }
-        .tag{
-            background-color: #64bc36;
-            color: #fff;
-            padding: 6px 15px;
-            line-height: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 50px
-        }
-        .message-by{
-            background-color: #e9e9e9;
-            border-radius: 50px;
-            line-height: 20px;
-            font-size: 12px;
-            color: #666;
-            font-style: normal;
-            padding: 3px 8px;
-            margin-left: 3px;
-            max-height: 1.4rem;
-            text-align: left;
-        }
-        .message-by{
-            padding-bottom: 20px;
-        }
-        .pending-data{
-            background-color: #EBF6E0 !important;
-            color: #5f9025;
-            padding: 2px 10px;
-            line-height: 22px;
-            font-weight: 700;
-            font-size: 14px;
-            border-radius: 50px;
-        }
-        .active-data{
-            padding: 2px 10px;
-            line-height: 22px;
-            font-weight: 700;
-            font-size: 14px;
-            border-radius: 50px;
-            background-color: #E9F7FE !important;
-            color: #3184ae;
-        }
-    </style>
-@endsection
+    @section('styles')
+        <style>
+            .list-box-listing-content .inner{
+                top: 0;
+            }
+            .tag{
+                background-color: #64bc36;
+                color: #fff;
+                padding: 6px 15px;
+                line-height: 20px;
+                font-size: 13px;
+                font-weight: 600;
+                border-radius: 50px
+            }
+            .message-by{
+                background-color: #e9e9e9;
+                border-radius: 50px;
+                line-height: 20px;
+                font-size: 12px;
+                color: #666;
+                font-style: normal;
+                padding: 3px 8px;
+                margin-left: 3px;
+                max-height: 1.4rem;
+                text-align: left;
+            }
+            .message-by{
+                padding-bottom: 20px;
+            }
+            .pending-data{
+                background-color: #EBF6E0 !important;
+                color: #5f9025;
+                padding: 2px 10px;
+                line-height: 22px;
+                font-weight: 700;
+                font-size: 14px;
+                border-radius: 50px;
+            }
+            .active-data{
+                padding: 2px 10px;
+                line-height: 22px;
+                font-weight: 700;
+                font-size: 14px;
+                border-radius: 50px;
+                background-color: #E9F7FE !important;
+                color: #3184ae;
+            }
+        </style>
+    @endsection
+</x-organiser-layout>

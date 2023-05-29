@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<x-app-layout>
+    @section('title', "Ville du pays")
 
-@section('title', "Ville du pays")
-
-@section('content')
     <div class="nk-content-inner">
         <div class="nk-content-body">
             <div class="nk-block-head nk-block-head-sm">
@@ -103,4 +101,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>

@@ -1,12 +1,12 @@
-<div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
+<div class="nk-sidebar nk-sidebar-fixed is-light nk-apps-sidebar is-theme" data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('supper.dashboard') }}" class="logo-link nk-sidebar-logo">
                 <img
-                    class="logo-small logo-img logo-img-small"
-                    src="{{ asset('assets/images/logo.png') }}"
-                    srcset="{{ asset('assets/images/logo.png') }} 2x"
-                    alt="logo-small">
+                        class="logo-small logo-img logo-img-small"
+                        src="{{ asset('assets/images/logo.png') }}"
+                        srcset="{{ asset('assets/images/logo.png') }} 2x"
+                        alt="logo-small">
             </a>
         </div>
         <div class="nk-menu-trigger mr-n2">
@@ -22,54 +22,64 @@
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
-                    @include('admins.partials.navLink', [
-                        'route' => route('supper.dashboard'),
-                        'name' => 'Dashboard',
-                        'icon' => 'ni-grid-alt'
-                    ])
+                    <x-vex-nav-link href="{{ route('supper.dashboard') }}" :active="request()->routeIs('supper.dashboard')" icons="ni-grid-alt">
+                        Dashboard
+                    </x-vex-nav-link>
+
                     <li class="nk-menu-heading">
                         <h6 class="overline-title text-primary-alt">Administration</h6>
                     </li>
-                    @include('admins.partials.navLink', [
-                        'route' => route('supper.events.index'),
-                        'name' => 'Events',
-                        'icon' => 'ni-swap-alt'
-                    ])
-                    @include('admins.partials.navLink', [
-                        'route' => route('supper.category.index'),
-                        'name' => 'Categories',
-                        'icon' => 'ni-box'
-                    ])
-                    @include('admins.partials.navLink', [
-                        'route' => route('supper.eventsCountries.index'),
-                        'name' => 'Events Country',
-                        'icon' => 'ni-location'
-                    ])
-                    @include('admins.partials.navLink', [
-                        'route' => route('supper.organisers.index'),
-                        'name' => 'Organisers',
-                        'icon' => 'ni-spark'
-                    ])
-                    @include('admins.partials.navLink', [
-                        'route' => route('supper.admins.index'),
-                        'name' => 'Admins',
-                        'icon' => 'ni-user-circle'
-                    ])
-                    @include('admins.partials.navLink', [
-                        'route' => route('supper.countries.index'),
-                        'name' => 'Countries',
-                        'icon' => 'ni-map'
-                    ])
-                    @include('admins.partials.navLink', [
-                        'route' => route('supper.billing.index'),
-                        'name' => 'Billings',
-                        'icon' => 'ni-wallet-saving'
-                    ])
-                    @include('admins.partials.navLink', [
-                        'route' => route('supper.settings.index'),
-                        'name' => 'Settings',
-                        'icon' => 'ni-setting-alt'
-                    ])
+                    <x-vex-nav-link href="{{ route('supper.events.index') }}" :active="request()->routeIs('supper.events.index')" icons="ni-swap-alt">
+                        Events
+                    </x-vex-nav-link>
+
+                    <x-vex-nav-link href="{{ route('supper.category.index') }}" :active="request()->routeIs('supper.category.index')" icons="ni-box">
+                        Categories
+                    </x-vex-nav-link>
+
+                    <x-vex-nav-link href="{{ route('supper.eventsCountries.index') }}" :active="request()->routeIs('supper.eventsCountries.index')" icons="ni-location">
+                        Events Country
+                    </x-vex-nav-link>
+
+                    <x-vex-nav-link
+                            href="{{ route('supper.organisers.index') }}"
+                            :active="request()->routeIs('supper.organisers.index')"
+                            icons="ni-spark"
+                    >
+                        Organisers
+                    </x-vex-nav-link>
+
+                    <x-vex-nav-link
+                            href="{{ route('supper.admins.index') }}"
+                            :active="request()->routeIs('supper.admins.index')"
+                            icons="ni-user-alt"
+                    >
+                        Users
+                    </x-vex-nav-link>
+
+                    <x-vex-nav-link
+                            href="{{ route('supper.countries.index') }}"
+                            :active="request()->routeIs('supper.countries.index')"
+                            icons="ni-map"
+                    >
+                        Country
+                    </x-vex-nav-link>
+
+                    <x-vex-nav-link
+                            href="{{ route('supper.billing.index') }}"
+                            :active="request()->routeIs('supper.billing.index')"
+                            icons="ni-wallet-saving"
+                    >
+                        Billing
+                    </x-vex-nav-link>
+
+                    <x-vex-nav-link
+                            href="{{ route('supper.settings.index') }}"
+                            :active="request()->routeIs('supper.settings.index')"
+                            icons="ni-setting-alt"
+                    >
+                        Settings
+                    </x-vex-nav-link>
                 </ul>
             </div>
         </div>

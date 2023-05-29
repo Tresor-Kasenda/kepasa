@@ -1,8 +1,6 @@
-@extends('layouts.organiser')
+<x-organiser-layout>
+    @section('title', "Détail sur l'evenement")
 
-@section('title', "Détail sur l'evenement")
-
-@section('content')
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
@@ -68,7 +66,7 @@
                                     </li>
                                     <li>
                                         <a href="#" class="listing-links">
-                                            <i class="fa fa-envelope-o"></i> start Time: {{ $event->startTime ?? "" }}
+                                            <i class="fa fa-link"></i> start Time: {{ $event->startTime ?? "" }}
                                         </a>
                                     </li>
                                     <li>
@@ -135,4 +133,5 @@
             </div>
         </div>
     </div>
-@endsection
+
+</x-organiser-layout>

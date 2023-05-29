@@ -17,6 +17,7 @@ use App\Traits\RandomValue;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Notification;
 
 class EventOrganiserRepository
@@ -25,6 +26,10 @@ class EventOrganiserRepository
     use FeedCalculation;
     use ImageUpload;
     use RandomValue;
+
+    protected array $pipes = [
+
+    ];
 
     public function getContents(): LengthAwarePaginator
     {
@@ -45,6 +50,10 @@ class EventOrganiserRepository
 
     public function storeEvents($attributes): Model|Builder
     {
+//        $result = (new Pipeline(app()))
+//            ->send($attributes)
+//            ->through(pipes: $this->pipes)
+//            ->thenReturn();
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
         $category = $this->getCategory(attributes: $attributes);
         $event = $this->storedEvent(attributes: $attributes, feedCalculation: $feedCalculation);
@@ -154,7 +163,7 @@ class EventOrganiserRepository
     private function getCategory($attributes): null|Builder|Model
     {
         return Category::query()
-            ->where('id', '=', $attributes->input('category_id'))
+            ->where('id', '=', $attributes->input('category'))
             ->first();
     }
 
@@ -176,7 +185,7 @@ class EventOrganiserRepository
                 'country' => $feedCalculation['0']->countryName,
                 'city' => $attributes->input('cityName'),
                 'description' => $attributes->input('description'),
-                'category_id' => $attributes->input('category_id'),
+                'category_id' => $attributes->input('category'),
                 'user_id' => auth()->id(),
                 'image' => self::uploadFile(request: $attributes),
                 'company_id' => $attributes->user()->company->id,
@@ -200,7 +209,7 @@ class EventOrganiserRepository
             'country' => $feedCalculation['0']->countryName,
             'city' => $attributes->input('cityName'),
             'description' => $attributes->input('description'),
-            'category_id' => $attributes->input('category_id'),
+            'category_id' => $attributes->input('category'),
         ]);
     }
 }

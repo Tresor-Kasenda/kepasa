@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\PaymentEnum;
+use App\Models\Event as EventAlias;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,7 +15,7 @@ return new class () extends Migration {
         Schema::create('payment_customers', function (Blueprint $table): void {
             $table->id();
             $table->string('key')->unique();
-            $table->foreignIdFor(\App\Models\Event::class)
+            $table->foreignIdFor(EventAlias::class)
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignIdFor(User::class)

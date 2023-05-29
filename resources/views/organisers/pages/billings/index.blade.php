@@ -1,8 +1,6 @@
-<x-organiser-layou
+<x-organiser-layout>
+    @section('title', "Information sur le paiement")
 
-@section('title', "Information sur le paiement")
-
-@section('content')
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
@@ -87,4 +85,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-organiser-layout>

@@ -29,7 +29,7 @@ class CheckoutOrganiserRepository
             ->where('title', '=', $attributes->input('title'))
             ->where('date', '=', $attributes->input('date'))
             ->firstOrFail();
-        self::createTransaction(event: $event, attributes: $attributes);
+        self::createTransaction(event: $event);
 
         return DpoPaymentFactory::pay(event: $event, attributes: $attributes);
     }
@@ -51,7 +51,7 @@ class CheckoutOrganiserRepository
         return $event;
     }
 
-    private function createTransaction($event, $attributes): void
+    private function createTransaction($event): void
     {
         $total = $event->ticketNumber * $event->prices;
         Customer::query()
@@ -76,8 +76,6 @@ class CheckoutOrganiserRepository
             ->where('user_id', '=', auth()->id())
             ->where('event_id', '=', $event->id)
             ->where('name', '=', auth()->user()->company->companyName)
-            ->update([
-                'status' => PaymentEnum::PAID,
-            ]);
+            ->update(['status' => PaymentEnum::PAID]);
     }
 }

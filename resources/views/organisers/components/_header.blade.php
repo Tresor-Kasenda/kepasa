@@ -34,7 +34,7 @@
                 <div class="header-widget">
                     <div class="user-menu"></div>
                     <a href="{{ route('organiser.events.create') }}" class="button border with-icon">
-                        Add Listing
+                        Add Event
                         <i class="sl sl-icon-plus"></i>
                     </a>
                 </div>

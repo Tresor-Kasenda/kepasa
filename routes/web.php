@@ -42,17 +42,18 @@ use App\Http\Controllers\Supers\PromotedEventSuperController;
 use App\Http\Controllers\Supers\SettingSupperController;
 use App\Http\Controllers\Users\InvoiceCustomerController;
 use App\Http\Controllers\Users\PaypalCustomerController;
+use App\Http\Middleware\EnsureDefaultPasswordIsChanged;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
 Route::middleware('auth')->group(function (): void {
-    Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper']], function (): void {
-        Route::get('/', HomeSuperController::class)->name('dashboard');
+    Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper', EnsureDefaultPasswordIsChanged::class]], function (): void {
+        Route::get('/index', HomeSuperController::class)->name('dashboard');
 
         Route::get('events', ListsEventAdminController::class)->name('events.index');
         Route::get('events/{key}', ShowEventAdminController::class)->name('events.show');
-        Route::get('events/{key}', UpdateEventAdminController::class)->name('events.edit');
+        Route::get('events/{key}/edit', UpdateEventAdminController::class)->name('events.edit');
         Route::delete('events/destroy', DestroyEventAdminController::class)->name('events.destroy');
 
         Route::resource('eventsCountries', EventCountrySupperController::class);
@@ -83,7 +84,7 @@ Route::middleware('auth')->group(function (): void {
     Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['organiser']], function (): void {
         Route::get('/', HomeOrganiserController::class)->name('index');
         Route::resource('profile', ProfileOrganiserController::class);
-        Route::resource('bookings', BookingOrganiserController::class);
+        Route::get('bookings', BookingOrganiserController::class)->name('bookings.index');
         Route::resource('images', ImageOrganiserController::class);
         Route::resource('events', EventOrganiserController::class);
         Route::resource('events.payment', CheckoutOrganiserController::class);
@@ -104,8 +105,8 @@ Route::middleware('auth')->group(function (): void {
         });
 
         Route::controller(PaypalController::class)->group(function (): void {
-            Route::post('/order/create', 'create')->name('paypal.create.transaction');
-            Route::post('/order/capture', 'capture')->name('paypal.capture.transaction');
+            Route::post('/order/create', 'create')->name('paypal.transaction');
+            Route::post('/order/capture', 'capture')->name('paypal.capture');
         });
     });
 

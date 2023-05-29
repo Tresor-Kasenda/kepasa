@@ -1,8 +1,6 @@
-@extends('layouts.organiser')
+<x-organiser-layout>
+    @section('title', "Creation d'un evenement")
 
-@section('title', "Creation d'un evenement")
-
-@section('content')
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
@@ -44,7 +42,7 @@
                                     name="title"
                                     id="title"
                                     value="{{ old('title') ?? $event->title }}"
-                                    >
+                                >
                             </div>
                             <div class="col-md-4">
                                 <h5>Event Subtitle <span>(required)</span></h5>
@@ -53,7 +51,7 @@
                                     name="subTitle"
                                     id="subTitle"
                                     value="{{ old('subTitle') ?? $event->subTitle }}"
-                                    >
+                                >
                             </div>
                             <div class="col-md-4">
                                 <h5>Event Category<span>(required)</span></h5>
@@ -82,7 +80,7 @@
                                     id="startTime"
                                     name="startTime"
                                     value="{{ old('startTime') ?? $event->startTime }}"
-                                    >
+                                >
                             </div>
                             <div class="col-md-3">
                                 <h5> End Time <span>(required)</span></h5>
@@ -91,7 +89,7 @@
                                     name="endTime"
                                     id="endTime"
                                     value="{{ old('endTime') ?? $event->endTime }}"
-                                    >
+                                >
                             </div>
                             <div class="col-md-3">
                                 <h5>Avenue<span>(required)</span></h5>
@@ -100,7 +98,7 @@
                                     name="address"
                                     id="address"
                                     value="{{ old('address') ?? $event->address }}"
-                                    >
+                                >
                             </div>
                         </div>
                         <div class="row with-forms">
@@ -111,7 +109,7 @@
                                     name="ticketNumber"
                                     value="{{ old('ticketNumber') ?? $event->ticketNumber }}"
                                     id="ticketNumber"
-                                    >
+                                >
                             </div>
                             <div class="col-md-4">
                                 <h5>Price per Ticket<span>(required)</span></h5>
@@ -120,7 +118,7 @@
                                     name="prices"
                                     id="prices"
                                     value="{{ old('prices') ?? $event->prices }}"
-                                    >
+                                >
                             </div>
 
                             <div class="col-md-4">
@@ -201,70 +199,71 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('scripts')
-    <script defer>
-        $(document).ready(function () {
-            $("#country").change(function () {
-                const country = $("#country option:selected").val()
-                $.ajax({
-                    type: "post",
-                    url: `{{ route('cities.listens') }}`,
-                    data: {
-                        country: country,
-                        _token: '{{csrf_token()}}'
-                    },
-                    dataType : 'json',
-                    success: function(response){
-                        if (response){
-                            $('.viewRender').html(response.views);
+    @section('scripts')
+        <script defer>
+            $(document).ready(function () {
+                $("#country").change(function () {
+                    const country = $("#country option:selected").val()
+                    $.ajax({
+                        type: "get",
+                        url: `{{ route('country.index') }}`,
+                        data: {
+                            country: country,
+                            _token: '{{csrf_token()}}'
+                        },
+                        dataType : 'json',
+                        success: function(response){
+                            if (response){
+                                $('.viewRender').html(response.views);
+                            }
                         }
-                    }
+                    })
                 })
-            })
-        });
-    </script>
-    <script>
-        function calculate() {
-            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-            let price = document.getElementById("prices").value
-            if (price !== 0) {
-                if (selectedValue === "Inclusive") {
-                    inclusive();
-                } else if (selectedValue === "Exclusive") {
-                    exclusive();
+            });
+        </script>
+        <script>
+            function calculate() {
+                var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                let price = document.getElementById("prices").value
+                if (price !== 0) {
+                    if (selectedValue === "Inclusive") {
+                        inclusive();
+                    } else if (selectedValue === "Exclusive") {
+                        exclusive();
+                    }
+                } else {
+                    free();
                 }
-            } else {
-                free();
             }
-        }
 
-        function inclusive() {
-            let price = document.getElementById("prices").value;
-            let deduct = (5 / 100) * price;
-            let organiserPrice = parseFloat(price) - deduct;
-            document.getElementById("answer").innerHTML = "Organiser amount : R" + organiserPrice;
-            document.getElementById("ticketFee").innerHTML = "Ticket Fee: R 1 ";
-            document.getElementById("ticketCommission").innerHTML = deduct;
-            document.getElementById("ticketPrice").innerHTML = price;
-        }
+            function inclusive() {
+                let price = document.getElementById("prices").value;
+                let deduct = (5 / 100) * price;
+                let organiserPrice = parseFloat(price) - deduct;
+                document.getElementById("answer").innerHTML = "Organiser amount : R" + organiserPrice;
+                document.getElementById("ticketFee").innerHTML = "Ticket Fee: R 1 ";
+                document.getElementById("ticketCommission").innerHTML = deduct;
+                document.getElementById("ticketPrice").innerHTML = price;
+            }
 
-        function exclusive() {
-            let price = document.getElementById("prices").value;
-            let add = (5 / 100) * price;
-            let ticketPrice = parseFloat(price) + add;
-            document.getElementById("answer").innerHTML = "Organiser Amount: R " + parseInt(price);
-            document.getElementById("ticketFee").innerHTML = "Ticket Fee: R 1 ";
-            document.getElementById("ticketCommission").innerHTML = "Ticket Commision: R " + add;
-            document.getElementById("ticketPrice").innerHTML = "Buyers' Price: R " + ticketPrice;
-        }
+            function exclusive() {
+                let price = document.getElementById("prices").value;
+                let add = (5 / 100) * price;
+                let ticketPrice = parseFloat(price) + add;
+                document.getElementById("answer").innerHTML = "Organiser Amount: R " + parseInt(price);
+                document.getElementById("ticketFee").innerHTML = "Ticket Fee: R 1 ";
+                document.getElementById("ticketCommission").innerHTML = "Ticket Commision: R " + add;
+                document.getElementById("ticketPrice").innerHTML = "Buyers' Price: R " + ticketPrice;
+            }
 
-        function free() {
-            document.getElementById("ticketFee").innerHTML = "Ticket Fee  R1";
-            document.getElementById("ticketCommission").innerHTML = " ";
-            document.getElementById("ticketPrice").innerHTML = " ";
-            document.getElementById("answer").innerHTML = " ";
-        }
-    </script>
-@endsection
+            function free() {
+                document.getElementById("ticketFee").innerHTML = "Ticket Fee  R1";
+                document.getElementById("ticketCommission").innerHTML = " ";
+                document.getElementById("ticketPrice").innerHTML = " ";
+                document.getElementById("answer").innerHTML = " ";
+            }
+        </script>
+    @endsection
+</x-organiser-layout>
+

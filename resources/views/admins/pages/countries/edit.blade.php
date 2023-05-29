@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<x-app-layout>
+    @section('title', "Ville du pays")
 
-@section('title', "Ville du pays")
-
-@section('content')
     <div class="nk-content-inner">
         <div class="nk-content-body">
             <div class="nk-block-head nk-block-head-sm">
@@ -39,12 +37,12 @@
                                             <label class="form-label" for="cityName">city Name</label>
                                             <div class="form-control-wrap">
                                                 <input
-                                                    type="text"
-                                                    class="form-control @error('cityName') error @enderror"
-                                                    id="cityName"
-                                                    value="{{ old('cityName') ?? $city->cityName }}"
-                                                    name="cityName"
-                                                    placeholder="city name"
+                                                        type="text"
+                                                        class="form-control @error('cityName') error @enderror"
+                                                        id="cityName"
+                                                        value="{{ old('cityName') ?? $city->cityName }}"
+                                                        name="cityName"
+                                                        placeholder="city name"
                                                 >
                                             </div>
                                         </div>
@@ -52,12 +50,12 @@
                                             <label class="form-label" for="facts">facts</label>
                                             <div class="form-control-wrap">
                                                 <input
-                                                    type="text"
-                                                    class="form-control @error('facts') error @enderror"
-                                                    id="facts"
-                                                    value="{{ old('facts') ?? $city->facts }}"
-                                                    name="facts"
-                                                    placeholder="facts"
+                                                        type="text"
+                                                        class="form-control @error('facts') error @enderror"
+                                                        id="facts"
+                                                        value="{{ old('facts') ?? $city->facts }}"
+                                                        name="facts"
+                                                        placeholder="facts"
                                                 >
                                             </div>
                                         </div>
@@ -65,12 +63,12 @@
                                             <label class="form-label" for="overview">overview</label>
                                             <div class="form-control-wrap">
                                                 <input
-                                                    type="text"
-                                                    class="form-control @error('overview') error @enderror"
-                                                    id="overview"
-                                                    value="{{ old('overview') ?? $city->overview }}"
-                                                    name="overview"
-                                                    placeholder="overview"
+                                                        type="text"
+                                                        class="form-control @error('overview') error @enderror"
+                                                        id="overview"
+                                                        value="{{ old('overview') ?? $city->overview }}"
+                                                        name="overview"
+                                                        placeholder="overview"
                                                 >
                                             </div>
                                         </div>
@@ -78,12 +76,12 @@
                                             <label class="form-label" for="currency">currency</label>
                                             <div class="form-control-wrap">
                                                 <input
-                                                    type="text"
-                                                    class="form-control @error('currency') error @enderror"
-                                                    id="currency"
-                                                    value="{{ old('currency') ?? $city->currency }}"
-                                                    name="currency"
-                                                    placeholder="currency"
+                                                        type="text"
+                                                        class="form-control @error('currency') error @enderror"
+                                                        id="currency"
+                                                        value="{{ old('currency') ?? $city->currency }}"
+                                                        name="currency"
+                                                        placeholder="currency"
                                                 >
                                             </div>
                                         </div>
@@ -93,12 +91,12 @@
                                             <label class="form-label" for="languages">languages</label>
                                             <div class="form-control-wrap">
                                                 <input
-                                                    type="text"
-                                                    class="form-control @error('languages') error @enderror"
-                                                    id="languages"
-                                                    value="{{ old('languages') ?? $city->languages }}"
-                                                    name="languages"
-                                                    placeholder="languages"
+                                                        type="text"
+                                                        class="form-control @error('languages') error @enderror"
+                                                        id="languages"
+                                                        value="{{ old('languages') ?? $city->languages }}"
+                                                        name="languages"
+                                                        placeholder="languages"
                                                 >
                                             </div>
                                         </div>
@@ -106,12 +104,12 @@
                                             <label class="form-label" for="population">population</label>
                                             <div class="form-control-wrap">
                                                 <input
-                                                    type="text"
-                                                    class="form-control @error('population') error @enderror"
-                                                    id="population"
-                                                    value="{{ old('population') ?? $city->population }}"
-                                                    name="population"
-                                                    placeholder="population"
+                                                        type="text"
+                                                        class="form-control @error('population') error @enderror"
+                                                        id="population"
+                                                        value="{{ old('population') ?? $city->population }}"
+                                                        name="population"
+                                                        placeholder="population"
                                                 >
                                             </div>
                                         </div>
@@ -119,12 +117,12 @@
                                             <label class="form-label" for="popularCity">popularCity</label>
                                             <div class="form-control-wrap">
                                                 <input
-                                                    type="text"
-                                                    class="form-control @error('popularCity') error @enderror"
-                                                    id="popularCity"
-                                                    value="{{ old('popularCity') ?? $city->popularCity }}"
-                                                    name="popularCity"
-                                                    placeholder="popularCity"
+                                                        type="text"
+                                                        class="form-control @error('popularCity') error @enderror"
+                                                        id="popularCity"
+                                                        value="{{ old('popularCity') ?? $city->popularCity }}"
+                                                        name="popularCity"
+                                                        placeholder="popularCity"
                                                 >
                                             </div>
                                         </div>
@@ -134,12 +132,12 @@
                                                     <label class="form-label" for="mayor">mayor</label>
                                                     <div class="form-control-wrap">
                                                         <input
-                                                            type="text"
-                                                            class="form-control @error('mayor') error @enderror"
-                                                            id="mayor"
-                                                            value="{{ old('mayor') ?? $city->mayor }}"
-                                                            name="mayor"
-                                                            placeholder="mayor"
+                                                                type="text"
+                                                                class="form-control @error('mayor') error @enderror"
+                                                                id="mayor"
+                                                                value="{{ old('mayor') ?? $city->mayor }}"
+                                                                name="mayor"
+                                                                placeholder="mayor"
                                                         >
                                                     </div>
                                                 </div>
@@ -165,10 +163,10 @@
                                             <label class="form-label" for="history">history</label>
                                             <div class="form-control-wrap">
                                                 <textarea
-                                                    class="form-control form-control-sm @error('history') error @enderror"
-                                                    id="history"
-                                                    name="history"
-                                                    placeholder="Write history of your city"
+                                                        class="form-control form-control-sm @error('history') error @enderror"
+                                                        id="history"
+                                                        name="history"
+                                                        placeholder="Write history of your city"
                                                 >{{ $city->history }}</textarea>
                                             </div>
                                         </div>
@@ -184,4 +182,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>

@@ -1,5 +1,5 @@
 <x-organiser-layout>
-    <h1>Espance administration organisateur</h1>
+    @section('title', "Manager")
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">

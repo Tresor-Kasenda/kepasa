@@ -1,15 +1,13 @@
-@extends('layouts.organiser')
+<x-organiser-layout>
+    @section('title', "Modification des informations de l'organteur d'evenement")
 
-@section('title', "Modification des informations de l'organteur d'evenement")
-
-@section('content')
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
                 <h2>My Profile</h2>
                 <nav id="breadcrumbs">
                     <ul>
-                        <li><a href="{{ route('organiser.organiser.index') }}">Home</a></li>
+                        <li><a href="{{ route('organiser.index') }}">Home</a></li>
                         <li><a href="{{ route('organiser.profile.index') }}">Dashboard</a></li>
                         <li>My Profile</li>
                     </ul>
@@ -167,49 +165,49 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('scripts')
-    <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    @section('scripts')
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-        $('#password, #password_confirmation').on('keyup', function () {
-            if ($('#password').val() === $('#password_confirmation').val()) {
-                $('#message1').html('Le mot de passe correspond').css('color', 'green');
-                $('#updatePassword').prop('disabled', false);
-            } else {
-                $('#message1').html('Le mot de passe ne correspond pas').css('color', 'red');
-                $('#updatePassword').prop('disabled', true);
-            }
-        })
+            $('#password, #password_confirmation').on('keyup', function () {
+                if ($('#password').val() === $('#password_confirmation').val()) {
+                    $('#message1').html('Le mot de passe correspond').css('color', 'green');
+                    $('#updatePassword').prop('disabled', false);
+                } else {
+                    $('#message1').html('Le mot de passe ne correspond pas').css('color', 'red');
+                    $('#updatePassword').prop('disabled', true);
+                }
+            })
 
-        $('#images').change(function(){
-            let form  = new FormData();
-            let files = $('#images')[0].files;
-            console.log(form, files)
+            $('#images').change(function(){
+                let form  = new FormData();
+                let files = $('#images')[0].files;
+                console.log(form, files)
 
-            if(files.length > 0 ){
-                form.append('images',files[0]);
+                if(files.length > 0 ){
+                    form.append('images',files[0]);
 
-                $.ajax({
-                    url: `{{ route('organiser.profile.images') }}`,
-                    type: 'post',
-                    data: form,
-                    contentType: false,
-                    processData: false,
-                    success: function(response){
-                        if(response.status === 'success'){
-                            swal("Congrats!", ", Your account is created!", "success");
-                        }
-                    },
-                });
-            }else{
-                alert("Please select a file.");
-            }
-        })
-    </script>
-@endsection
+                    $.ajax({
+                        url: `{{ route('organiser.profile.images') }}`,
+                        type: 'post',
+                        data: form,
+                        contentType: false,
+                        processData: false,
+                        success: function(response){
+                            if(response.status === 'success'){
+                                swal("Congrats!", ", Your account is created!", "success");
+                            }
+                        },
+                    });
+                }else{
+                    alert("Please select a file.");
+                }
+            })
+        </script>
+    @endsection
+</x-organiser-layout>

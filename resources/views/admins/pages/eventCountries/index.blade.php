@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<x-app-layout>
+    @section('title', "Liste des evenements par pays")
 
-@section('title', "Liste des evenements par pays")
-
-@section('content')
     <div class="nk-content-inner">
         <div class="nk-content-body">
             <div class="nk-block-head nk-block-head-sm">
@@ -31,37 +29,37 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($events as $event)
-                                        <tr class="nk-tb-item">
-                                            <td class="nk-tb-col tb-col-md">
-                                                <span>{{ $event->country ?? "" }}</span>
-                                            </td>
-                                            <td class="nk-tb-col tb-col-md">
-                                                <span>{{ $event->total ?? 0 }}</span>
-                                            </td>
-                                            <td class="nk-tb-col nk-tb-col-tools">
-                                                <ul class="nk-tb-actions gx-1">
-                                                    <li>
-                                                        <div class="drodown">
-                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown">
-                                                                <em class="icon ni ni-more-h"></em>
-                                                            </a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <ul class="link-list-opt no-bdr">
-                                                                    <li>
-                                                                        <a href="{{ route('supper.eventsCountries.show', base64_encode($event->country)) }}">
-                                                                            <em class="icon ni ni-eye"></em>
-                                                                            <span>Voir</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
+                                @foreach($events as $event)
+                                    <tr class="nk-tb-item">
+                                        <td class="nk-tb-col tb-col-md">
+                                            <span>{{ $event->country ?? "" }}</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-md">
+                                            <span>{{ $event->total ?? 0 }}</span>
+                                        </td>
+                                        <td class="nk-tb-col nk-tb-col-tools">
+                                            <ul class="nk-tb-actions gx-1">
+                                                <li>
+                                                    <div class="drodown">
+                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown">
+                                                            <em class="icon ni ni-more-h"></em>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <ul class="link-list-opt no-bdr">
+                                                                <li>
+                                                                    <a href="{{ route('supper.eventsCountries.show', base64_encode($event->country)) }}">
+                                                                        <em class="icon ni ni-eye"></em>
+                                                                        <span>Voir</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
                                                         </div>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -70,4 +68,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>

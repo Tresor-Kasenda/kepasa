@@ -1,8 +1,6 @@
-@extends('layouts.organiser')
+<x-organiser-layout>
+    @section('title', "Images des evenements")
 
-@section('title', "Images des evenements")
-
-@section('content')
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
@@ -61,7 +59,7 @@
                     @endforeach
                 </ul>
             </div>
-            {{ $images->links() }}
+            {{ $images->links('') }}
         </div>
     </div>
-@endsection
+</x-organiser-layout>

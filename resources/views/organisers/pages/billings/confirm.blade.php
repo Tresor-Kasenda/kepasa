@@ -1,8 +1,6 @@
-@extends('layouts.organiser')
+<x-organiser-layout>
+    @section('title', "Information sur le paiement")
 
-@section('title', "Information sur le paiement")
-
-@section('content')
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
@@ -84,64 +82,64 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('scripts')
-    <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.sandbox.client_id') }}&currency=USD"></script>
+    @section('scripts')
+        <script src="https://www.paypal.com/sdk/js?client-id={{ config('paypal.sandbox.client_id') }}&currency=USD"></script>
 
-    <script>
-        paypal.Buttons({
-            style: {
-                layout: 'horizontal'
-            },
-            createOrder: function(data, actions) {
-                return fetch(`{{ route('organiser.paypal.create.transaction') }}`, {
-                    method: "POST",
-                    body: JSON.stringify({
-                        title: $('#title').val(),
-                        prices: $('#prices').val(),
-                    }),
-                    headers: {
-                        "Content-type": "application/json",
-                        "X-CSRF-Token": $('input[name="_token"]').val()
-                    }
-                }).then(function(res) {
-                    return res.json();
-                }).then(function(orderData) {
-                    return orderData.id;
-                });
-            },
+        <script>
+            paypal.Buttons({
+                style: {
+                    layout: 'horizontal'
+                },
+                createOrder: function(data, actions) {
+                    return fetch(`{{ route('organiser.paypal.transaction') }}`, {
+                        method: "POST",
+                        body: JSON.stringify({
+                            title: $('#title').val(),
+                            prices: $('#prices').val(),
+                        }),
+                        headers: {
+                            "Content-type": "application/json",
+                            "X-CSRF-Token": $('input[name="_token"]').val()
+                        }
+                    }).then(function(res) {
+                        return res.json();
+                    }).then(function(orderData) {
+                        return orderData.id;
+                    });
+                },
 
-            // Call your server to finalize the transaction
-            onApprove: function(data, actions) {
-                return fetch('{{ route('organiser.paypal.capture.transaction') }}', {
-                    method: 'post',
-                    body: JSON.stringify({
-                        orderId : data['orderID'],
-                        title: $('#title').val(),
-                        prices: $('#prices').val(),
-                    }),
-                    headers: {
-                        "Content-type": "application/json",
-                        "X-CSRF-Token": $('input[name="_token"]').val()
-                    }
-                }).then(function(res) {
-                    return res.json();
-                }).then(function(orderData) {
-                    var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
-                    if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
-                        return actions.restart(); // Recoverable state, per:
-                    }
-                    if (errorDetail) {
-                        var msg = 'Sorry, your transaction could not be processed.';
-                        if (errorDetail.description) msg += '\n\n' + errorDetail.description;
-                        if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
-                        return alert(msg);
-                    }
-                    window.history.back();
-                });
-            }
+                // Call your server to finalize the transaction
+                onApprove: function(data, actions) {
+                    return fetch('{{ route('organiser.paypal.capture') }}', {
+                        method: 'post',
+                        body: JSON.stringify({
+                            orderId : data['orderID'],
+                            title: $('#title').val(),
+                            prices: $('#prices').val(),
+                        }),
+                        headers: {
+                            "Content-type": "application/json",
+                            "X-CSRF-Token": $('input[name="_token"]').val()
+                        }
+                    }).then(function(res) {
+                        return res.json();
+                    }).then(function(orderData) {
+                        var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+                        if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                            return actions.restart(); // Recoverable state, per:
+                        }
+                        if (errorDetail) {
+                            var msg = 'Sorry, your transaction could not be processed.';
+                            if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                            if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                            return alert(msg);
+                        }
+                        window.history.back();
+                    });
+                }
 
-        }).render('#paypal-button');
-    </script>
-@endsection
+            }).render('#paypal-button');
+        </script>
+    @endsection
+</x-organiser-layout>

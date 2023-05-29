@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<x-app-layout>
+    @section('title', "Edition d'une category")
 
-@section('title', "Edition d'une category")
-
-@section('content')
     <div class="nk-content-body">
         <div class="nk-block-head nk-block-head-sm">
             <div class="nk-block-between g-3">
@@ -29,12 +27,12 @@
                                 <label class="form-label" for="name">Name category</label>
                                 <div class="form-control-wrap">
                                     <input
-                                        type="text"
-                                        class="form-control @error('name') error @enderror"
-                                        id="name"
-                                        value="{{ old('name') ?? $category->name }}"
-                                        name="name"
-                                        placeholder="category"
+                                            type="text"
+                                            class="form-control @error('name') error @enderror"
+                                            id="name"
+                                            value="{{ old('name') ?? $category->name }}"
+                                            name="name"
+                                            placeholder="category"
                                     >
                                 </div>
                             </div>
@@ -47,4 +45,6 @@
             </div>
         </div>
     </div>
-@endsection
+</x-app-layout>
+
+

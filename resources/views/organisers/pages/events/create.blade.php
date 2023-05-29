@@ -1,15 +1,13 @@
-@extends('layouts.organiser')
+<x-organiser-layout>
+    @section('title', "Add Event")
 
-@section('title', "Creation d'un evenement")
-
-@section('content')
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
                 <h2>Create events</h2>
                 <nav id="breadcrumbs">
                     <ul>
-                        <li><a href="{{ route('organiser.organiser.index') }}">Home</a></li>
+                        <li><a href="{{ route('organiser.index') }}">Home</a></li>
                         <li><a href="{{ route('organiser.events.index') }}">Events</a></li>
                         <li>Create</li>
                     </ul>
@@ -37,10 +35,11 @@
                                 <input
                                     type="text"
                                     name="title"
-                                    class=""
+                                    class="input-text"
                                     id="title"
                                     value="{{ old('title') }}"
-                                    >
+                                >
+                                @error('title')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                             <div class="col-md-4">
                                 <h5>Event Subtitle <span>(required)</span></h5>
@@ -49,16 +48,18 @@
                                     name="subTitle"
                                     id="subTitle"
                                     value="{{ old('subTitle') }}"
-                                    >
+                                >
+                                @error('subTitle')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                             <div class="col-md-4">
                                 <h5>Event Category<span>(required)</span></h5>
-                                <select class="chosen-select-no-single" name="category_id" required>
+                                <select class="chosen-select-no-single" name="category" id="category" required>
                                     <option label="blank">Select Category</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name ?? "" }}</option>
                                     @endforeach
                                 </select>
+                                @error('category')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                         </div>
                         <div class="row with-forms">
@@ -70,6 +71,7 @@
                                     name="date"
                                     value="{{ old('date') }}"
                                     min="{{ now()->format('Y:m:d') }}">
+                                @error('date')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                             <div class="col-md-3">
                                 <h5>Start Time <span>(required)</span></h5>
@@ -78,7 +80,8 @@
                                     id="startTime"
                                     name="startTime"
                                     value="{{ old('startTime') }}"
-                                    >
+                                >
+                                @error('startTime')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                             <div class="col-md-3">
                                 <h5> End Time <span>(required)</span></h5>
@@ -87,7 +90,8 @@
                                     name="endTime"
                                     id="endTime"
                                     value="{{ old('endTime') }}"
-                                    >
+                                >
+                                @error('endTime')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                             <div class="col-md-3">
                                 <h5>Avenue<span>(required)</span></h5>
@@ -96,7 +100,8 @@
                                     name="address"
                                     id="address"
                                     value="{{ old('address') }}"
-                                    >
+                                >
+                                @error('address')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                         </div>
                         <div class="row with-forms">
@@ -107,7 +112,8 @@
                                     name="ticketNumber"
                                     value="{{ old('ticketNumber') }}"
                                     id="ticketNumber"
-                                    >
+                                >
+                                @error('ticketNumber')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                             <div class="col-md-4">
                                 <h5>Price per Ticket<span>(required)</span></h5>
@@ -116,7 +122,8 @@
                                     name="prices"
                                     id="prices"
                                     value="{{ old('prices') }}"
-                                    >
+                                >
+                                @error('prices')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
 
                             <div class="col-md-4">
@@ -126,6 +133,7 @@
                                     <option value="Inclusive">Inclusive</option>
                                     <option value="Exclusive">Exclusive</option>
                                 </select>
+                                @error('feedOption')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                         </div>
                         <div class="row with-forms">
@@ -165,6 +173,7 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    @error('country')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="col-md-6">
                                     <h5>City</h5>
@@ -189,6 +198,7 @@
                                         value="{{ old('image') }}"
                                     >
                                 </div>
+                                @error('image')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                         </div>
                     </div>
@@ -207,6 +217,7 @@
                                         id="description"
                                         spellcheck="true"
                                     >{{ old('description') }}</textarea>
+                                    @error('description')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </div>
                                 <button type="submit" class="button margin-top-15">create event</button>
                             </div>
@@ -216,69 +227,70 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('scripts')
-    <script>
-        $(document).ready(function () {
-            $("#country").change(function () {
-                const country = $("#country option:selected").val()
-                $.ajax({
-                    type: "post",
-                    url: `{{ route('cities.listens') }}`,
-                    data: {
-                        country: country,
-                        _token: '{{csrf_token()}}'
-                    },
-                    dataType : 'json',
-                    success: function(response){
-                        if (response){
-                            $('.viewRender').html(response.views);
+    @section('scripts')
+        <script>
+            $(document).ready(function () {
+                $("#country").change(function () {
+                    const country = $("#country option:selected").val()
+                    $.ajax({
+                        type: "get",
+                        url: `{{ route('country.index') }}`,
+                        data: {
+                            country: country,
+                            _token: '{{csrf_token()}}'
+                        },
+                        dataType : 'json',
+                        success: function(response){
+                            if (response){
+                                $('.viewRender').html(response.views);
+                            }
                         }
-                    }
+                    })
                 })
-            })
-        });
+            });
 
-        function calculate() {
-            let selectedValue = selectBox.options[selectBox.selectedIndex].value;
-            let price = document.getElementById("prices").value
-            if (price !== 0) {
-                if (selectedValue === "Inclusive") {
-                    inclusive();
-                } else if (selectedValue === "Exclusive") {
-                    exclusive();
+            function calculate() {
+                let selectedValue = selectBox.options[selectBox.selectedIndex].value;
+                let price = document.getElementById("prices").value
+                if (price !== 0) {
+                    if (selectedValue === "Inclusive") {
+                        inclusive();
+                    } else if (selectedValue === "Exclusive") {
+                        exclusive();
+                    }
+                } else {
+                    free();
                 }
-            } else {
-                free();
             }
-        }
 
-        function inclusive() {
-            let price = document.getElementById("prices").value;
-            let deduct = (5 / 100) * price;
-            let organiserPrice = parseFloat(price) - deduct;
-            document.getElementById("answer").innerHTML = "Organiser amount : R" + organiserPrice;
-            document.getElementById("ticketFee").innerHTML = "Ticket Fee: R 1 ";
-            document.getElementById("ticketCommission").innerHTML = deduct;
-            document.getElementById("ticketPrice").innerHTML = price;
-        }
+            function inclusive() {
+                let price = document.getElementById("prices").value;
+                let deduct = (5 / 100) * price;
+                let organiserPrice = parseFloat(price) - deduct;
+                document.getElementById("answer").innerHTML = "Organiser amount : R" + organiserPrice;
+                document.getElementById("ticketFee").innerHTML = "Ticket Fee: R 1 ";
+                document.getElementById("ticketCommission").innerHTML = deduct;
+                document.getElementById("ticketPrice").innerHTML = price;
+            }
 
-        function exclusive() {
-            let price = document.getElementById("prices").value;
-            let add = (5 / 100) * price;
-            let ticketPrice = parseFloat(price) + add;
-            document.getElementById("answer").innerHTML = "Organiser Amount: R " + parseInt(price);
-            document.getElementById("ticketFee").innerHTML = "Ticket Fee: R 1 ";
-            document.getElementById("ticketCommission").innerHTML = "Ticket Commision: R " + add;
-            document.getElementById("ticketPrice").innerHTML = "Buyers' Price: R " + ticketPrice;
-        }
+            function exclusive() {
+                let price = document.getElementById("prices").value;
+                let add = (5 / 100) * price;
+                let ticketPrice = parseFloat(price) + add;
+                document.getElementById("answer").innerHTML = "Organiser Amount: R " + parseInt(price);
+                document.getElementById("ticketFee").innerHTML = "Ticket Fee: R 1 ";
+                document.getElementById("ticketCommission").innerHTML = "Ticket Commision: R " + add;
+                document.getElementById("ticketPrice").innerHTML = "Buyers' Price: R " + ticketPrice;
+            }
 
-        function free() {
-            document.getElementById("ticketFee").innerHTML = "Ticket Fee  R1";
-            document.getElementById("ticketCommission").innerHTML = " ";
-            document.getElementById("ticketPrice").innerHTML = " ";
-            document.getElementById("answer").innerHTML = " ";
-        }
-    </script>
-@endsection
+            function free() {
+                document.getElementById("ticketFee").innerHTML = "Ticket Fee  R1";
+                document.getElementById("ticketCommission").innerHTML = " ";
+                document.getElementById("ticketPrice").innerHTML = " ";
+                document.getElementById("answer").innerHTML = " ";
+            }
+        </script>
+    @endsection
+
+</x-organiser-layout>

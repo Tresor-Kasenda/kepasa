@@ -2,9 +2,12 @@
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('admin.admin.index') }}" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="{{ asset('assets/images/logo.png') }}" srcset="{{ asset('assets/images/logo.png') }} 2x" alt="logo">
-                <img class="logo-dark logo-img" src="{{ asset('assets/images/logo.png') }}" srcset="{{ asset('assets/images/logo.png') }} 2x" alt="logo-dark">
-                <img class="logo-small logo-img logo-img-small" src="{{ asset('assets/images/logo.png') }}" srcset="{{ asset('assets/images/logo.png') }} 2x" alt="logo-small">
+                <img class="logo-light logo-img" src="{{ asset('assets/images/logo.png') }}"
+                     srcset="{{ asset('assets/images/logo.png') }} 2x" alt="logo">
+                <img class="logo-dark logo-img" src="{{ asset('assets/images/logo.png') }}"
+                     srcset="{{ asset('assets/images/logo.png') }} 2x" alt="logo-dark">
+                <img class="logo-small logo-img logo-img-small" src="{{ asset('assets/images/logo.png') }}"
+                     srcset="{{ asset('assets/images/logo.png') }} 2x" alt="logo-small">
             </a>
         </div>
         <div class="nk-menu-trigger mr-n2">
@@ -28,7 +31,7 @@
                     <li class="nk-menu-heading">
                         <h6 class="overline-title text-primary-alt">Administration</h6>
                     </li>
-                    @include('admins.partials.navLink', [
+                    @include('admins.partials.nav-link', [
                         'route' => route('admin.eventsCountries.index'),
                         'name' => 'Events by Country',
                         'icon' => 'ni-globe'
@@ -38,12 +41,12 @@
                         'name' => 'All events',
                         'icon' => 'ni-panel-fill'
                     ])
-                    @include('admins.partials.navLink', [
+                    @include('admins.partials.nav-link', [
                         'route' => route('admin.eventsOrganisers.index'),
                         'name' => 'Event by organiser',
                         'icon' => 'ni-users-fill'
                     ])
-                    @include('admins.partials.navLink', [
+                    @include('admins.partials.nav-link', [
                         'route' => route('admin.cityMedia.index'),
                         'name' => 'City Media',
                         'icon' => 'ni-map-pin-fill'
