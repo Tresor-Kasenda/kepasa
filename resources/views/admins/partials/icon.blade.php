@@ -1,0 +1,1 @@
+<em {{ $attributes->merge(['class' => 'icon ni ']) }}></em>
