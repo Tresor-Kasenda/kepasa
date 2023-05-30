@@ -11,11 +11,10 @@ class BookingController extends Controller
 {
     public function __construct(
         public BookingRepository $repository
-    )
-    {
+    ) {
     }
 
-    public function __invoke(string $key)
+    public function __invoke(string $key): void
     {
 
     }

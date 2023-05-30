@@ -13,16 +13,13 @@ class SettingRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required', 'min:4', 'string'],
             'email' => ['required', 'email'],
             'copyright' => ['required', 'string', 'min:4'],
             'username' => ['required', 'string', 'min:4'],
-            'lastname' => ['required', 'string', 'min:4'],
-            'phones' => ['required', 'min:10', 'unique:users'],
-            'adminEmail' => ['required', 'email'],
         ];
     }
 }

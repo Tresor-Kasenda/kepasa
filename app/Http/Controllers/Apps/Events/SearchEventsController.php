@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Apps\Events;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventSearchRequest;
 use App\Repository\EventUserRepository;
-use Illuminate\Http\Request;
 
 class SearchEventsController extends Controller
 {
@@ -17,7 +18,7 @@ class SearchEventsController extends Controller
     public function __invoke(EventSearchRequest $request)
     {
         $events = $this->repository->searchEvent(attributes: $request);
-        if (count($events) <= 0){
+        if (count($events) <= 0) {
             return response()->json([
                 'messages' => 'Events does not exist for this town or country',
             ]);

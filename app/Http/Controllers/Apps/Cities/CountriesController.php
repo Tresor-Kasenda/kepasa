@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Apps\Cities;
 
 use App\Http\Controllers\Controller;
@@ -21,7 +23,7 @@ class CountriesController extends Controller
             'views' => view(
                 'apps.components._select',
                 compact('data')
-                )->render(),
+            )->render(),
             'status' => true,
         ]);
     }

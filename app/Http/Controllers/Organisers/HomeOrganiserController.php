@@ -14,7 +14,7 @@ class HomeOrganiserController extends Controller
     public function __construct(
         protected readonly HomeOrganiserRepository $repository,
         protected readonly ChartJsOrganiserRepository $organiserRepository
-    ){
+    ) {
     }
 
     public function __invoke(): Renderable

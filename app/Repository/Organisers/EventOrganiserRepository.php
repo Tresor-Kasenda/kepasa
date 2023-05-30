@@ -50,10 +50,10 @@ class EventOrganiserRepository
 
     public function storeEvents($attributes): Model|Builder
     {
-//        $result = (new Pipeline(app()))
-//            ->send($attributes)
-//            ->through(pipes: $this->pipes)
-//            ->thenReturn();
+        $result = (new Pipeline(app()))
+            ->send($attributes)
+            ->through(pipes: $this->pipes)
+            ->thenReturn();
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
         $category = $this->getCategory(attributes: $attributes);
         $event = $this->storedEvent(attributes: $attributes, feedCalculation: $feedCalculation);

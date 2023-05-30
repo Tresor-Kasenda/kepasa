@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Supers\Events;
 
 use App\Http\Controllers\Controller;
@@ -8,7 +10,6 @@ use App\Repository\Suppers\EventSupperRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 
 class UpdateEventAdminController extends Controller
 {

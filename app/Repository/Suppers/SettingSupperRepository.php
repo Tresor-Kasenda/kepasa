@@ -8,64 +8,42 @@ use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class SettingSupperRepository
 {
-    public function update(string $key, $attributes): Model|Builder|RedirectResponse
+    public function update(User $user, $attributes)
     {
-        $user = $this->getAdmin($key);
-        $this->updateAdmin($user, $attributes);
-        $setting = $this->getSetting($user);
-        $this->updateSetting($setting, $attributes, $user);
-        toast('Settings is update', 'success');
-
-        return $setting;
+        return $this->updateSetting($attributes, $user);
     }
 
-    public function updatePassword(string $key, $attributes): Model|Builder|null
+    private function updateSetting($attributes, $user)
     {
-        $user = $this->getAdmin(key: $key);
-        $user->update([
-            'password' => Hash::make($attributes->input('password')),
-        ]);
-        toast('Password is update', 'success');
-
-        return $user;
-    }
-
-    private function getAdmin(string $key): null|Builder|Model
-    {
-        return User::query()
-            ->where('key', '=', $key)
-            ->first();
-    }
-
-    private function updateAdmin($user, $attributes): void
-    {
-        $user->update([
-            'name' => $attributes->input('username'),
-            'lastName' => $attributes->input('lastname'),
-            'phones' => $attributes->input('phones'),
-            'email' => $attributes->input('adminEmail'),
-        ]);
-    }
-
-    private function getSetting(Model|Builder|null $user): null|Builder|Model
-    {
-        return Setting::query()
+        $setting = Setting::query()
             ->where('user_id', '=', $user->id)
             ->first();
-    }
+        if ($setting) {
+            $settings = $setting->update([
+                'name' => $attributes['name'],
+                'email' => $attributes['email'],
+                'copyright' => $attributes['copyright'],
+            ]);
 
-    private function updateSetting($setting, $attributes, $user): void
-    {
-        $setting->update([
-            'name' => $attributes->input('name'),
-            'email' => $attributes->input('email'),
-            'copyright' => $attributes->input('copyright'),
-            'user_id' => $user->id,
-        ]);
+            toast('Settings is update', 'success');
+
+            return $settings;
+        }
+        $set = Setting::query()
+            ->create([
+                'name' => $attributes['name'],
+                'email' => $attributes['email'],
+                'copyright' => $attributes['copyright'],
+                'user_id' => $user->id
+            ]);
+
+        toast('Settings is created with successful', 'success');
+
+        return $set;
     }
 }

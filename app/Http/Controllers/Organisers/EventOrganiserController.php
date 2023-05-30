@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EventRequest;
 use App\Http\Requests\EventUpdateRequest;
 use App\Models\Event;
-use App\Models\User;
 use App\Repository\Organisers\EventOrganiserRepository;
 use App\Repository\Suppers\CategorySupperRepository;
 use Illuminate\Contracts\Foundation\Application;

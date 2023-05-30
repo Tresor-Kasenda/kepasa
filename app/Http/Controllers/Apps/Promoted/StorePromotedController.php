@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Apps\Promoted;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ShareRequest;
 use App\Mail\CityCustomerMail;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
 class StorePromotedController extends Controller

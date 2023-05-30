@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Supers\Events;
 
 use App\Http\Controllers\Controller;
 use App\Repository\Suppers\EventSupperRepository;
-use Illuminate\Http\Request;
 
 class ShowEventAdminController extends Controller
 {

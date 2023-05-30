@@ -1,3 +1,4 @@
+@php use App\Models\Country; @endphp
 <x-app-layout>
     @section('title', "Parametre de l'application")
 
@@ -5,7 +6,11 @@
         <div class="nk-block-head nk-block-head-sm">
             <div class="nk-block-between g-3">
                 <div class="nk-block-head-content">
-                    <h3 class="nk-block-title page-title">Users / <strong class="text-primary small">{{ auth()->user()->name." ". auth()->user()->lastName }}</strong></h3>
+                    <h3 class="nk-block-title page-title">Users /
+                        <strong class="text-primary small">
+                            {{ auth()->user()->name." ". auth()->user()->lastName }}
+                        </strong>
+                    </h3>
                     <div class="nk-block-des text-soft">
                         <ul class="list-inline">
                             <li>User ID: <span class="text-base">{{ auth()->user()->id }}</span></li>
@@ -14,7 +19,7 @@
                     </div>
                 </div>
                 <div class="nk-block-head-content">
-                    <a href="{{ route('supper.dashboard') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex">
+                    <a href="{{ route('supper.dashboard') }}" class="btn btn-outline-light btn-dim bg-white d-none d-sm-inline-flex">
                         <em class="icon ni ni-arrow-left"></em>
                         <span>Back</span>
                     </a>
@@ -75,126 +80,205 @@
                             <div class="tab-content">
                                 <div class="tab-pane" :class="currentTab === 'personal' ? 'active' : ''" id="personal" role="tabpanel">
                                     <div class="nk-block">
+                                        <form action="{{ route('supper.admins.change', auth()->user()) }}" method="POST" class="gy-3 form-settings">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="name">Name</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                    type="text"
+                                                                    class="form-control @error('name') error @enderror"
+                                                                    id="name"
+                                                                    name="name"
+                                                                    value="{{ old('name') ?? auth()->user()->name }}">
+                                                        </div>
+                                                    </div>
 
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="phones">Phones numbers</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                    type="text"
+                                                                    class="form-control @error('phones') error @enderror"
+                                                                    id="phones"
+                                                                    name="phones"
+                                                                    value="{{ old('phones') ?? auth()->user()->phones }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="country">Country</label>
+                                                        <div class="form-control-wrap">
+                                                            <select class="form-control" class="countries" id="country" name="country">
+                                                                <option value="default_option">Selected country</option>
+                                                                <option value="{{ auth()->user()->country->id ?? "" }}" class="bg-gray-400 text-md">{{ auth()->user()->country->countryName ?? " " }}</option>
+                                                                @foreach($countries as $country)
+                                                                    <option value="{{ $country->id }}">
+                                                                        {{ $country->countryName }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="lastName">last name</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                    type="text"
+                                                                    class="form-control @error('lastName') error @enderror"
+                                                                    id="lastName"
+                                                                    name="lastName"
+                                                                    value="{{ old('lastName') ?? auth()->user()->lastName }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="email">Email</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                    type="email"
+                                                                    class="form-control @error('email') error @enderror"
+                                                                    id="email"
+                                                                    name="email"
+                                                                    value="{{ old('email') ?? auth()->user()->email }}">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="phone">Other phones number</label>
+                                                        <div class="form-control-wrap">
+                                                            <div class="form-control-wrap">
+                                                                <input
+                                                                        type="email"
+                                                                        class="form-control @error('phone') error @enderror"
+                                                                        id="phone"
+                                                                        name="phone"
+                                                                        value="{{ old('phone') }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-outline-primary btn-dim">Update Users</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="tab-pane" :class="currentTab === 'settings' ? 'active' : ''" id="settings" role="tabpanel">
                                     <div class="nk-block">
-                                        <form action="{{ route('supper.settings.store', auth()->user()->key) }}" method="POST" class="gy-3 form-settings">
+                                        <form action="{{ route('supper.settings.store', auth()->user()) }}" method="POST" class="gy-3 form-settings">
                                             @csrf
                                             @method('PUT')
-                                            <div class="form-group">
-                                                <label class="form-label" for="name">Site Name</label>
-                                                <div class="form-control-wrap">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control @error('name') error @enderror"
-                                                            id="name"
-                                                            name="name"
-                                                            value="{{ old('name') ?? auth()->user()->app->name }}">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="name">Site Name</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                    type="text"
+                                                                    class="form-control @error('name') error @enderror"
+                                                                    id="name"
+                                                                    name="name"
+                                                                    value="{{ old('name') ?? auth()->user()->app->name }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="email">Site Email</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                    type="email"
+                                                                    class="form-control @error('email') error @enderror"
+                                                                    id="email"
+                                                                    name="email"
+                                                                    value="{{ old('email') ?? auth()->user()->app->email }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="copyright">Site Copyright</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                    type="text"
+                                                                    class="form-control @error('copyright') error @enderror"
+                                                                    id="copyright"
+                                                                    name="copyright"
+                                                                    value="{{ old('copyright') ?? auth()->user()->app->copyright }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="username">Admin name</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                    type="text"
+                                                                    class="form-control @error('username') error @enderror"
+                                                                    id="copyright"
+                                                                    name="username"
+                                                                    value="{{ old('username') ?? auth()->user()->name }}">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-label" for="email">Site Email</label>
-                                                <div class="form-control-wrap">
-                                                    <input
-                                                            type="email"
-                                                            class="form-control @error('email') error @enderror"
-                                                            id="email"
-                                                            name="email"
-                                                            value="{{ old('email') ?? auth()->user()->app->email }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label" for="copyright">Site Copyright</label>
-                                                <div class="form-control-wrap">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control @error('copyright') error @enderror"
-                                                            id="copyright"
-                                                            name="copyright"
-                                                            value="{{ old('copyright') ?? auth()->user()->app->copyright }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label" for="username">Admin name</label>
-                                                <div class="form-control-wrap">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control @error('username') error @enderror"
-                                                            id="copyright"
-                                                            name="username"
-                                                            value="{{ old('username') ?? auth()->user()->name }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label" for="username">Admin lastname</label>
-                                                <div class="form-control-wrap">
-                                                    <input
-                                                            type="text"
-                                                            class="form-control @error('lastname') error @enderror"
-                                                            id="lastname"
-                                                            name="lastname"
-                                                            value="{{ old('lastname') ?? auth()->user()->lastName }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label" for="phones">Admin phones</label>
-                                                <div class="form-control-wrap">
-                                                    <input
-                                                            type="tel"
-                                                            class="form-control @error('phones') error @enderror"
-                                                            id="phones"
-                                                            name="phones"
-                                                            value="{{ old('phones') ?? auth()->user()->phones }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label" for="adminEmail">Admin email</label>
-                                                <div class="form-control-wrap">
-                                                    <input
-                                                            type="email"
-                                                            class="form-control @error('adminEmail') error @enderror"
-                                                            id="adminEmail"
-                                                            name="adminEmail"
-                                                            value="{{ old('adminEmail') ?? auth()->user()->email }}">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-md btn-primary">Update</button>
+                                                <button type="submit" class="btn btn-outline-primary btn-dim">Update Settings</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                                 <div class="tab-pane" :class="currentTab === 'password' ? 'active' : ''" id="password" role="tabpanel">
                                     <div class="nk-block">
-                                        <form action="{{ route('supper.settings.password', auth()->user()->key) }}" method="POST">
+                                        <form action="{{ route('supper.settings.password', auth()->user()) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <div class="form-group">
-                                                <label class="form-label" for="current-password">Current password</label>
-                                                <input type="password" class="form-control" id="current-password" name="current-password">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="email">Email</label>
+                                                        <div class="form-control-wrap">
+                                                            <input
+                                                                    type="email"
+                                                                    class="form-control @error('email') error @enderror"
+                                                                    id="email"
+                                                                    name="email"
+                                                                    value="{{ old('email') }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="current_password">Current password</label>
+                                                        <input
+                                                                type="password"
+                                                                class="form-control"
+                                                                id="current_password"
+                                                                name="current_password">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="password">New password</label>
+                                                        <input
+                                                                type="password"
+                                                                class="form-control @error('password') error @enderror"
+                                                                id="password"
+                                                                name="password"
+                                                        >
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="password_confirmation">Repeat Password</label>
+                                                        <input
+                                                                type="password"
+                                                                class="form-control"
+                                                                id="password_confirmation"
+                                                                name="password_confirmation"
+                                                        >
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="form-label" for="password">New password</label>
-                                                <input
-                                                        type="password"
-                                                        class="form-control @error('password') error @enderror"
-                                                        id="password"
-                                                        name="password"
-                                                >
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label" for="password_confirmation">Repeat Password</label>
-                                                <input
-                                                        type="password"
-                                                        class="form-control"
-                                                        id="password_confirmation"
-                                                        name="password_confirmation"
-                                                >
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-md btn-primary">Update password</button>
+                                            <div class="form-group mt-3">
+                                                <button type="submit" class="btn btn-outline-primary btn-dim">Update password</button>
                                             </div>
                                         </form>
                                     </div>
@@ -215,7 +299,7 @@
                                                 <div class="card-inner">
                                                     <div class="user-card user-card-s2">
                                                         <div class="user-avatar lg bg-primary">
-                                                            <span>AB</span>
+                                                            <span>{{ substr(auth()->user()->name, 0,2) }}</span>
                                                         </div>
                                                         <div class="user-info">
                                                             <div class="badge bg-outline-light rounded-pill ucap">{{ auth()->user()->role->name }}</div>
@@ -253,7 +337,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div><!-- .card-inner -->
+                                                </div>
                                                 <div class="card-inner">
                                                     <h6 class="overline-title-alt mb-2">Additional</h6>
                                                     <div class="row g-3">
@@ -266,12 +350,12 @@
                                                             <span>15 Feb, 2019 01:02 PM</span>
                                                         </div>
                                                         <div class="col-6">
-                                                            <span class="sub-text">KYC Status:</span>
-                                                            <span class="lead-text text-success">Approved</span>
+                                                            <span class="sub-text">Role:</span>
+                                                            <span class="lead-text text-success">{{ auth()->user()->role->name }}</span>
                                                         </div>
                                                         <div class="col-6">
                                                             <span class="sub-text">Register At:</span>
-                                                            <span>Nov 24, 2019</span>
+                                                            <span>{{ auth()->user()->created_at->format('Y m d') }}</span>
                                                         </div>
                                                     </div>
                                                 </div>

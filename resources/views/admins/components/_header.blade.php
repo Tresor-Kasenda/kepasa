@@ -45,9 +45,9 @@
                             <div class="dropdown-inner">
                                 <ul class="link-list">
                                     <li>
-                                        <a href="#">
+                                        <a href="{{ route('supper.settings.index') }}">
                                             <em class="icon ni ni-user-alt"></em>
-                                            <span>View Profile</span>
+                                            <span>Settings</span>
                                         </a>
                                     </li>
                                 </ul>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admins\EventCountryAdminController;
 use App\Http\Controllers\Admins\EventOrganiserAdminController;
 use App\Http\Controllers\Admins\EventsAdminController;
 use App\Http\Controllers\Admins\HomeAdminController;
+use App\Http\Controllers\Admins\UpdateUserController;
 use App\Http\Controllers\Apps\Bookings\BookingController;
 use App\Http\Controllers\Apps\Cities\CountriesController;
 use App\Http\Controllers\Apps\Cities\ShowCityController;
@@ -39,7 +40,9 @@ use App\Http\Controllers\Supers\Events\UpdateEventAdminController;
 use App\Http\Controllers\Supers\HomeSuperController;
 use App\Http\Controllers\Supers\OrganiserSupperController;
 use App\Http\Controllers\Supers\PromotedEventSuperController;
-use App\Http\Controllers\Supers\SettingSupperController;
+use App\Http\Controllers\Supers\Settings\SettingController;
+use App\Http\Controllers\Supers\Settings\SettingUpdateController;
+use App\Http\Controllers\Supers\Settings\SettingUpdatePasswordController;
 use App\Http\Controllers\Users\InvoiceCustomerController;
 use App\Http\Controllers\Users\PaypalCustomerController;
 use App\Http\Middleware\EnsureDefaultPasswordIsChanged;
@@ -68,17 +71,17 @@ Route::middleware('auth')->group(function (): void {
             Route::put('changeStatus/{eventKey}/update', 'changeStatus')->name('status.update');
         });
 
-        Route::controller(SettingSupperController::class)->group(function (): void {
-            Route::get('settings', '__invoke')->name('settings.index');
-            Route::put('settings/{adminUid}', 'storeApps')->name('settings.store');
-            Route::put('updatePassword/{adminUid}', 'updatePassword')->name('settings.password');
-        });
+        Route::get('setting', SettingController::class)->name('settings.index');
+        Route::put('setting/{user}', SettingUpdateController::class)->name('settings.store');
+        Route::put('password/{user}/update', SettingUpdatePasswordController::class)->name('settings.password');
 
         Route::controller(BillingSupperController::class)->group(function (): void {
             Route::get('billings', '__invoke')->name('billing.index');
             Route::get('billings/{billingKey}', 'show')->name('billing.show');
             Route::get('invoice/{key}', 'invoice')->name('billing.invoice');
         });
+
+        Route::put('admins/{user}/update', UpdateUserController::class)->name('admins.change');
     });
 
     Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['organiser']], function (): void {

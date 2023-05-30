@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class UpdatePassword extends FormRequest
 {
@@ -13,10 +14,22 @@ class UpdatePassword extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => [
+                'required',
+                'confirmed',
+                Password::defaults()
+            ],
+            'email' => [
+                'required',
+                'email'
+            ],
+            'current_password' => [
+                'required',
+                'string'
+            ]
         ];
     }
 }

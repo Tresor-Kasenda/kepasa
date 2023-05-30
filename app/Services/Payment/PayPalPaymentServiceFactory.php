@@ -9,7 +9,6 @@ use App\Mail\ConfirmationTransaction;
 use App\Models\Customer;
 use App\Models\Event;
 use App\Traits\PaypalConfiguration;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
@@ -83,7 +82,7 @@ class PayPalPaymentServiceFactory
             ->where('reference', '=', $process['id'])
             ->update([
                 'status' => PaymentEnum::PAID,
-                'updated_at' => Carbon::now(),
+                'updated_at' => now(),
             ]);
     }
 
@@ -94,7 +93,7 @@ class PayPalPaymentServiceFactory
             ->where('company_id', '=', auth()->user()->company->id)
             ->update([
                 'payment' => PaymentEnum::PAID,
-                'updated_at' => Carbon::now(),
+                'updated_at' => now(),
             ]);
         Mail::send(new ConfirmationTransaction($event));
 

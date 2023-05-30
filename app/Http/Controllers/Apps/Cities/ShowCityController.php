@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Apps\Cities;
 
 use App\Http\Controllers\Controller;
 use App\Repository\HomeRepository;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 
 class ShowCityController extends Controller
 {

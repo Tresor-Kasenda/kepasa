@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
 use App\Models\Image;
@@ -18,7 +20,7 @@ class ImagePolicy
      */
     public function viewAny(User $user)
     {
-        //
+
     }
 
     /**
@@ -30,7 +32,7 @@ class ImagePolicy
      */
     public function view(User $user, Image $image)
     {
-        //
+
     }
 
     /**
@@ -41,7 +43,7 @@ class ImagePolicy
      */
     public function create(User $user)
     {
-        //
+
     }
 
     /**
@@ -53,7 +55,7 @@ class ImagePolicy
      */
     public function update(User $user, Image $image)
     {
-        //
+
     }
 
     /**
@@ -65,7 +67,7 @@ class ImagePolicy
      */
     public function delete(User $user, Image $image)
     {
-        //
+
     }
 
     /**
@@ -77,7 +79,7 @@ class ImagePolicy
      */
     public function restore(User $user, Image $image)
     {
-        //
+
     }
 
     /**
@@ -89,6 +91,6 @@ class ImagePolicy
      */
     public function forceDelete(User $user, Image $image)
     {
-        //
+
     }
 }

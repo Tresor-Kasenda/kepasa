@@ -19,7 +19,6 @@ return new class () extends Migration {
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('role_id')->default(RoleEnum::SUPER);
-            $table->integer('country_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

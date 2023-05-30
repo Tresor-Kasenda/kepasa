@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 
 class RegisterController extends Controller
 {
@@ -69,14 +68,14 @@ class RegisterController extends Controller
                 'phones' => $data['phones'],
                 'password' => Hash::make($data['password']),
             ]);
-        if ((int)$data['role'] === 3){
+        if (3 === (int)$data['role']) {
             Company::query()->create([
                 'user_id' => $user->id
             ]);
             Notification::send($user, new WelcomeNotification($user));
 
             return $user;
-        } elseif ($data['role'] === 4) {
+        } elseif (4 === $data['role']) {
             Profile::query()
                 ->create([
                     'user_id' => $user->id,
