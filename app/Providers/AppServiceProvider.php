@@ -10,29 +10,18 @@ use Illuminate\View\Compilers\BladeCompiler;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register(): void
     {
 
     }
-
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
+    
     public function boot(): void
     {
         $this->configureComponents();
         Blade::component('layouts.app', 'app-layout');
         Blade::component('layouts.organiser', 'organiser-layout');
-
+        Blade::component('admins.components.brandcrump', 'brandcrumb');
     }
-
 
     protected function configureComponents(): void
     {
@@ -40,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
             $this->registerComponent('icon');
             $this->registerComponent('container');
             $this->registerComponent('nav-link');
+            $this->registerComponent('link');
+            $this->registerComponent('form-input');
         });
     }
 

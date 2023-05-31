@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Suppers;
 
+use App\Enums\RoleEnum;
 use App\Mail\CreatedAdminEmail;
 use App\Models\User;
 use App\Repository\Contracts\AdminRepositoryInterface;
@@ -21,7 +22,7 @@ class AdminSupperRepository implements AdminRepositoryInterface, WriteRepository
     public function getContents(): array|Collection
     {
         return User::query()
-            ->where('role_id', '=', 2)
+            ->whereIn('role_id', [RoleEnum::ADMIN, RoleEnum::ORGANISER, RoleEnum::USERS])
             ->orderByDesc('created_at')
             ->get();
     }

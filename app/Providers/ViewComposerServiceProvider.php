@@ -28,11 +28,7 @@ class ViewComposerServiceProvider extends ServiceProvider
             'organisers.pages.profiles.*',
             'organisers.pages.events.*',
             'apps.welcome',
-            'admins.pages.countries',
-            'admins.pages.eventCountries.index',
-            'admins.pages.events.edit',
-            'admins.pages.countries.*',
-            'admins.pages.settings.*'
+            'admins.pages.*'
         ], CountryComposer::class);
 
         View::composer([

@@ -163,7 +163,10 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-outline-primary btn-dim">Update Users</button>
+                                                <button type="submit" class="btn btn-outline-primary btn-dim">
+                                                    <x-vex-icon class="ni-save"/>
+                                                    <span>Update Users</span>
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -224,7 +227,10 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-outline-primary btn-dim">Update Settings</button>
+                                                <button type="submit" class="btn btn-outline-primary btn-dim">
+                                                    <x-vex-icon class="ni-save"/>
+                                                    <span>Update Settings</span>
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -278,7 +284,10 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <button type="submit" class="btn btn-outline-primary btn-dim">Update password</button>
+                                                <button type="submit" class="btn btn-outline-primary btn-dim">
+                                                    <x-vex-icon class="ni-save"/>
+                                                    <span>Update password</span>
+                                                </button>
                                             </div>
                                         </form>
                                     </div>

@@ -43,6 +43,9 @@ use App\Http\Controllers\Supers\PromotedEventSuperController;
 use App\Http\Controllers\Supers\Settings\SettingController;
 use App\Http\Controllers\Supers\Settings\SettingUpdateController;
 use App\Http\Controllers\Supers\Settings\SettingUpdatePasswordController;
+use App\Http\Controllers\Supers\Users\CreateUsersController;
+use App\Http\Controllers\Supers\Users\ListUsersController;
+use App\Http\Controllers\Supers\Users\StoreUsersController;
 use App\Http\Controllers\Users\InvoiceCustomerController;
 use App\Http\Controllers\Users\PaypalCustomerController;
 use App\Http\Middleware\EnsureDefaultPasswordIsChanged;
@@ -52,16 +55,18 @@ Auth::routes(['verify' => true]);
 
 Route::middleware('auth')->group(function (): void {
     Route::group(['prefix' => 'supper', 'as' => 'supper.', 'middleware' => ['supper', EnsureDefaultPasswordIsChanged::class]], function (): void {
-        Route::get('/index', HomeSuperController::class)->name('dashboard');
 
+        Route::get('/index', HomeSuperController::class)->name('dashboard');
         Route::get('events', ListsEventAdminController::class)->name('events.index');
         Route::get('events/{key}', ShowEventAdminController::class)->name('events.show');
         Route::get('events/{key}/edit', UpdateEventAdminController::class)->name('events.edit');
-        Route::delete('events/destroy', DestroyEventAdminController::class)->name('events.destroy');
+        Route::get('setting', SettingController::class)->name('settings.index');
+
+        Route::get('users', ListUsersController::class)->name('users-list');
+        Route::get('users/create', CreateUsersController::class)->name('users.create');
+        Route::post('users', StoreUsersController::class)->name('users.store');
 
         Route::resource('eventsCountries', EventCountrySupperController::class);
-        Route::resource('organisers', OrganiserSupperController::class);
-        Route::resource('admins', AdminSupperController::class);
         Route::resource('category', CategorySupperController::class);
         Route::resource('countries', CountrySupperController::class);
 
@@ -71,17 +76,18 @@ Route::middleware('auth')->group(function (): void {
             Route::put('changeStatus/{eventKey}/update', 'changeStatus')->name('status.update');
         });
 
-        Route::get('setting', SettingController::class)->name('settings.index');
-        Route::put('setting/{user}', SettingUpdateController::class)->name('settings.store');
-        Route::put('password/{user}/update', SettingUpdatePasswordController::class)->name('settings.password');
-
         Route::controller(BillingSupperController::class)->group(function (): void {
             Route::get('billings', '__invoke')->name('billing.index');
             Route::get('billings/{billingKey}', 'show')->name('billing.show');
             Route::get('invoice/{key}', 'invoice')->name('billing.invoice');
         });
 
+        Route::put('setting/{user}', SettingUpdateController::class)->name('settings.store');
+        Route::put('password/{user}/update', SettingUpdatePasswordController::class)->name('settings.password');
         Route::put('admins/{user}/update', UpdateUserController::class)->name('admins.change');
+
+
+        Route::delete('events/destroy', DestroyEventAdminController::class)->name('events.destroy');
     });
 
     Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['organiser']], function (): void {

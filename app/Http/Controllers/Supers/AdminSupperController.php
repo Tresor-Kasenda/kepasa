@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Supers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminRequest;
+use App\Http\Requests\StoreUsersRequest;
 use App\Repository\Suppers\AdminSupperRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -31,7 +31,7 @@ class AdminSupperController extends Controller
         return view('admins.pages.users.create');
     }
 
-    public function store(AdminRequest $attributes): RedirectResponse
+    public function store(StoreUsersRequest $attributes): RedirectResponse
     {
         $this->repository->created(attributes: $attributes);
 
@@ -45,7 +45,7 @@ class AdminSupperController extends Controller
         return view('admins.pages.users.edit', compact('admin'));
     }
 
-    public function update(AdminRequest $attributes, $key): RedirectResponse
+    public function update(StoreUsersRequest $attributes, $key): RedirectResponse
     {
         $this->repository->updated(attributes: $attributes, key: $key);
 

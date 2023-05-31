@@ -20,7 +20,7 @@ class HomeRepository
     public function getCountries(): array|Collection
     {
         return Country::query()
-            ->orderBy('countryName', 'desc')
+            ->orderBy('countryName', 'asc')
             ->get();
     }
 

@@ -4,15 +4,22 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Database\Factories\UserFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\PersonalAccessToken;
 
 /**
  * App\Models\User
@@ -27,21 +34,21 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int $role_id
  * @property int|null $country_id
  * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Setting|null $app
- * @property-read \App\Models\Company|null $company
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Setting|null $app
+ * @property-read Company|null $company
  * @property-read Event|null $customer
- * @property-read \Illuminate\Database\Eloquent\Collection|Event[] $events
+ * @property-read Collection|Event[] $events
  * @property-read int|null $events_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read \App\Models\Profile|null $profile
- * @property-read \App\Models\Role|null $role
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
+ * @property-read Profile|null $profile
+ * @property-read Role|null $role
+ * @property-read Collection|PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  *
- * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
  * @method static Builder|User query()
@@ -58,7 +65,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static Builder|User whereRoleId($value)
  * @method static Builder|User whereUpdatedAt($value)
  *
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class User extends Authenticatable
 {
@@ -67,7 +74,16 @@ class User extends Authenticatable
     use HasKey;
     use Notifiable;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'key',
+        'name',
+        'lastName',
+        'phones',
+        'role_id',
+        'country_id',
+        'email',
+        'password'
+    ];
 
     protected $hidden = [
         'password',

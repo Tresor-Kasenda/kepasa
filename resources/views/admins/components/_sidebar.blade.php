@@ -22,39 +22,35 @@
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
-                    <x-vex-nav-link href="{{ route('supper.dashboard') }}" :active="request()->routeIs('supper.dashboard')" icons="ni-grid-alt">
+                    <x-vex-nav-link
+                            href="{{ route('supper.dashboard') }}"
+                            :active="request()->routeIs('supper.dashboard')"
+                            icons="ni-grid-alt">
                         Dashboard
                     </x-vex-nav-link>
 
                     <li class="nk-menu-heading">
                         <h6 class="overline-title text-primary-alt">Administration</h6>
                     </li>
-                    <x-vex-nav-link href="{{ route('supper.events.index') }}" :active="request()->routeIs('supper.events.index')" icons="ni-swap-alt">
+                    <x-vex-nav-link
+                            href="{{ route('supper.events.index') }}"
+                            :active="request()->routeIs('supper.events.index')"
+                            icons="ni-swap-alt">
                         Events
                     </x-vex-nav-link>
 
-                    <x-vex-nav-link href="{{ route('supper.category.index') }}" :active="request()->routeIs('supper.category.index')" icons="ni-box">
+                    <x-vex-nav-link
+                            href="{{ route('supper.category.index') }}"
+                            :active="request()->routeIs('supper.category.index')"
+                            icons="ni-box">
                         Categories
                     </x-vex-nav-link>
 
-                    <x-vex-nav-link href="{{ route('supper.eventsCountries.index') }}" :active="request()->routeIs('supper.eventsCountries.index')" icons="ni-location">
-                        Events Country
-                    </x-vex-nav-link>
-
                     <x-vex-nav-link
-                            href="{{ route('supper.organisers.index') }}"
-                            :active="request()->routeIs('supper.organisers.index')"
-                            icons="ni-spark"
-                    >
-                        Organisers
-                    </x-vex-nav-link>
-
-                    <x-vex-nav-link
-                            href="{{ route('supper.admins.index') }}"
-                            :active="request()->routeIs('supper.admins.index')"
-                            icons="ni-user-alt"
-                    >
-                        Users
+                            href="{{ route('supper.eventsCountries.index') }}"
+                            :active="request()->routeIs('supper.eventsCountries.index')"
+                            icons="ni-location">
+                        Events By Country
                     </x-vex-nav-link>
 
                     <x-vex-nav-link
@@ -71,6 +67,14 @@
                             icons="ni-wallet-saving"
                     >
                         Billing
+                    </x-vex-nav-link>
+
+                    <x-vex-nav-link
+                            href="{{ route('supper.users-list') }}"
+                            :active="request()->routeIs('supper.users-list')"
+                            icons="ni-user-round"
+                    >
+                        Users
                     </x-vex-nav-link>
 
                     <x-vex-nav-link
