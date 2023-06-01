@@ -12,7 +12,6 @@ class ListUsersRepository
     {
         return User::query()
             ->with([
-                'profile',
                 'payment',
                 'company',
                 'role',

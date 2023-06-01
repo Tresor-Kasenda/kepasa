@@ -22,7 +22,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection|Event[] $events
  * @property-read int|null $events_count
- *
  * @method static Builder|Country newModelQuery()
  * @method static Builder|Country newQuery()
  * @method static Builder|Country query()
@@ -31,7 +30,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Country whereCreatedAt($value)
  * @method static Builder|Country whereId($value)
  * @method static Builder|Country whereUpdatedAt($value)
- *
+ * @property-read \App\Models\User|null $user
  * @mixin \Eloquent
  */
 class Country extends Model

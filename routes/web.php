@@ -45,6 +45,7 @@ use App\Http\Controllers\Supers\Settings\SettingUpdateController;
 use App\Http\Controllers\Supers\Settings\SettingUpdatePasswordController;
 use App\Http\Controllers\Supers\Users\CreateUsersController;
 use App\Http\Controllers\Supers\Users\ListUsersController;
+use App\Http\Controllers\Supers\Users\ShowUsersController;
 use App\Http\Controllers\Supers\Users\StoreUsersController;
 use App\Http\Controllers\Users\InvoiceCustomerController;
 use App\Http\Controllers\Users\PaypalCustomerController;
@@ -63,6 +64,7 @@ Route::middleware('auth')->group(function (): void {
         Route::get('setting', SettingController::class)->name('settings.index');
 
         Route::get('users', ListUsersController::class)->name('users-list');
+        Route::get('users/{user}/show', ShowUsersController::class)->name('users.show');
         Route::get('users/create', CreateUsersController::class)->name('users.create');
         Route::post('users', StoreUsersController::class)->name('users.store');
 

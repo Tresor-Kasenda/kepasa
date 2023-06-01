@@ -20,6 +20,18 @@ use Illuminate\Validation\ValidationException;
 
 class UpdatePasswordRepository
 {
+    public function updatePassword($request, User $user): User|RedirectResponse
+    {
+
+        if (! Hash::check($request['old_password'], $user->password)) {
+            return back()->with('danger', "Old password doesn't match ! ");
+        }
+        $user->update([
+            'password' => Hash::make($request['password'])
+        ]);
+
+        return $user;
+    }
     public function reset(User $user, $request): JsonResponse|Redirector|RedirectResponse|Application
     {
         $response = $this->broker()->reset(

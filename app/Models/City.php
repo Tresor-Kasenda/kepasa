@@ -30,7 +30,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CityMedia[] $media
  * @property-read int|null $media_count
- *
  * @method static \Illuminate\Database\Eloquent\Builder|City newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|City newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|City query()
@@ -51,7 +50,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|City wherePopulation($value)
  * @method static \Illuminate\Database\Eloquent\Builder|City wherePromoted($value)
  * @method static \Illuminate\Database\Eloquent\Builder|City whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class City extends Model

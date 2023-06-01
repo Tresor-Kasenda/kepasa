@@ -31,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
             $this->registerComponent('nav-link');
             $this->registerComponent('link');
             $this->registerComponent('form-input');
+            $this->registerComponent('containt');
         });
     }
 

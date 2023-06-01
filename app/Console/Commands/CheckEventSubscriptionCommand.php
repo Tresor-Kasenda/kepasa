@@ -33,7 +33,7 @@ class CheckEventSubscriptionCommand extends Command
         foreach ($events as $event) {
             $customers = Customer::query()->get();
             foreach ($customers as $customer) {
-                if ($event->id === $customers->id) {
+                if ($event->id === $customer->id) {
 
                 }
             }

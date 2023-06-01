@@ -21,7 +21,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property int $company_id
  * @property-read \App\Models\Company $company
  * @property-read \App\Models\Event $event
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Images newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Images newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Images query()
@@ -32,7 +31,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static \Illuminate\Database\Eloquent\Builder|Images whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Images whereKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Images whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Images extends Model

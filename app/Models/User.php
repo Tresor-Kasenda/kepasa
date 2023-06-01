@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\UserStatus;
 use Database\Factories\UserFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -47,7 +48,6 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read Role|null $role
  * @property-read Collection|PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
- *
  * @method static UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -64,7 +64,10 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereRoleId($value)
  * @method static Builder|User whereUpdatedAt($value)
- *
+ * @property UserStatus $status
+ * @property-read \App\Models\Country|null $country
+ * @property-read Collection<int, \App\Models\PaymentCustomer> $payment
+ * @property-read int|null $payment_count
  * @mixin Eloquent
  */
 class User extends Authenticatable
@@ -82,7 +85,9 @@ class User extends Authenticatable
         'role_id',
         'country_id',
         'email',
-        'password'
+        'password',
+        'images',
+        'status'
     ];
 
     protected $hidden = [

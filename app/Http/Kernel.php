@@ -8,6 +8,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\CustomerMiddleware;
 use App\Http\Middleware\EncryptCookies;
+use App\Http\Middleware\EnsureStatusUsersHasActivated;
 use App\Http\Middleware\OrganiserMiddleware;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -58,6 +59,7 @@ class Kernel extends HttpKernel
             ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
             SubstituteBindings::class,
+            EnsureStatusUsersHasActivated::class
         ],
 
         'api' => [

@@ -60,7 +60,7 @@
                 <div class="header-widget">
                     @auth
                         @if(auth()->user()->role_id == 1)
-                            <a href="{{ route('supper.dashboard.index') }}" class="button {{ Request::url() === route('user.home.index') ? 'current' : '' }}">
+                            <a href="{{ route('supper.dashboard') }}" class="button {{ Request::url() === route('user.home.index') ? 'current' : '' }}">
                                 Profile <i class="sl sl-icon-user"></i>
                             </a>
                         @endif

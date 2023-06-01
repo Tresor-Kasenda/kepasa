@@ -37,7 +37,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property-read Collection|OnlineEvent[] $onlineEvents
  * @property-read int|null $online_events_count
  * @property-read User $user
- *
  * @method static Builder|Company newModelQuery()
  * @method static Builder|Company newQuery()
  * @method static Builder|Company query()
@@ -57,7 +56,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Company whereUpdatedAt($value)
  * @method static Builder|Company whereUserId($value)
  * @method static Builder|Company whereWebsite($value)
- *
  * @mixin \Eloquent
  */
 class Company extends Model

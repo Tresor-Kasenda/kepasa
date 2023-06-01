@@ -19,12 +19,11 @@ class ReadSqlFileCommand extends Command
 
     public function handle(): void
     {
-        $files = database_path('seeders/city.sql');
+        $cities = database_path('seeders/city.sql');
+        $countries = database_path('seeders/country.sql');
 
-        if ( ! file_exists($files)) {
+        if ( ! file_exists($cities) && ! file_exists($countries)) {
             $this->error("The files does not exists in this directory");
         }
-
-        $content = file_get_contents($files);
     }
 }

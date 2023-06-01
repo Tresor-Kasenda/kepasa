@@ -29,7 +29,7 @@
         <div class="nk-block">
             <div class="card">
                 <div class="card-aside-wrap">
-                    <div class="card-content" x-data="{ currentTab: $persist('personal') }">
+                    <div class="card-content" x-data="{ currentTable: $persist('personal') }">
                         <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <a
@@ -37,8 +37,8 @@
                                         data-bs-toggle="tab"
                                         href="#personal"
                                         aria-selected="true"
-                                        @click.prevent="currentTab='personal'"
-                                        :class="currentTab === 'personal' ? 'active' : ''"
+                                        @click.prevent="currentTable='personal'"
+                                        :class="currentTable === 'personal' ? 'active' : ''"
                                         role="tab">
                                     <em class="icon ni ni-user-circle"></em>
                                     <span>Personal</span>
@@ -50,8 +50,8 @@
                                         data-bs-toggle="tab"
                                         href="#settings"
                                         aria-selected="true"
-                                        @click.prevent="currentTab='settings'"
-                                        :class="currentTab === 'settings' ? 'active' : ''"
+                                        @click.prevent="currentTable='settings'"
+                                        :class="currentTable === 'settings' ? 'active' : ''"
                                         role="tab">
                                     <em class="icon ni ni-setting-alt"></em>
                                     <span>Settings</span>
@@ -63,8 +63,8 @@
                                         data-bs-toggle="tab"
                                         href="#password"
                                         aria-selected="true"
-                                        @click.prevent="currentTab='password'"
-                                        :class="currentTab === 'password' ? 'active' : ''"
+                                        @click.prevent="currentTable='password'"
+                                        :class="currentTable === 'password' ? 'active' : ''"
                                         role="tab">
                                     <em class="icon ni ni-eye-fill"></em>
                                     <span>Password</span>
@@ -78,7 +78,7 @@
                         </ul>
                         <div class="card-inner">
                             <div class="tab-content">
-                                <div class="tab-pane" :class="currentTab === 'personal' ? 'active' : ''" id="personal" role="tabpanel">
+                                <div class="tab-pane" :class="currentTable === 'personal' ? 'active' : ''" id="personal" role="tabpanel">
                                     <div class="nk-block">
                                         <form action="{{ route('supper.admins.change', auth()->user()) }}" method="POST" class="gy-3 form-settings">
                                             @csrf
@@ -94,6 +94,9 @@
                                                                     id="name"
                                                                     name="name"
                                                                     value="{{ old('name') ?? auth()->user()->name }}">
+                                                            @error('name')
+                                                            <span class="error">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
 
@@ -106,12 +109,15 @@
                                                                     id="phones"
                                                                     name="phones"
                                                                     value="{{ old('phones') ?? auth()->user()->phones }}">
+                                                            @error('phones')
+                                                            <span class="error">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="form-label" for="country">Country</label>
                                                         <div class="form-control-wrap">
-                                                            <select class="form-control" class="countries" id="country" name="country">
+                                                            <select class="form-control @error('country') error @enderror" class="countries" id="country" name="country">
                                                                 <option value="default_option">Selected country</option>
                                                                 <option value="{{ auth()->user()->country->id ?? "" }}" class="bg-gray-400 text-md">{{ auth()->user()->country->countryName ?? " " }}</option>
                                                                 @foreach($countries as $country)
@@ -120,6 +126,9 @@
                                                                     </option>
                                                                 @endforeach
                                                             </select>
+                                                            @error('country')
+                                                            <span class="error">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -133,6 +142,9 @@
                                                                     id="lastName"
                                                                     name="lastName"
                                                                     value="{{ old('lastName') ?? auth()->user()->lastName }}">
+                                                            @error('lastName')
+                                                            <span class="error">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -144,6 +156,9 @@
                                                                     id="email"
                                                                     name="email"
                                                                     value="{{ old('email') ?? auth()->user()->email }}">
+                                                            @error('email')
+                                                            <span class="error">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
 
@@ -157,6 +172,9 @@
                                                                         id="phone"
                                                                         name="phone"
                                                                         value="{{ old('phone') }}">
+                                                                @error('phone')
+                                                                <span class="error">{{ $message }}</span>
+                                                                @enderror
                                                             </div>
                                                         </div>
                                                     </div>
@@ -171,7 +189,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="tab-pane" :class="currentTab === 'settings' ? 'active' : ''" id="settings" role="tabpanel">
+                                <div class="tab-pane" :class="currentTable === 'settings' ? 'active' : ''" id="settings" role="tabpanel">
                                     <div class="nk-block">
                                         <form action="{{ route('supper.settings.store', auth()->user()) }}" method="POST" class="gy-3 form-settings">
                                             @csrf
@@ -187,6 +205,9 @@
                                                                     id="name"
                                                                     name="name"
                                                                     value="{{ old('name') ?? auth()->user()->app->name }}">
+                                                            @error('name')
+                                                            <span class="error">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -198,6 +219,9 @@
                                                                     id="email"
                                                                     name="email"
                                                                     value="{{ old('email') ?? auth()->user()->app->email }}">
+                                                            @error('email')
+                                                            <span class="error">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -211,6 +235,9 @@
                                                                     id="copyright"
                                                                     name="copyright"
                                                                     value="{{ old('copyright') ?? auth()->user()->app->copyright }}">
+                                                            @error('copyright')
+                                                            <span class="error">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -222,6 +249,9 @@
                                                                     id="copyright"
                                                                     name="username"
                                                                     value="{{ old('username') ?? auth()->user()->name }}">
+                                                            @error('username')
+                                                            <span class="error">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -235,7 +265,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="tab-pane" :class="currentTab === 'password' ? 'active' : ''" id="password" role="tabpanel">
+                                <div class="tab-pane" :class="currentTable === 'password' ? 'active' : ''" id="password" role="tabpanel">
                                     <div class="nk-block">
                                         <form action="{{ route('supper.settings.password', auth()->user()) }}" method="POST">
                                             @csrf
@@ -251,6 +281,9 @@
                                                                     id="email"
                                                                     name="email"
                                                                     value="{{ old('email') }}">
+                                                            @error('email')
+                                                            <span class="error">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -260,6 +293,9 @@
                                                                 class="form-control"
                                                                 id="current_password"
                                                                 name="current_password">
+                                                        @error('current_password')
+                                                        <span class="error">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -271,6 +307,9 @@
                                                                 id="password"
                                                                 name="password"
                                                         >
+                                                        @error('password')
+                                                        <span class="error">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="form-label" for="password_confirmation">Repeat Password</label>
@@ -280,6 +319,9 @@
                                                                 id="password_confirmation"
                                                                 name="password_confirmation"
                                                         >
+                                                        @error('password_confirmation')
+                                                        <span class="error">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>

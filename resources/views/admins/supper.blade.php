@@ -29,7 +29,7 @@
                         'amount' => \App\Models\Billing::count()
                     ])
                 </div>
-                <div class="row  g-gs">
+                <div class="row  g-gs mt-1">
                     <div class="col-xxl-12">
                         <div class="card">
                             <div class="card-inner">

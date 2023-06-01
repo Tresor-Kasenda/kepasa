@@ -29,7 +29,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Company $company
  * @property-read \App\Models\Event $event
- *
  * @method static Builder|OnlineEvent newModelQuery()
  * @method static Builder|OnlineEvent newQuery()
  * @method static Builder|OnlineEvent query()
@@ -47,7 +46,10 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|OnlineEvent whereRoomName($value)
  * @method static Builder|OnlineEvent whereSchedule($value)
  * @method static Builder|OnlineEvent whereUpdatedAt($value)
- *
+ * @property string $duration
+ * @property string $participants
+ * @method static Builder|OnlineEvent whereDuration($value)
+ * @method static Builder|OnlineEvent whereParticipants($value)
  * @mixin \Eloquent
  */
 class OnlineEvent extends Model
