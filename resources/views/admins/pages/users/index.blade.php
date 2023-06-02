@@ -73,9 +73,9 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">
-                                                            <em class="icon ni ni-eye"></em>
-                                                            <span>View Details</span>
+                                                        <a href="{{ route('supper.users.edit', $user->id) }}">
+                                                            <em class="icon ni ni-edit"></em>
+                                                            <span>Quick Edit</span>
                                                         </a>
                                                     </li>
                                                 </ul>

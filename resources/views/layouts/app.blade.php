@@ -2,6 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="js">
 <head>
     <title>{{ config('app.name') }} | @yield('title')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="Une partie d'administration pour la gestion d'un {{ config('app.name') }}">
     <link rel="stylesheet" href="{{ asset('assets/admins/css/dashlite.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admins/css/skins/theme-green.css') }}">
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>

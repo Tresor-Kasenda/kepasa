@@ -22,8 +22,8 @@ class AdminPolicy
         return RoleEnum::SUPER === $user->role_id;
     }
 
-    public function delete(User $user, User $model): void
+    public function delete(User $user, User $model): bool
     {
-
+        return $user->role_id === RoleEnum::SUPER;
     }
 }

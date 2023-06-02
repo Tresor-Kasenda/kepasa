@@ -22,6 +22,7 @@ class ListUsersRepository
                 RoleEnum::ORGANISER,
                 RoleEnum::USERS
             ])
+            ->latest()
             ->orderByDesc('created_at')
             ->get();
     }
