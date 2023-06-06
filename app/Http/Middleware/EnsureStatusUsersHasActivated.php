@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use App\Enums\UserStatus;
 use Closure;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class EnsureStatusUsersHasActivated
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && (auth()->user()->status === UserStatus::DEACTIVATE)) {
+        if (auth()->check() && (UserStatus::DEACTIVATE === auth()->user()->status)) {
             auth()->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();

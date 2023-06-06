@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,8 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * App\Models\Event
  *
  * @property int $id
+ * @property int $category_id
+ * @property int $user_id
  * @property string $key
  * @property string $title
  * @property string $subTitle
@@ -30,8 +33,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string $feeOption
  * @property string $commission
  * @property string $buyerPrice
- * @property Country|null $country
- * @property string $city
  * @property string|null $description
  * @property string $status
  * @property string|null $payout
@@ -40,19 +41,19 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string $image
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property int $category_id
- * @property int $user_id
  * @property int $company_id
- * @property-read Collection|Billing[] $billings
+ * @property int $country_id
+ * @property int $city_id
+ * @property-read Collection<int, Billing> $billings
  * @property-read int|null $billings_count
  * @property-read Category $category
- * @property-read Company $company
- * @property-read int|null $customers_count
- * @property-read Collection|Images[] $media
+ * @property-read City $city
+ * @property-read Company|null $company
+ * @property-read Country|null $country
+ * @property-read Collection<int, Images> $media
  * @property-read int|null $media_count
- * @property-read Collection|OnlineEvent[] $onlineEvent
- * @property-read int|null $online_event_count
- * @property-read Collection|Customer[] $payments
+ * @property-read OnlineEvent|null $onlineEvent
+ * @property-read Collection<int, PaymentCustomer> $payments
  * @property-read int|null $payments_count
  * @property-read User $user
  * @method static Builder|Event newModelQuery()
@@ -61,10 +62,10 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Event whereAddress($value)
  * @method static Builder|Event whereBuyerPrice($value)
  * @method static Builder|Event whereCategoryId($value)
- * @method static Builder|Event whereCity($value)
+ * @method static Builder|Event whereCityId($value)
  * @method static Builder|Event whereCommission($value)
  * @method static Builder|Event whereCompanyId($value)
- * @method static Builder|Event whereCountry($value)
+ * @method static Builder|Event whereCountryId($value)
  * @method static Builder|Event whereCreatedAt($value)
  * @method static Builder|Event whereDate($value)
  * @method static Builder|Event whereDescription($value)
@@ -84,7 +85,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Event whereTitle($value)
  * @method static Builder|Event whereUpdatedAt($value)
  * @method static Builder|Event whereUserId($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Event extends Model
 {
@@ -113,11 +114,6 @@ class Event extends Model
         return $this->hasMany(Billing::class);
     }
 
-    public function country(): BelongsTo
-    {
-        return $this->belongsTo(Country::class, 'countryCode');
-    }
-
     public function onlineEvent(): HasOne
     {
         return $this->hasOne(OnlineEvent::class);
@@ -131,5 +127,15 @@ class Event extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class, 'city_id');
     }
 }

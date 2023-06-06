@@ -6,10 +6,6 @@ namespace App\Repository\Suppers;
 
 use App\Models\Setting;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 
 class SettingSupperRepository
 {

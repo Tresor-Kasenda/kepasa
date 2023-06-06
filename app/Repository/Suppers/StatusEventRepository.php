@@ -13,6 +13,7 @@ class StatusEventRepository
 {
     public function changeStatus($attributes): bool|int
     {
+        dd($attributes);
         $event = $this->getEvent($attributes);
         if (null !== $event) {
             return $event->update([
@@ -23,45 +24,28 @@ class StatusEventRepository
         return false;
     }
 
-    public function promoted(string $key): Model|Event|Builder|null
+    public function promoted(Event $event): Model|Event|Builder|null
     {
-        $event = $this->getSingleEvent($key);
+        $event = $this->getEvent($event);
         if (null !== $event) {
-            $event->update([
-                'promoted' => true,
-            ]);
+            $event->update(['promoted' => true]);
             toast("L'evenement a ete promus", 'success');
-
             return $event;
         }
-
-        return null;
+        toast("L'evenement ne peut etre promus que si le paiement a ete effectuer", 'danger');
+        return  $event;
     }
 
-    public function unPromoted(string $key): Model|Event|Builder|null
+    public function unPromoted(Event $event): Model|Event|Builder|null
     {
-        $event = $this->getSingleEvent($key);
-        $event->update([
-            'promoted' => false,
-        ]);
+        $event = $this->getEvent($event);
+        $event->update(['promoted' => false]);
         toast("L'evenement a ete retirer de la promotion", 'success');
-
         return $event;
     }
 
-    private function getEvent($attributes): null|Builder|Event|Model
+    private function getEvent(Event $event)
     {
-        return Event::query()
-            ->where('key', '=', $attributes->input('key'))
-            ->where('payment', '=', PaymentEnum::PAID)
-            ->first();
-    }
-
-    private function getSingleEvent(string $key): null|Builder|Event|Model
-    {
-        return Event::query()
-            ->where('key', '=', $key)
-            ->where('payment', '=', PaymentEnum::PAID)
-            ->first();
+        dd($event);
     }
 }

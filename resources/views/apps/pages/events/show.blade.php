@@ -69,7 +69,7 @@
                         @each('apps.components._image', $event->media, 'image')
                     </div>
                     <a
-                        href="{{ route('user.booking.event', $event->key) }}"
+                        href="{{ route('event.booking.event', $event->key) }}"
                         class="button fullwidth margin-top-25"
                     >Book</a>
                 </div>

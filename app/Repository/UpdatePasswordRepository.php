@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Models\User;
@@ -23,7 +25,7 @@ class UpdatePasswordRepository
     public function updatePassword($request, User $user): User|RedirectResponse
     {
 
-        if (! Hash::check($request['old_password'], $user->password)) {
+        if ( ! Hash::check($request['old_password'], $user->password)) {
             return back()->with('danger', "Old password doesn't match ! ");
         }
         $user->update([
@@ -35,12 +37,13 @@ class UpdatePasswordRepository
     public function reset(User $user, $request): JsonResponse|Redirector|RedirectResponse|Application
     {
         $response = $this->broker()->reset(
-            $this->credentials($request), function ($user, $password) {
-            $this->resetPassword($user, $password);
-        }
+            $this->credentials($request),
+            function ($user, $password): void {
+                $this->resetPassword($user, $password);
+            }
         );
 
-        return $response == Password::PASSWORD_RESET
+        return Password::PASSWORD_RESET === $response
             ? $this->sendResetResponse($request, $response)
             : $this->sendResetFailedResponse($request, $response);
     }
@@ -48,7 +51,10 @@ class UpdatePasswordRepository
     protected function credentials(Request $request): array
     {
         return $request->only(
-            'email', 'password', 'password_confirmation', 'current_password'
+            'email',
+            'password',
+            'password_confirmation',
+            'current_password'
         );
     }
 

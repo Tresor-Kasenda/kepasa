@@ -21,17 +21,17 @@ class StoreUsersRequest extends FormRequest
     {
         return [
             'name' => [
-                'required', 
+                'required',
                 'string', 'max:255'
             ],
             'lastName' => [
-                'required', 
-                'string', 
+                'required',
+                'string',
                 'max:255'
             ],
             'email' => [
-                'required', 
-                'email', 
+                'required',
+                'email',
                 'max:255',
                 'regex:/(.+)@(.+)\.(.+)/i',
                 new Unique(User::class, 'email')

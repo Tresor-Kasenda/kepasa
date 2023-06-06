@@ -190,7 +190,7 @@
             </div>
             <div class="cta">
                 <span class="small">Ticket Holder:</span><br>
-                <span class="small">{{ ucfirst(auth()->user()->name) }}  {{ ucfirst(auth()->user()->lastName) }}</span>
+                <span class="small">{{ ucfirst(auth()->event()->name) }}  {{ ucfirst(auth()->event()->lastName) }}</span>
             </div>
             <div class="cta2">
                 <span class="small"></span>

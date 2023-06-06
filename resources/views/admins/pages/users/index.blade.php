@@ -24,38 +24,38 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $user)
+                    @foreach($users as $event)
                         <tr class="nk-tb-item">
                             <td class="nk-tb-col">
-                                <div class="user-card">
-                                    <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                        <span>{{ substr($user->name,0,2) }}</span>
+                                <div class="event-card">
+                                    <div class="event-avatar bg-dim-primary d-none d-sm-flex">
+                                        <span>{{ substr($event->name,0,2) }}</span>
                                     </div>
-                                    <div class="user-info">
+                                    <div class="event-info">
                                         <span class="tb-lead">
-                                            {{ $user->name. " ". $user->lastName }}
+                                            {{ $event->name. " ". $event->lastName }}
                                             <span class="dot dot-success d-md-none ms-1"></span>
                                         </span>
-                                        <span>{{ $user->email ?? "" }}</span>
+                                        <span>{{ $event->email ?? "" }}</span>
                                     </div>
                                 </div>
                             </td>
                             <td class="nk-tb-col tb-col-mb" data-order="35040.34">
-                                <span class="tb-amount">{{ $user->phones ?? "" }}</span>
+                                <span class="tb-amount">{{ $event->phones ?? "" }}</span>
                             </td>
                             <td class="nk-tb-col tb-col-md">
-                                <span>{{ $user->country->countryName ?? "" }}</span>
+                                <span>{{ $event->country->countryName ?? "" }}</span>
                             </td>
                             <td class="nk-tb-col tb-col-lg" data-order="Email Verified - Kyc Unverified">
                                 <ul class="list-status">
                                     <li>
                                         <em class="icon text-success ni ni-check-circle"></em>
-                                        <span>{{ $user->role->name ?? "" }}</span>
+                                        <span>{{ $event->role->name ?? "" }}</span>
                                     </li>
                                 </ul>
                             </td>
                             <td class="nk-tb-col tb-col-lg">
-                                <span>{{ $user->created_at->diffForHumans() ?? "" }}</span>
+                                <span>{{ $event->created_at->diffForHumans() ?? "" }}</span>
                             </td>
                             <td class="nk-tb-col nk-tb-col-tools">
                                 <ul class="nk-tb-actions gx-1">
@@ -67,13 +67,13 @@
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <ul class="link-list-opt no-bdr">
                                                     <li>
-                                                        <a href="{{ route('supper.users.show', $user->id) }}">
+                                                        <a href="{{ route('supper.users.show', $event->id) }}">
                                                             <em class="icon ni ni-focus"></em>
                                                             <span>Quick View</span>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="{{ route('supper.users.edit', $user->id) }}">
+                                                        <a href="{{ route('supper.users.edit', $event->id) }}">
                                                             <em class="icon ni ni-edit"></em>
                                                             <span>Quick Edit</span>
                                                         </a>

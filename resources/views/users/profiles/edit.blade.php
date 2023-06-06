@@ -7,21 +7,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="user-profile-titlebar">
-                        <div class="user-profile-avatar">
+                    <div class="event-profile-titlebar">
+                        <div class="event-profile-avatar">
                             <img
-                                @if(auth()->user()->profile->image == null)
+                                @if(auth()->event()->profile->image == null)
                                     src="{{ asset('assets/images/profile.jpg') }}"
-                                    alt="{{ auth()->user()->name ?? "" }}"
+                                    alt="{{ auth()->event()->name ?? "" }}"
                                 @else
-                                    src="{{ asset('storage/'.auth()->user()->profile->image) }}"
-                                    alt="{{ auth()->user()->name ?? "" }}"
+                                    src="{{ asset('storage/'.auth()->event()->profile->image) }}"
+                                    alt="{{ auth()->event()->name ?? "" }}"
                                 @endif
                             >
                         </div>
-                        <div class="user-profile-name">
-                            <a href="{{ route('user.home.index') }}">
-                                <h2>{{ auth()->user()->name ?? "" }}  {{ auth()->user()->lastName ?? "" }}</h2>
+                        <div class="event-profile-name">
+                            <a href="{{ route('event.home.index') }}">
+                                <h2>{{ auth()->event()->name ?? "" }}  {{ auth()->event()->lastName ?? "" }}</h2>
                             </a>
                         </div>
                     </div>
@@ -36,52 +36,52 @@
                 <div class="boxed-widget margin-top-10 margin-bottom-50">
                     <h3>Contact</h3>
                     <ul class="listing-details-sidebar">
-                        <li><i class="sl sl-icon-phone"></i> {{ auth()->user()->phones ?? "" }}</li>
-                        <li><i class="fa fa-envelope-o"></i> <a href="#">{{ auth()->user()->email ?? "" }}</a></li>
+                        <li><i class="sl sl-icon-phone"></i> {{ auth()->event()->phones ?? "" }}</li>
+                        <li><i class="fa fa-envelope-o"></i> <a href="#">{{ auth()->event()->email ?? "" }}</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="col-lg-8 col-md-8 padding-left-30">
-                <form action="{{ route('user.home.update', auth()->user()->key) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('event.home.update', auth()->event()->key) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
                         <div class="col-md-6">
                             <label>First Name</label>
-                            <input type="text" name="name" id="name" value="{{ auth()->user()->name ?? "" }}">
+                            <input type="text" name="name" id="name" value="{{ auth()->event()->name ?? "" }}">
                         </div>
 
                         <div class="col-md-6">
                             <label>Last Name</label>
-                            <input type="text" name="lastName" id="lastName" value="{{ auth()->user()->lastName ?? "" }}">
+                            <input type="text" name="lastName" id="lastName" value="{{ auth()->event()->lastName ?? "" }}">
                         </div>
 
                         <div class="col-md-6">
                             <label>E-Mail Address</label>
-                            <input type="text" name="email" id="email" value="{{ auth()->user()->email ?? "" }}">
+                            <input type="text" name="email" id="email" value="{{ auth()->event()->email ?? "" }}">
                         </div>
 
                         <div class="col-md-6">
                             <label>Phone</label>
-                            <input type="tel" name="phones" id="phones" value="{{ auth()->user()->profile->phones ?? "" }}">
+                            <input type="tel" name="phones" id="phones" value="{{ auth()->event()->profile->phones ?? "" }}">
                         </div>
 
                         <div class="col-md-6">
                             <label>Alternantive Phone</label>
-                            <input type="tel" name="alternativePhones" id="alternativePhones" value="{{ auth()->user()->profile->alternativePhones ?? "" }}">
+                            <input type="tel" name="alternativePhones" id="alternativePhones" value="{{ auth()->event()->profile->alternativePhones ?? "" }}">
                         </div>
 
                         <div class="col-md-6">
                             <label>City</label>
-                            <input type="text" name="city" id="city" value="{{ auth()->user()->profile->city ?? "" }}">
+                            <input type="text" name="city" id="city" value="{{ auth()->event()->profile->city ?? "" }}">
                         </div>
 
                         <div class="col-md-12">
                             <h5>Country</h5>
-                            <select class="chosen-select-no-single" id="country" value="{{ auth()->user()->profile->country ?? "" }}" name="country" >
-                                <option value="{{ auth()->user()->profile->country ?? "" }}">
-                                    {{ auth()->user()->profile->country ?? "" }}
+                            <select class="chosen-select-no-single" id="country" value="{{ auth()->event()->profile->country ?? "" }}" name="country" >
+                                <option value="{{ auth()->event()->profile->country ?? "" }}">
+                                    {{ auth()->event()->profile->country ?? "" }}
                                 </option>
                                 @foreach($countries as $country)
                                     <option value="{{ $country->countryName }}">

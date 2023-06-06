@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
 use Illuminate\Database\Migrations\Migration;
@@ -13,6 +14,12 @@ return new class () extends Migration {
     {
         Schema::table('events', function (Blueprint $table): void {
             $table->foreignIdFor(Company::class)
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignIdFor(Country::class)
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignIdFor(City::class)
                 ->constrained()
                 ->cascadeOnDelete();
         });

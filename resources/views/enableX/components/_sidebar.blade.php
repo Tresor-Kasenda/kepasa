@@ -3,7 +3,7 @@
         <ul class="sidebar-menu" id="first_sidebar">
             <li>
                 <a href="#" class="" style="cursor: default;">
-                    <span id="user-name-div" class="s-text text-center"></span>
+                    <span id="event-name-div" class="s-text text-center"></span>
                 </a>
             </li>
             <li>

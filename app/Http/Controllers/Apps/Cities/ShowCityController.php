@@ -5,19 +5,16 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Apps\Cities;
 
 use App\Http\Controllers\Controller;
-use App\Repository\HomeRepository;
+use App\Models\Country;
+use App\Repository\Suppers\Cities\CountryCitiesRepository;
 use Illuminate\Contracts\View\View;
 
 class ShowCityController extends Controller
 {
-    public function __construct(public HomeRepository $repository)
+    public function __invoke(Country $country, CountryCitiesRepository $repository): View
     {
-    }
-
-    public function __invoke(string $city): View
-    {
-        $data = $this->repository->getCity($city);
-
-        return view('apps.pages.cities.show', compact('data'));
+        return view('admins.pages.countries.show', [
+            'cities' => $repository->getCities($country)
+        ]);
     }
 }

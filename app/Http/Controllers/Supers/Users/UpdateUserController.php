@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Supers\Users;
 
 use App\Http\Controllers\Controller;
@@ -13,7 +15,7 @@ class UpdateUserController extends Controller
         User $user,
         UpdateUsersRequest $request,
         UpdateUsersRepository $repository
-    ){
+    ) {
         $this->authorize('update', $user);
 
         $repository->handleUser($user, $request);

@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('title', "Liste des evenements organiser")
+@section('title', "Liste des evenements event")
 
 @section('content')
     <div class="clearfix"></div>

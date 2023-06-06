@@ -22,9 +22,9 @@ mode:
     $(document).fullScreen(true);
     $("#myVideo").fullScreen(true);
 
-This only works when the code was triggered by a user interaction (For
+This only works when the code was triggered by a event interaction (For
 example a onclick event on a button). Browsers don't allow entering
-fullscreen mode without user interaction.
+fullscreen mode without event interaction.
 
 
 ### Exiting Fullscreen mode

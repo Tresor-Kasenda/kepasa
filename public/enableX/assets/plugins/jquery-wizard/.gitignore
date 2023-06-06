@@ -115,7 +115,7 @@ jspm_packages
 *.tmPreferences.cache
 *.stTheme.cache
 
-# workspace files are user-specific
+# workspace files are event-specific
 *.sublime-workspace
 
 # project files should be checked into the repository, unless a significant

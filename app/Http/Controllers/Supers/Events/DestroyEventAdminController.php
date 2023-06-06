@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Supers\Events;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Repository\Suppers\EventSupperRepository;
 use Illuminate\Http\RedirectResponse;
 
@@ -15,9 +16,11 @@ class DestroyEventAdminController extends Controller
     ) {
     }
 
-    public function __invoke(string $key): RedirectResponse
+    public function __invoke(Event $event): RedirectResponse
     {
-        $this->repository->delete(key: $key);
+        $this->authorize('destroy', $event);
+
+        $this->repository->delete($event);
 
         return back();
     }

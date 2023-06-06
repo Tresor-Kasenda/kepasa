@@ -65,9 +65,13 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereRoleId($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @property UserStatus $status
- * @property-read \App\Models\Country|null $country
- * @property-read Collection<int, \App\Models\PaymentCustomer> $payment
+ * @property-read Country|null $country
+ * @property-read Collection<int, PaymentCustomer> $payment
  * @property-read int|null $payment_count
+ * @property string|null $images
+ * @method static Builder|User whereImages($value)
+ * @method static Builder|User whereStatus($value)
+ * @property-read Collection<int, \App\Models\PaymentCustomer> $payment
  * @mixin Eloquent
  */
 class User extends Authenticatable

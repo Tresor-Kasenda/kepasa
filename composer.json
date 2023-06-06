@@ -1,8 +1,17 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Kepasa Africa",
+    "keywords": [
+        "Town",
+        "Promoted town",
+        "Ngoma digitech",
+        "scotttresor",
+        "South Africa",
+        "Events",
+        "Event Town",
+        "town Event"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.1",

@@ -30,7 +30,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Country whereCreatedAt($value)
  * @method static Builder|Country whereId($value)
  * @method static Builder|Country whereUpdatedAt($value)
- * @property-read \App\Models\User|null $user
+ * @property-read User|null $user
  * @mixin \Eloquent
  */
 class Country extends Model

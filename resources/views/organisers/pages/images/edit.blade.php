@@ -1,4 +1,4 @@
-<x-organiser-layout>
+<x-event-layout>
     @section('title', "Edition of images for every event")
 
     <div id="titlebar">
@@ -8,7 +8,7 @@
                 <nav id="breadcrumbs">
                     <ul>
                         <li>
-                            <a href="{{ route('organiser.images.index') }}">
+                            <a href="{{ route('event.images.index') }}">
                                 <i class="fa fa-fast-backward"></i>
                                 Back to images
                             </a>
@@ -30,7 +30,7 @@
                     <div class="add-listing-headline">
                         <h3><i class="sl sl-icon-doc"></i>Edite une images</h3>
                     </div>
-                    <form action="{{ route('organiser.images.update', $image->key) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('event.images.update', $image->key) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row with-forms">
@@ -63,4 +63,4 @@
         </div>
     </div>
 
-</x-organiser-layout>
+</x-event-layout>

@@ -1,4 +1,4 @@
-<x-organiser-layout>
+<x-event-layout>
     @section('title', "Events lists")
 
     <div id="titlebar">
@@ -22,7 +22,7 @@
                         <li>
                             <div class="list-box-listing">
                                 <div class="list-box-listing-img">
-                                    <a href="{{ route('organiser.events.show', $event->key) }}">
+                                    <a href="{{ route('event.events.show', $event->key) }}">
                                         <img src="{{ asset('storage/'.$event->image) }}" alt="{{ $event->city ?? "" }}">
                                     </a>
                                 </div>
@@ -30,7 +30,7 @@
                                     <div class="inner">
                                         <span class="tag">{{ $event->category->name ?? "" }}</span>
                                         <h3>
-                                            <a href="{{ route('organiser.events.show', $event->key) }}">{{ strtoupper($event->title) ?? "" }}</a>
+                                            <a href="{{ route('event.events.show', $event->key) }}">{{ strtoupper($event->title) ?? "" }}</a>
                                             @if($event->status === \App\Enums\StatusEnum::ACTIVE)
                                                 <i class="verified-icon"></i>
                                             @endif
@@ -74,17 +74,17 @@
                             <div class="buttons-to-right">
                                 @if($event->payment == 'paid')
                                 @else
-                                    <a href="{{ route('organiser.events.payment.index', $event) }}" class="button gray approve">
+                                    <a href="{{ route('event.events.payment.index', $event) }}" class="button gray approve">
                                         <i class="sl sl-icon-check"></i> Booking
                                     </a>
                                 @endif
-                                <a href="{{ route('organiser.events.edit', $event->key) }}" class="button gray">
+                                <a href="{{ route('event.events.edit', $event->key) }}" class="button gray">
                                     <i class="sl sl-icon-note"></i> Edit
                                 </a>
-                                <a href="{{ route('organiser.events.destroy',$event->key) }}" class="button gray" onclick="event.preventDefault(); document.getElementById('destroy-event').submit();">
+                                <a href="{{ route('event.events.destroy',$event->key) }}" class="button gray" onclick="event.preventDefault(); document.getElementById('destroy-event').submit();">
                                     <i class="sl sl-icon-close"></i> Delete
                                 </a>
-                                <form id="destroy-event" action="{{ route('organiser.events.destroy',$event->key) }}" method="POST" class="d-none">
+                                <form id="destroy-event" action="{{ route('event.events.destroy',$event->key) }}" method="POST" class="d-none">
                                     @csrf
                                     @method('DELETE')
                                 </form>
@@ -146,4 +146,4 @@
             }
         </style>
     @endsection
-</x-organiser-layout>
+</x-event-layout>

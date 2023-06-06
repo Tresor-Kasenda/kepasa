@@ -1,4 +1,7 @@
-@php use App\Enums\RoleEnum;use App\Enums\UserStatus; @endphp
+@php
+    use App\Enums\RoleEnum;
+    use App\Enums\UserStatus;
+@endphp
 <x-app-layout>
     @section('title', "Liste des administrateurs")
 
@@ -10,16 +13,16 @@
                     <x-vex-icon class="ni-arrow-long-left"/>
                     <span>All users</span>
                 </x-vex-link>
-                @if(auth()->user()->role_id === RoleEnum::SUPER)
-                    @if($user->role_id !== RoleEnum::ORGANISER)
-                        <x-vex-link href="{{ route('supper.users.edit', $user->id) }}"
+                @if(auth()->event()->role_id === RoleEnum::SUPER)
+                    @if($event->role_id !== RoleEnum::ORGANISER)
+                        <x-vex-link href="{{ route('supper.users.edit', $event->id) }}"
                                     class="btn btn-dim btn-outline-secondary">
                             <x-vex-icon class="ni-edit-fill"/>
                             <span>Edit users</span>
                         </x-vex-link>
                         <li class="preview-item">
                             <form
-                                    action="{{ route('supper.users.delete', $user->id) }}"
+                                    action="{{ route('supper.users.delete', $event->id) }}"
                                     method="POST"
                                     class="d-inline-block"
                                     onsubmit="return confirm('Are you sure you want to delete this item?');"
@@ -37,7 +40,7 @@
             </li>
         </x-brandcrumb>
 
-        @if($user->status === UserStatus::DEACTIVATE)
+        @if($event->status === UserStatus::DEACTIVATE)
             <div class="alert alert-icon alert-danger" role="alert">
                 <em class="icon ni ni-alert-circle"></em>
                 <strong>Warning</strong>. Your status is blocked please contact administrator.
@@ -47,14 +50,14 @@
         <x-vex-containt>
             <div class="card-inner-group">
                 <div class="card-inner">
-                    <div class="user-card user-card-s2">
-                        <div class="user-avatar lg bg-primary">
-                            <img src="{{ asset('storage/'. $user->images) }}" alt="{{ $user->name ?? "" }}">
+                    <div class="event-card event-card-s2">
+                        <div class="event-avatar lg bg-primary">
+                            <img src="{{ asset('storage/'. $event->images) }}" alt="{{ $event->name ?? "" }}">
                         </div>
-                        <div class="user-info">
-                            <div class="badge bg-light rounded-pill ucap">{{ $user->role->name ?? "" }}</div>
-                            <h5>{{ $user->name . " " . $user->lastName }}</h5>
-                            <span class="sub-text">{{ $user->email ?? "" }}</span>
+                        <div class="event-info">
+                            <div class="badge bg-light rounded-pill ucap">{{ $event->role->name ?? "" }}</div>
+                            <h5>{{ $event->name . " " . $event->lastName }}</h5>
+                            <span class="sub-text">{{ $event->email ?? "" }}</span>
                         </div>
                     </div>
                 </div>
@@ -65,8 +68,8 @@
                                 <input
                                         type="checkbox"
                                         class="custom-control-input"
-                                        data-id="{{ $user->id }}"
-                                        onclick="changeHouseStatus(event.target,{{ $user->id }} );"
+                                        data-id="{{ $event->id }}"
+                                        onclick="changeHouseStatus(event.target,{{ $event->id }} );"
                                         id="activated"
                                         name="users">
                                 <label class="custom-control-label" for="activated"></label>
@@ -85,35 +88,35 @@
                     <div class="row g-3">
                         <div class="col-sm-6 col-md-4">
                             <span class="sub-text">User Name:</span>
-                            <span>{{ $user->name ?? "" }}</span>
+                            <span>{{ $event->name ?? "" }}</span>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <span class="sub-text">Last Name:</span>
-                            <span>{{ $user->lastName ?? "" }}</span>
+                            <span>{{ $event->lastName ?? "" }}</span>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <span class="sub-text">Billing Email:</span>
-                            <span>{{ $user->email ?? "" }}</span>
+                            <span>{{ $event->email ?? "" }}</span>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <span class="sub-text">Phones Numbers:</span>
-                            <span>{{ $user->phones ?? "" }}</span>
+                            <span>{{ $event->phones ?? "" }}</span>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <span class="sub-text">Role Users:</span>
-                            <span>{{ $user->role->name ?? "" }}</span>
+                            <span>{{ $event->role->name ?? "" }}</span>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <span class="sub-text">Country</span>
-                            <span>{{ $user->country->countryName ?? "" }}</span>
+                            <span>{{ $event->country->countryName ?? "" }}</span>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <span class="sub-text">Status:</span>
-                            <span class="lead-text text-success">{{ $user->status ? "Activated" : "Deactivated" }}</span>
+                            <span class="lead-text text-success">{{ $event->status ? "Activated" : "Deactivated" }}</span>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <span class="sub-text">Register At:</span>
-                            <span>{{ $user->created_at->diffForHumans() }}</span>
+                            <span>{{ $event->created_at->diffForHumans() }}</span>
                         </div>
                     </div>
                 </div>
@@ -126,7 +129,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Send Message to user</h5>
+                    <h5 class="modal-title">Send Message to event</h5>
                     <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <em class="icon ni ni-cross"></em>
                     </a>

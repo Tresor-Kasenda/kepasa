@@ -40,25 +40,25 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($organisers as $organiser)
+                            @foreach($organisers as $event)
                                 <tr class="nk-tb-item">
                                     <td class="nk-tb-col tb-col-md">
-                                        <span>{{ $organiser->companyName ?? "" }}</span>
+                                        <span>{{ $event->companyName ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col tb-col-md">
-                                        <span>{{ $organiser->phones ?? "" }}</span>
+                                        <span>{{ $event->phones ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col tb-col-md">
-                                        <span>{{ $organiser->email ?? "" }}</span>
+                                        <span>{{ $event->email ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col tb-col-md">
-                                        <span>{{ $organiser->country ?? "" }}</span>
+                                        <span>{{ $event->country ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col tb-col-md">
-                                        <span>{{ $organiser->city ?? "" }}</span>
+                                        <span>{{ $event->city ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col tb-col-md">
-                                        <span>{{ $organiser->companyName ?? "" }}</span>
+                                        <span>{{ $event->companyName ?? "" }}</span>
                                     </td>
                                     <td class="nk-tb-col nk-tb-col-tools">
                                         <ul class="nk-tb-actions gx-1">
@@ -70,13 +70,13 @@
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <ul class="link-list-opt no-bdr">
                                                             <li>
-                                                                <a href="{{ route('supper.organisers.show', $organiser->key) }}">
+                                                                <a href="{{ route('supper.organisers.show', $event->key) }}">
                                                                     <em class="icon ni ni-eye"></em>
                                                                     <span>Voir</span>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <form action="{{ route('supper.organisers.destroy', $organiser->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
+                                                                <form action="{{ route('supper.organisers.destroy', $event->key) }}" method="POST" onsubmit="return confirm('Voulez vous supprimer');">
                                                                     @method('DELETE')
                                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                     <button type="submit" class="btn btn-dim">

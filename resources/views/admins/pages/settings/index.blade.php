@@ -8,12 +8,12 @@
                 <div class="nk-block-head-content">
                     <h3 class="nk-block-title page-title">Users /
                         <strong class="text-primary small">
-                            {{ auth()->user()->name." ". auth()->user()->lastName }}
+                            {{ auth()->event()->name." ". auth()->event()->lastName }}
                         </strong>
                     </h3>
                     <div class="nk-block-des text-soft">
                         <ul class="list-inline">
-                            <li>User ID: <span class="text-base">{{ auth()->user()->id }}</span></li>
+                            <li>User ID: <span class="text-base">{{ auth()->event()->id }}</span></li>
                             <li>Last Login: <span class="text-base">15 Feb, 2019 01:02 PM</span></li>
                         </ul>
                     </div>
@@ -40,7 +40,7 @@
                                         @click.prevent="currentTable='personal'"
                                         :class="currentTable === 'personal' ? 'active' : ''"
                                         role="tab">
-                                    <em class="icon ni ni-user-circle"></em>
+                                    <em class="icon ni ni-event-circle"></em>
                                     <span>Personal</span>
                                 </a>
                             </li>
@@ -72,7 +72,7 @@
                             </li>
                             <li class="nav-item nav-item-trigger d-xxl-none">
                                 <a href="#" class="toggle btn btn-icon btn-trigger" data-target="userAside">
-                                    <em class="icon ni ni-user-list-fill"></em>
+                                    <em class="icon ni ni-event-list-fill"></em>
                                 </a>
                             </li>
                         </ul>
@@ -80,7 +80,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane" :class="currentTable === 'personal' ? 'active' : ''" id="personal" role="tabpanel">
                                     <div class="nk-block">
-                                        <form action="{{ route('supper.admins.change', auth()->user()) }}" method="POST" class="gy-3 form-settings">
+                                        <form action="{{ route('supper.admins.change', auth()->event()) }}" method="POST" class="gy-3 form-settings">
                                             @csrf
                                             @method('PUT')
                                             <div class="row">
@@ -93,7 +93,7 @@
                                                                     class="form-control @error('name') error @enderror"
                                                                     id="name"
                                                                     name="name"
-                                                                    value="{{ old('name') ?? auth()->user()->name }}">
+                                                                    value="{{ old('name') ?? auth()->event()->name }}">
                                                             @error('name')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -108,7 +108,7 @@
                                                                     class="form-control @error('phones') error @enderror"
                                                                     id="phones"
                                                                     name="phones"
-                                                                    value="{{ old('phones') ?? auth()->user()->phones }}">
+                                                                    value="{{ old('phones') ?? auth()->event()->phones }}">
                                                             @error('phones')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -119,7 +119,7 @@
                                                         <div class="form-control-wrap">
                                                             <select class="form-control @error('country') error @enderror" class="countries" id="country" name="country">
                                                                 <option value="default_option">Selected country</option>
-                                                                <option value="{{ auth()->user()->country->id ?? "" }}" class="bg-gray-400 text-md">{{ auth()->user()->country->countryName ?? " " }}</option>
+                                                                <option value="{{ auth()->event()->country->id ?? "" }}" class="bg-gray-400 text-md">{{ auth()->event()->country->countryName ?? " " }}</option>
                                                                 @foreach($countries as $country)
                                                                     <option value="{{ $country->id }}">
                                                                         {{ $country->countryName }}
@@ -141,7 +141,7 @@
                                                                     class="form-control @error('lastName') error @enderror"
                                                                     id="lastName"
                                                                     name="lastName"
-                                                                    value="{{ old('lastName') ?? auth()->user()->lastName }}">
+                                                                    value="{{ old('lastName') ?? auth()->event()->lastName }}">
                                                             @error('lastName')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -155,7 +155,7 @@
                                                                     class="form-control @error('email') error @enderror"
                                                                     id="email"
                                                                     name="email"
-                                                                    value="{{ old('email') ?? auth()->user()->email }}">
+                                                                    value="{{ old('email') ?? auth()->event()->email }}">
                                                             @error('email')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -191,7 +191,7 @@
                                 </div>
                                 <div class="tab-pane" :class="currentTable === 'settings' ? 'active' : ''" id="settings" role="tabpanel">
                                     <div class="nk-block">
-                                        <form action="{{ route('supper.settings.store', auth()->user()) }}" method="POST" class="gy-3 form-settings">
+                                        <form action="{{ route('supper.settings.store', auth()->event()) }}" method="POST" class="gy-3 form-settings">
                                             @csrf
                                             @method('PUT')
                                             <div class="row">
@@ -204,7 +204,7 @@
                                                                     class="form-control @error('name') error @enderror"
                                                                     id="name"
                                                                     name="name"
-                                                                    value="{{ old('name') ?? auth()->user()->app->name }}">
+                                                                    value="{{ old('name') ?? auth()->event()->app->name }}">
                                                             @error('name')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -218,7 +218,7 @@
                                                                     class="form-control @error('email') error @enderror"
                                                                     id="email"
                                                                     name="email"
-                                                                    value="{{ old('email') ?? auth()->user()->app->email }}">
+                                                                    value="{{ old('email') ?? auth()->event()->app->email }}">
                                                             @error('email')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -234,7 +234,7 @@
                                                                     class="form-control @error('copyright') error @enderror"
                                                                     id="copyright"
                                                                     name="copyright"
-                                                                    value="{{ old('copyright') ?? auth()->user()->app->copyright }}">
+                                                                    value="{{ old('copyright') ?? auth()->event()->app->copyright }}">
                                                             @error('copyright')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -248,7 +248,7 @@
                                                                     class="form-control @error('username') error @enderror"
                                                                     id="copyright"
                                                                     name="username"
-                                                                    value="{{ old('username') ?? auth()->user()->name }}">
+                                                                    value="{{ old('username') ?? auth()->event()->name }}">
                                                             @error('username')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -267,7 +267,7 @@
                                 </div>
                                 <div class="tab-pane" :class="currentTable === 'password' ? 'active' : ''" id="password" role="tabpanel">
                                     <div class="nk-block">
-                                        <form action="{{ route('supper.settings.password', auth()->user()) }}" method="POST">
+                                        <form action="{{ route('supper.settings.password', auth()->event()) }}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <div class="row">
@@ -337,7 +337,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-aside card-aside-right user-aside toggle-slide toggle-slide-right toggle-break-xxl toggle-screen-xxl" data-content="userAside" data-toggle-screen="xxl" data-toggle-overlay="true" data-toggle-body="true">
+                    <div class="card-aside card-aside-right event-aside toggle-slide toggle-slide-right toggle-break-xxl toggle-screen-xxl" data-content="userAside" data-toggle-screen="xxl" data-toggle-overlay="true" data-toggle-body="true">
                         <div class="card-inner-group" data-simplebar="init">
                             <div class="simplebar-wrapper" style="margin: 0px;">
                                 <div class="simplebar-height-auto-observer-wrapper">
@@ -348,14 +348,14 @@
                                         <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden scroll;">
                                             <div class="simplebar-content" style="padding: 0px;">
                                                 <div class="card-inner">
-                                                    <div class="user-card user-card-s2">
-                                                        <div class="user-avatar lg bg-primary">
-                                                            <span>{{ substr(auth()->user()->name, 0,2) }}</span>
+                                                    <div class="event-card event-card-s2">
+                                                        <div class="event-avatar lg bg-primary">
+                                                            <span>{{ substr(auth()->event()->name, 0,2) }}</span>
                                                         </div>
-                                                        <div class="user-info">
-                                                            <div class="badge bg-outline-light rounded-pill ucap">{{ auth()->user()->role->name }}</div>
-                                                            <h5>{{ auth()->user()->name . "-" . auth()->user()->lastName }}</h5>
-                                                            <span class="sub-text">{{ auth()->user()->email }}</span>
+                                                        <div class="event-info">
+                                                            <div class="badge bg-outline-light rounded-pill ucap">{{ auth()->event()->role->name }}</div>
+                                                            <h5>{{ auth()->event()->name . "-" . auth()->event()->lastName }}</h5>
+                                                            <span class="sub-text">{{ auth()->event()->email }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -402,11 +402,11 @@
                                                         </div>
                                                         <div class="col-6">
                                                             <span class="sub-text">Role:</span>
-                                                            <span class="lead-text text-success">{{ auth()->user()->role->name }}</span>
+                                                            <span class="lead-text text-success">{{ auth()->event()->role->name }}</span>
                                                         </div>
                                                         <div class="col-6">
                                                             <span class="sub-text">Register At:</span>
-                                                            <span>{{ auth()->user()->created_at->format('Y m d') }}</span>
+                                                            <span>{{ auth()->event()->created_at->format('Y m d') }}</span>
                                                         </div>
                                                     </div>
                                                 </div>

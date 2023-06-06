@@ -43,7 +43,7 @@
                     ])
                     @include('admins.partials.nav-link', [
                         'route' => route('admin.eventsOrganisers.index'),
-                        'name' => 'Event by organiser',
+                        'name' => 'Event by event',
                         'icon' => 'ni-users-fill'
                     ])
                     @include('admins.partials.nav-link', [

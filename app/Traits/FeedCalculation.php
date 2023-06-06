@@ -10,8 +10,6 @@ trait FeedCalculation
 {
     public function feedCalculationEvent($attributes): array
     {
-        $country = $this->getCountry($attributes);
-
         $prices = (int) $attributes->input('prices');
         $commission = $prices * (5 / 100);
         if (FeeOptionEnum::Exclusive === request()->input('feeOption')) {
@@ -20,6 +18,6 @@ trait FeedCalculation
             $organiser = $prices + $commission;
         }
 
-        return [$country, $commission, $organiser];
+        return [$commission, $organiser];
     }
 }

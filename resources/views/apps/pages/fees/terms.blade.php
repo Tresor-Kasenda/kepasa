@@ -78,13 +78,13 @@
 
                             <h5><b>2.1 User Contributions to the Site</b></h5>
                             <p>The website provides you with opportunities to contribute to the website by uploading
-                                information about your events, known as "user content". Ngoma Digitech is not liable
-                                or responsible for any user content. The contributions of third parties do not
+                                information about your events, known as "event content". Ngoma Digitech is not liable
+                                or responsible for any event content. The contributions of third parties do not
                                 necessarily represent the view or opinions of Ngoma Digitech. Ngoma Digitech cannot
-                                preview user content before it appears.</p>
+                                preview event content before it appears.</p>
 
                             <h5><b>2.2 Prohibited Content</b></h5>
-                            <p>Users can be held liable for any illegal or prohibited user content they provide to
+                            <p>Users can be held liable for any illegal or prohibited event content they provide to
                                 the website. Prohibited content includes, but is not limited to content that:</p>
 
                             <ul>
@@ -124,9 +124,9 @@
                             <p>Although Ngoma Digitech cannot monitor the conduct of users off the website, it is
                                 also a violation of these rules to use any information obtained from this website in
                                 order to harass, abuse, or harm another person, or in order to contact, advertise
-                                to, solicit or sell to any site user without their prior explicit consent.</p>
+                                to, solicit or sell to any site event without their prior explicit consent.</p>
                             <p>Ngoma Digitech also retains the right to suspend or terminate your access to the
-                                website if the conduct of an event organiser or organisation using the Kepasa
+                                website if the conduct of an event event or organisation using the Kepasa
                                 services, leads to damage to reputation by association.</p>
 
 
@@ -184,10 +184,10 @@
                             <h5><b>2.7 Violation of the Terms</b></h5>
                             <p>You understand and agree that in Ngoma Digitech's sole discretion, and without prior
                                 notice, Ngoma Digitech may terminate your access to the website, cancel ticket
-                                orders or exercise any other remedy available and remove any unauthorised user
-                                content, if Ngoma Digitech believes that your conduct, or the user content you
+                                orders or exercise any other remedy available and remove any unauthorised event
+                                content, if Ngoma Digitech believes that your conduct, or the event content you
                                 provide, violates or is inconsistent with these Terms, or violates the law or the
-                                rights of Ngoma Digitech, a client of Ngoma Digitech or another user of the website.
+                                rights of Ngoma Digitech, a client of Ngoma Digitech or another event of the website.
                                 You agree that monetary damages may not provide sufficient remedy to Ngoma Digitech
                                 for violations of these Terms and you consent to injunctive or other equitable
                                 relief for such violations. Ngoma Digitech is not required to provide any refund to
@@ -416,18 +416,18 @@
 
                                 <h5><b>6.1 Copyright Policy</b></h5>
 
-                                <p>We will terminate the privileges of any user who uses this Site to unlawfully
+                                <p>We will terminate the privileges of any event who uses this Site to unlawfully
                                     transmit copyrighted material without a license of express content, valid
-                                    defence or fair use exemption to do so. In particular, users who submit user
+                                    defence or fair use exemption to do so. In particular, users who submit event
                                     content to the website, whether articles, images, stories, software of other
-                                    copyrightable material must ensure that the user content they upload does not
+                                    copyrightable material must ensure that the event content they upload does not
                                     infringe the copyrights or other rights of third parties (including, but not
                                     limited, to trademark, trade secret, privacy or publicity rights). After proper
                                     notification by the copyright holder or its agent to us, and confirmation
-                                    through court order or admission by the user that they have used this website as
+                                    through court order or admission by the event that they have used this website as
                                     an instrument of unlawful infringement, we will terminate the infringing users'
                                     rights to use and / or access to this website. We may, also in our sole
-                                    discretion, decide to terminate a user's rights to use or access to the website
+                                    discretion, decide to terminate a event's rights to use or access to the website
                                     prior to that time if we believe that an alleged infringement has occurred.</p>
 
                                 <h5><b>6.2 Event Specific Terms and Conditions</b></h5>
@@ -954,7 +954,7 @@
                                         <li>IP address - we may collect information about your computer, including
                                             where available your IP address, operating system and browser type, for
                                             system security client support and some site analytics. This statistical
-                                            data cannot be used to identify a user.</li>
+                                            data cannot be used to identify a event.</li>
                                         <li>Cookies – cookies are used to track users through our site and to save
                                             information as you move from page to page of website.</li>
                                         <li>To enable us to deliver to you the Kepasa service as per the Terms and
@@ -973,7 +973,7 @@
                                         <li>To send you and your nominated users email communication regarding your
                                             event, your account, your ticket settlement or a Ticket Buyer query;
                                         </li>
-                                        <li>To identify you as a user, your permission level and your Kepasa account
+                                        <li>To identify you as a event, your permission level and your Kepasa account
                                             should you contact Ngoma Digitech for support or assistance;</li>
                                         <li>If using Ngoma Digitech merchant services, we will access your bank
                                             account details to process ticket settlement;</li>
@@ -1011,7 +1011,7 @@
 
                             <h4><b>6. How long do we keep your Personal Data?</b></h4>
                             <p>Ngoma Digitech will keep your Personal Data for no longer than is reasonably
-                                necessary. An Administrator on an account can delete a user along with their
+                                necessary. An Administrator on an account can delete a event along with their
                                 Personal Data at any time.</p>
 
                             <p>If an account is dormant for two years (i.e. no log-ins to the account) the account

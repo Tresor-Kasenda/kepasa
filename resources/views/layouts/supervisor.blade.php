@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="js">
 <head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="Une partie d'administration pour la gestion d'un {{ config('app.name') }}">
     <title>{{ config('app.name') }} | @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/admins/css/dashlite.css') }}">
     @yield('styles')

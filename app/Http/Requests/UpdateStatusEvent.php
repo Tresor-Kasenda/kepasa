@@ -19,7 +19,7 @@ class UpdateStatusEvent extends FormRequest
     {
         return [
             'status' => ['required', Rule::in(StatusEnum::$status)],
-            'key' => ['required', Rule::exists('events', 'key')],
+            'key' => ['required', Rule::exists('events', 'id')],
         ];
     }
 }

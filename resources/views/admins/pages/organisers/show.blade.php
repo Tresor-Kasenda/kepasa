@@ -28,7 +28,7 @@
                 <div class="justify-content text-center p-2">
                     <img
                             src="{{ asset('storage/'.$company->images) }}"
-                            alt="{{ $company->user->name }}"
+                            alt="{{ $company->event->name }}"
                             class="img-fluid img-thumbnail rounded-circle"
                             height="10%"
                             width="10%"
@@ -55,11 +55,11 @@
                                             </div>
                                             <div class="profile-ud wider">
                                                 <span class="profile-ud-label">Company admin</span>
-                                                <span class="profile-ud-value">{{ $company->user->name ?? "" }}</span>
+                                                <span class="profile-ud-value">{{ $company->event->name ?? "" }}</span>
                                             </div>
                                             <div class="profile-ud wider">
                                                 <span class="profile-ud-label">Company (Admin last name)</span>
-                                                <span class="profile-ud-value">{{ $company->user->lastName ?? "" }}</span>
+                                                <span class="profile-ud-value">{{ $company->event->lastName ?? "" }}</span>
                                             </div>
                                         </div>
                                         <div class="profile-ud-item">

@@ -20,7 +20,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|\App\Models\Event[] $event
+ * @property-read Collection|Event[] $event
  * @property-read int|null $event_count
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()

@@ -6,9 +6,13 @@ namespace App\Repository\Organisers;
 
 use App\Models\Billing;
 use App\Models\Category;
+use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
 use App\Notifications\CreatedEventNotification;
+use App\Pipeline\CategoryPipe;
+use App\Pipeline\FeedCalculationPipe;
+use App\Pipeline\StoreEventPipe;
 use App\Services\EnableX\CreateRoomService;
 use App\Services\EnableX\EnableXHttpService;
 use App\Traits\FeedCalculation;
@@ -17,8 +21,8 @@ use App\Traits\RandomValue;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Notification;
+use LaravelIdea\Helper\App\Models\_IH_City_QB;
 
 class EventOrganiserRepository
 {
@@ -28,7 +32,9 @@ class EventOrganiserRepository
     use RandomValue;
 
     protected array $pipes = [
-
+        FeedCalculationPipe::class,
+        CategoryPipe::class,
+        StoreEventPipe::class
     ];
 
     public function getContents(): LengthAwarePaginator
@@ -50,10 +56,6 @@ class EventOrganiserRepository
 
     public function storeEvents($attributes): Model|Builder
     {
-        $result = (new Pipeline(app()))
-            ->send($attributes)
-            ->through(pipes: $this->pipes)
-            ->thenReturn();
         $feedCalculation = $this->feedCalculationEvent(attributes: $attributes);
         $category = $this->getCategory(attributes: $attributes);
         $event = $this->storedEvent(attributes: $attributes, feedCalculation: $feedCalculation);
@@ -101,13 +103,6 @@ class EventOrganiserRepository
         $event->delete();
 
         return $event;
-    }
-
-    private function getCountry($attributes): Builder|Model
-    {
-        return Country::query()
-            ->where('countryCode', '=', $attributes->input('country'))
-            ->firstOrFail();
     }
 
     private function getEventByKey(string $key): Model|Builder
@@ -180,10 +175,10 @@ class EventOrganiserRepository
                 'ticketNumber' => $attributes->input('ticketNumber'),
                 'prices' => $attributes->input('prices'),
                 'feeOption' => $attributes->input('feeOption'),
-                'commission' => $feedCalculation['1'],
-                'buyerPrice' => $feedCalculation['2'],
-                'country' => $feedCalculation['0']->countryName,
-                'city' => $attributes->input('cityName'),
+                'commission' => $feedCalculation['0'],
+                'buyerPrice' => $feedCalculation['1'],
+                'country_id' => $this->getCountry($attributes)->id,
+                'city_id' => $this->getCity($attributes)->id,
                 'description' => $attributes->input('description'),
                 'category_id' => $attributes->input('category'),
                 'user_id' => auth()->id(),
@@ -204,12 +199,26 @@ class EventOrganiserRepository
             'ticketNumber' => $attributes->input('ticketNumber'),
             'prices' => $attributes->input('prices'),
             'feeOption' => $attributes->input('feeOption'),
-            'commission' => $feedCalculation['1'],
-            'buyerPrice' => $feedCalculation['2'],
-            'country' => $feedCalculation['0']->countryName,
-            'city' => $attributes->input('cityName'),
+            'commission' => $feedCalculation['0'],
+            'buyerPrice' => $feedCalculation['1'],
+            'country_id' => $this->getCountry($attributes)->id,
+            'city_id' => $this->getCity($attributes),
             'description' => $attributes->input('description'),
             'category_id' => $attributes->input('category'),
         ]);
+    }
+
+    private function getCity($attributes): Model|Builder|_IH_City_QB|City|null
+    {
+        return City::query()
+            ->where('cityName', '=', $attributes->input('cityName'))
+            ->first();
+    }
+
+    private function getCountry($attributes): Builder|Model
+    {
+        return Country::query()
+            ->where('countryCode', '=', $attributes->input('country'))
+            ->first(); 
     }
 }

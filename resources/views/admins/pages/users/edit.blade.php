@@ -12,7 +12,7 @@
         </x-brandcrumb>
 
         <x-vex-containt>
-            <form action="{{ route('supper.users.update', $user->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('supper.users.update', $event->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row  gy-4">
@@ -24,7 +24,7 @@
                                         type="text"
                                         class="form-control @error('name') error @enderror"
                                         id="name"
-                                        value="{{ old('name') ?? $user->name }}"
+                                        value="{{ old('name') ?? $event->name }}"
                                         name="name"
                                         placeholder="name"
                                 >
@@ -41,7 +41,7 @@
                                         type="text"
                                         class="form-control @error('lastName') error @enderror"
                                         id="lastName"
-                                        value="{{ old('lastName') ?? $user->lastName }}"
+                                        value="{{ old('lastName') ?? $event->lastName }}"
                                         name="lastName"
                                         placeholder="laste name"
                                 >
@@ -55,7 +55,7 @@
                             <label class="form-label" for="country">Country</label>
                             <div class="form-control-wrap">
                                 <select class="form-control @error('country') error @enderror" class="countries" id="country" name="country">
-                                    <option value="{{ $user->country->id ?? "" }}" class="bg-gray-400 text-md">{{ $user->country->countryName ?? " " }}</option>
+                                    <option value="{{ $event->country->id ?? "" }}" class="bg-gray-400 text-md">{{ $event->country->countryName ?? " " }}</option>
                                     @foreach($countries as $country)
                                         <option value="{{ $country->id }}">
                                             {{ $country->countryName }}
@@ -76,7 +76,7 @@
                                         type="email"
                                         class="form-control @error('email') error @enderror"
                                         id="email"
-                                        value="{{ old('email') ?? $user->email }}"
+                                        value="{{ old('email') ?? $event->email }}"
                                         name="email"
                                         placeholder="email"
                                 >
@@ -93,7 +93,7 @@
                                         type="text"
                                         class="form-control @error('phones') error @enderror"
                                         id="phones"
-                                        value="{{ old('phones') ?? $user->phones }}"
+                                        value="{{ old('phones') ?? $event->phones }}"
                                         name="phones"
                                         placeholder="phones"
                                 >
@@ -110,7 +110,7 @@
                                         type="file"
                                         class="form-control @error('images') error @enderror"
                                         id="images"
-                                        value="{{ old('images') ?? $user->images }}"
+                                        value="{{ old('images') ?? $event->images }}"
                                         name="images"
                                         placeholder="images"
                                 >

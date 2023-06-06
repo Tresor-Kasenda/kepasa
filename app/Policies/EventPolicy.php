@@ -33,4 +33,9 @@ class EventPolicy
     {
         return $user->id === $event->user_id;
     }
+
+    public function destroy(User $user, Event $event): bool
+    {
+        return RoleEnum::SUPER === $user->role_id;
+    }
 }

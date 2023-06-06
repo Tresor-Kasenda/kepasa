@@ -1,26 +1,21 @@
 <x-app-layout>
     @section('title', "Creation de categorie")
 
-    <div class="nk-content-body">
-        <div class="nk-block-head nk-block-head-sm">
-            <div class="nk-block-between g-3">
-                <div class="nk-block-head-content">
-                    <h3 class="nk-block-title page-title">Article</h3>
-                </div>
-                <div class="nk-block-head-content">
-                    <a href="{{ route('supper.category.index') }}" class="btn btn-outline-light btn-sm bg-white d-none d-sm-inline-flex">
-                        <em class="icon ni ni-arrow-left"></em>
-                        <span>Back</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+    <x-vex-container>
+        <x-brandcrumb title="Create users">
+            <li class="nk-block-tools-opt d-none d-sm-block">
+                <x-vex-link href="{{ route('supper.category-list') }}" class="btn btn-dim btn-outline-primary">
+                    <x-vex-icon class="ni-arrow-long-left" />
+                    <span>All categories</span>
+                </x-vex-link>
+            </li>
+        </x-brandcrumb>
         <div class="nk-block">
-            <div class="card">
-                <div class="card-aside-wrap">
-                    <div class="card-inner card-inner-lg">
-                        <form action="{{ route('supper.category.store') }}" method="post">
-                            @csrf
+            <div class="card card-bordered">
+                <div class="card-inner">
+                    <form action="{{ route('supper.category.store') }}" method="post" class="form-validate">
+                        @csrf
+                        <div class="row  gy-4">
                             <div class="form-group">
                                 <label class="form-label" for="name">Name category</label>
                                 <div class="form-control-wrap">
@@ -30,17 +25,23 @@
                                             id="name"
                                             value="{{ old('name') }}"
                                             name="name"
-                                            placeholder="category"
+                                            placeholder="name"
                                     >
+                                    @error('name')
+                                    <span class="error">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-sm btn-primary">Save category</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-dim btn-outline-primary">
+                                <x-vex-icon class="ni-save"/>
+                                <span>Save Category</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
+    </x-vex-container>
 </x-app-layout>

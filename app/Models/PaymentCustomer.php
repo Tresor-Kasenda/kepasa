@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 
 /**
@@ -20,23 +22,23 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string $totalAmount
  * @property string $reference
  * @property string $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Event $event
- * @property-read \App\Models\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer query()
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer whereEventId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer whereReference($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer whereTicketNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer whereTotalAmount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|PaymentCustomer whereUserId($value)
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Event $event
+ * @property-read User $user
+ * @method static Builder|PaymentCustomer newModelQuery()
+ * @method static Builder|PaymentCustomer newQuery()
+ * @method static Builder|PaymentCustomer query()
+ * @method static Builder|PaymentCustomer whereCreatedAt($value)
+ * @method static Builder|PaymentCustomer whereEventId($value)
+ * @method static Builder|PaymentCustomer whereId($value)
+ * @method static Builder|PaymentCustomer whereKey($value)
+ * @method static Builder|PaymentCustomer whereReference($value)
+ * @method static Builder|PaymentCustomer whereStatus($value)
+ * @method static Builder|PaymentCustomer whereTicketNumber($value)
+ * @method static Builder|PaymentCustomer whereTotalAmount($value)
+ * @method static Builder|PaymentCustomer whereUpdatedAt($value)
+ * @method static Builder|PaymentCustomer whereUserId($value)
  * @mixin \Eloquent
  */
 class PaymentCustomer extends Model

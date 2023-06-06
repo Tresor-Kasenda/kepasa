@@ -7,21 +7,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="user-profile-titlebar">
-                        <div class="user-profile-avatar">
+                    <div class="event-profile-titlebar">
+                        <div class="event-profile-avatar">
                             <img
-                                @if(auth()->user()->profile->image == null)
+                                @if(auth()->event()->profile->image == null)
                                     src="{{ asset('assets/images/profile.jpg') }}"
-                                    alt="{{ auth()->user()->name ?? "" }}"
+                                    alt="{{ auth()->event()->name ?? "" }}"
                                 @else
-                                    src="{{ asset('storage/'.auth()->user()->profile->image) }}"
-                                    alt="{{ auth()->user()->name ?? "" }}"
+                                    src="{{ asset('storage/'.auth()->event()->profile->image) }}"
+                                    alt="{{ auth()->event()->name ?? "" }}"
                                 @endif
                             >
                         </div>
-                        <div class="user-profile-name">
-                            <a href="{{ route('user.home.index') }}">
-                                <h2>{{ auth()->user()->name ?? "" }}  {{ auth()->user()->lastName ?? "" }}</h2>
+                        <div class="event-profile-name">
+                            <a href="{{ route('event.home.index') }}">
+                                <h2>{{ auth()->event()->name ?? "" }}  {{ auth()->event()->lastName ?? "" }}</h2>
                             </a>
                         </div>
                     </div>
@@ -33,29 +33,29 @@
     <div class="container">
         <div class="row sticky-wrapper">
             <div class="col-lg-4 col-md-4 margin-top-0">
-                <a href="{{ route('user.home.edit', auth()->user()->key) }}" class="btn btn-primary verified-badge">
-                    <i class="sl sl-icon-user-following"></i> Modifier le compte
+                <a href="{{ route('event.home.edit', auth()->event()->key) }}" class="btn btn-primary verified-badge">
+                    <i class="sl sl-icon-event-following"></i> Modifier le compte
                 </a>
                 <div class="boxed-widget margin-top-30 margin-bottom-50">
                     <h3>Contact</h3>
                     <ul class="listing-details-sidebar">
                         <li>
-                            <i class="sl sl-icon-phone"></i> Tel 1:  {{ auth()->user()->phones ?? "" }}
+                            <i class="sl sl-icon-phone"></i> Tel 1:  {{ auth()->event()->phones ?? "" }}
                         </li>
                         <li>
-                            <i class="sl sl-icon-phone"></i> Tel 2:  {{ auth()->user()->profile->alternativePhones ?? "" }}
+                            <i class="sl sl-icon-phone"></i> Tel 2:  {{ auth()->event()->profile->alternativePhones ?? "" }}
                         </li>
                         <li>
                             <i class="fa fa-envelope-o"></i>
-                            Email: <a href="{{ auth()->user()->email ?? "" }}">{{ auth()->user()->email ?? "" }}</a>
+                            Email: <a href="{{ auth()->event()->email ?? "" }}">{{ auth()->event()->email ?? "" }}</a>
                         </li>
                         <li>
                             <i class="fa fa-times"></i>
-                            Country: {{ auth()->user()->profile->country ?? "" }}
+                            Country: {{ auth()->event()->profile->country ?? "" }}
                         </li>
                         <li>
                             <i class="fa fa-times"></i>
-                            City: {{ auth()->user()->profile->city ?? "" }}
+                            City: {{ auth()->event()->profile->city ?? "" }}
                         </li>
 
                     </ul>
@@ -84,12 +84,12 @@
             </div>
 
             <div class="col-lg-8 col-md-8 padding-left-30">
-                <h3 class="margin-top-0 margin-bottom-40">{{ auth()->user()->name ?? "" }}'s events</h3>
+                <h3 class="margin-top-0 margin-bottom-40">{{ auth()->event()->name ?? "" }}'s events</h3>
                 <div class="row">
                     @foreach($invoices as $invoice)
                         <div class="col-lg-12 col-md-12">
                             <div class="listing-item-container list-layout">
-                                <a href="{{ route('user.home.show', $invoice->key) }}" class="listing-item">
+                                <a href="{{ route('event.home.show', $invoice->key) }}" class="listing-item">
                                     <div class="listing-item-image">
                                         <img src="{{ asset('storage/'.$invoice->event->image) }}" alt="{{ $invoice->event->title }}">
                                         <span class="tag">{{ $invoice->event->category->name }}</span>

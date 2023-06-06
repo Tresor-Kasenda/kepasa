@@ -17,32 +17,8 @@ class EventSupperRepository
     public function getContents(): array|Collection
     {
         return Event::query()
-            ->with(['category', 'media'])
+            ->with('user')
             ->orderByDesc('created_at')
             ->get();
-    }
-
-    public function getEventByKey(string $key): Model|Builder
-    {
-        $event = $this->getFirstOrFail($key);
-
-        return $event->load(['category', 'media', 'user']);
-    }
-
-    public function delete(string $key): Model|Builder
-    {
-        $event = $this->getFirstOrFail(key: $key);
-        $this->removePicture($event);
-        $event->delete();
-        toast('delete event with success', 'success');
-
-        return $event;
-    }
-
-    private function getFirstOrFail(string $key): Builder|Model
-    {
-        return Event::query()
-            ->where('key', '=', $key)
-            ->firstOrFail();
     }
 }

@@ -38,14 +38,14 @@
                             <div class="invoice-wrap">
                                 <div class="invoice-brand text-center">
                                     <img
-                                        @if($billing->user->company->images)
-                                            src="{{ asset('storage/'.$billing->user->company->images) }}"
-                                        srcset="{{ asset('storage/'.$billing->user->company->images) }} 2x"
-                                        alt="{{ $billing->user->company->companyName }}"
+                                        @if($billing->event->company->images)
+                                            src="{{ asset('storage/'.$billing->event->company->images) }}"
+                                        srcset="{{ asset('storage/'.$billing->event->company->images) }} 2x"
+                                        alt="{{ $billing->event->company->companyName }}"
                                         @else
                                             src="{{ asset('assets/images/logo.png') }}"
                                         srcset="{{ asset('assets/images/logo.png') }} 2x"
-                                        alt="{{ $billing->user->name }}"
+                                        alt="{{ $billing->event->name }}"
                                         @endif
                                     >
                                 </div>
@@ -53,14 +53,14 @@
                                     <div class="invoice-contact">
                                         <span class="overline-title">Invoice To</span>
                                         <div class="invoice-contact-info">
-                                            <h4 class="title">{{ $billing->user->company->companyName ?? $billing->user->name }}</h4>
+                                            <h4 class="title">{{ $billing->event->company->companyName ?? $billing->event->name }}</h4>
                                             <ul class="list-plain">
                                                 <li>
                                                     <em class="icon ni ni-map-pin-fill"></em>
-                                                    <span>{{ $billing->user->company->address ?? "" }}<br>{{ $billing->user->company->city ?? "" }}, {{ $billing->user->company->country ?? "" }}</span>
+                                                    <span>{{ $billing->event->company->address ?? "" }}<br>{{ $billing->event->company->city ?? "" }}, {{ $billing->event->company->country ?? "" }}</span>
                                                 </li>
                                                 <li><em class="icon ni ni-call-fill"></em>
-                                                    <span>{{ $billing->user->company->phones ?? $billing->user->phones }}</span>
+                                                    <span>{{ $billing->event->company->phones ?? $billing->event->phones }}</span>
                                                 </li>
                                             </ul>
                                         </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx" class="js">
 <head> <meta charset="utf-8">
-    <meta name="author" content="{{ $billing->user->name }}">
+    <meta name="author" content="{{ $billing->event->name }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="{{ $billing->event->description }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/logo.png') }}">
@@ -14,14 +14,14 @@
         <div class="invoice-wrap">
             <div class="invoice-brand text-center">
                 <img
-                    @if($billing->user->company->images != null)
-                        src="{{ asset('storage/'.$billing->user->company->image) }}"
-                        srcset="{{ asset('storage/'.$billing->user->company->image) }} 2x"
-                        alt="{{ $billing->user->company->companyName }}"
+                    @if($billing->event->company->images != null)
+                        src="{{ asset('storage/'.$billing->event->company->image) }}"
+                        srcset="{{ asset('storage/'.$billing->event->company->image) }} 2x"
+                        alt="{{ $billing->event->company->companyName }}"
                     @else
                     src="{{ asset('assets/images/logo.png') }}"
                     srcset="{{ asset('assets/images/logo.png') }} 2x"
-                    alt="{{ $billing->user->name }}"
+                    alt="{{ $billing->event->name }}"
                     @endif
                 >
             </div>
@@ -29,14 +29,14 @@
                 <div class="invoice-contact">
                     <span class="overline-title">Invoice To</span>
                     <div class="invoice-contact-info">
-                        <h4 class="title">{{ $billing->user->company->companyName }}</h4>
+                        <h4 class="title">{{ $billing->event->company->companyName }}</h4>
                         <ul class="list-plain">
                             <li>
                                 <em class="icon ni ni-map-pin-fill"></em>
-                                <span>{{ $billing->user->company->address ?? "" }}<br>{{ $billing->user->company->city ?? "" }}, {{ $billing->company->country ?? "" }}</span>
+                                <span>{{ $billing->event->company->address ?? "" }}<br>{{ $billing->event->company->city ?? "" }}, {{ $billing->company->country ?? "" }}</span>
                             </li>
                             <li><em class="icon ni ni-call-fill"></em>
-                                <span>{{ $billing->user->company->phones ?? $billing->user->phones }}</span>
+                                <span>{{ $billing->event->company->phones ?? $billing->event->phones }}</span>
                             </li>
                         </ul>
                     </div>

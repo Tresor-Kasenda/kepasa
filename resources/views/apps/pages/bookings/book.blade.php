@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-lg-8 col-md-8 padding-right-30 padding-bottom-20">
                 <h3 class="margin-top-0 margin-bottom-30">Event book Details</h3>
-                <form action="{{ route('user.booking.confirmation', $event->key) }}" method="post">
+                <form action="{{ route('event.booking.confirmation', $event->key) }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -52,7 +52,7 @@
                             <label>Event Country</label>
                             <input type="text" required readonly name="country" id="country"  value="{{ $event->country ?? "" }}">
                         </div>
-                        <input type="hidden" name="user_id" id="user_id" value="{{ auth()->user()->key ?? "" }}">
+                        <input type="hidden" name="user_id" id="user_id" value="{{ auth()->event()->key ?? "" }}">
                         <div class="col-md-12">
                             <label>Ticket numbers</label>
                             <select class="input-text" type="password" name="tickets" id="tickets" onchange="getValues(this)" required>
@@ -133,7 +133,7 @@
             },
             // Call your server to set up the transaction
             createOrder: function(data, actions) {
-                return fetch('{{ route('user.paypal.create') }}', {
+                return fetch('{{ route('event.paypal.create') }}', {
                     method: 'post',
                     body: JSON.stringify({
                         prices: $('#prices').val(),
@@ -153,7 +153,7 @@
 
             // Call your server to finalize the transaction
             onApprove: function(data, actions) {
-                return fetch('{{ route('user.paypal.capture') }}', {
+                return fetch('{{ route('event.paypal.capture') }}', {
                     method: 'post',
                     body: JSON.stringify({
                         orderId : data['orderID'],
@@ -181,7 +181,7 @@
                         if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
                         return alert(msg); // Show a failure message (try to avoid alerts in production environments)
                     }
-                    window.location.href = `{{ route('user.home.index') }}`
+                    window.location.href = `{{ route('event.home.index') }}`
                 });
             }
 

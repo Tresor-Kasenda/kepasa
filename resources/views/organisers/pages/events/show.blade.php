@@ -1,4 +1,4 @@
-<x-organiser-layout>
+<x-event-layout>
     @section('title', "Détail sur l'evenement")
 
     <div id="titlebar">
@@ -7,7 +7,7 @@
                 <h2>Listens events / <span class="text-teal-dim">{{ $event->title ?? "" }}</span></h2>
                 <nav id="breadcrumbs">
                     <ul>
-                        <li><a href="{{ route('organiser.events.index') }}">Back to events</a></li>
+                        <li><a href="{{ route('event.events.index') }}">Back to events</a></li>
                     </ul>
                 </nav>
             </div>
@@ -134,4 +134,4 @@
         </div>
     </div>
 
-</x-organiser-layout>
+</x-event-layout>

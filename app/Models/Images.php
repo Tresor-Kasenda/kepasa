@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 
 /**
@@ -16,21 +18,21 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string $key
  * @property string|null $image
  * @property int $event_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int $company_id
- * @property-read \App\Models\Company $company
- * @property-read \App\Models\Event $event
- * @method static \Illuminate\Database\Eloquent\Builder|Images newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Images newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Images query()
- * @method static \Illuminate\Database\Eloquent\Builder|Images whereCompanyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Images whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Images whereEventId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Images whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Images whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Images whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Images whereUpdatedAt($value)
+ * @property-read Company $company
+ * @property-read Event $event
+ * @method static Builder|Images newModelQuery()
+ * @method static Builder|Images newQuery()
+ * @method static Builder|Images query()
+ * @method static Builder|Images whereCompanyId($value)
+ * @method static Builder|Images whereCreatedAt($value)
+ * @method static Builder|Images whereEventId($value)
+ * @method static Builder|Images whereId($value)
+ * @method static Builder|Images whereImage($value)
+ * @method static Builder|Images whereKey($value)
+ * @method static Builder|Images whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Images extends Model

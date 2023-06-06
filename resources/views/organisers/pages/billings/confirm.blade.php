@@ -1,4 +1,4 @@
-<x-organiser-layout>
+<x-event-layout>
     @section('title', "Information sur le paiement")
 
     <div id="titlebar">
@@ -17,14 +17,14 @@
                         <h3><i class="sl sl-icon-doc"></i> Confirm your details below</h3>
                     </div>
                     <div class="row with-forms">
-                        <form action="{{ route('organiser.confirm.payment.event') }}" method="POST">
+                        <form action="{{ route('event.confirm.payment.event') }}" method="POST">
                             @csrf
                             <div class="col-md-6">
                                 <h5>Category</h5>
                                 <input  type="text" id="name" name="name" value="{{ $event->category->name ?? "" }}" readonly required>
                             </div>
-                            <input type="hidden" name="nameOrganiser" value="{{ $event->user->name ?? "" }}">
-                            <input type="hidden" id="lastNameOrganiser" name="lastNameOrganiser" value="{{ $event->user->lastName ?? "" }}">
+                            <input type="hidden" name="nameOrganiser" value="{{ $event->event->name ?? "" }}">
+                            <input type="hidden" id="lastNameOrganiser" name="lastNameOrganiser" value="{{ $event->event->lastName ?? "" }}">
                             <div class="col-md-6">
                                 <h5>Event Name</h5>
                                 <input type="text" id="title" readonly required value="{{ $event->title ?? "" }}" name="title">
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-md-6">
                                 <h5>Your Email</h5>
-                                <input type="email" name="email" value="{{ auth()->user()->email ?? "" }}" required readonly >
+                                <input type="email" name="email" value="{{ auth()->event()->email ?? "" }}" required readonly >
                             </div>
                             <h6 style="color: #F96; font-size: 25px; font-weight: 400;">Payment Options</h6>
                             <div class="col-md-6">
@@ -92,7 +92,7 @@
                     layout: 'horizontal'
                 },
                 createOrder: function(data, actions) {
-                    return fetch(`{{ route('organiser.paypal.transaction') }}`, {
+                    return fetch(`{{ route('event.paypal.transaction') }}`, {
                         method: "POST",
                         body: JSON.stringify({
                             title: $('#title').val(),
@@ -111,7 +111,7 @@
 
                 // Call your server to finalize the transaction
                 onApprove: function(data, actions) {
-                    return fetch('{{ route('organiser.paypal.capture') }}', {
+                    return fetch('{{ route('event.paypal.capture') }}', {
                         method: 'post',
                         body: JSON.stringify({
                             orderId : data['orderID'],
@@ -142,4 +142,4 @@
             }).render('#paypal-button');
         </script>
     @endsection
-</x-organiser-layout>
+</x-event-layout>

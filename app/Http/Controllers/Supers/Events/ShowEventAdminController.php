@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Supers\Events;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Repository\Suppers\EventSupperRepository;
 
 class ShowEventAdminController extends Controller
@@ -14,10 +15,10 @@ class ShowEventAdminController extends Controller
     ) {
     }
 
-    public function __invoke(string $key)
+    public function __invoke(Event $event)
     {
         return view('admins.pages.events.show', [
-            'event' => $this->repository->getEventByKey(key: $key),
+            'event' => $event->load(['category', 'user', 'company', 'country', 'city'])
         ]);
     }
 }

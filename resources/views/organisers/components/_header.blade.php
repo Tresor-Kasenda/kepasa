@@ -3,18 +3,18 @@
         <div class="container">
             <div class="left-side">
                 <div id="logo">
-                    <a href="{{ route('organiser.index') }}">
-                        @if(auth()->user()->company->images)
-                            <img src="{{ asset('storage/'.auth()->user()->company->images) }}" alt="{{ auth()->user()->name }}">
+                    <a href="{{ route('event.index') }}">
+                        @if(auth()->event()->company->images)
+                            <img src="{{ asset('storage/'.auth()->event()->company->images) }}" alt="{{ auth()->event()->name }}">
                         @else
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ auth()->user()->name }}">
+                            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ auth()->event()->name }}">
                         @endif
                     </a>
-                    <a href="{{ route('organiser.index') }}" class="dashboard-logo">
-                        @if(auth()->user()->company->images)
-                            <img src="{{ asset('storage/'.auth()->user()->company->images) }}" alt="{{ auth()->user()->name }}">
+                    <a href="{{ route('event.index') }}" class="dashboard-logo">
+                        @if(auth()->event()->company->images)
+                            <img src="{{ asset('storage/'.auth()->event()->company->images) }}" alt="{{ auth()->event()->name }}">
                         @else
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ auth()->user()->name }}">
+                            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ auth()->event()->name }}">
                         @endif
                     </a>
                 </div>
@@ -32,8 +32,8 @@
             </div>
             <div class="right-side">
                 <div class="header-widget">
-                    <div class="user-menu"></div>
-                    <a href="{{ route('organiser.events.create') }}" class="button border with-icon">
+                    <div class="event-menu"></div>
+                    <a href="{{ route('event.events.create') }}" class="button border with-icon">
                         Add Event
                         <i class="sl sl-icon-plus"></i>
                     </a>

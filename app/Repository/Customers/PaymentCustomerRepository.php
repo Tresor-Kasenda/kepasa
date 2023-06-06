@@ -98,9 +98,7 @@ class PaymentCustomerRepository
             ->where('prices', '=', $attributes->input('prices'))
             ->first();
         $discount = $event->ticketNumber - $attributes->input('ticket');
-        $event->update([
-            'ticketNumber' => $discount,
-        ]);
+        $event->update(['ticketNumber' => $discount]);
         Mail::send(new ConfirmationTransaction($event));
 
         return $event;

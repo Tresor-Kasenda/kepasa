@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Supers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CityRequest;
+use App\Http\Requests\UpdateCityRequest;
 use App\Repository\Suppers\CountrySupperRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -38,7 +38,7 @@ class CountrySupperController extends Controller
         return view('admins.pages.countries.edit', compact('city'));
     }
 
-    public function update(string $cityName, CityRequest $attributes): RedirectResponse
+    public function update(string $cityName, UpdateCityRequest $attributes): RedirectResponse
     {
         $this->repository->updateCity($cityName, $attributes);
 

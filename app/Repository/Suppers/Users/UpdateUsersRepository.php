@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\Suppers\Users;
 
 use App\Events\UpdateUserEvent;
@@ -13,9 +15,9 @@ class UpdateUsersRepository
 
     public function handleUser(User $user, UpdateUsersRequest $request): User
     {
-       if ($user->images !== null){
-           $this->removePicture($user);
-       }
+        if (null !== $user->images) {
+            $this->removePicture($user);
+        }
 
         $user->update([
             'name' => $request->input('name'),

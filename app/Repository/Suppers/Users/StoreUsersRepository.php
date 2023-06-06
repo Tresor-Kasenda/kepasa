@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\Suppers\Users;
 
 use App\Enums\RoleEnum;
@@ -10,7 +12,6 @@ use Illuminate\Support\Facades\Mail;
 
 class StoreUsersRepository
 {
-
     public function created(array $validated)
     {
         $users = User::query()

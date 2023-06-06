@@ -40,8 +40,8 @@
                     </x-vex-nav-link>
 
                     <x-vex-nav-link
-                            href="{{ route('supper.category.index') }}"
-                            :active="request()->routeIs('supper.category.index')"
+                            href="{{ route('supper.category-list') }}"
+                            :active="request()->routeIs('supper.category-list')"
                             icons="ni-box">
                         Categories
                     </x-vex-nav-link>
@@ -54,8 +54,8 @@
                     </x-vex-nav-link>
 
                     <x-vex-nav-link
-                            href="{{ route('supper.countries.index') }}"
-                            :active="request()->routeIs('supper.countries.index')"
+                            href="{{ route('supper.country-list') }}"
+                            :active="request()->routeIs('supper.country-list')"
                             icons="ni-map"
                     >
                         Country
@@ -72,7 +72,7 @@
                     <x-vex-nav-link
                             href="{{ route('supper.users-list') }}"
                             :active="request()->routeIs('supper.users-list')"
-                            icons="ni-user-round"
+                            icons="ni-event-round"
                     >
                         Users
                     </x-vex-nav-link>

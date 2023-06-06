@@ -14,6 +14,9 @@ trait EnableXHttpService
         return Http::withHeaders([
             'Content-Type: application/json',
         ])
-            ->withBasicAuth(config('enablex.app_id'), config('enablex.app_key'));
+            ->withBasicAuth(
+                config('enablex.app_id'),
+                config('enablex.app_key')
+            );
     }
 }

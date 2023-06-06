@@ -18,25 +18,25 @@
 
             <div class="nk-header-tools">
                 <ul class="nk-quick-nav">
-                    <li class="dropdown user-dropdown">
+                    <li class="dropdown event-dropdown">
                         <a href="#" class="dropdown-toggle mr-n1" data-toggle="dropdown">
-                            <div class="user-toggle">
-                                <div class="user-avatar sm">
-                                    <em class="icon ni ni-user-alt"></em>
+                            <div class="event-toggle">
+                                <div class="event-avatar sm">
+                                    <em class="icon ni ni-event-alt"></em>
                                 </div>
-                                <div class="user-info d-none d-xl-block">
-                                    <div class="user-status user-status-active">{{ auth()->user()->name }}</div>
-                                    <div class="user-name dropdown-indicator">{{ auth()->user()->email }}</div>
+                                <div class="event-info d-none d-xl-block">
+                                    <div class="event-status event-status-active">{{ auth()->user()->name }}</div>
+                                    <div class="event-name dropdown-indicator">{{ auth()->user()->email }}</div>
                                 </div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                            <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
-                                <div class="user-card">
-                                    <div class="user-avatar">
+                            <div class="dropdown-inner event-card-wrap bg-lighter d-none d-md-block">
+                                <div class="event-card">
+                                    <div class="event-avatar">
                                         <span>{{ substr(auth()->user()->name, 0,2) }}</span>
                                     </div>
-                                    <div class="user-info">
+                                    <div class="event-info">
                                         <span class="lead-text">{{ auth()->user()->name }}</span>
                                         <span class="sub-text">{{ auth()->user()->email }}</span>
                                     </div>
@@ -46,7 +46,7 @@
                                 <ul class="link-list">
                                     <li>
                                         <a href="{{ route('supper.settings.index') }}">
-                                            <em class="icon ni ni-user-alt"></em>
+                                            <em class="icon ni ni-event-alt"></em>
                                             <span>Settings</span>
                                         </a>
                                     </li>

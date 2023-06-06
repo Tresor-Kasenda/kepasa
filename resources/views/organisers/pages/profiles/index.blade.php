@@ -1,4 +1,4 @@
-<x-organiser-layout>
+<x-event-layout>
     @section('title', "Modification des informations de l'organteur d'evenement")
 
     <div id="titlebar">
@@ -7,8 +7,8 @@
                 <h2>My Profile</h2>
                 <nav id="breadcrumbs">
                     <ul>
-                        <li><a href="{{ route('organiser.index') }}">Home</a></li>
-                        <li><a href="{{ route('organiser.profile.index') }}">Dashboard</a></li>
+                        <li><a href="{{ route('event.index') }}">Home</a></li>
+                        <li><a href="{{ route('event.profile.index') }}">Dashboard</a></li>
                         <li>My Profile</li>
                     </ul>
                 </nav>
@@ -26,8 +26,8 @@
                 <h4 class="gray">Profile Details</h4>
                 <div class="dashboard-list-box-static">
                     <div class="edit-profile-photo">
-                        @if(auth()->user()->company->images !== null)
-                            <img src="{{ asset('storage/'.auth()->user()->company->images) }}" id="preview" alt="Photo de profile">
+                        @if(auth()->event()->company->images !== null)
+                            <img src="{{ asset('storage/'.auth()->event()->company->images) }}" id="preview" alt="Photo de profile">
                         @else
                             <img src="{{ asset('assets/images/profile.jpg') }}" id="preview" alt="Photo de profile">
                         @endif
@@ -41,26 +41,26 @@
                             </div>
                         </form>
                     </div>
-                    <form action="{{ route('organiser.company.update') }}" class="updateDetails" method="post">
+                    <form action="{{ route('event.company.update') }}" class="updateDetails" method="post">
                         @csrf
                         <div class="my-profile">
                             <label for="name">Name</label>
                             <input
                                 type="text"
-                                value="{{ auth()->user()->name ?? "" }}"
+                                value="{{ auth()->event()->name ?? "" }}"
                                 name="name"
                                 id="name"
                             >
                             <label for="lastName">Last Name</label>
                             <input
                                 type="text"
-                                value="{{ auth()->user()->lastName ?? "" }}"
+                                value="{{ auth()->event()->lastName ?? "" }}"
                                 name="lastName"
                                 id="lastName"
                             >
                             <label for="email">Email</label>
                             <input
-                                value="{{ auth()->user()->email ?? "" }}"
+                                value="{{ auth()->event()->email ?? "" }}"
                                 type="email"
                                 name="email"
                                 id="email"
@@ -68,49 +68,49 @@
                             >
                             <label for="phones">Phone</label>
                             <input
-                                value="{{ auth()->user()->phones ?? "" }}"
+                                value="{{ auth()->event()->phones ?? "" }}"
                                 type="text"
                                 name="phones"
                                 id="phones"
                             >
                             <label for="alternativeNumber">Alternative Number</label>
                             <input
-                                value="{{ auth()->user()->company->alternativeNumber ?? "" }}"
+                                value="{{ auth()->event()->company->alternativeNumber ?? "" }}"
                                 type="text"
                                 name="alternativeNumber"
                                 id="alternativeNumber"
                             >
                             <label for="companyName">Company Name</label>
                             <input
-                                value="{{ auth()->user()->company->companyName ?? "" }}"
+                                value="{{ auth()->event()->company->companyName ?? "" }}"
                                 type="text"
                                 name="companyName"
                                 id="companyName"
                             >
                             <label for="email">Company Email</label>
                             <input
-                                value="{{ auth()->user()->company->email ?? "" }}"
+                                value="{{ auth()->event()->company->email ?? "" }}"
                                 type="email"
                                 name="companyEmail"
                                 id="companyEmail"
                             >
                             <label for="address">Company Address</label>
                             <input
-                                value="{{ auth()->user()->company->address ?? "" }}"
+                                value="{{ auth()->event()->company->address ?? "" }}"
                                 type="text"
                                 name="address"
                                 id="address"
                             >
                             <label for="companyWebsite">Company Website</label>
                             <input
-                                value="{{ auth()->user()->company->website ?? "" }}"
+                                value="{{ auth()->event()->company->website ?? "" }}"
                                 type="url"
                                 name="companyWebsite"
                                 id="companyWebsite"
                             >
                             <label for="country">Country</label>
-                            <select type="text" name="country" id="country" value="{{ auth()->user()->company->country}}">
-                                <option value="{{ auth()->user()->company->country}}">{{ auth()->user()->company->country}}</option>
+                            <select type="text" name="country" id="country" value="{{ auth()->event()->company->country}}">
+                                <option value="{{ auth()->event()->company->country}}">{{ auth()->event()->company->country}}</option>
                                 @foreach($countries as $country)
                                     <option value="{{ $country->countryCode }}">
                                         {{ $country->countryName }}
@@ -119,7 +119,7 @@
                             </select>
                             <label for="city"> City</label>
                             <input
-                                value="{{ auth()->user()->company->city ?? "" }}"
+                                value="{{ auth()->event()->company->city ?? "" }}"
                                 type="text"
                                 name="city"
                                 id="city"
@@ -136,7 +136,7 @@
                 <h4 class="gray">Change Password</h4>
                 <div class="dashboard-list-box-static">
                     <div class="my-profile">
-                        <form action="{{ route('organiser.profile.update', auth()->user()->key) }}" method="post" class="submitPassword">
+                        <form action="{{ route('event.profile.update', auth()->event()->key) }}" method="post" class="submitPassword">
                             @csrf
                             @method('PUT')
                             <label for="oldPassword" class="margin-top-0">Current Password</label>
@@ -193,7 +193,7 @@
                     form.append('images',files[0]);
 
                     $.ajax({
-                        url: `{{ route('organiser.profile.images') }}`,
+                        url: `{{ route('event.profile.images') }}`,
                         type: 'post',
                         data: form,
                         contentType: false,
@@ -210,4 +210,4 @@
             })
         </script>
     @endsection
-</x-organiser-layout>
+</x-event-layout>
