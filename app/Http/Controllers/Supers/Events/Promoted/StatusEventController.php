@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Supers\Events\Promoted;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateStatusEvent;
 use App\Repository\Suppers\StatusEventRepository;
-use Illuminate\Http\Request;
 
 class StatusEventController extends Controller
 {

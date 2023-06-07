@@ -38,7 +38,7 @@
                             <span>$ {{ $event->prices ?? "" }}</span>
                         </td>
                         <td class="nk-tb-col tb-col-md">
-                            <span>{{ $event->event->name ?? "" }}</span>
+                            <span>{{ $event->user->name ?? "" }}</span>
                         </td>
                         <td class="nk-tb-col tb-col-md">
                             <span>{{ $event->created_at->diffForHumans() ?? "" }}</span>

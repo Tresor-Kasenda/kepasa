@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers;
 
+use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\User;
@@ -94,5 +95,19 @@ class ProfileOrganiserRepository
         return Company::query()
             ->where('user_id', '=', auth()->id())
             ->first();
+    }
+
+    public function updateProfile(User $user, UpdateProfileRequest $request): User
+    {
+        $user->update([
+            'name' => $request->input('name'),
+            'lastName' => $request->input('lastName'),
+            'email' => $request->input('email'),
+            'phones' => $request->input('phones'),
+            'country_id' => $request->input('country')
+        ]);
+
+        return $user;
+
     }
 }

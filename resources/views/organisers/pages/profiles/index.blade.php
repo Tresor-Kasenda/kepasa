@@ -1,4 +1,4 @@
-<x-event-layout>
+<x-organiser-layout>
     @section('title', "Modification des informations de l'organteur d'evenement")
 
     <div id="titlebar">
@@ -7,8 +7,8 @@
                 <h2>My Profile</h2>
                 <nav id="breadcrumbs">
                     <ul>
-                        <li><a href="{{ route('event.index') }}">Home</a></li>
-                        <li><a href="{{ route('event.profile.index') }}">Dashboard</a></li>
+                        <li><a href="{{ route('organiser.index') }}">Home</a></li>
+                        <li><a href="{{ route('organiser.profile') }}">Dashboard</a></li>
                         <li>My Profile</li>
                     </ul>
                 </nav>
@@ -20,146 +20,275 @@
         @include('organisers.partials._flash')
     </div>
 
-    <div class="row">
-        <div class="col-lg-6 col-md-12">
-            <div class="dashboard-list-box margin-top-0">
-                <h4 class="gray">Profile Details</h4>
-                <div class="dashboard-list-box-static">
-                    <div class="edit-profile-photo">
-                        @if(auth()->event()->company->images !== null)
-                            <img src="{{ asset('storage/'.auth()->event()->company->images) }}" id="preview" alt="Photo de profile">
-                        @else
-                            <img src="{{ asset('assets/images/profile.jpg') }}" id="preview" alt="Photo de profile">
-                        @endif
-                        <form id="submit">
+    <div class="style-1 mt-2">
+        <ul class="tabs-nav" x-data="{ organiserTab: $persist('profile') }">
+            <li @click.prevent="organiserTab='profile'" :class="organiserTab === 'profile' ? 'active' : ''">
+                <a href="#profile" @click.prevent="organiserTab='profile'" :class="organiserTab === 'profile' ? 'active' : ''">
+                    <i class="sl sl-icon-user"></i>
+                    Update Profile
+                </a>
+            </li>
+            <li @click.prevent="organiserTab='company'" :class="organiserTab === 'company' ? 'active' : ''">
+                <a href="#company" @click.prevent="organiserTab='company'" :class="organiserTab === 'company' ? 'active' : ''">
+                    <i class="sl sl-icon-pin"></i>
+                    Company
+                </a>
+            </li>
+            <li @click.prevent="organiserTab='password'" :class="organiserTab === 'password' ? 'active' : ''">
+                <a href="#password" @click.prevent="organiserTab='password'" :class="organiserTab === 'password' ? 'active' : ''">
+                    <i class="sl sl-icon-pin"></i>
+                    Update password
+                </a>
+            </li>
+        </ul>
+
+        <div class="tabs-container mb-2">
+            <div class="tab-content mb-2" id="profile" :class="organiserTab === 'profile' ? 'active' : ''">
+                <div class="dashboard-list-box margin-top-0 mb-3" style="margin-bottom: 2%">
+                    <h4 class="gray">Profile Details</h4>
+                    <div class="dashboard-list-box-static">
+                        <div class="edit-profile-photo">
+                            @if(auth()->user()->company->images !== null)
+                                <img
+                                    src="{{ asset('storage/'.auth()->user()->company->images) }}"
+                                    id="preview"
+                                    alt="{{ auth()->user()->id ?? "" }}">
+                            @else
+                                <img
+                                    src="{{ asset('assets/images/profile.jpg') }}"
+                                    id="preview"
+                                    alt="Photo de profile">
+                            @endif
+                            <form id="submit">
+                                @csrf
+                                <div class="change-photo-btn">
+                                    <div class="photoUpload">
+                                        <span><i class="fa fa-upload"></i></span>
+                                        <input type="file" class="upload" name="images" id="images" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <form action="{{ route('organiser.profile.update', auth()->id()) }}" class="updateDetails" method="post">
                             @csrf
-                            <div class="change-photo-btn">
-                                <div class="photoUpload">
-                                    <span><i class="fa fa-upload"></i></span>
-                                    <input type="file" class="upload" name="images" id="images" />
+                            <div class="row with-forms">
+                                <div class="col-md-6">
+                                    <h5>Name</h5>
+                                    <input
+                                        type="text"
+                                        value="{{ old('name') ?? auth()->user()->name }}"
+                                        name="name"
+                                        id="name"
+                                    >
+                                    @error('name')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+
+                                    <h5>Last Name</h5>
+                                    <input
+                                        type="text"
+                                        value="{{ old('lastName') ?? auth()->user()->lastName }}"
+                                        name="lastName"
+                                        id="lastName"
+                                    >
+                                    @error('lastName')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+
+                                    <h5>Email</h5>
+                                    <input
+                                        value="{{ auth()->user()->email ?? "" }}"
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                    >
+                                    @error('email')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h5>Phone</h5>
+                                    <input
+                                        value="{{ old('phones') ?? auth()->user()->phones }}"
+                                        type="text"
+                                        name="phones"
+                                        id="phones"
+                                    >
+                                    @error('phones')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+
+                                    <h5>Country</h5>
+                                    <select type="text" name="country" id="country">
+                                        <option value="{{ auth()->user()->country->id }}">{{ auth()->user()->country->countryName }}</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{ $country->id }}">
+                                                {{ $country->countryName }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('contry')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+
+                                    <h5> City</h5>
+                                    <input
+                                        value="{{ old('city') ?? auth()->user()->company->city }}"
+                                        type="text"
+                                        name="city"
+                                        id="city"
+                                    >
+                                    @error('city')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </div>
                             </div>
+                            <button type="submit" class="button margin-top-15">
+                                Update Profile
+                                <i class="sl sl-icon-arrow-right-circle"></i>
+                            </button>
                         </form>
                     </div>
-                    <form action="{{ route('event.company.update') }}" class="updateDetails" method="post">
-                        @csrf
-                        <div class="my-profile">
-                            <label for="name">Name</label>
-                            <input
-                                type="text"
-                                value="{{ auth()->event()->name ?? "" }}"
-                                name="name"
-                                id="name"
-                            >
-                            <label for="lastName">Last Name</label>
-                            <input
-                                type="text"
-                                value="{{ auth()->event()->lastName ?? "" }}"
-                                name="lastName"
-                                id="lastName"
-                            >
-                            <label for="email">Email</label>
-                            <input
-                                value="{{ auth()->event()->email ?? "" }}"
-                                type="email"
-                                name="email"
-                                id="email"
-                                disabled
-                            >
-                            <label for="phones">Phone</label>
-                            <input
-                                value="{{ auth()->event()->phones ?? "" }}"
-                                type="text"
-                                name="phones"
-                                id="phones"
-                            >
-                            <label for="alternativeNumber">Alternative Number</label>
-                            <input
-                                value="{{ auth()->event()->company->alternativeNumber ?? "" }}"
-                                type="text"
-                                name="alternativeNumber"
-                                id="alternativeNumber"
-                            >
-                            <label for="companyName">Company Name</label>
-                            <input
-                                value="{{ auth()->event()->company->companyName ?? "" }}"
-                                type="text"
-                                name="companyName"
-                                id="companyName"
-                            >
-                            <label for="email">Company Email</label>
-                            <input
-                                value="{{ auth()->event()->company->email ?? "" }}"
-                                type="email"
-                                name="companyEmail"
-                                id="companyEmail"
-                            >
-                            <label for="address">Company Address</label>
-                            <input
-                                value="{{ auth()->event()->company->address ?? "" }}"
-                                type="text"
-                                name="address"
-                                id="address"
-                            >
-                            <label for="companyWebsite">Company Website</label>
-                            <input
-                                value="{{ auth()->event()->company->website ?? "" }}"
-                                type="url"
-                                name="companyWebsite"
-                                id="companyWebsite"
-                            >
-                            <label for="country">Country</label>
-                            <select type="text" name="country" id="country" value="{{ auth()->event()->company->country}}">
-                                <option value="{{ auth()->event()->company->country}}">{{ auth()->event()->company->country}}</option>
-                                @foreach($countries as $country)
-                                    <option value="{{ $country->countryCode }}">
-                                        {{ $country->countryName }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <label for="city"> City</label>
-                            <input
-                                value="{{ auth()->event()->company->city ?? "" }}"
-                                type="text"
-                                name="city"
-                                id="city"
-                            >
-                        </div>
-                        <button type="submit" class="button margin-top-15">Save Changes</button>
-                    </form>
                 </div>
             </div>
-        </div>
 
-        <div class="col-lg-6 col-md-12">
-            <div class="dashboard-list-box margin-top-0">
-                <h4 class="gray">Change Password</h4>
-                <div class="dashboard-list-box-static">
-                    <div class="my-profile">
-                        <form action="{{ route('event.profile.update', auth()->event()->key) }}" method="post" class="submitPassword">
+            <div class="tab-content mb-2" id="company" :class="organiserTab === 'company' ? 'active' : ''">
+                <div class="dashboard-list-box margin-top-0" style="margin-bottom: 2%">
+                    <h4 class="gray">Update Company</h4>
+                    <div class="dashboard-list-box-static">
+                        <form action="{{ route('organiser.profile.update.company', auth()->id()) }}" class="updateDetails" method="post">
                             @csrf
-                            @method('PUT')
-                            <label for="oldPassword" class="margin-top-0">Current Password</label>
-                            <input
-                                type="password"
-                                name="oldPassword"
-                                id="oldPassword"
-                            >
-                            <label for="password">New Password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                            >
-                            <label for="password_confirmation">Confirm New Password</label>
-                            <input
-                                type="password"
-                                name="password_confirmation"
-                                id="password_confirmation"
-                            >
-                            <span class="text-sm-left small" id="message1"></span> <br>
-                            <button type="submit" class="button margin-top-15" id="updatePassword">Change Password</button>
+                            <div class="row with-forms">
+                                <div class="col-md-6">
+                                    <h5>Company Name</h5>
+                                    <input
+                                        value="{{ old('companyName') ?? auth()->user()->company->companyName }}"
+                                        type="text"
+                                        name="companyName"
+                                        id="companyName"
+                                        placeholder="company name"
+                                    >
+                                    @error('companyName')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+
+                                    <h5>Company Address</h5>
+                                    <input
+                                        value="{{ old('address') ?? auth()->user()->company->address }}"
+                                        type="text"
+                                        name="address"
+                                        id="address"
+                                        placeholder="address"
+                                    >
+                                    @error('address')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+
+                                    <h5>Company Phones</h5>
+                                    <input
+                                        value="{{ old('phonesCompany') ?? auth()->user()->company->phones }}"
+                                        type="text"
+                                        name="phonesCompany"
+                                        id="phonesCompany"
+                                        placeholder="phone number"
+                                    >
+                                    @error('phonesCompany')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+
+                                    <h5>Company Email</h5>
+                                    <input
+                                        value="{{ old('emailCompany') ?? auth()->user()->company->email }}"
+                                        type="email"
+                                        name="emailCompany"
+                                        id="emailCompany"
+                                        placeholder="email Company"
+                                    >
+                                    @error('emailCompany')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Company Website</h5>
+                                    <input
+                                        value="{{ old('website') ?? auth()->user()->company->website }}"
+                                        type="text"
+                                        name="website"
+                                        id="website"
+                                        placeholder="https://www.facebook.com/"
+                                    >
+                                    @error('website')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+
+                                    <h5><i class="fa fa-facebook-square"></i> Company Social media</h5>
+                                    <input
+                                        value="{{ old('socialMedia') ?? auth()->user()->company->socialMedia }}"
+                                        type="text"
+                                        name="socialMedia"
+                                        id="socialMedia"
+                                        placeholder="https://www.facebook.com/"
+                                    >
+                                    @error('socialMedia')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+
+                                    <h5>Country</h5>
+                                    <select type="text" name="country" id="country">
+                                        <option value="{{ auth()->user()->company->country}}">{{ auth()->user()->country->countryName}}</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{ $country->countryCode }}">
+                                                {{ $country->countryName }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('country')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+
+                                    <h5> City</h5>
+                                    <input
+                                        value="{{ old('cityName') ?? auth()->user()->company->city }}"
+                                        type="text"
+                                        name="cityName"
+                                        id="cityName"
+                                        placeholder="city name"
+                                    >
+                                    @error('cityName')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                </div>
+                            </div>
+                            <button type="submit" class="button margin-top-15">
+                                Update Company
+                                <i class="sl sl-icon-arrow-right-circle"></i>
+                            </button>
                         </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content mb-2" id="password" :class="organiserTab === 'password' ? 'active' : ''">
+                <div class="dashboard-list-box margin-top-0" style="margin-bottom: 2%">
+                    <h4 class="gray">Change Password</h4>
+                    <div class="dashboard-list-box-static">
+                        <div class="my-profile">
+                            <form action="{{ route('organiser.profile.update', auth()->user()->key) }}" method="post" class="submitPassword">
+                                @csrf
+                                @method('PUT')
+                                <div class="row with-forms">
+                                    <div class="col-md-6">
+                                        <h5>Company Email</h5>
+                                        <input
+                                            value="{{ old('companyEmail') ?? auth()->user()->company->email }}"
+                                            type="email"
+                                            name="companyEmail"
+                                            id="companyEmail"
+                                        >
+
+                                        <h5>Current Password</h5>
+                                        <input
+                                            type="password"
+                                            name="oldPassword"
+                                            id="oldPassword"
+                                        >
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>New Password</h5>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            id="password"
+                                        >
+                                        <h5>Confirm New Password</h5>
+                                        <input
+                                            type="password"
+                                            name="password_confirmation"
+                                            id="password_confirmation"
+                                        >
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="button margin-top-15" id="updatePassword">
+                                    Change Password
+                                    <i class="sl sl-icon-arrow-right-circle"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -193,7 +322,7 @@
                     form.append('images',files[0]);
 
                     $.ajax({
-                        url: `{{ route('event.profile.images') }}`,
+                        url: `{{ route('organiser.profile.upload') }}`,
                         type: 'post',
                         data: form,
                         contentType: false,
@@ -210,4 +339,4 @@
             })
         </script>
     @endsection
-</x-event-layout>
+</x-organiser-layout>

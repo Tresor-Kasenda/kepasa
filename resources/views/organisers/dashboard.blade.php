@@ -1,12 +1,12 @@
-<x-event-layout>
+<x-organiser-layout>
     @section('title', "Manager")
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
-                <h2>{{ auth()->event()->name ?? "" }}  {{ auth()->event()->lastName ?? "" }}</h2>
+                <h2>{{ auth()->user()->name. " " . auth()->user()->lastName }} </h2>
                 <nav id="breadcrumbs">
                     <ul>
-                        <li><a href="{{ route('event.index') }}">Home</a></li>
+                        <li><a href="{{ route('organiser.index') }}">Home</a></li>
                         <li>Dashboard</li>
                     </ul>
                 </nav>
@@ -133,4 +133,4 @@
         </script>
     @endsection
 
-</x-event-layout>
+</x-organiser-layout>

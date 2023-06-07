@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Admins\CityAdminController;
-use App\Http\Controllers\Admins\EventCountryAdminController;
-use App\Http\Controllers\Admins\EventOrganiserAdminController;
-use App\Http\Controllers\Admins\EventsAdminController;
-use App\Http\Controllers\Admins\HomeAdminController;
-use App\Http\Controllers\Admins\UpdateUserController;
 use App\Http\Controllers\Apps\Bookings\BookingController;
 use App\Http\Controllers\Apps\Cities\CountriesController;
 use App\Http\Controllers\Apps\Cities\ShowCityController;
@@ -27,8 +21,11 @@ use App\Http\Controllers\Organisers\EventOrganiserController;
 use App\Http\Controllers\Organisers\HomeOrganiserController;
 use App\Http\Controllers\Organisers\ImageOrganiserController;
 use App\Http\Controllers\Organisers\PaypalController;
+use App\Http\Controllers\Organisers\Profile\Company\UpdateCompanyController;
+use App\Http\Controllers\Organisers\Profile\DeleteUsersController;
+use App\Http\Controllers\Organisers\Profile\UpdateProfileController;
+use App\Http\Controllers\Organisers\Profile\UploadProfileController;
 use App\Http\Controllers\Organisers\ProfileOrganiserController;
-use App\Http\Controllers\Supers\BillingSupperController;
 use App\Http\Controllers\Supers\Categories\CreateCategoryController;
 use App\Http\Controllers\Supers\Categories\ListCategoryController;
 use App\Http\Controllers\Supers\Categories\StoreCategoryController;
@@ -36,17 +33,15 @@ use App\Http\Controllers\Supers\Country\City\EditCountryCityController;
 use App\Http\Controllers\Supers\Country\City\ShowCountryCityController;
 use App\Http\Controllers\Supers\Country\City\UpdateCountryCityController;
 use App\Http\Controllers\Supers\Country\ListCountryController;
-use App\Http\Controllers\Supers\CountrySupperController;
-use App\Http\Controllers\Supers\EventCountrySupperController;
-use App\Http\Controllers\Supers\Events\DestroyEventAdminController;
 use App\Http\Controllers\Supers\Events\ListsEventAdminController;
 use App\Http\Controllers\Supers\Events\Promoted\PromotedEventController;
 use App\Http\Controllers\Supers\Events\Promoted\StatusEventController;
 use App\Http\Controllers\Supers\Events\Promoted\UnPromotedEventController;
 use App\Http\Controllers\Supers\Events\ShowEventAdminController;
-use App\Http\Controllers\Supers\Events\UpdateEventAdminController;
 use App\Http\Controllers\Supers\HomeSuperController;
-use App\Http\Controllers\Supers\PromotedEventSuperController;
+use App\Http\Controllers\Supers\Invoices\DownloadInvoiceController;
+use App\Http\Controllers\Supers\Invoices\ListInvoicesController;
+use App\Http\Controllers\Supers\Invoices\ShowInvoiceController;
 use App\Http\Controllers\Supers\Settings\SettingController;
 use App\Http\Controllers\Supers\Settings\SettingUpdateController;
 use App\Http\Controllers\Supers\Settings\SettingUpdatePasswordController;
@@ -57,14 +52,16 @@ use App\Http\Controllers\Supers\Users\ListUsersController;
 use App\Http\Controllers\Supers\Users\ShowUsersController;
 use App\Http\Controllers\Supers\Users\StoreUsersController;
 use App\Http\Controllers\Supers\Users\UpdateStatusUserController;
+use App\Http\Controllers\Supers\Users\UpdateUserController;
 use App\Http\Controllers\Users\InvoiceCustomerController;
 use App\Http\Controllers\Users\PaypalCustomerController;
 use App\Http\Middleware\EnsureDefaultPasswordIsChanged;
+use App\Http\Middleware\EnsureOrganiserPasswordChange;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
-Route::middleware(middleware: 'auth')->group(callback: static function (): void {
+Route::middleware('auth')->group(function (): void {
 
     Route::group(
         attributes: [
@@ -75,12 +72,11 @@ Route::middleware(middleware: 'auth')->group(callback: static function (): void 
                 EnsureDefaultPasswordIsChanged::class
             ]
         ],
-        routes: static function (): void {
+        routes:  function (): void {
             Route::get('/index', HomeSuperController::class)->name('dashboard');
 
             Route::get('events', ListsEventAdminController::class)->name('events.index');
             Route::get('events/{event}/show', ShowEventAdminController::class)->name('events.show');
-
             Route::put('events/{event}/promoted', PromotedEventController::class)->name('events.promoted');
             Route::put('events/{event}/unpromoted', UnPromotedEventController::class)->name('events.unpromoted');
             Route::put('events/{event}/status', StatusEventController::class)->name('events.status');
@@ -88,11 +84,11 @@ Route::middleware(middleware: 'auth')->group(callback: static function (): void 
             Route::get('users', ListUsersController::class)->name('users-list');
             Route::get('users/{user}/show', ShowUsersController::class)->name('users.show');
             Route::get('users/create', CreateUsersController::class)->name('users.create');
-            Route::get('users/{user}/edit', EditUserController::class)->name('users.edit');
             Route::post('users', StoreUsersController::class)->name('users.store');
+            Route::get('users/{user}/edit', EditUserController::class)->name('users.edit');
+            Route::post('users/status', UpdateStatusUserController::class);
             Route::put('users/{user}/update', \App\Http\Controllers\Supers\Users\UpdateUserController::class)->name('users.update');
             Route::delete('users/{user}/delete', DeleteUserController::class)->name('users.delete');
-            Route::post('users/status', UpdateStatusUserController::class);
 
             Route::get('category', ListCategoryController::class)->name('category-list');
             Route::get('category/create', CreateCategoryController::class)->name('category.create');
@@ -104,56 +100,55 @@ Route::middleware(middleware: 'auth')->group(callback: static function (): void 
             Route::get('country/{city}/edit', EditCountryCityController::class)->name('cities.edit');
             Route::put('country/{city}/update', UpdateCountryCityController::class)->name('country-city.update');
 
-            Route::resource('eventsCountries', EventCountrySupperController::class);
-
-            Route::controller(BillingSupperController::class)->group(function (): void {
-                Route::get('billings', '__invoke')->name('billing.index');
-                Route::get('billings/{billingKey}', 'show')->name('billing.show');
-                Route::get('invoice/{key}', 'invoice')->name('billing.invoice');
-            });
+            Route::get('invoices', ListInvoicesController::class)->name('invoices-list');
+            Route::get('invoices/{billing}/show', ShowInvoiceController::class)->name('invoices.show');
+            Route::get('invoices/{billing}/download', DownloadInvoiceController::class)->name('invoices.download');
 
             Route::get('setting', SettingController::class)->name('settings.index');
             Route::put('setting/{user}', SettingUpdateController::class)->name('settings.store');
 
             Route::put('password/{user}/update', SettingUpdatePasswordController::class)->name('settings.password');
             Route::put('admins/{user}/update', UpdateUserController::class)->name('admins.change');
-    });
+        }
+    );
 
-    Route::group(['prefix' => 'organiser', 'as' => 'organiser.', 'middleware' => ['organiser']], function (): void {
-        Route::get('/', HomeOrganiserController::class)->name('index');
-        Route::resource('profile', ProfileOrganiserController::class);
-        Route::get('bookings', BookingOrganiserController::class)->name('bookings.index');
-        Route::resource('images', ImageOrganiserController::class);
-        Route::resource('events', EventOrganiserController::class);
-        Route::resource('events.payment', CheckoutOrganiserController::class);
+    Route::group(
+        attributes: [
+            'prefix' => 'organiser',
+            'as' => 'organiser.',
+            'middleware' => [
+                'organiser',
+                EnsureOrganiserPasswordChange::class
+            ]
+        ],
+        routes: function (): void {
+            Route::get('/', HomeOrganiserController::class)->name('index');
 
-        Route::controller(CheckoutOrganiserController::class)->group(function (): void {
-            Route::post('confirm-payment', 'confirmed')->name('confirm.payment.event');
-            Route::get('confirmation/{event}/update', 'updateCheckout')->name('checkout.confirmed');
-        });
+            Route::get('profile', \App\Http\Controllers\Organisers\Profile\ProfileOrganiserController::class)->name('profile');
+            Route::post('profile/{user}/update', UpdateProfileController::class)->name('profile.update');
+            Route::post('profile/{user}/company', UpdateCompanyController::class)->name('profile.update.company');
+            Route::post('profile/upload', UploadProfileController::class)->name('profile.upload');
+            Route::delete('profile/{user}/delete', DeleteUsersController::class)->name('profile.delete');
 
-        Route::controller(ProfileOrganiserController::class)->group(function (): void {
-            Route::post('imagesProfile', 'uploadPicture')->name('profile.images');
-            Route::post('updateCompany', 'updateCompany')->name('company.update');
-        });
+            Route::get('bookings', BookingOrganiserController::class)->name('bookings.index');
+            Route::resource('images', ImageOrganiserController::class);
+            Route::resource('events', EventOrganiserController::class);
+            Route::resource('events.payment', CheckoutOrganiserController::class);
 
-        Route::controller(EnableXTokenController::class)->group(function (): void {
-            Route::post('createToken', 'createToken')->name('enable.token');
-            Route::get('getRoom/{token}/{roomId}', 'joinRoom')->name('enable.joinRoom');
-        });
+            Route::controller(CheckoutOrganiserController::class)->group(function (): void {
+                Route::post('confirm-payment', 'confirmed')->name('confirm.payment.event');
+                Route::get('confirmation/{event}/update', 'updateCheckout')->name('checkout.confirmed');
+            });
 
-        Route::controller(PaypalController::class)->group(function (): void {
-            Route::post('/order/create', 'create')->name('paypal.transaction');
-            Route::post('/order/capture', 'capture')->name('paypal.capture');
-        });
-    });
+            Route::controller(EnableXTokenController::class)->group(function (): void {
+                Route::post('createToken', 'createToken')->name('enable.token');
+                Route::get('getRoom/{token}/{roomId}', 'joinRoom')->name('enable.joinRoom');
+            });
 
-    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function (): void {
-        Route::resource('admin', HomeAdminController::class);
-        Route::resource('eventsCountries', EventCountryAdminController::class);
-        Route::resource('eventsAdmins', EventsAdminController::class);
-        Route::resource('eventsOrganisers', EventOrganiserAdminController::class);
-        Route::resource('cityMedia', CityAdminController::class);
+            Route::controller(PaypalController::class)->group(function (): void {
+                Route::post('/order/create', 'create')->name('paypal.transaction');
+                Route::post('/order/capture', 'capture')->name('paypal.capture');
+            });
     });
 
     Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user']], function (): void {

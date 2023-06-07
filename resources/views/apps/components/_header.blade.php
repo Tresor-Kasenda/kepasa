@@ -77,7 +77,7 @@
                             </a>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="sign-in {{ Request::url() === route('login') ? 'current' : '' }}">
+                        <a href="{{ route('login') }}" class="button border with-icon">
                             <i class="sl sl-icon-login"></i> Sign In
                         </a>
                     @endauth

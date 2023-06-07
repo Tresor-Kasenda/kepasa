@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\QueryBuilder\InvoiceQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -63,6 +64,11 @@ class Billing extends Model
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class, 'event_id');
+    }
+
+    public function newEloquentBuilder($query): InvoiceQueryBuilder
+    {
+        return new InvoiceQueryBuilder($query);
     }
 
     public function user(): BelongsTo

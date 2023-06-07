@@ -219,6 +219,6 @@ class EventOrganiserRepository
     {
         return Country::query()
             ->where('countryCode', '=', $attributes->input('country'))
-            ->first(); 
+            ->first();
     }
 }

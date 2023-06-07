@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Events\Promoted;
 
 use App\Http\Controllers\Controller;
@@ -15,6 +17,6 @@ class StatusEventController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //
+
     }
 }

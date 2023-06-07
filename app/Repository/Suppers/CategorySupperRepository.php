@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Repository\Suppers;
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use LaravelIdea\Helper\App\Models\_IH_Category_QB;
 
 class CategorySupperRepository
 {
@@ -17,7 +20,7 @@ class CategorySupperRepository
             ->get();
     }
 
-    public function store(array $validated)
+    public function store(array $validated): Model|Builder|_IH_Category_QB|Category
     {
         return Category::query()
             ->create([

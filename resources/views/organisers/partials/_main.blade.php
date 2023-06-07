@@ -1,37 +1,37 @@
-<a href="#" class="dashboard-responsive-nav-trigger">
+<a href="{{ route('organiser.index') }}" class="dashboard-responsive-nav-trigger">
     <i class="fa fa-reorder"></i>
     Dashboard Navigation
 </a>
 <div class="dashboard-nav">
     <div class="dashboard-nav-inner">
-        <ul data-submenu-title="Main">
-            <li class="{{ Request::url() === route('event.index') ? 'active' : '' }}">
-                <a href="{{ route('event.index') }}">
+        <ul>
+            <li class="{{ Request::url() === route('organiser.index') ? 'active' : '' }}">
+                <a href="{{ route('organiser.index') }}">
                     <i class="sl sl-icon-settings"></i> Dashboard
                 </a>
             </li>
         </ul>
         <ul data-submenu-title="Listings">
-            <li class="{{ Request::url() === route('event.events.index') ? 'active' : '' }}">
-                <a href="{{ route('event.events.index') }}">
+            <li class="{{ Request::url() === route('organiser.events.index') ? 'active' : '' }}">
+                <a href="{{ route('organiser.events.index') }}">
                     <i class="sl sl-icon-list"></i> Event
                 </a>
             </li>
-            <li class="{{ Request::url() === route('event.bookings.index') ? 'active' : '' }}">
-                <a href="{{ route('event.bookings.index') }}">
+            <li class="{{ Request::url() === route('organiser.bookings.index') ? 'active' : '' }}">
+                <a href="{{ route('organiser.bookings.index') }}">
                     <i class="sl sl-icon-wallet"></i> Bookings
                 </a>
             </li>
-            <li class="{{ Request::url() === route('event.images.index') ? 'active' : '' }}">
-                <a href="{{ route('event.images.index') }}">
+            <li class="{{ Request::url() === route('organiser.images.index') ? 'active' : '' }}">
+                <a href="{{ route('organiser.images.index') }}">
                     <i class="sl sl-icon-picture"></i> Event images
                 </a>
             </li>
         </ul>
         <ul data-submenu-title="Account">
-            <li class="{{ Request::url() === route('event.profile.index') ? 'active' : '' }}">
-                <a href="{{ route('event.profile.index') }}">
-                    <i class="sl sl-icon-event"></i> My Profile
+            <li class="{{ Request::url() === route('organiser.profile') ? 'active' : '' }}">
+                <a href="{{ route('organiser.profile') }}">
+                    <i class="sl sl-icon-user"></i> My Profile
                 </a>
             </li>
             <li>

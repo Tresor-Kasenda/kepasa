@@ -47,13 +47,6 @@
                     </x-vex-nav-link>
 
                     <x-vex-nav-link
-                            href="{{ route('supper.eventsCountries.index') }}"
-                            :active="request()->routeIs('supper.eventsCountries.index')"
-                            icons="ni-location">
-                        Events By Country
-                    </x-vex-nav-link>
-
-                    <x-vex-nav-link
                             href="{{ route('supper.country-list') }}"
                             :active="request()->routeIs('supper.country-list')"
                             icons="ni-map"
@@ -62,8 +55,8 @@
                     </x-vex-nav-link>
 
                     <x-vex-nav-link
-                            href="{{ route('supper.billing.index') }}"
-                            :active="request()->routeIs('supper.billing.index')"
+                            href="{{ route('supper.invoices-list') }}"
+                            :active="request()->routeIs('supper.invoices-list')"
                             icons="ni-wallet-saving"
                     >
                         Billing
@@ -72,7 +65,7 @@
                     <x-vex-nav-link
                             href="{{ route('supper.users-list') }}"
                             :active="request()->routeIs('supper.users-list')"
-                            icons="ni-event-round"
+                            icons="ni-user-round"
                     >
                         Users
                     </x-vex-nav-link>

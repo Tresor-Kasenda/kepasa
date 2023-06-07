@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Organisers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Requests\ProfileImageRequest;
-use App\Http\Requests\ProfileOrganiserRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Repository\Organisers\ProfileOrganiserRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\JsonResponse;
@@ -19,12 +19,7 @@ class ProfileOrganiserController extends Controller
     {
     }
 
-    public function index(): Renderable
-    {
-        return view('organisers.pages.profiles.index');
-    }
-
-    public function update(string $key, ProfileOrganiserRequest $attributes): RedirectResponse
+    public function update(string $key, UpdateProfileRequest $attributes): RedirectResponse
     {
         $this->repository->updatePassword(key: $key, attributes: $attributes);
 

@@ -83,7 +83,6 @@ class Kernel extends HttpKernel
         'throttle' => ThrottleRequests::class,
         'verified' => EnsureEmailIsVerified::class,
         'supper' => SuperMiddleware::class,
-        'admin' => AdminMiddleware::class,
         'organiser' => OrganiserMiddleware::class,
         'user' => CustomerMiddleware::class,
     ];

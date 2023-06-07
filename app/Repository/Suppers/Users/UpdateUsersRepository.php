@@ -27,7 +27,7 @@ class UpdateUsersRepository
             'phones' => $request->input('phones'),
             'images' => self::uploadProfile($request)
         ]);
-        event(new UpdateUserEvent($user));
+        $user->notify(new UpdateUserEvent($user));
 
         return $user;
     }

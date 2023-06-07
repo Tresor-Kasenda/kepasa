@@ -105,7 +105,7 @@
                                 <div class="form-group">
                                     <label class="form-label" for="country">Country</label>
                                     <div class="form-control-wrap">
-                                        <select class="form-control @error('country') error @enderror" class="countries" id="country" name="country">
+                                        <select class="form-control js-select2 @error('country') error @enderror" data-search="on" id="country" name="country">
                                             <option value="default_option">Selected country</option>
                                             @foreach($countries as $country)
                                                 <option value="{{ $country->id }}">

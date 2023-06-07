@@ -20,10 +20,6 @@ class OrganiserMiddleware
             return redirect()->route('supper.dashboard');
         }
 
-        if (2 === Auth::user()->role_id) {
-            return redirect()->route('admin.admin.index');
-        }
-
         if (3 === Auth::user()->role_id) {
             return $next($request);
         }

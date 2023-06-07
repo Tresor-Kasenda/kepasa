@@ -1,98 +1,69 @@
 <x-app-layout>
     @section('title', "Facture par evenement")
 
-    @section('content')
-        <div class="nk-content-inner">
-            <div class="nk-content-body">
-                <div class="nk-block-head nk-block-head-sm">
-                    <div class="nk-block-between">
-                        <div class="nk-block-head-content">
-                            <h3 class="nk-block-title page-title">Factures</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="nk-block">
-                    <div class="nk-block nk-block-lg">
-                        <div class="card card-preview">
-                            <div class="card-inner">
-                                <table class="datatable-init nowrap nk-tb-list nk-tb-ulist" data-auto-responsive="false">
-                                    <thead>
-                                    <tr class="nk-tb-item nk-tb-head text-center">
-                                        <th class="nk-tb-col tb-col-mb">
-                                            <span class="sub-text">Event Name</span>
-                                        </th>
-                                        <th class="nk-tb-col tb-col-md">
-                                            <span class="sub-text">Ticket Price</span>
-                                        </th>
-                                        <th class="nk-tb-col tb-col-md">
-                                            <span class="sub-text">Amount Sold</span>
-                                        </th>
-                                        <th class="nk-tb-col nk-tb-col-tools text-right">
-                                            <span class="sub-text">Commission</span>
-                                        </th>
-                                        <th class="nk-tb-col nk-tb-col-tools text-right">
-                                            <span class="sub-text">Pay out</span>
-                                        </th>
-                                        <th class="nk-tb-col nk-tb-col-tools text-right">
-                                            <span class="sub-text">Option</span>
-                                        </th>
-                                        <th class="nk-tb-col nk-tb-col-tools text-right">
-                                            <span class="sub-text">Action</span>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($billings as $billing)
-                                        <tr class="nk-tb-item text-center">
-                                            <td class="nk-tb-col tb-col-md">
-                                                <span>{{ strtoupper($billing->event->title) ?? "" }}</span>
-                                            </td>
-                                            <td class="nk-tb-col tb-col-md">
-                                                <span>${{ $billing->ticketPrice ?? 0 }}</span>
-                                            </td>
-                                            <td class="nk-tb-col tb-col-md">
-                                                <span>${{ $billing->amountSold ?? 0 }}</span>
-                                            </td>
-                                            <td class="nk-tb-col tb-col-md">
-                                                <span>${{ $billing->commission ?? 0 }}</span>
-                                            </td>
-                                            <td class="nk-tb-col tb-col-md">
-                                                <span>${{ $billing->payout ?? 0 }}</span>
-                                            </td>
-                                            <td class="nk-tb-col tb-col-md">
-                                                <span>{{ $billing->feeType ?? " " }}</span>
-                                            </td>
-                                            <td class="nk-tb-col nk-tb-col-tools">
-                                                <ul class="nk-tb-actions gx-1">
-                                                    <li>
-                                                        <div class="drodown">
-                                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown">
-                                                                <em class="icon ni ni-more-h"></em>
-                                                            </a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <ul class="link-list-opt no-bdr">
-                                                                    <li>
-                                                                        <a href="{{ route('supper.billing.show', base64_encode($billing->key)) }}">
-                                                                            <em class="icon ni ni-eye"></em>
-                                                                            <span>Voir</span>
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endsection
+    <x-vex-container>
+        <x-brandcrumb title="Invoices"></x-brandcrumb>
+
+        <x-vex-containt>
+            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
+                <thead>
+                <tr class="nk-tb-item nk-tb-head">
+                    <th class="nk-tb-col tb-col-mb"><span class="sub-text">Event title</span></th>
+                    <th class="nk-tb-col tb-col-mb"><span class="sub-text">Price ticket</span></th>
+                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Organiser Event</span></th>
+                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Commission</span></th>
+                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Pay out event</span></th>
+                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Created at</span></th>
+                    <th class="nk-tb-col nk-tb-col-tools text-end"></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($invoices as $billing)
+                    <tr class="nk-tb-item">
+                        <td class="nk-tb-col tb-col-mb">
+                            <span>{{ strtoupper($billing->event->title) ?? "" }}</span>
+                        </td>
+                        <td class="nk-tb-col tb-col-md">
+                            <span>${{ $billing->ticketPrice ?? 0 }}</span>
+                        </td>
+                        <td class="nk-tb-col tb-col-md">
+                            <span>{{ $billing->event->user->name ?? 0 }}</span>
+                        </td>
+                        <td class="nk-tb-col tb-col-md">
+                            <span>${{ $billing->commission ?? 0 }}</span>
+                        </td>
+                        <td class="nk-tb-col tb-col-md">
+                            <span>${{ $billing->payout ?? 0 }}</span>
+                        </td>
+                        <td class="nk-tb-col tb-col-lg">
+                            <span>{{ $user->created_at->diffForHumans() ?? "" }}</span>
+                        </td>
+                        <td class="nk-tb-col nk-tb-col-tools">
+                            <ul class="nk-tb-actions gx-1">
+                                <li>
+                                    <div class="drodown">
+                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown">
+                                            <em class="icon ni ni-more-h"></em>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <ul class="link-list-opt no-bdr">
+                                                <li>
+                                                    <a href="{{ route('supper.invoices.show', base64_encode($billing->id)) }}">
+                                                        <em class="icon ni ni-focus"></em>
+                                                        <span>Quick View</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </x-vex-containt>
+    </x-vex-container>
 </x-app-layout>
 

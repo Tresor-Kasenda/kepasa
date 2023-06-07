@@ -3,18 +3,18 @@
         <div class="container">
             <div class="left-side">
                 <div id="logo">
-                    <a href="{{ route('event.index') }}">
-                        @if(auth()->event()->company->images)
-                            <img src="{{ asset('storage/'.auth()->event()->company->images) }}" alt="{{ auth()->event()->name }}">
+                    <a href="{{ route('organiser.index') }}">
+                        @if(auth()->user()->company->images)
+                            <img src="{{ asset('storage/'.auth()->user()->company->images) }}" alt="{{ auth()->user()->name }}">
                         @else
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ auth()->event()->name }}">
+                            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ auth()->user()->name }}">
                         @endif
                     </a>
-                    <a href="{{ route('event.index') }}" class="dashboard-logo">
-                        @if(auth()->event()->company->images)
-                            <img src="{{ asset('storage/'.auth()->event()->company->images) }}" alt="{{ auth()->event()->name }}">
+                    <a href="{{ route('organiser.index') }}" class="dashboard-logo">
+                        @if(auth()->user()->company->images)
+                            <img src="{{ asset('storage/'.auth()->user()->company->images) }}" alt="{{ auth()->user()->name }}">
                         @else
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ auth()->event()->name }}">
+                            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ auth()->user()->name }}">
                         @endif
                     </a>
                 </div>
@@ -32,8 +32,35 @@
             </div>
             <div class="right-side">
                 <div class="header-widget">
-                    <div class="event-menu"></div>
-                    <a href="{{ route('event.events.create') }}" class="button border with-icon">
+                    <div class="user-menu">
+                        <div class="user-name">
+                            <span>
+                                <img src="{{ asset('storage/'. auth()->user()->images) }}" alt="{{ auth()->id() }}">
+                            </span>{{ auth()->user()->name. " " . auth()->user()->lastName }}</div>
+                        <ul>
+                            <li>
+                                <a href="{{ route('organiser.index') }}">
+                                    <i class="sl sl-icon-settings"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('organiser.profile') }}">
+                                    <i class="fa fa-calendar-check-o"></i>
+                                    Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout').submit();">
+                                    <i class="sl sl-icon-power"></i> Logout
+                                </a>
+                                <form id="logout" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="{{ route('organiser.events.index') }}" class="button border with-icon">
                         Add Event
                         <i class="sl sl-icon-plus"></i>
                     </a>

@@ -13,9 +13,11 @@ class StatusEventRepository
 {
     public function changeStatus($attributes): bool|int
     {
-        dd($attributes);
-        $event = $this->getEvent($attributes);
-        if (null !== $event) {
+        $event = Event::query()
+            ->where('id', '=', $attributes->input('key'))
+            ->first();
+
+        if ($event->where('payment', PaymentEnum::PAID)->first() !== null){
             return $event->update([
                 'status' => $attributes->input('status'),
             ]);
@@ -27,25 +29,29 @@ class StatusEventRepository
     public function promoted(Event $event): Model|Event|Builder|null
     {
         $event = $this->getEvent($event);
-        if (null !== $event) {
+
+        if ($event !== null){
             $event->update(['promoted' => true]);
             toast("L'evenement a ete promus", 'success');
             return $event;
         }
         toast("L'evenement ne peut etre promus que si le paiement a ete effectuer", 'danger');
-        return  $event;
+        return null;
     }
 
-    public function unPromoted(Event $event): Model|Event|Builder|null
+    public function unPromoted(Event $event): Event
     {
-        $event = $this->getEvent($event);
         $event->update(['promoted' => false]);
         toast("L'evenement a ete retirer de la promotion", 'success');
         return $event;
     }
 
-    private function getEvent(Event $event)
+
+    public function getEvent(Event $event): null|Builder|Event|Model
     {
-        dd($event);
+        return Event::query()
+            ->where('id', '=', $event->id)
+            ->where('payment', '=', PaymentEnum::PAID)
+            ->first();
     }
 }

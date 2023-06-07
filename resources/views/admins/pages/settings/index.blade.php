@@ -8,12 +8,12 @@
                 <div class="nk-block-head-content">
                     <h3 class="nk-block-title page-title">Users /
                         <strong class="text-primary small">
-                            {{ auth()->event()->name." ". auth()->event()->lastName }}
+                            {{ auth()->user()->name." ". auth()->user()->lastName }}
                         </strong>
                     </h3>
                     <div class="nk-block-des text-soft">
                         <ul class="list-inline">
-                            <li>User ID: <span class="text-base">{{ auth()->event()->id }}</span></li>
+                            <li>User ID: <span class="text-base">{{ auth()->user()->id }}</span></li>
                             <li>Last Login: <span class="text-base">15 Feb, 2019 01:02 PM</span></li>
                         </ul>
                     </div>
@@ -29,16 +29,16 @@
         <div class="nk-block">
             <div class="card">
                 <div class="card-aside-wrap">
-                    <div class="card-content" x-data="{ currentTable: $persist('personal') }">
+                    <div class="card-content" x-data="{ tabulation: $persist('person') }">
                         <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <a
                                         class="nav-link"
                                         data-bs-toggle="tab"
-                                        href="#personal"
+                                        href="#person"
                                         aria-selected="true"
-                                        @click.prevent="currentTable='personal'"
-                                        :class="currentTable === 'personal' ? 'active' : ''"
+                                        @click.prevent="tabulation='person'"
+                                        :class="tabulation === 'person' ? 'active' : ''"
                                         role="tab">
                                     <em class="icon ni ni-event-circle"></em>
                                     <span>Personal</span>
@@ -50,8 +50,8 @@
                                         data-bs-toggle="tab"
                                         href="#settings"
                                         aria-selected="true"
-                                        @click.prevent="currentTable='settings'"
-                                        :class="currentTable === 'settings' ? 'active' : ''"
+                                        @click.prevent="tabulation='settings'"
+                                        :class="tabulation === 'settings' ? 'active' : ''"
                                         role="tab">
                                     <em class="icon ni ni-setting-alt"></em>
                                     <span>Settings</span>
@@ -63,8 +63,8 @@
                                         data-bs-toggle="tab"
                                         href="#password"
                                         aria-selected="true"
-                                        @click.prevent="currentTable='password'"
-                                        :class="currentTable === 'password' ? 'active' : ''"
+                                        @click.prevent="tabulation='password'"
+                                        :class="tabulation === 'password' ? 'active' : ''"
                                         role="tab">
                                     <em class="icon ni ni-eye-fill"></em>
                                     <span>Password</span>
@@ -72,15 +72,15 @@
                             </li>
                             <li class="nav-item nav-item-trigger d-xxl-none">
                                 <a href="#" class="toggle btn btn-icon btn-trigger" data-target="userAside">
-                                    <em class="icon ni ni-event-list-fill"></em>
+                                    <em class="icon ni ni-user-list-fill"></em>
                                 </a>
                             </li>
                         </ul>
                         <div class="card-inner">
                             <div class="tab-content">
-                                <div class="tab-pane" :class="currentTable === 'personal' ? 'active' : ''" id="personal" role="tabpanel">
+                                <div class="tab-pane" :class="tabulation === 'person' ? 'active' : ''" id="person" role="tabpanel">
                                     <div class="nk-block">
-                                        <form action="{{ route('supper.admins.change', auth()->event()) }}" method="POST" class="gy-3 form-settings">
+                                        <form action="{{ route('supper.admins.change', auth()->id()) }}" method="POST" class="gy-3 form-settings">
                                             @csrf
                                             @method('PUT')
                                             <div class="row">
@@ -93,7 +93,7 @@
                                                                     class="form-control @error('name') error @enderror"
                                                                     id="name"
                                                                     name="name"
-                                                                    value="{{ old('name') ?? auth()->event()->name }}">
+                                                                    value="{{ old('name') ?? auth()->user()->name }}">
                                                             @error('name')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -108,7 +108,7 @@
                                                                     class="form-control @error('phones') error @enderror"
                                                                     id="phones"
                                                                     name="phones"
-                                                                    value="{{ old('phones') ?? auth()->event()->phones }}">
+                                                                    value="{{ old('phones') ?? auth()->user()->phones }}">
                                                             @error('phones')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -117,9 +117,9 @@
                                                     <div class="form-group">
                                                         <label class="form-label" for="country">Country</label>
                                                         <div class="form-control-wrap">
-                                                            <select class="form-control @error('country') error @enderror" class="countries" id="country" name="country">
+                                                            <select class="form-control js-select2 @error('country') error @enderror" data-search="on" id="country" name="country">
                                                                 <option value="default_option">Selected country</option>
-                                                                <option value="{{ auth()->event()->country->id ?? "" }}" class="bg-gray-400 text-md">{{ auth()->event()->country->countryName ?? " " }}</option>
+                                                                <option value="{{ auth()->user()->country->id ?? "" }}" class="bg-gray-400 text-md">{{ auth()->user()->country->countryName ?? " " }}</option>
                                                                 @foreach($countries as $country)
                                                                     <option value="{{ $country->id }}">
                                                                         {{ $country->countryName }}
@@ -141,7 +141,7 @@
                                                                     class="form-control @error('lastName') error @enderror"
                                                                     id="lastName"
                                                                     name="lastName"
-                                                                    value="{{ old('lastName') ?? auth()->event()->lastName }}">
+                                                                    value="{{ old('lastName') ?? auth()->user()->lastName }}">
                                                             @error('lastName')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -155,7 +155,7 @@
                                                                     class="form-control @error('email') error @enderror"
                                                                     id="email"
                                                                     name="email"
-                                                                    value="{{ old('email') ?? auth()->event()->email }}">
+                                                                    value="{{ old('email') ?? auth()->user()->email }}">
                                                             @error('email')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -189,9 +189,9 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="tab-pane" :class="currentTable === 'settings' ? 'active' : ''" id="settings" role="tabpanel">
+                                <div class="tab-pane" :class="tabulation === 'settings' ? 'active' : ''" id="settings" role="tabpanel">
                                     <div class="nk-block">
-                                        <form action="{{ route('supper.settings.store', auth()->event()) }}" method="POST" class="gy-3 form-settings">
+                                        <form action="{{ route('supper.settings.store', auth()->id()) }}" method="POST" class="gy-3 form-settings">
                                             @csrf
                                             @method('PUT')
                                             <div class="row">
@@ -204,7 +204,7 @@
                                                                     class="form-control @error('name') error @enderror"
                                                                     id="name"
                                                                     name="name"
-                                                                    value="{{ old('name') ?? auth()->event()->app->name }}">
+                                                                    value="{{ old('name') ?? auth()->user()->app->name }}">
                                                             @error('name')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -218,7 +218,7 @@
                                                                     class="form-control @error('email') error @enderror"
                                                                     id="email"
                                                                     name="email"
-                                                                    value="{{ old('email') ?? auth()->event()->app->email }}">
+                                                                    value="{{ old('email') ?? auth()->user()->app->email }}">
                                                             @error('email')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -234,7 +234,7 @@
                                                                     class="form-control @error('copyright') error @enderror"
                                                                     id="copyright"
                                                                     name="copyright"
-                                                                    value="{{ old('copyright') ?? auth()->event()->app->copyright }}">
+                                                                    value="{{ old('copyright') ?? auth()->user()->app->copyright }}">
                                                             @error('copyright')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -248,7 +248,7 @@
                                                                     class="form-control @error('username') error @enderror"
                                                                     id="copyright"
                                                                     name="username"
-                                                                    value="{{ old('username') ?? auth()->event()->name }}">
+                                                                    value="{{ old('username') ?? auth()->user()->name }}">
                                                             @error('username')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -265,9 +265,9 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="tab-pane" :class="currentTable === 'password' ? 'active' : ''" id="password" role="tabpanel">
+                                <div class="tab-pane" :class="tabulation === 'password' ? 'active' : ''" id="password" role="tabpanel">
                                     <div class="nk-block">
-                                        <form action="{{ route('supper.settings.password', auth()->event()) }}" method="POST">
+                                        <form action="{{ route('supper.settings.password', auth()->id()) }}" method="POST" class="gy-3 form-settings">
                                             @csrf
                                             @method('PUT')
                                             <div class="row">
@@ -280,7 +280,7 @@
                                                                     class="form-control @error('email') error @enderror"
                                                                     id="email"
                                                                     name="email"
-                                                                    value="{{ old('email') }}">
+                                                                    value="{{ old('email') ?? auth()->user()->email }}">
                                                             @error('email')
                                                             <span class="error">{{ $message }}</span>
                                                             @enderror
@@ -337,7 +337,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-aside card-aside-right event-aside toggle-slide toggle-slide-right toggle-break-xxl toggle-screen-xxl" data-content="userAside" data-toggle-screen="xxl" data-toggle-overlay="true" data-toggle-body="true">
+                    <div class="card-aside card-aside-right user-aside toggle-slide toggle-slide-right toggle-break-xxl toggle-screen-xxl" data-content="userAside" data-toggle-screen="xxl" data-toggle-overlay="true" data-toggle-body="true">
                         <div class="card-inner-group" data-simplebar="init">
                             <div class="simplebar-wrapper" style="margin: 0px;">
                                 <div class="simplebar-height-auto-observer-wrapper">
@@ -348,14 +348,14 @@
                                         <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden scroll;">
                                             <div class="simplebar-content" style="padding: 0px;">
                                                 <div class="card-inner">
-                                                    <div class="event-card event-card-s2">
-                                                        <div class="event-avatar lg bg-primary">
-                                                            <span>{{ substr(auth()->event()->name, 0,2) }}</span>
+                                                    <div class="user-card user-card-s2">
+                                                        <div class="user-avatar lg bg-primary">
+                                                            <span>{{ substr(auth()->user()->name, 0,2) }}</span>
                                                         </div>
-                                                        <div class="event-info">
-                                                            <div class="badge bg-outline-light rounded-pill ucap">{{ auth()->event()->role->name }}</div>
-                                                            <h5>{{ auth()->event()->name . "-" . auth()->event()->lastName }}</h5>
-                                                            <span class="sub-text">{{ auth()->event()->email }}</span>
+                                                        <div class="user-info">
+                                                            <div class="badge bg-outline-light rounded-pill ucap">{{ auth()->user()->role->name }}</div>
+                                                            <h5>{{ auth()->user()->name . "-" . auth()->user()->lastName }}</h5>
+                                                            <span class="sub-text">{{ auth()->user()->email }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -366,28 +366,6 @@
                                                         <li><a href="#" class="btn btn-trigger btn-icon"><em class="icon ni ni-download-cloud"></em></a></li>
                                                         <li><a href="#" class="btn btn-trigger btn-icon"><em class="icon ni ni-bookmark"></em></a></li>
                                                     </ul>
-                                                </div>
-                                                <div class="card-inner">
-                                                    <div class="row text-center">
-                                                        <div class="col-4">
-                                                            <div class="profile-stats">
-                                                                <span class="amount">23</span>
-                                                                <span class="sub-text">Total Order</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <div class="profile-stats">
-                                                                <span class="amount">20</span>
-                                                                <span class="sub-text">Complete</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <div class="profile-stats">
-                                                                <span class="amount">3</span>
-                                                                <span class="sub-text">Progress</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="card-inner">
                                                     <h6 class="overline-title-alt mb-2">Additional</h6>
@@ -402,11 +380,11 @@
                                                         </div>
                                                         <div class="col-6">
                                                             <span class="sub-text">Role:</span>
-                                                            <span class="lead-text text-success">{{ auth()->event()->role->name }}</span>
+                                                            <span class="lead-text text-success">{{ auth()->user()->role->name }}</span>
                                                         </div>
                                                         <div class="col-6">
                                                             <span class="sub-text">Register At:</span>
-                                                            <span>{{ auth()->event()->created_at->format('Y m d') }}</span>
+                                                            <span>{{ auth()->user()->created_at->format('Y m d') }}</span>
                                                         </div>
                                                     </div>
                                                 </div>

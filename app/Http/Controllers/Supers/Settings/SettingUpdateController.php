@@ -11,8 +11,9 @@ use App\Repository\Suppers\SettingSupperRepository;
 
 class SettingUpdateController extends Controller
 {
-    public function __construct(protected readonly SettingSupperRepository $repository)
-    {
+    public function __construct(
+        protected readonly SettingSupperRepository $repository
+    ) {
     }
 
     public function __invoke(User $user, SettingRequest $attributes)

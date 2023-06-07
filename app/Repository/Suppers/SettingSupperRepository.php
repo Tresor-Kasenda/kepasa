@@ -6,10 +6,13 @@ namespace App\Repository\Suppers;
 
 use App\Models\Setting;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use LaravelIdea\Helper\App\Models\_IH_Setting_QB;
 
 class SettingSupperRepository
 {
-    public function update(User $user, $attributes)
+    public function update(User $user, $attributes): Model|Builder|Setting|bool|int|_IH_Setting_QB
     {
         return $this->updateSetting($attributes, $user);
     }

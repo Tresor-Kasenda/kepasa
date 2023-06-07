@@ -6,8 +6,6 @@
     <meta name="description" content="Une partie d'administration pour la gestion d'un {{ config('app.name') }}">
     <link rel="stylesheet" href="{{ asset('assets/admins/css/dashlite.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admins/css/skins/theme-green.css') }}">
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @yield('styles')
 </head>
 
@@ -30,6 +28,8 @@
     </div>
     <script src="{{ asset('assets/admins/js/bundle.js') }}"></script>
     <script src="{{ asset('assets/admins/js/scripts.js') }}"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @include('sweetalert::alert')
     @yield('scripts')
 </body>

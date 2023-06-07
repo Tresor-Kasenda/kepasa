@@ -1,10 +1,8 @@
 <div class="nk-header nk-header-fixed is-light">
     <div class="container-fluid">
         <div class="nk-header-wrap">
-            <div class="nk-menu-trigger d-xl-none ml-n1">
-                <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu">
-                    <em class="icon ni ni-menu"></em>
-                </a>
+            <div class="nk-menu-trigger d-xl-none ms-n1">
+                <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><x-vex-icon class="ni-menu" /></a>
             </div>
             <div class="nk-header-brand d-xl-none">
                 <a href="{{ route('supper.dashboard') }}" class="logo-link">
@@ -15,49 +13,81 @@
                         alt="logo-dark">
                 </a>
             </div>
-
+            <div class="nk-header-news d-none d-xl-block">
+                <div class="nk-news-list">
+                    <a class="nk-news-item" href="#">
+                        <div class="nk-news-icon">
+                            <x-vex-icon class="ni-card-view" />
+                        </div>
+                    </a>
+                </div>
+            </div>
             <div class="nk-header-tools">
                 <ul class="nk-quick-nav">
-                    <li class="dropdown event-dropdown">
-                        <a href="#" class="dropdown-toggle mr-n1" data-toggle="dropdown">
-                            <div class="event-toggle">
-                                <div class="event-avatar sm">
-                                    <em class="icon ni ni-event-alt"></em>
+                    <li class="dropdown notification-dropdown me-n1">
+                        <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
+                            <div class="icon-status icon-status-info"><x-vex-icon class="ni-bell" /></div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end dropdown-menu-s1">
+                            <div class="dropdown-head">
+                                <span class="sub-title nk-dropdown-title">Notifications</span>
+                                <a href="#">Mark All as Read</a>
+                            </div>
+                            <div class="dropdown-body">
+                                <div class="nk-notification">
+                                    <div class="nk-notification-item dropdown-inner">
+                                        <div class="nk-notification-icon">
+                                            <x-vex-icon class="icon-circle bg-warning-dim ni-curve-down-right" />
+                                        </div>
+                                        <div class="nk-notification-content">
+                                            <div class="nk-notification-text">You have requested to <span>Widthdrawl</span></div>
+                                            <div class="nk-notification-time">2 hrs ago</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="event-info d-none d-xl-block">
-                                    <div class="event-status event-status-active">{{ auth()->user()->name }}</div>
-                                    <div class="event-name dropdown-indicator">{{ auth()->user()->email }}</div>
+                            </div>
+                            <div class="dropdown-foot center">
+                                <a href="#">View All</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown user-dropdown">
+                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                            <div class="user-toggle">
+                                <div class="user-avatar sm">
+                                    <x-vex-icon class="ni-user-alt" />
+                                </div>
+                                <div class="user-info d-none d-md-block">
+                                    <div class="user-status">{{ auth()->user()->email }}</div>
+                                    <div class="user-name dropdown-indicator">{{ Auth::user()->name }}</div>
                                 </div>
                             </div>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                            <div class="dropdown-inner event-card-wrap bg-lighter d-none d-md-block">
-                                <div class="event-card">
-                                    <div class="event-avatar">
-                                        <span>{{ substr(auth()->user()->name, 0,2) }}</span>
+                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-end dropdown-menu-s1">
+                            <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
+                                <div class="user-card">
+                                    <div class="user-avatar">
+                                        <span><x-vex-icon class="ni-user-alt" /></span>
                                     </div>
-                                    <div class="event-info">
-                                        <span class="lead-text">{{ auth()->user()->name }}</span>
-                                        <span class="sub-text">{{ auth()->user()->email }}</span>
+                                    <div class="user-info">
+                                        <span class="lead-text">{{ Auth::user()->name }}</span>
+                                        <span class="sub-text">{{ Auth::user()->email }}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="dropdown-inner">
                                 <ul class="link-list">
-                                    <li>
-                                        <a href="{{ route('supper.settings.index') }}">
-                                            <em class="icon ni ni-event-alt"></em>
-                                            <span>Settings</span>
-                                        </a>
-                                    </li>
+                                    <x-vex-link href="{{ route('supper.settings.index') }}" icons="ni-user-alt">
+                                        Voir le profile
+                                    </x-vex-link>
                                 </ul>
                             </div>
                             <div class="dropdown-inner">
                                 <ul class="link-list">
                                     <li>
-                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            <em class="icon ni ni-signout"></em>
-                                            <span>Sign out</span>
+                                        <a data-turbolinks="true" href="{{ route('logout') }}" title="Déconnexion" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <x-vex-icon class="ni-signout" />
+                                            <span>Déconnexion</span>
                                         </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf

@@ -39,4 +39,5 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::component('admins.partials.'.$component, 'vex-'.$component);
     }
+
 }

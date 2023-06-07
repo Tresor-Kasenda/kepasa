@@ -12,13 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomerMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param Request $request
-     * @param Closure(Request): (Response|RedirectResponse) $next
-     * @return Response|RedirectResponse
-     */
     public function handle(Request $request, Closure $next)
     {
         if ( ! Auth::check()) {
@@ -31,10 +24,6 @@ class CustomerMiddleware
 
         if (1 === Auth::user()->role_id) {
             return redirect()->route('supper.dashboard');
-        }
-
-        if (2 === Auth::user()->role_id) {
-            return redirect()->route('admin.admin.index');
         }
 
         if (3 === Auth::user()->role_id) {

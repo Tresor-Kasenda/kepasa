@@ -3,13 +3,10 @@
 
     <x-vex-container>
         <x-brandcrumb title="Event Details">
-            <li class="preview-item">
-                <a href="{{ route('supper.events.index') }}"
-                   class="btn btn-outline-light btn-sm d-none d-sm-inline-flex">
-                    <em class="icon ni ni-arrow-left"></em>
-                    <span>Back</span>
-                </a>
-            </li>
+            <x-vex-link href="{{ route('supper.events.index') }}" class="btn btn-dim btn-outline-secondary">
+                <x-vex-icon class="ni-arrow-long-left"/>
+                <span>All events</span>
+            </x-vex-link>
             <li>
                 <div class="drodown">
                     <div class="form-control-wrap">
@@ -26,14 +23,14 @@
                 @if ($event->promoted == false)
                     @include('admins.partials._update', [
                         'route' => route('supper.events.promoted', $event->id),
-                        'button' => 'btn-outline-success btn-sm',
+                        'button' => 'btn-outline-success',
                         'icon' => 'ni-check-circle',
                         'title' => 'Promoted'
                     ])
                 @else
                     @include('admins.partials._update', [
                         'route' => route('supper.events.unpromoted', $event->id),
-                        'button' => 'btn-outline-danger btn-sm',
+                        'button' => 'btn-outline-danger',
                         'icon' => 'ni-check-circle',
                         'title' => 'unPromoted'
                     ])
@@ -176,7 +173,7 @@
                         dataType: 'json',
                         success: function (response) {
                             if (response) {
-                                Swal.fire(`${response.message}`, "update", "success");
+                                Swal.fire(`${response.message}`, "information", "success");
                             }
                         }
                     })

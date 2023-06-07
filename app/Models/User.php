@@ -71,7 +71,6 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property string|null $images
  * @method static Builder|User whereImages($value)
  * @method static Builder|User whereStatus($value)
- * @property-read Collection<int, \App\Models\PaymentCustomer> $payment
  * @mixin Eloquent
  */
 class User extends Authenticatable

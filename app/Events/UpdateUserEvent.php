@@ -24,4 +24,10 @@ class UpdateUserEvent
     {
         return new PrivateChannel('channel-name');
     }
+
+
+    public function via(): array
+    {
+        return [];
+    }
 }
