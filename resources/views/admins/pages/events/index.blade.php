@@ -1,3 +1,4 @@
+@php use App\Enums\PaymentEnum; @endphp
 <x-app-layout>
     @section('title', "Liste des evenements")
 
@@ -19,7 +20,7 @@
                 </thead>
                 <tbody>
                 @foreach($events as $event)
-                    <tr class="nk-tb-item">
+                    <tr class="nk-tb-item @if($event->payment === PaymentEnum::UNPAID) alert alert-danger @endif">
                         <td class="nk-tb-col tb-col-md">
                             <div class="tb-product text-center justify-center">
                                 <img

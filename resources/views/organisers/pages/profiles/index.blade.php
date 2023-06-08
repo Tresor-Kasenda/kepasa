@@ -64,7 +64,7 @@
                                 <div class="change-photo-btn">
                                     <div class="photoUpload">
                                         <span><i class="fa fa-upload"></i></span>
-                                        <input type="file" class="upload" name="images" id="images" />
+                                        <input type="file" class="upload" name="images" id="images"/>
                                     </div>
                                 </div>
                             </form>
@@ -297,46 +297,46 @@
 
     @section('scripts')
         <script type="text/javascript">
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $('#password, #password_confirmation').on('keyup', function () {
-                if ($('#password').val() === $('#password_confirmation').val()) {
-                    $('#message1').html('Le mot de passe correspond').css('color', 'green');
-                    $('#updatePassword').prop('disabled', false);
-                } else {
-                    $('#message1').html('Le mot de passe ne correspond pas').css('color', 'red');
-                    $('#updatePassword').prop('disabled', true);
-                }
-            })
-
-            $('#images').change(function(){
+            const images = document.getElementById('images');
+            images.addEventListener('change', () => {
                 let form  = new FormData();
-                let files = $('#images')[0].files;
-                console.log(form, files)
+                let files  = images.files
 
-                if(files.length > 0 ){
-                    form.append('images',files[0]);
+                if(files.length > 0){
+                    for(const file of files){
+                        form.append('images',file);
+                        previewImage(file);
+                    }
 
-                    $.ajax({
-                        url: `{{ route('organiser.profile.upload') }}`,
-                        type: 'post',
-                        data: form,
-                        contentType: false,
-                        processData: false,
-                        success: function(response){
-                            if(response.status === 'success'){
-                                swal("Congrats!", ", Your account is created!", "success");
+                    fetch(`{{ route('organiser.profile.upload') }}`, {
+                        method: 'POST',
+                        body: form,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                        .then((response) => {
+                            if (response.status === 200) {
+                                console.log(response.messages)
+                                Swal("Congrats!", "Your profile is updated with successful", "success");
                             }
-                        },
-                    });
-                }else{
-                    alert("Please select a file.");
+                        })
+                        .catch((error) => {
+                            Swal("Congrats!", `${error}`, "success");
+                            console.error(error);
+                        });
                 }
             })
+
+            function previewImage(file) {
+                let reader = new FileReader();
+                reader.onload = function(event) {
+                    let preview = document.getElementById('preview');
+                    preview.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         </script>
     @endsection
 </x-organiser-layout>

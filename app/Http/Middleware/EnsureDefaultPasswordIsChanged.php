@@ -15,7 +15,7 @@ class EnsureDefaultPasswordIsChanged
         if (Hash::check('password', auth()->user()->password)) {
             toast('Please change your password to proceed.', 'info');
 
-            return redirect()->route('supper.settings.index', ['#settings']);
+            return redirect()->route('supper.settings.index', '#settings');
         }
 
         return $next($request);

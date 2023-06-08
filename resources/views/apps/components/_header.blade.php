@@ -60,20 +60,20 @@
                 <div class="header-widget">
                     @auth
                         @if(auth()->user()->role_id == 1)
-                            <a href="{{ route('supper.dashboard') }}" class="button {{ Request::url() === route('event.home.index') ? 'current' : '' }}">
-                                Profile <i class="sl sl-icon-event"></i>
+                            <a href="{{ route('supper.dashboard') }}" class="button {{ Request::url() === route('supper.dashboard') ? 'current' : '' }}">
+                                Profile <i class="sl sl-icon-user"></i>
                             </a>
                         @endif
                         @if(auth()->user()->role_id == 4)
                             <a
-                                href="{{ route('event.home.index') }}"
-                                class="button {{ Request::url() === route('event.home.index') ? 'current' : '' }}">
-                                Profile <i class="sl sl-icon-event"></i>
+                                href=""
+                                class="button">
+                                Profile <i class="sl sl-icon-user"></i>
                             </a>
                         @endif
                         @if(auth()->user()->role_id == 3)
-                            <a href="{{ route('event.event.index') }}" class="button {{ Request::url() === route('event.event.index') ? 'current' : '' }}">
-                                Profile <i class="sl sl-icon-event"></i>
+                            <a href="{{ route('organiser.index') }}" class="button {{ Request::url() === route('organiser.index') ? 'current' : '' }}">
+                                Profile <i class="sl sl-icon-user"></i>
                             </a>
                         @endif
                     @else

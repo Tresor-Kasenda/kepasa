@@ -23,9 +23,9 @@ use App\Http\Controllers\Organisers\ImageOrganiserController;
 use App\Http\Controllers\Organisers\PaypalController;
 use App\Http\Controllers\Organisers\Profile\Company\UpdateCompanyController;
 use App\Http\Controllers\Organisers\Profile\DeleteUsersController;
+use App\Http\Controllers\Organisers\Profile\ProfileOrganiserController;
 use App\Http\Controllers\Organisers\Profile\UpdateProfileController;
 use App\Http\Controllers\Organisers\Profile\UploadProfileController;
-use App\Http\Controllers\Organisers\ProfileOrganiserController;
 use App\Http\Controllers\Supers\Categories\CreateCategoryController;
 use App\Http\Controllers\Supers\Categories\ListCategoryController;
 use App\Http\Controllers\Supers\Categories\StoreCategoryController;
@@ -124,7 +124,7 @@ Route::middleware('auth')->group(function (): void {
         routes: function (): void {
             Route::get('/', HomeOrganiserController::class)->name('index');
 
-            Route::get('profile', \App\Http\Controllers\Organisers\Profile\ProfileOrganiserController::class)->name('profile');
+            Route::get('profile', ProfileOrganiserController::class)->name('profile');
             Route::post('profile/{user}/update', UpdateProfileController::class)->name('profile.update');
             Route::post('profile/{user}/company', UpdateCompanyController::class)->name('profile.update.company');
             Route::post('profile/upload', UploadProfileController::class)->name('profile.upload');
