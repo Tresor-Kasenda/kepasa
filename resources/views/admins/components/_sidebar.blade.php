@@ -40,6 +40,13 @@
                     </x-vex-nav-link>
 
                     <x-vex-nav-link
+                        href="{{ route('supper.company-lists') }}"
+                        :active="request()->routeIs('supper.company-lists')"
+                        icons="ni-building">
+                        Company
+                    </x-vex-nav-link>
+
+                    <x-vex-nav-link
                             href="{{ route('supper.category-list') }}"
                             :active="request()->routeIs('supper.category-list')"
                             icons="ni-box">

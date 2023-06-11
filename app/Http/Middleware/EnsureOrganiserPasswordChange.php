@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use App\Models\Company;
@@ -11,7 +13,7 @@ class EnsureOrganiserPasswordChange
     public function handle(Request $request, Closure $next)
     {
         $company = Company::where('user_id', '=', auth()->id())->first();
-        if ($company->companyName === null) {
+        if (null === $company->companyName) {
             toast('Please change your password to proceed.', 'info');
 
             return redirect()->route('organiser.profile', ['#company']);

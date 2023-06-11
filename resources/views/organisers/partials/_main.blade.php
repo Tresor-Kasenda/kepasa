@@ -12,8 +12,8 @@
             </li>
         </ul>
         <ul data-submenu-title="Listings">
-            <li class="{{ Request::url() === route('organiser.events.index') ? 'active' : '' }}">
-                <a href="{{ route('organiser.events.index') }}">
+            <li class="{{ Request::url() === route('organiser.events-list') ? 'active' : '' }}">
+                <a href="{{ route('organiser.events-list') }}">
                     <i class="sl sl-icon-list"></i> Event
                 </a>
             </li>

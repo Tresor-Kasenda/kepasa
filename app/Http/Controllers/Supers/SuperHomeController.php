@@ -8,10 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Repository\Suppers\ChartJsSuperRepository;
 use Illuminate\Contracts\Support\Renderable;
 
-class HomeSuperController extends Controller
+class SuperHomeController extends Controller
 {
-    public function __construct(public ChartJsSuperRepository $repository)
-    {
+    public function __construct(
+        protected readonly ChartJsSuperRepository $repository
+    ) {
     }
 
     public function __invoke(): Renderable

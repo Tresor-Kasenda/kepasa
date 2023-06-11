@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http;
 
-use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\CustomerMiddleware;
 use App\Http\Middleware\EncryptCookies;

@@ -1,4 +1,4 @@
-<x-event-layout>
+<x-organiser-layout>
     @section('title', "Add Event")
 
     <div id="titlebar">
@@ -7,8 +7,8 @@
                 <h2>Create events</h2>
                 <nav id="breadcrumbs">
                     <ul>
-                        <li><a href="{{ route('event.index') }}">Home</a></li>
-                        <li><a href="{{ route('event.events.index') }}">Events</a></li>
+                        <li><a href="{{ route('organiser.index') }}">Home</a></li>
+                        <li><a href="{{ route('organiser.events-list') }}">Events</a></li>
                         <li>Create</li>
                     </ul>
                 </nav>
@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div id="add-listing">
-                <form action="{{ route('event.events.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('organiser.event.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="add-listing-section">
                         <div class="add-listing-headline">
@@ -293,4 +293,4 @@
         </script>
     @endsection
 
-</x-event-layout>
+</x-organiser-layout>

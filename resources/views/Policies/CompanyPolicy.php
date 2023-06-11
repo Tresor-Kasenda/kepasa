@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
 use App\Enums\RoleEnum;
@@ -13,7 +15,7 @@ class CompanyPolicy
 
     public function create(User $user): bool
     {
-        return $user->role_id === RoleEnum::ORGANISER;
+        return RoleEnum::ORGANISER === $user->role_id;
     }
 
     public function update(User $user, Company $company): bool

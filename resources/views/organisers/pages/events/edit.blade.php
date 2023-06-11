@@ -1,4 +1,4 @@
-<x-event-layout>
+<x-organiser-layout>
     @section('title', "Creation d'un evenement")
 
     <div id="titlebar">
@@ -7,7 +7,7 @@
                 <h2>Edit events / <span class="text-teal-dim">{{ $event->title ?? "" }}</span></h2>
                 <nav id="breadcrumbs">
                     <ul>
-                        <li><a href="{{ route('event.events.index') }}">Back to events</a></li>
+                        <li><a href="{{ route('organiser.events.index') }}">Back to events</a></li>
                     </ul>
                 </nav>
             </div>
@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div id="add-listing">
-                <form action="{{ route('event.events.update', $event->key) }}" method="post">
+                <form action="{{ route('organiser.events.update', $event->key) }}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="add-listing-section">
@@ -265,5 +265,5 @@
             }
         </script>
     @endsection
-</x-event-layout>
+</x-organiser-layout>
 

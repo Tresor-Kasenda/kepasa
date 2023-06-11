@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Supers\Invoices;
 
 use App\Http\Controllers\Controller;
@@ -11,7 +13,7 @@ class ListInvoicesController extends Controller
 {
     public function __construct(
         protected readonly InvoicesEventsRepository $repository
-    ){
+    ) {
     }
 
     public function __invoke(Request $request): Renderable

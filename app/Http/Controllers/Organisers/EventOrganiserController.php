@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Organisers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EventRequest;
+use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\EventUpdateRequest;
 use App\Models\Event;
 use App\Repository\Organisers\EventOrganiserRepository;
@@ -46,7 +46,7 @@ class EventOrganiserController extends Controller
         ]);
     }
 
-    public function store(EventRequest $attributes): RedirectResponse
+    public function store(StoreEventRequest $attributes): RedirectResponse
     {
         $event = $this->organiserRepository->storeEvents(attributes: $attributes);
 
@@ -65,7 +65,7 @@ class EventOrganiserController extends Controller
     {
         $this->authorize('update', Event::class);
 
-        $this->organiserRepository->updateEvent(key: $key, attributes: $attributes);
+        $this->organiserRepository->updateEvent(key: $key, request: $attributes);
 
         return redirect()->route('organiser.events.index');
     }

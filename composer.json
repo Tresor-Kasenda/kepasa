@@ -31,9 +31,11 @@
         "silviolleite/laravelpwa": "^2.0",
         "srmklive/paypal": "^3.0",
         "stevebauman/location": "^6.3",
-        "symfony/filesystem": "^6.0"
+        "symfony/filesystem": "^6.0",
+        "zepson/dpo-laravel": "^1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "barryvdh/laravel-ide-helper": "^2.12",
         "facade/ignition": "^2.17.5",
         "fakerphp/faker": "^1.19.0",
@@ -41,6 +43,7 @@
         "laravel/sail": "^1.13.17",
         "mockery/mockery": "^1.5.0",
         "nunomaduro/collision": "^5.11.0",
+        "nunomaduro/phpinsights": "^2.8",
         "phpunit/phpunit": "^9.5.19"
     },
     "autoload": {
@@ -71,6 +74,9 @@
         ],
         "pint": [
             "./vendor/bin/pint"
+        ],
+        "insight": [
+            "./vendor/bin/phpinsights"
         ]
     },
     "extra": {
@@ -83,7 +89,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "minimum-stability": "stable",
     "prefer-stable": true

@@ -1,4 +1,4 @@
-<x-event-layout>
+<x-organiser-layout>
     @section('title', "Information sur le paiement")
 
     <div id="titlebar">
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             <div class="buttons-to-right">
-                                <a href="{{ route('event.bookings.show', $booking->key) }}" class="button gray approve"><i class="sl sl-icon-eye"></i> View</a>
+                                <a href="{{ route('organiser.bookings.show', $booking->key) }}" class="button gray approve"><i class="sl sl-icon-eye"></i> View</a>
                             </div>
                         </li>
                     @endforeach
@@ -85,4 +85,4 @@
             </div>
         </div>
     </div>
-</x-event-layout>
+</x-organiser-layout>

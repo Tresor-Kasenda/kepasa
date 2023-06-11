@@ -15,7 +15,7 @@ class CreateRoomService
     use EnableXHttpService;
     use RandomValue;
 
-    public function storeOnlineEvent($attributes, $event): Model|Builder|OnlineEvent
+    public function handle($request, $event): Model|Builder|OnlineEvent
     {
         $onlineEventCreate = $this->CreateOnlineRoom(event: $event);
         $currentTime = strtotime(''.$event->date.' '.$event->startTime.'');
@@ -24,7 +24,7 @@ class CreateRoomService
         return OnlineEvent::query()
             ->create([
                 'event_id' => $event->id,
-                'company_id' => $attributes->user()->company->id,
+                'company_id' => $request->user()->company->id,
                 'roomId' => $onlineEventCreate['room']['room_id'],
                 'roomName' => $onlineEventCreate['room']['name'],
                 'reference' => $onlineEventCreate['room']['owner_ref'],

@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Organisers\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use App\Repository\Organisers\ProfileOrganiserRepository;
-use Illuminate\Http\Request;
 
 class UpdateProfileController extends Controller
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\Organisers\Company;
 
 use App\Http\Requests\Organiser\Profile\UploadImageRequest;

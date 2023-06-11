@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\QueryBuilder\EventsOrganiserQueryBuilder;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,7 +12,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 
@@ -94,9 +94,19 @@ class Event extends Model
 
     protected $guarded = [];
 
+    public function newEloquentBuilder($query): EventsOrganiserQueryBuilder
+    {
+        return new EventsOrganiserQueryBuilder($query);
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function getEventImages(): string
+    {
+        return asset('storage/'.$this->image);
     }
 
     public function user(): BelongsTo
@@ -114,9 +124,9 @@ class Event extends Model
         return $this->hasMany(Billing::class);
     }
 
-    public function onlineEvent(): HasOne
+    public function online(): HasMany
     {
-        return $this->hasOne(OnlineEvent::class);
+        return $this->hasMany(OnlineEvent::class);
     }
 
     public function payments(): HasMany

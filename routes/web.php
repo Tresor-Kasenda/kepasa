@@ -18,6 +18,14 @@ use App\Http\Controllers\Organisers\BookingOrganiserController;
 use App\Http\Controllers\Organisers\CheckoutOrganiserController;
 use App\Http\Controllers\Organisers\EnableXTokenController;
 use App\Http\Controllers\Organisers\EventOrganiserController;
+use App\Http\Controllers\Organisers\Events\CreateEventController;
+use App\Http\Controllers\Organisers\Events\DeleteEventController;
+use App\Http\Controllers\Organisers\Events\EditEventController;
+use App\Http\Controllers\Organisers\Events\Payments\ConfirmPaymentController;
+use App\Http\Controllers\Organisers\Events\Payments\PaymentEventController;
+use App\Http\Controllers\Organisers\Events\ShowEventController;
+use App\Http\Controllers\Organisers\Events\StoreEventController;
+use App\Http\Controllers\Organisers\Events\UpdateEventController;
 use App\Http\Controllers\Organisers\HomeOrganiserController;
 use App\Http\Controllers\Organisers\ImageOrganiserController;
 use App\Http\Controllers\Organisers\PaypalController;
@@ -29,6 +37,8 @@ use App\Http\Controllers\Organisers\Profile\UploadProfileController;
 use App\Http\Controllers\Supers\Categories\CreateCategoryController;
 use App\Http\Controllers\Supers\Categories\ListCategoryController;
 use App\Http\Controllers\Supers\Categories\StoreCategoryController;
+use App\Http\Controllers\Supers\Company\ListCompanyController;
+use App\Http\Controllers\Supers\Company\ShowCompanyController;
 use App\Http\Controllers\Supers\Country\City\EditCountryCityController;
 use App\Http\Controllers\Supers\Country\City\ShowCountryCityController;
 use App\Http\Controllers\Supers\Country\City\UpdateCountryCityController;
@@ -38,7 +48,7 @@ use App\Http\Controllers\Supers\Events\Promoted\PromotedEventController;
 use App\Http\Controllers\Supers\Events\Promoted\StatusEventController;
 use App\Http\Controllers\Supers\Events\Promoted\UnPromotedEventController;
 use App\Http\Controllers\Supers\Events\ShowEventAdminController;
-use App\Http\Controllers\Supers\HomeSuperController;
+use App\Http\Controllers\Supers\SuperHomeController;
 use App\Http\Controllers\Supers\Invoices\DownloadInvoiceController;
 use App\Http\Controllers\Supers\Invoices\ListInvoicesController;
 use App\Http\Controllers\Supers\Invoices\ShowInvoiceController;
@@ -73,7 +83,7 @@ Route::middleware('auth')->group(function (): void {
             ]
         ],
         routes:  function (): void {
-            Route::get('/index', HomeSuperController::class)->name('dashboard');
+            Route::get('/index', SuperHomeController::class)->name('dashboard');
 
             Route::get('events', ListsEventAdminController::class)->name('events.index');
             Route::get('events/{event}/show', ShowEventAdminController::class)->name('events.show');
@@ -109,6 +119,9 @@ Route::middleware('auth')->group(function (): void {
 
             Route::put('password/{user}/update', SettingUpdatePasswordController::class)->name('settings.password');
             Route::put('admins/{user}/update', UpdateUserController::class)->name('admins.change');
+
+            Route::get('company', ListCompanyController::class)->name('company-lists');
+            Route::get('company/{company}/show', ShowCompanyController::class)->name('company.show');
         }
     );
 
@@ -130,10 +143,22 @@ Route::middleware('auth')->group(function (): void {
             Route::post('profile/upload', UploadProfileController::class)->name('profile.upload');
             Route::delete('profile/{user}/delete', DeleteUsersController::class)->name('profile.delete');
 
+            Route::get('event', \App\Http\Controllers\Organisers\Events\ListEventsController::class)->name('events-list');
+            Route::get('event/{event}/show', ShowEventController::class)->name('events.show');
+            Route::get('event/create', CreateEventController::class)->name('event.create');
+            Route::post('event/store', StoreEventController::class)->name('event.store');
+            Route::get('event/{event}/edit', EditEventController::class)->name('events.edit');
+            Route::put('event/{event}/update', UpdateEventController::class)->name('events.update');
+            Route::delete('event/{event}/delete', DeleteEventController::class)->name('events.delete');
+
+            Route::get('event/{event}/payment', PaymentEventController::class)->name('events.payment');
+            Route::post('event/{event}/confirm', ConfirmPaymentController::class)->name('event.confirm');
+
+
             Route::get('bookings', BookingOrganiserController::class)->name('bookings.index');
             Route::resource('images', ImageOrganiserController::class);
-            Route::resource('events', EventOrganiserController::class);
-            Route::resource('events.payment', CheckoutOrganiserController::class);
+            // Route::resource('events', EventOrganiserController::class);
+            //Route::resource('events.payment', CheckoutOrganiserController::class);
 
             Route::controller(CheckoutOrganiserController::class)->group(function (): void {
                 Route::post('confirm-payment', 'confirmed')->name('confirm.payment.event');
@@ -149,7 +174,8 @@ Route::middleware('auth')->group(function (): void {
                 Route::post('/order/create', 'create')->name('paypal.transaction');
                 Route::post('/order/capture', 'capture')->name('paypal.capture');
             });
-    });
+        }
+    );
 
     Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user']], function (): void {
         Route::resource('home', HomeUserController::class);

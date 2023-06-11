@@ -36,7 +36,7 @@
                             <span>${{ $billing->payout ?? 0 }}</span>
                         </td>
                         <td class="nk-tb-col tb-col-lg">
-                            <span>{{ $user->created_at->diffForHumans() ?? "" }}</span>
+                            <span>{{ $billing->created_at->diffForHumans() ?? "" }}</span>
                         </td>
                         <td class="nk-tb-col nk-tb-col-tools">
                             <ul class="nk-tb-actions gx-1">
@@ -48,7 +48,7 @@
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <ul class="link-list-opt no-bdr">
                                                 <li>
-                                                    <a href="{{ route('supper.invoices.show', base64_encode($billing->id)) }}">
+                                                    <a href="{{ route('supper.invoices.show', $billing->id) }}">
                                                         <em class="icon ni ni-focus"></em>
                                                         <span>Quick View</span>
                                                     </a>

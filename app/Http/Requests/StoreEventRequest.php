@@ -14,7 +14,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Exists;
 use Illuminate\Validation\Rules\Unique;
 
-class EventRequest extends FormRequest
+class StoreEventRequest extends FormRequest
 {
     public function authorize(): bool
     {

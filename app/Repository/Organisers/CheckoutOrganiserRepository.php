@@ -18,10 +18,6 @@ class CheckoutOrganiserRepository
 {
     use RandomValue;
 
-    public function getCategoryByEvent($event)
-    {
-        return $event->load(['category', 'user']);
-    }
 
     public function transactionWithDpo($attributes)
     {

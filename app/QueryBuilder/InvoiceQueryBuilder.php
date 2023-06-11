@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\QueryBuilder;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -18,13 +20,14 @@ class InvoiceQueryBuilder extends Builder
     ): self {
         return $this->when(
             value: $search,
-            callback: function (Builder $query) use ($search){
-                $query->where(function ($query) use ($search) {
+            callback: function (Builder $query) use ($search): void {
+                $query->where(function ($query) use ($search): void {
                     $query
-                        ->whereHas('event', fn(Builder $builder) => $builder->where('title', 'LIKE', "%$search%"))
-                        ->orWhereHas('user', fn(Builder $builder) => $builder->where('name','LIKE', "%$search%"));
+                        ->whereHas('event', fn (Builder $builder) => $builder->where('title', 'LIKE', "%{$search}%"))
+                        ->orWhereHas('user', fn (Builder $builder) => $builder->where('name', 'LIKE', "%{$search}%"));
                 });
-        });
+            }
+        );
     }
 
     public function sortBy(
@@ -32,8 +35,8 @@ class InvoiceQueryBuilder extends Builder
         string|null $direction
     ): self {
         return $this->when(
-            value: $sortBy === 'date',
-            callback: fn(Builder $builder) => $builder->orderBy('created_at', $direction)
+            value: 'date' === $sortBy,
+            callback: fn (Builder $builder) => $builder->orderBy('created_at', $direction)
         );
     }
 }

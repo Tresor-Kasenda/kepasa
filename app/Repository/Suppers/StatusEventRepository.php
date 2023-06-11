@@ -17,7 +17,7 @@ class StatusEventRepository
             ->where('id', '=', $attributes->input('key'))
             ->first();
 
-        if ($event->where('payment', PaymentEnum::PAID)->first() !== null){
+        if (null !== $event->where('payment', PaymentEnum::PAID)->first()) {
             return $event->update([
                 'status' => $attributes->input('status'),
             ]);
@@ -30,7 +30,7 @@ class StatusEventRepository
     {
         $event = $this->getEvent($event);
 
-        if ($event !== null){
+        if (null !== $event) {
             $event->update(['promoted' => true]);
             toast("L'evenement a ete promus", 'success');
             return $event;

@@ -60,7 +60,7 @@
                             </li>
                         </ul>
                     </div>
-                    <a href="{{ route('organiser.events.index') }}" class="button border with-icon">
+                    <a href="{{ route('organiser.event.create') }}" class="button border with-icon">
                         Add Event
                         <i class="sl sl-icon-plus"></i>
                     </a>

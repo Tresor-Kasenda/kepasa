@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Supers\Invoices;
 
 use App\Http\Controllers\Controller;
 use App\Models\Billing;
-use Illuminate\Http\Request;
 
 class DownloadInvoiceController extends Controller
 {

@@ -20,7 +20,6 @@ class ListUsersRepository
                 'country'
             ])
             ->whereIn('role_id', [
-                RoleEnum::ADMIN,
                 RoleEnum::ORGANISER,
                 RoleEnum::USERS
             ])

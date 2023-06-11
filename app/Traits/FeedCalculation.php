@@ -8,9 +8,9 @@ use App\Enums\FeeOptionEnum;
 
 trait FeedCalculation
 {
-    public function feedCalculationEvent($attributes): array
+    public function resolveFeeds($request): array
     {
-        $prices = (int) $attributes->input('prices');
+        $prices = (int) $request->input('prices');
         $commission = $prices * (5 / 100);
         if (FeeOptionEnum::Exclusive === request()->input('feeOption')) {
             $organiser = $prices - $commission;
