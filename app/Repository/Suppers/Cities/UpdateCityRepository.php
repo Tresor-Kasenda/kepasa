@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repository\Suppers\Cities;
 
 use App\Enums\CityPromotedEnum;
-use App\Http\Requests\UpdateCityRequest;
+use App\Http\Requests\Admin\UpdateCityRequest;
 use App\Models\City;
 use App\Traits\ImageUpload;
 

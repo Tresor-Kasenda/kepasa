@@ -15,9 +15,7 @@ use App\Http\Controllers\Apps\Promoted\PromotedController;
 use App\Http\Controllers\Apps\Promoted\StorePromotedController;
 use App\Http\Controllers\HomeUserController;
 use App\Http\Controllers\Organisers\BookingOrganiserController;
-use App\Http\Controllers\Organisers\CheckoutOrganiserController;
 use App\Http\Controllers\Organisers\EnableXTokenController;
-use App\Http\Controllers\Organisers\EventOrganiserController;
 use App\Http\Controllers\Organisers\Events\CreateEventController;
 use App\Http\Controllers\Organisers\Events\DeleteEventController;
 use App\Http\Controllers\Organisers\Events\EditEventController;
@@ -28,7 +26,6 @@ use App\Http\Controllers\Organisers\Events\StoreEventController;
 use App\Http\Controllers\Organisers\Events\UpdateEventController;
 use App\Http\Controllers\Organisers\HomeOrganiserController;
 use App\Http\Controllers\Organisers\ImageOrganiserController;
-use App\Http\Controllers\Organisers\PaypalController;
 use App\Http\Controllers\Organisers\Profile\Company\UpdateCompanyController;
 use App\Http\Controllers\Organisers\Profile\DeleteUsersController;
 use App\Http\Controllers\Organisers\Profile\ProfileOrganiserController;
@@ -48,13 +45,13 @@ use App\Http\Controllers\Supers\Events\Promoted\PromotedEventController;
 use App\Http\Controllers\Supers\Events\Promoted\StatusEventController;
 use App\Http\Controllers\Supers\Events\Promoted\UnPromotedEventController;
 use App\Http\Controllers\Supers\Events\ShowEventAdminController;
-use App\Http\Controllers\Supers\SuperHomeController;
 use App\Http\Controllers\Supers\Invoices\DownloadInvoiceController;
 use App\Http\Controllers\Supers\Invoices\ListInvoicesController;
 use App\Http\Controllers\Supers\Invoices\ShowInvoiceController;
 use App\Http\Controllers\Supers\Settings\SettingController;
 use App\Http\Controllers\Supers\Settings\SettingUpdateController;
 use App\Http\Controllers\Supers\Settings\SettingUpdatePasswordController;
+use App\Http\Controllers\Supers\SuperHomeController;
 use App\Http\Controllers\Supers\Users\CreateUsersController;
 use App\Http\Controllers\Supers\Users\DeleteUserController;
 use App\Http\Controllers\Supers\Users\EditUserController;
@@ -154,25 +151,12 @@ Route::middleware('auth')->group(function (): void {
             Route::get('event/{event}/payment', PaymentEventController::class)->name('events.payment');
             Route::post('event/{event}/confirm', ConfirmPaymentController::class)->name('event.confirm');
 
-
             Route::get('bookings', BookingOrganiserController::class)->name('bookings.index');
             Route::resource('images', ImageOrganiserController::class);
-            // Route::resource('events', EventOrganiserController::class);
-            //Route::resource('events.payment', CheckoutOrganiserController::class);
-
-            Route::controller(CheckoutOrganiserController::class)->group(function (): void {
-                Route::post('confirm-payment', 'confirmed')->name('confirm.payment.event');
-                Route::get('confirmation/{event}/update', 'updateCheckout')->name('checkout.confirmed');
-            });
 
             Route::controller(EnableXTokenController::class)->group(function (): void {
                 Route::post('createToken', 'createToken')->name('enable.token');
                 Route::get('getRoom/{token}/{roomId}', 'joinRoom')->name('enable.joinRoom');
-            });
-
-            Route::controller(PaypalController::class)->group(function (): void {
-                Route::post('/order/create', 'create')->name('paypal.transaction');
-                Route::post('/order/capture', 'capture')->name('paypal.capture');
             });
         }
     );

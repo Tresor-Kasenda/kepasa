@@ -104,13 +104,13 @@
                                         <i class="sl sl-icon-check"></i> Booking
                                     </a>
                                 @endif
-                                <a href="" class="button gray">
+                                <a href="{{ route('organiser.events.edit', $event->id) }}" class="button gray">
                                     <i class="sl sl-icon-note"></i> Edit
                                 </a>
-                                <a href="" class="button gray" onclick="event.preventDefault(); document.getElementById('destroy-event').submit();">
+                                <a href="{{ route('organiser.events.delete', $event->id) }}" class="button gray" onclick="event.preventDefault(); document.getElementById('destroy-event').submit();">
                                     <i class="sl sl-icon-close"></i> Delete
                                 </a>
-                                <form id="destroy-event" action="" method="POST" class="d-none">
+                                <form id="destroy-event" action="{{ route('organiser.events.delete', $event->id) }}" method="POST" class="d-none">
                                     @csrf
                                     @method('DELETE')
                                 </form>

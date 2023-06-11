@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services\EnableX;
 
+use App\Http\Requests\Organiser\EventUpdateRequest;
+use App\Models\Event;
 use App\Models\OnlineEvent;
 use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
@@ -38,6 +40,32 @@ class CreateRoomService
             ]);
     }
 
+    public function update(EventUpdateRequest $request, Event $event): Model|Builder|OnlineEvent|null
+    {
+        $onlineEventCreate = $this->updateOnline(event: $event);
+        $currentTime = strtotime(''.$event->date.' '.$event->startTime.'');
+        $date = date('Y-m-d H:i:s', $currentTime);
+
+        $online = OnlineEvent::query()
+            ->where('event_id', '=', $event->id)
+            ->first();
+
+        $online->update([
+            'event_id' => $event->id,
+            'company_id' => $request->user()->company->id,
+            'roomId' => $onlineEventCreate['room']['room_id'],
+            'roomName' => $onlineEventCreate['room']['name'],
+            'reference' => $onlineEventCreate['room']['owner_ref'],
+            'moderators' => $onlineEventCreate['room']['settings']['moderators'],
+            'schedule' => $date,
+            'duration' => $onlineEventCreate['room']['settings']['duration'],
+            'participants' => $onlineEventCreate['room']['settings']['participants'],
+            'mode' => $onlineEventCreate['room']['settings']['mode'],
+        ]);
+
+        return $online;
+    }
+
     private function CreateOnlineRoom($event)
     {
         $participants = $event->ticketNumber;
@@ -65,6 +93,23 @@ class CreateRoomService
         $date = date('Y-m-d H:i:s', $newTime);
 
         return [$date, $duration];
+    }
+
+    private function updateOnline($event)
+    {
+        $participants = $event->ticketNumber;
+        [$date, $duration] = $this->calculationDateOfEvent($event);
+        $Room = $this->renderMetadataForRoom(
+            $event,
+            $participants,
+            $duration,
+            $date
+        );
+
+        return $this->request()
+            ->post(config('enablex.url').'rooms/', $Room)
+            ->json();
+
     }
 
     #[ArrayShape(['name' => 'string', 'owner_ref' => 'int', 'settings' => 'array', 'sip' => 'false[]'])]

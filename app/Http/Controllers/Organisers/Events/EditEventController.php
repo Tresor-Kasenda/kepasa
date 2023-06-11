@@ -5,18 +5,22 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Organisers\Events;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
+use App\Repository\Suppers\CategorySupperRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class EditEventController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Request $request)
-    {
+    public function __invoke(
+        Event $event,
+        CategorySupperRepository $repository
+    ) {
+        $this->authorize('update', $event);
 
+        return View::make('organisers.pages.events.edit', [
+            'event' => $event->load(['category', 'online', 'country', 'city']),
+            'categories' => $repository->getContents()
+        ]);
     }
 }

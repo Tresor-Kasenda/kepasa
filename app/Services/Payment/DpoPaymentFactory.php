@@ -6,17 +6,17 @@ namespace App\Services\Payment;
 
 class DpoPaymentFactory
 {
-    public function pay($event, $attributes)
+    public function pay($event, $request)
     {
         $price = $event->prices;
         $reference = $event->key;
         $title = $event->title;
         $phones = auth()->user()->phones;
-        $organiserAddress = $attributes->input('address') ?? $event->address;
-        $email = $attributes->input('email');
-        $city = $attributes->input('city');
-        $name = $attributes->input('nameOrganiser');
-        $lastName = $attributes->input('lastNameOrganiser');
+        $organiserAddress = $request->input('address') ?? $event->address;
+        $email = $request->input('email');
+        $city = $request->input('city');
+        $name = $request->input('nameOrganiser');
+        $lastName = $request->input('lastNameOrganiser');
 
         $xml = "<?xml version='1.0' encoding='utf-8'?>
             <API3G>

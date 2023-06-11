@@ -1,4 +1,4 @@
-<x-event-layout>
+<x-organiser-layout>
     @section('title', "Images des evenements")
 
     <div id="titlebar">
@@ -8,8 +8,8 @@
                 <nav id="breadcrumbs">
                     <ul>
                         <li>
-                            <a href="{{ route('event.images.create') }}">
-                                <i class="fa fa-database"></i>
+                            <a href="{{ route('organiser.images.create') }}" class="button medium" style="color: white">
+                                <i class="fa fa-plus"></i>
                                 Add Images
                             </a>
                         </li>
@@ -44,13 +44,13 @@
                                 </div>
                             </div>
                             <div class="buttons-to-right">
-                                <a href="{{ route('event.images.edit', $image->key) }}" class="button gray">
+                                <a href="{{ route('organiser.images.edit', $image->id) }}" class="button gray">
                                     <i class="sl sl-icon-note"></i> Edit
                                 </a>
-                                <a href="{{ route('event.images.destroy',$image->key) }}" class="button gray" onclick="event.preventDefault(); document.getElementById('destroy-event').submit();">
+                                <a href="{{ route('organiser.images.destroy',$image->id) }}" class="button gray" onclick="event.preventDefault(); document.getElementById('destroy-event').submit();">
                                     <i class="sl sl-icon-close"></i> Delete
                                 </a>
-                                <form id="destroy-event" action="{{ route('event.images.destroy',$image->key) }}" method="POST" class="d-none">
+                                <form id="destroy-event" action="{{ route('organiser.images.destroy',$image->id) }}" method="POST" class="d-none">
                                     @csrf
                                     @method('DELETE')
                                 </form>
@@ -62,4 +62,4 @@
             {{ $images->links('') }}
         </div>
     </div>
-</x-event-layout>
+</x-organiser-layout>

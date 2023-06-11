@@ -1,5 +1,5 @@
 <x-organiser-layout>
-    @section('title', "Creation d'un evenement")
+    @section('title', "Edit event")
 
     <div id="titlebar">
         <div class="row">
@@ -7,7 +7,7 @@
                 <h2>Edit events / <span class="text-teal-dim">{{ $event->title ?? "" }}</span></h2>
                 <nav id="breadcrumbs">
                     <ul>
-                        <li><a href="{{ route('organiser.events.index') }}">Back to events</a></li>
+                        <li><a href="{{ route('organiser.events-list') }}">Back to events</a></li>
                     </ul>
                 </nav>
             </div>
@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div id="add-listing">
-                <form action="{{ route('organiser.events.update', $event->key) }}" method="post">
+                <form action="{{ route('organiser.events.update', $event->id) }}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="add-listing-section">
@@ -55,8 +55,8 @@
                             </div>
                             <div class="col-md-4">
                                 <h5>Event Category<span>(required)</span></h5>
-                                <select class="chosen-select-no-single" name="category_id" required>
-                                    <option value="{{ $event->category->name }}">{{ $event->category->name }}</option>
+                                <select class="chosen-select-no-single" name="category" required>
+                                    <option value="{{ $event->category->id }}">{{ $event->category->name }}</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name ?? "" }}</option>
                                     @endforeach
@@ -160,7 +160,7 @@
                                 <div class="countries col-md-6">
                                     <h5>Country</h5>
                                     <select class="countries" id="country" name="country">
-                                        <option value="{{ $event->country }}">{{ $event->country }}</option>
+                                        <option value="{{ $event->country->id }}">{{ $event->country->countryName }}</option>
                                         @foreach($countries as $country)
                                             <option value="{{ $country->countryCode }}">
                                                 {{ $country->countryName }}

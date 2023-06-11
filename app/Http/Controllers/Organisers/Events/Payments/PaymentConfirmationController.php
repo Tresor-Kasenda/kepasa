@@ -7,19 +7,20 @@ namespace App\Http\Controllers\Organisers\Events\Payments;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Repository\Organisers\Events\Payment\EventPaymentRepository;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
-class ConfirmPaymentController extends Controller
+class PaymentConfirmationController extends Controller
 {
     public function __construct(
         protected readonly EventPaymentRepository $repository
-    ) {
+    )
+    {
     }
 
-    public function __invoke(Event $event, Request $request)
+    public function updateCheckout(Event $event): RedirectResponse
     {
-        $token = $this->repository->handle($event, $request);
+        $this->repository->updatePayment($event);
 
-        return redirect()->away("https://secure.3gdirectpay.com/dpopayment.php?ID={$token}");
+        return redirect()->route('organiser.events-list');
     }
 }

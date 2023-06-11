@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Repository\Suppers\Users;
 
 use App\Events\UpdateUserEvent;
-use App\Http\Requests\UpdateUsersRequest;
+use App\Http\Requests\Admin\UpdateUsersRequest;
 use App\Models\User;
 use App\Traits\ImageUpload;
 

@@ -32,22 +32,21 @@ class ImagesOrganiserRepository
             ->get();
     }
 
-    public function create($attributes): Model|Builder
+    public function create($request): Model|Builder
     {
         $image = Images::query()
             ->create([
-                'event_id' => $attributes->input('event_id'),
-                'image' => self::uploadFile($attributes),
-                'company_id' => $attributes->user()->company->id,
+                'event_id' => $request->input('event_id'),
+                'image' => self::uploadFile($request),
+                'company_id' => $request->user()->company->id,
             ]);
         toast('Image ajouter avec success', 'success');
 
         return $image;
     }
 
-    public function update(string $key, $attributes): Model|Builder|null
+    public function update(Images $image, $attributes): Model|Builder|null
     {
-        $image = $this->getImageByKey(key: $key);
         $this->removePicture($image);
         $image->update([
             'event_id' => $attributes->input('event_id'),
@@ -59,9 +58,8 @@ class ImagesOrganiserRepository
         return $image;
     }
 
-    public function delete(string $key): Model|Builder|null
+    public function delete(Images $image): Model|Builder|null
     {
-        $image = $this->getImageByKey($key);
         $this->removePicture($image);
         $image->delete();
         toast('Image a ete supprimer', 'success');
@@ -69,10 +67,4 @@ class ImagesOrganiserRepository
         return $image;
     }
 
-    public function getImageByKey(string $key): Model|Builder|null
-    {
-        return Images::query()
-            ->where('key', '=', $key)
-            ->first();
-    }
 }

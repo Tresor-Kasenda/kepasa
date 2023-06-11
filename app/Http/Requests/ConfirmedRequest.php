@@ -14,7 +14,7 @@ class ConfirmedRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'email' => ['required', Rule::exists('users', 'email')],

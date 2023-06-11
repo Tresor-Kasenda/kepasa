@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers\Events;
 
-use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\Organiser\StoreEventRequest;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Supers\Country\City;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateCityRequest;
+use App\Http\Requests\Admin\UpdateCityRequest;
 use App\Models\City;
 use App\Repository\Suppers\Cities\UpdateCityRepository;
 

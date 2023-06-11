@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Supers\Users;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StatusUserRequest;
+use App\Http\Requests\Admin\StatusUserRequest;
 use App\Models\User;
 
 class UpdateStatusUserController extends Controller

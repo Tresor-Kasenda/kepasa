@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Supers\Settings;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePassword;
 use App\Models\User;
-use App\Repository\UpdatePasswordRepository;
+use App\Repository\Suppers\UpdatePasswordRepository;
 
 class SettingUpdatePasswordController extends Controller
 {

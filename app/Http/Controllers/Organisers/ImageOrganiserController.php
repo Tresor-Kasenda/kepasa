@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Organisers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ImageRequest;
+use App\Models\Event;
+use App\Models\Images;
 use App\Repository\Organisers\ImagesOrganiserRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Support\Renderable;
@@ -16,7 +18,7 @@ use Illuminate\Http\RedirectResponse;
 class ImageOrganiserController extends Controller
 {
     public function __construct(
-        public ImagesOrganiserRepository $repository,
+        protected readonly ImagesOrganiserRepository $repository,
     ) {
     }
 
@@ -36,31 +38,29 @@ class ImageOrganiserController extends Controller
 
     public function store(ImageRequest $attributes): RedirectResponse
     {
-        $this->repository->create(attributes: $attributes);
+        $this->repository->create(request: $attributes);
 
         return redirect()->route('organiser.images.index');
     }
 
-    public function edit(string $key): Factory|View|Application
+    public function edit(Images $image): Factory|View|Application
     {
-        $image = $this->repository->getImageByKey(key: $key);
-
         return view('organisers.pages.images.edit', [
             'events' => $this->repository->getEvents(),
             'image' => $image,
         ]);
     }
 
-    public function update(string $key, ImageRequest $attributes): RedirectResponse
+    public function update(Images $image, ImageRequest $request): RedirectResponse
     {
-        $this->repository->update(key: $key, attributes: $attributes);
+        $this->repository->update($image, $request);
 
         return redirect()->route('organiser.images.index');
     }
 
-    public function destroy(string $key): RedirectResponse
+    public function destroy(Images $image): RedirectResponse
     {
-        $this->repository->delete(key: $key);
+        $this->repository->delete($image);
 
         return redirect()->route('organiser.images.index');
     }

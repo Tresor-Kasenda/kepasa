@@ -15,7 +15,7 @@ class UpdateStatusEvent extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'status' => ['required', Rule::in(StatusEnum::$status)],

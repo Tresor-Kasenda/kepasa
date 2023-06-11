@@ -1,4 +1,4 @@
-<x-event-layout>
+<x-organiser-layout>
     @section('title', "Edition of images for every event")
 
     <div id="titlebar">
@@ -8,7 +8,7 @@
                 <nav id="breadcrumbs">
                     <ul>
                         <li>
-                            <a href="{{ route('event.images.index') }}">
+                            <a href="{{ route('organiser.images.index') }}">
                                 <i class="fa fa-fast-backward"></i>
                                 Back to images
                             </a>
@@ -30,14 +30,14 @@
                     <div class="add-listing-headline">
                         <h3><i class="sl sl-icon-doc"></i>Edite une images</h3>
                     </div>
-                    <form action="{{ route('event.images.update', $image->key) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('organiser.images.update', ['image' => $image->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row with-forms">
                             <div class="col-md-6">
                                 <h5>Event Lists</h5>
                                 <select class="chosen-select-no-single" name="event_id" id="event_id" >
-                                    <option label="blank">Select Event</option>
+                                    <option value="{{ $image->event_id }}">{{ $image->event->title }}</option>
                                     @foreach($events as $event)
                                         <option value="{{ $event->id }}">{{ $event->title ?? "" }}</option>
                                     @endforeach
@@ -63,4 +63,4 @@
         </div>
     </div>
 
-</x-event-layout>
+</x-organiser-layout>

@@ -2,19 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Organiser;
 
 use App\Enums\FeeOptionEnum;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
-use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Exists;
-use Illuminate\Validation\Rules\Unique;
 
-class StoreEventRequest extends FormRequest
+class EventUpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -27,12 +25,10 @@ class StoreEventRequest extends FormRequest
             'title' => [
                 'required',
                 'min:4',
-                new Unique(Event::class, 'title')
             ],
             'subTitle' => [
                 'required',
                 'min:4',
-                new Unique(Event::class, 'subTitle')
             ],
             'category' => [
                 'required',
@@ -77,11 +73,6 @@ class StoreEventRequest extends FormRequest
             'cityName' => [
                 'required',
                 new Exists(City::class, 'cityName')
-            ],
-            'image' => [
-                'required',
-                'image',
-                'mimes:jpeg,jpg,png'
             ],
             'description' => [
                 'nullable',

@@ -14,7 +14,7 @@ class EventSearchRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'city' => ['required', 'string', Rule::exists('cities', 'cityName')],

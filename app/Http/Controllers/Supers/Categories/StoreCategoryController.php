@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Supers\Categories;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\Admin\CategoryRequest;
 use App\Repository\Suppers\CategorySupperRepository;
 
 class StoreCategoryController extends Controller
