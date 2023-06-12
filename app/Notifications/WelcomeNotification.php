@@ -20,7 +20,6 @@ class WelcomeNotification extends Notification implements ShouldQueue
      */
     public function __construct(public $user)
     {
-
     }
 
     /**
@@ -35,9 +34,6 @@ class WelcomeNotification extends Notification implements ShouldQueue
 
     /**
      * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return MailMessage
      */
     public function toMail($notifiable)
     {
@@ -49,10 +45,8 @@ class WelcomeNotification extends Notification implements ShouldQueue
 
     /**
      * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
      */
-    public function toArray($notifiable): array
+    public function toArray(mixed $notifiable): array
     {
         return [
 

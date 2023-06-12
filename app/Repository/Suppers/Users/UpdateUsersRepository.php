@@ -15,7 +15,7 @@ class UpdateUsersRepository
 
     public function handleUser(User $user, UpdateUsersRequest $request): User
     {
-        if (null !== $user->images) {
+        if ($user->images !== null) {
             $this->removePicture($user);
         }
 
@@ -25,7 +25,7 @@ class UpdateUsersRepository
             'country_id' => $request->input('country'),
             'email' => $request->input('email'),
             'phones' => $request->input('phones'),
-            'images' => self::uploadProfile($request)
+            'images' => self::uploadProfile($request),
         ]);
         $user->notify(new UpdateUserEvent($user));
 

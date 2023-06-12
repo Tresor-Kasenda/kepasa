@@ -11,10 +11,10 @@ trait FeedCalculation
     public function resolveFeeds($request): array
     {
         $prices = (int) $request->input('prices');
-        $commission = $prices * (5 / 100);
-        if (FeeOptionEnum::Exclusive === request()->input('feeOption')) {
+        $commission = $prices * 5 / 100;
+        if (request()->input('feeOption') === FeeOptionEnum::Exclusive) {
             $organiser = $prices - $commission;
-        } elseif (FeeOptionEnum::Inclusive === request()->input('feeOption')) {
+        } elseif (request()->input('feeOption') === FeeOptionEnum::Inclusive) {
             $organiser = $prices + $commission;
         }
 

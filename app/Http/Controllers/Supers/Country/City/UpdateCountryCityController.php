@@ -20,7 +20,7 @@ class UpdateCountryCityController extends Controller
     {
         $this->repository->updateCity($city, $request);
 
-        toast("City updated with successful", 'success');
+        toast('City updated with successful', 'success');
 
         return redirect()->route('supper.country-list');
     }

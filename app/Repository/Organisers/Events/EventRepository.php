@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\File;
 
 class EventRepository
 {
-    use ImageUpload;
     use EnableXHttpService;
+    use ImageUpload;
 
     public function getEvents(Request $request)
     {
@@ -37,14 +37,15 @@ class EventRepository
     {
         $files = File::exists($event->image);
 
-        if ($files !== false){
+        if ($files !== false) {
             $this->removePicture($event);
         }
 
-        if (false !== $event->online()->exists()) {
+        if ($event->online()->exists() !== false) {
             $this
                 ->request()
-                ->delete(config('enablex.url').`rooms/${$event->online()->roomId}`);
+                ->delete(config('enablex.url').`rooms/${$event->online()->roomId
+        }`);
         }
         $event->delete();
 

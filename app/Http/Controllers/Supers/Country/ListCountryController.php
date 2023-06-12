@@ -12,6 +12,6 @@ class ListCountryController extends Controller
 {
     public function __invoke(Request $request)
     {
-        return  View::make('admins.pages.countries.index');
+        return View::make('admins.pages.countries.index');
     }
 }

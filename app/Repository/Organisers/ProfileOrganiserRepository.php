@@ -27,8 +27,6 @@ class ProfileOrganiserRepository
         return $user;
     }
 
-
-
     public function updateProfile(User $user, UpdateProfileRequest $request): User
     {
         $user->update([
@@ -36,7 +34,7 @@ class ProfileOrganiserRepository
             'lastName' => $request->input('lastName'),
             'email' => $request->input('email'),
             'phones' => $request->input('phones'),
-            'country_id' => $request->input('country')
+            'country_id' => $request->input('country'),
         ]);
 
         return $user;

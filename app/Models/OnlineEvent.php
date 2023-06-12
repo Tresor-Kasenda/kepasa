@@ -28,8 +28,10 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string $moderatorID
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property-read Company $company
  * @property-read Event $event
+ *
  * @method static Builder|OnlineEvent newModelQuery()
  * @method static Builder|OnlineEvent newQuery()
  * @method static Builder|OnlineEvent query()
@@ -47,10 +49,13 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|OnlineEvent whereRoomName($value)
  * @method static Builder|OnlineEvent whereSchedule($value)
  * @method static Builder|OnlineEvent whereUpdatedAt($value)
+ *
  * @property string $duration
  * @property string $participants
+ *
  * @method static Builder|OnlineEvent whereDuration($value)
  * @method static Builder|OnlineEvent whereParticipants($value)
+ *
  * @mixin \Eloquent
  */
 class OnlineEvent extends Model

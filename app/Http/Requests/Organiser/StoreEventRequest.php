@@ -27,66 +27,66 @@ class StoreEventRequest extends FormRequest
             'title' => [
                 'required',
                 'min:4',
-                new Unique(Event::class, 'title')
+                new Unique(Event::class, 'title'),
             ],
             'subTitle' => [
                 'required',
                 'min:4',
-                new Unique(Event::class, 'subTitle')
+                new Unique(Event::class, 'subTitle'),
             ],
             'category' => [
                 'required',
-                new Exists(Category::class, 'id')
+                new Exists(Category::class, 'id'),
             ],
             'date' => [
                 'required',
                 'date',
-                'after:tomorrow'
+                'after:tomorrow',
             ],
             'startTime' => [
                 'required',
                 'date_format:H:i',
-                'required_with:endTime'
+                'required_with:endTime',
             ],
             'endTime' => [
                 'required',
                 'date_format:H:i',
                 'required_with:startTime',
-                'after:startTime'
+                'after:startTime',
             ],
             'address' => [
                 'required',
-                'min:5'
+                'min:5',
             ],
             'ticketNumber' => [
                 'required',
-                'min:1'
+                'min:1',
             ],
             'prices' => [
                 'required',
-                'min:1'
+                'min:1',
             ],
             'feeOption' => [
                 'required',
-                Rule::in(FeeOptionEnum::$types)
+                Rule::in(FeeOptionEnum::$types),
             ],
             'country' => [
                 'required',
-                new Exists(Country::class, 'countryCode')
+                new Exists(Country::class, 'countryCode'),
             ],
             'cityName' => [
                 'required',
-                new Exists(City::class, 'cityName')
+                new Exists(City::class, 'cityName'),
             ],
             'image' => [
                 'required',
                 'image',
-                'mimes:jpeg,jpg,png'
+                'mimes:jpeg,jpg,png',
             ],
             'description' => [
                 'nullable',
-                'min:10'
-            ]
+                'min:10',
+            ],
         ];
     }
 }

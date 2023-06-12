@@ -6,5 +6,5 @@ namespace App\Repository\Contracts;
 
 interface JoinRoomRepositoryInterface
 {
-    public function joinRoom($attributes);
+    public function joinRoom($attributes): void;
 }

@@ -22,7 +22,7 @@ class StoreUsersRepository
                 'phones' => $validated['phones'],
                 'country_id' => $validated['country'],
                 'password' => Hash::make($validated['password']),
-                'role_id' => RoleEnum::ADMIN
+                'role_id' => RoleEnum::ADMIN,
             ]);
         Mail::send(new CreatedAdminEmail($users));
         return $users;

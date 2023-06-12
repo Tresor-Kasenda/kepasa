@@ -15,14 +15,13 @@ class EventPolicy
 
     public function viewAny(User $user): bool
     {
-        return RoleEnum::ORGANISER === $user->role_id;
+        return $user->role_id === RoleEnum::ORGANISER;
     }
 
     public function view(User $user, Event $event): bool
     {
         return $user->id === $event->user_id;
     }
-
 
     public function update(User $user, Event $event): bool
     {
@@ -36,6 +35,6 @@ class EventPolicy
 
     public function destroy(User $user, Event $event): bool
     {
-        return RoleEnum::SUPER === $user->role_id;
+        return $user->role_id === RoleEnum::SUPER;
     }
 }

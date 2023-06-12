@@ -8,7 +8,6 @@ use App\Http\Requests\Organiser\StoreEventRequest;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
-use App\Models\PaymentCustomer;
 use App\Notifications\CreatedEventNotification;
 use App\Services\EnableX\CreateRoomService;
 use App\Traits\FeedCalculation;
@@ -34,7 +33,7 @@ class StoreEventRepository
             )
         );
 
-        if (1 === $category->id) {
+        if ($category->id === 1) {
             (new CreateRoomService())
                 ->handle(
                     request: $request,
@@ -81,7 +80,6 @@ class StoreEventRepository
                 'company_id' => auth()->user()->company->id,
             ]);
     }
-
 
     private function getCity($request): Model|Builder|City|null
     {

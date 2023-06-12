@@ -66,5 +66,4 @@ class ImagesOrganiserRepository
 
         return $image;
     }
-
 }

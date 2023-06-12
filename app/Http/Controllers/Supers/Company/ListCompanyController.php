@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Supers\Company;
 
 use App\Http\Controllers\Controller;
@@ -12,7 +14,7 @@ class ListCompanyController extends Controller
     public function __invoke(Request $request, ListCompanyRepository $repository)
     {
         return View::make('admins.pages.company.list-company', [
-            'companies' => $repository->company($request)
+            'companies' => $repository->company($request),
         ]);
     }
 }

@@ -6,7 +6,7 @@ namespace App\Repository\Contracts;
 
 interface ReadRepositoryInterface
 {
-    public function getElementByKey(string $key);
+    public function getElementByKey(string $key): void;
 
-    public function delete($key);
+    public function delete($key): void;
 }

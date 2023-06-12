@@ -17,11 +17,11 @@ class ListUsersRepository
                 'payment',
                 'company',
                 'role',
-                'country'
+                'country',
             ])
             ->whereIn('role_id', [
                 RoleEnum::ORGANISER,
-                RoleEnum::USERS
+                RoleEnum::USERS,
             ])
             ->latest()
             ->orderByDesc('created_at')

@@ -20,12 +20,12 @@ class UpdateUsersRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'string', 'max:255'
+                'string', 'max:255',
             ],
             'lastName' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
             'email' => [
                 'required',
@@ -41,13 +41,13 @@ class UpdateUsersRequest extends FormRequest
             'country' => [
                 'required',
                 'int',
-                new Exists(Country::class, 'id')
+                new Exists(Country::class, 'id'),
             ],
             'images' => [
                 'required',
                 'image',
-                'mimes:jpeg,jpg,png'
-            ]
+                'mimes:jpeg,jpg,png',
+            ],
         ];
     }
 }

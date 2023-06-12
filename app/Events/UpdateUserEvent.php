@@ -17,14 +17,12 @@ class UpdateUserEvent
 
     public function __construct(public  $user)
     {
-
     }
 
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');
     }
-
 
     public function via(): array
     {

@@ -47,6 +47,5 @@ class ChartJsSuperRepository
             ->groupBy(DB::raw('month_name'))
             ->orderBy('id', 'ASC')
             ->pluck('count', 'month_name');
-
     }
 }

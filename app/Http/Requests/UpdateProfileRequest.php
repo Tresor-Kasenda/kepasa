@@ -23,34 +23,34 @@ class UpdateProfileRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
             'lastName' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
             'email' => [
                 'required',
                 'email',
                 (new Unique(User::class, 'email'))
-                    ->ignore($this->user()->id)
+                    ->ignore($this->user()->id),
             ],
             'phones' => [
                 'required',
                 'string',
                 'min:10',
                 (new Unique(User::class, 'phones'))
-                    ->ignore($this->user()->id)
+                    ->ignore($this->user()->id),
             ],
             'country' => [
                 'required',
                 'integer',
-                new Exists(Country::class, 'id')
+                new Exists(Country::class, 'id'),
             ],
             'city' => [
-                'required'
-            ]
+                'required',
+            ],
         ];
     }
 }

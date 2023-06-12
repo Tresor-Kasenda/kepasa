@@ -20,16 +20,16 @@ class UpdatePassword extends FormRequest
             'password' => [
                 'required',
                 'confirmed',
-                Password::defaults()
+                Password::defaults(),
             ],
             'email' => [
                 'required',
-                'email'
+                'email',
             ],
             'current_password' => [
                 'required',
-                'string'
-            ]
+                'string',
+            ],
         ];
     }
 }

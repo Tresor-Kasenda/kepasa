@@ -24,12 +24,11 @@ class UpdatePasswordRepository
 {
     public function updatePassword($request, User $user): User|RedirectResponse
     {
-
-        if ( ! Hash::check($request['old_password'], $user->password)) {
+        if (! Hash::check($request['old_password'], $user->password)) {
             return back()->with('danger', "Old password doesn't match ! ");
         }
         $user->update([
-            'password' => Hash::make($request['password'])
+            'password' => Hash::make($request['password']),
         ]);
 
         return $user;
@@ -43,9 +42,14 @@ class UpdatePasswordRepository
             }
         );
 
-        return Password::PASSWORD_RESET === $response
+        return $response === Password::PASSWORD_RESET
             ? $this->sendResetResponse($request, $response)
             : $this->sendResetFailedResponse($request, $response);
+    }
+
+    public function broker(): PasswordBroker
+    {
+        return Password::broker();
     }
 
     protected function credentials(Request $request): array
@@ -97,11 +101,6 @@ class UpdatePasswordRepository
         return redirect()->back()
             ->withInput($request->only('email'))
             ->withErrors(['email' => trans($response)]);
-    }
-
-    public function broker(): PasswordBroker
-    {
-        return Password::broker();
     }
 
     protected function guard(): Guard|StatefulGuard

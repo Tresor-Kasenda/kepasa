@@ -28,7 +28,7 @@ class SearchEventsController extends Controller
             'search' => view(
                 'apps.components._search',
                 compact('events')
-            )->render()
+            )->render(),
         ]);
     }
 }

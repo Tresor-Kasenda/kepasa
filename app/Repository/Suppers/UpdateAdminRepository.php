@@ -15,7 +15,7 @@ class UpdateAdminRepository
             'lastName' => $request['lastName'],
             'country_id' => $request['country'],
             'email' => $request['email'],
-            'phones' => $request['phones']
+            'phones' => $request['phones'],
         ]);
     }
 }

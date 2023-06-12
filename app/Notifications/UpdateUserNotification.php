@@ -19,7 +19,6 @@ class UpdateUserNotification extends Notification
      */
     public function __construct()
     {
-
     }
 
     public function via($notifiable)
@@ -29,11 +28,8 @@ class UpdateUserNotification extends Notification
 
     /**
      * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail(mixed $notifiable): \Illuminate\Notifications\Messages\MailMessage
     {
         return (new MailMessage())
             ->line('The introduction to the notification.')
@@ -44,10 +40,9 @@ class UpdateUserNotification extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(mixed $notifiable): array
     {
         return [
 

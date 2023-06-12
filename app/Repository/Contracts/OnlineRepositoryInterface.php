@@ -6,5 +6,5 @@ namespace App\Repository\Contracts;
 
 interface OnlineRepositoryInterface
 {
-    public function createdToken($attributes);
+    public function createdToken($attributes): void;
 }

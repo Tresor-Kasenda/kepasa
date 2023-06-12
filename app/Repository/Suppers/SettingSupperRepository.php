@@ -38,7 +38,7 @@ class SettingSupperRepository
                 'name' => $attributes['name'],
                 'email' => $attributes['email'],
                 'copyright' => $attributes['copyright'],
-                'user_id' => $user->id
+                'user_id' => $user->id,
             ]);
 
         toast('Settings is created with successful', 'success');

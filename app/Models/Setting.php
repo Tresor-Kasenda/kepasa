@@ -23,7 +23,9 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property int $user_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property-read User $user
+ *
  * @method static Builder|Setting newModelQuery()
  * @method static Builder|Setting newQuery()
  * @method static Builder|Setting query()
@@ -36,6 +38,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Setting whereName($value)
  * @method static Builder|Setting whereUpdatedAt($value)
  * @method static Builder|Setting whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Setting extends Model

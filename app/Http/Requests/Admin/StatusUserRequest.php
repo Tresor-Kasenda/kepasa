@@ -21,12 +21,12 @@ class StatusUserRequest extends FormRequest
             'users' => [
                 'required',
                 'int',
-                new Exists(User::class, 'id')
+                new Exists(User::class, 'id'),
             ],
             'status' => [
                 'required',
-                'bool'
-            ]
+                'bool',
+            ],
         ];
     }
 }

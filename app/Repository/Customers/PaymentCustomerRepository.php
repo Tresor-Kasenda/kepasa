@@ -59,12 +59,25 @@ class PaymentCustomerRepository
         $provider = self::paypalConfiguration();
         $order = $data['orderId'];
         $capture = $provider->capturePaymentOrder(order_id: $order);
-        if ('COMPLETED' === $capture['status']) {
+        if ($capture['status'] === 'COMPLETED') {
             self::updateOrder(capture: $capture);
             self::updateTicketNumber($attributes);
         }
 
         return response()->json($capture);
+    }
+
+    public static function updateTicketNumber($attributes): Event|Builder|Model|null
+    {
+        $event = Event::query()
+            ->where('title', '=', $attributes->input('title'))
+            ->where('prices', '=', $attributes->input('prices'))
+            ->first();
+        $discount = $event->ticketNumber - $attributes->input('ticket');
+        $event->update(['ticketNumber' => $discount]);
+        Mail::send(new ConfirmationTransaction($event));
+
+        return $event;
     }
 
     private static function createOrder($order, $payment, $data): void
@@ -89,18 +102,5 @@ class PaymentCustomerRepository
                 'status' => PaymentEnum::PAID,
                 'updated_at' => Carbon::now(),
             ]);
-    }
-
-    public static function updateTicketNumber($attributes): Event|Builder|Model|null
-    {
-        $event = Event::query()
-            ->where('title', '=', $attributes->input('title'))
-            ->where('prices', '=', $attributes->input('prices'))
-            ->first();
-        $discount = $event->ticketNumber - $attributes->input('ticket');
-        $event->update(['ticketNumber' => $discount]);
-        Mail::send(new ConfirmationTransaction($event));
-
-        return $event;
     }
 }

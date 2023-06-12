@@ -34,7 +34,7 @@ class RegisterController extends Controller
             'name' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
             'lastName' => ['required', 'string', 'max:255'],
             'phones' => [
@@ -46,7 +46,7 @@ class RegisterController extends Controller
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(User::class, 'id')
+                Rule::unique(User::class, 'id'),
             ],
             'password' => [
                 'required',
@@ -68,18 +68,19 @@ class RegisterController extends Controller
                 'phones' => $data['phones'],
                 'password' => Hash::make($data['password']),
             ]);
-        if (3 === (int)$data['role']) {
+        if ((int) $data['role'] === 3) {
             Company::query()->create([
-                'user_id' => $user->id
+                'user_id' => $user->id,
             ]);
             Notification::send($user, new WelcomeNotification($user));
 
             return $user;
-        } elseif (4 === $data['role']) {
+        }
+        if ($data['role'] === 4) {
             Profile::query()
                 ->create([
                     'user_id' => $user->id,
-                    'alternativePhones' => $data['phones']
+                    'alternativePhones' => $data['phones'],
                 ]);
             Mail::send(new CustomerMail($user));
 

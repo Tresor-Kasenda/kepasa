@@ -22,25 +22,25 @@ class StoreUsersRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'string', 'max:255'
+                'string', 'max:255',
             ],
             'lastName' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
             'email' => [
                 'required',
                 'email',
                 'max:255',
                 'regex:/(.+)@(.+)\.(.+)/i',
-                new Unique(User::class, 'email')
+                new Unique(User::class, 'email'),
             ],
             'phones' => [
                 'required',
                 'string',
                 'min:10',
-                new Unique(User::class, 'phones')
+                new Unique(User::class, 'phones'),
             ],
             'password' => [
                 'required',
@@ -50,8 +50,8 @@ class StoreUsersRequest extends FormRequest
             'country' => [
                 'required',
                 'int',
-                new Exists(Country::class, 'id')
-            ]
+                new Exists(Country::class, 'id'),
+            ],
         ];
     }
 }

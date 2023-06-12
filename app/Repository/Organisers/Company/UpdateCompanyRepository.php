@@ -28,7 +28,7 @@ class UpdateCompanyRepository
             'socialMedia' => $validated['socialMedia'],
             'country' => $validated['country'],
             'city' => $validated['cityName'],
-            'updated_at' => now()
+            'updated_at' => now(),
         ]);
 
         return $company;

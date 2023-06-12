@@ -21,8 +21,10 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int $company_id
+ *
  * @property-read Company $company
  * @property-read Event $event
+ *
  * @method static Builder|Images newModelQuery()
  * @method static Builder|Images newQuery()
  * @method static Builder|Images query()
@@ -33,6 +35,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Images whereImage($value)
  * @method static Builder|Images whereKey($value)
  * @method static Builder|Images whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Images extends Model

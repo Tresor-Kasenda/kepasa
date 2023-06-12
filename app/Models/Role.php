@@ -19,7 +19,9 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property-read User|null $user
+ *
  * @method static Builder|Role newModelQuery()
  * @method static Builder|Role newQuery()
  * @method static Builder|Role query()
@@ -28,6 +30,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Role whereKey($value)
  * @method static Builder|Role whereName($value)
  * @method static Builder|Role whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Role extends Model

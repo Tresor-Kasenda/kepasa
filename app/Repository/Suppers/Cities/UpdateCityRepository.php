@@ -27,13 +27,13 @@ class UpdateCityRepository
             'mayor' => $validated->input('mayor'),
             'countryCode' => $validated->input('country_code'),
             'image' => self::uploadProfile($validated),
-            'promoted' => self::statusCity($validated)
+            'promoted' => self::statusCity($validated),
         ]);
     }
 
     protected static function statusCity($validated): string
     {
-        if ('on' === $validated->input('promoted')) {
+        if ($validated->input('promoted') === 'on') {
             return CityPromotedEnum::PROMOTION;
         }
         return CityPromotedEnum::NOTPROMOTED;

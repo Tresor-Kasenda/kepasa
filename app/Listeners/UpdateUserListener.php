@@ -11,7 +11,6 @@ class UpdateUserListener
 {
     public function __construct()
     {
-
     }
 
     public function handle($event): void

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers\Events\Payment;
 
-
 use App\Enums\PaymentEnum;
 use App\Mail\PaymentConfirmationMail;
 use App\Models\Customer;

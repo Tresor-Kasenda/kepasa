@@ -13,8 +13,7 @@ class PaymentConfirmationController extends Controller
 {
     public function __construct(
         protected readonly EventPaymentRepository $repository
-    )
-    {
+    ) {
     }
 
     public function updateCheckout(Event $event): RedirectResponse

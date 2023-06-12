@@ -48,12 +48,26 @@ class PayPalPaymentServiceFactory
         $provider = self::paypalConfiguration();
         $order = $attributes['orderId'];
         $capture = $provider->capturePaymentOrder(order_id: $order);
-        if ('COMPLETED' === $capture['status']) {
+        if ($capture['status'] === 'COMPLETED') {
             self::updateOrder(attributes: $attributes, process: $capture);
             self::updateEvent();
         }
 
         return response()->json($capture);
+    }
+
+    public static function updateEvent(): bool|int
+    {
+        $event = Event::query()
+            ->where('user_id', '=', auth()->id())
+            ->where('company_id', '=', auth()->user()->company->id)
+            ->update([
+                'payment' => PaymentEnum::PAID,
+                'updated_at' => now(),
+            ]);
+        Mail::send(new ConfirmationTransaction($event));
+
+        return $event;
     }
 
     private static function createOrder($order, $payment): void
@@ -84,19 +98,5 @@ class PayPalPaymentServiceFactory
                 'status' => PaymentEnum::PAID,
                 'updated_at' => now(),
             ]);
-    }
-
-    public static function updateEvent(): bool|int
-    {
-        $event = Event::query()
-            ->where('user_id', '=', auth()->id())
-            ->where('company_id', '=', auth()->user()->company->id)
-            ->update([
-                'payment' => PaymentEnum::PAID,
-                'updated_at' => now(),
-            ]);
-        Mail::send(new ConfirmationTransaction($event));
-
-        return $event;
     }
 }

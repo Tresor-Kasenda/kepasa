@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\Organisers\Events;
 
-
 use App\Http\Requests\Organiser\EventUpdateRequest;
-use App\Models\Billing;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
@@ -24,7 +24,6 @@ class UpdateEventRepository
     use ImageUpload;
     use RandomValue;
 
-
     public function handle(EventUpdateRequest $request, Event $event): Event
     {
         $category = $this->getCategory(request: $request);
@@ -35,7 +34,7 @@ class UpdateEventRepository
             $this->resolveFeeds(request: $request)
         );
 
-        if (1 === $category->id) {
+        if ($category->id === 1) {
             (new CreateRoomService())
                 ->update(
                     request: $request,
@@ -77,7 +76,7 @@ class UpdateEventRepository
     private function getCountry($request): Builder|Model
     {
         return Country::query()
-            ->whereCountrycode( $request->input('country'))
+            ->whereCountrycode($request->input('country'))
             ->first();
     }
 

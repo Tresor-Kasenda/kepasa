@@ -19,7 +19,7 @@ class ListCategoryController extends Controller
     public function __invoke(): Renderable
     {
         return View::make('admins.pages.categories.index', [
-            'categories' => $this->repository->getContents()
+            'categories' => $this->repository->getContents(),
         ]);
     }
 }

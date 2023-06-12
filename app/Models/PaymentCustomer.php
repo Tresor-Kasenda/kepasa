@@ -24,8 +24,10 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property-read Event $event
  * @property-read User $user
+ *
  * @method static Builder|PaymentCustomer newModelQuery()
  * @method static Builder|PaymentCustomer newQuery()
  * @method static Builder|PaymentCustomer query()
@@ -39,6 +41,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|PaymentCustomer whereTotalAmount($value)
  * @method static Builder|PaymentCustomer whereUpdatedAt($value)
  * @method static Builder|PaymentCustomer whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class PaymentCustomer extends Model

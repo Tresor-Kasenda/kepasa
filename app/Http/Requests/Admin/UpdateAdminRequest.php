@@ -23,26 +23,26 @@ class UpdateAdminRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
             'phones' => [
                 'required',
                 'numeric',
-                new Unique(User::class, 'phones')
+                new Unique(User::class, 'phones'),
             ],
             'country' => [
                 'required',
-                new Exists(Country::class, 'id')
+                new Exists(Country::class, 'id'),
             ],
             'lastName' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
             'email' => [
                 'required',
                 'email',
-            ]
+            ],
         ];
     }
 }

@@ -27,6 +27,6 @@ class UpdateProfileController extends Controller
 
         return redirect()
             ->route('organiser.profile', '#profile')
-            ->with('success', "Profile updated with successful");
+            ->with('success', 'Profile updated with successful');
     }
 }

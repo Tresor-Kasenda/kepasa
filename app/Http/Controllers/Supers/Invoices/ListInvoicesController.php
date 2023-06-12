@@ -19,7 +19,7 @@ class ListInvoicesController extends Controller
     public function __invoke(Request $request): Renderable
     {
         return view('admins.pages.invoice.index', [
-            'invoices' => $this->repository->getInvoices($request)
+            'invoices' => $this->repository->getInvoices($request),
         ]);
     }
 }

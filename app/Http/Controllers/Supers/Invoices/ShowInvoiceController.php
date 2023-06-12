@@ -12,7 +12,7 @@ class ShowInvoiceController extends Controller
     public function __invoke(Billing $billing)
     {
         return view('admins.pages.invoice.show', [
-            'invoice' => $billing->load(['event', 'user'])
+            'invoice' => $billing->load(['event', 'user']),
         ]);
     }
 }

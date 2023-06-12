@@ -25,7 +25,9 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property Carbon|null $updated_at
  * @property string|null $image
  * @property int $user_id
+ *
  * @property-read User $user
+ *
  * @method static Builder|Profile newModelQuery()
  * @method static Builder|Profile newQuery()
  * @method static Builder|Profile query()
@@ -40,6 +42,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Profile wherePhones($value)
  * @method static Builder|Profile whereUpdatedAt($value)
  * @method static Builder|Profile whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Profile extends Model

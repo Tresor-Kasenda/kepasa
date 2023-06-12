@@ -17,7 +17,6 @@ class UpdateCompanyRequest extends FormRequest
         return true;
     }
 
-
     public function rules(): array
     {
         return [
@@ -25,36 +24,36 @@ class UpdateCompanyRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                new Unique(Company::class, 'companyName')
+                new Unique(Company::class, 'companyName'),
             ],
             'address' => [
                 'required',
-                'string'
+                'string',
             ],
             'phonesCompany' => [
                 'required',
                 'min:10',
-                new Unique(Company::class, 'phones')
+                new Unique(Company::class, 'phones'),
             ],
             'emailCompany' => [
                 'required',
                 'email',
-                new Unique(Company::class, 'email')
+                new Unique(Company::class, 'email'),
             ],
             'website' => [
                 'required',
-                'string'
+                'string',
             ],
             'socialMedia' => [
                 'required',
-                'string'
+                'string',
             ],
             'country' => [
                 'required',
-                new Exists(Country::class, 'countryCode')
+                new Exists(Country::class, 'countryCode'),
             ],
             'cityName' => [
-                'required'
+                'required',
             ],
         ];
     }

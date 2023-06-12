@@ -6,8 +6,6 @@ namespace App\Repository\Suppers;
 
 use App\Enums\PaymentEnum;
 use App\Models\Event;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class StatusEventRepository
 {
@@ -17,7 +15,7 @@ class StatusEventRepository
             ->where('id', '=', $attributes->input('key'))
             ->first();
 
-        if (null !== $event->where('payment', PaymentEnum::PAID)->first()) {
+        if ($event->where('payment', PaymentEnum::PAID)->first() !== null) {
             return $event->update([
                 'status' => $attributes->input('status'),
             ]);

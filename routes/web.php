@@ -74,8 +74,8 @@ Route::middleware('auth')->group(function (): void {
             'as' => 'supper.',
             'middleware' => [
                 'supper',
-                EnsureDefaultPasswordIsChanged::class
-            ]
+                EnsureDefaultPasswordIsChanged::class,
+            ],
         ],
         routes:  function (): void {
             Route::get('/index', SuperHomeController::class)->name('dashboard');
@@ -124,8 +124,8 @@ Route::middleware('auth')->group(function (): void {
             'as' => 'organiser.',
             'middleware' => [
                 'organiser',
-                EnsureOrganiserPasswordChange::class
-            ]
+                EnsureOrganiserPasswordChange::class,
+            ],
         ],
         routes: function (): void {
             Route::get('/', HomeOrganiserController::class)->name('index');
@@ -173,7 +173,6 @@ Route::middleware('auth')->group(function (): void {
 
         Route::get('evenements/{key}/bookings', [BookingController::class, 'bookings'])->name('booking.event');
     });
-
 });
 
 Route::get('/', HomeController::class)->name('home.index');

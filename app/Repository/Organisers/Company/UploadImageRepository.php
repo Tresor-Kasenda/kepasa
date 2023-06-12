@@ -30,7 +30,6 @@ class UploadImageRepository
         return $organiser;
     }
 
-
     private function getCompanyByUser(): null|Builder|Model
     {
         return Company::query()

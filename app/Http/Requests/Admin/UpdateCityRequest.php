@@ -19,46 +19,46 @@ class UpdateCityRequest extends FormRequest
             'cityName' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
             'facts' => [
                 'required',
                 'string',
-                'min:2'
+                'min:2',
             ],
             'overview' => [
                 'required',
                 'string',
-                'min:2'
+                'min:2',
             ],
             'currency' => [
                 'required',
                 'string',
-                'min:2'
+                'min:2',
             ],
             'country_code' => [
                 'required',
                 'string',
-                'min:3'
+                'min:3',
             ],
             'language' => [
                 'required',
-                'string'
+                'string',
             ],
             'population' => [
                 'required',
                 'string',
-                'min:2'
+                'min:2',
             ],
             'popular_city' => [
                 'required',
                 'string',
-                'min:2'
+                'min:2',
             ],
             'mayor' => [
                 'required',
                 'string',
-                'min:2'
+                'min:2',
             ],
             'images' => [
                 'required',
@@ -66,7 +66,7 @@ class UpdateCityRequest extends FormRequest
             ],
             'history' => [
                 'required',
-                'string'
+                'string',
             ],
             'promoted' => ['required'],
         ];

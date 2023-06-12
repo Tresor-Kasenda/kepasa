@@ -17,6 +17,6 @@ final class RoleEnum extends Enum
     public static array $types = [
         self::ORGANISER,
         self::USERS,
-        self::SUPER
+        self::SUPER,
     ];
 }

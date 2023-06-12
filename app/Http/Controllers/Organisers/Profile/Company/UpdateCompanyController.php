@@ -27,6 +27,6 @@ class UpdateCompanyController extends Controller
 
         return redirect()
             ->route('organiser.profile', '#company')
-            ->with('success', "Company updated with successfull");
+            ->with('success', 'Company updated with successfull');
     }
 }
