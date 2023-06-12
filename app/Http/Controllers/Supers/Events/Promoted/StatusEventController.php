@@ -18,7 +18,7 @@ class StatusEventController extends Controller
     public function __invoke(UpdateStatusEvent $request)
     {
         $event = $this->repository->changeStatus(attributes: $request);
-        if ($event !== false) {
+        if (false !== $event) {
             return response()->json([
                 'message' => 'The status has been successfully updated',
                 'type' => 'success',

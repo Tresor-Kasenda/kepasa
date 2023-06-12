@@ -15,7 +15,7 @@ class StatusEventRepository
             ->where('id', '=', $attributes->input('key'))
             ->first();
 
-        if ($event->where('payment', PaymentEnum::PAID)->first() !== null) {
+        if (null !== $event->where('payment', PaymentEnum::PAID)->first()) {
             return $event->update([
                 'status' => $attributes->input('status'),
             ]);

@@ -33,7 +33,7 @@ class StoreEventRepository
             )
         );
 
-        if ($category->id === 1) {
+        if (1 === $category->id) {
             (new CreateRoomService())
                 ->handle(
                     request: $request,

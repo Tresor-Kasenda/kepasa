@@ -14,7 +14,7 @@ class DeleteUserRepository
     use ImageUpload;
     public function delete(User $user): User|RedirectResponse
     {
-        if ($user->status === UserStatus::ACTIVE) {
+        if (UserStatus::ACTIVE === $user->status) {
             return back()->with('danger', 'You cannot delete activated users');
         }
         $this->removeProfile($user);

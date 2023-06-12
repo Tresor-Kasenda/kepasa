@@ -13,13 +13,13 @@ return new class () extends Migration {
         Schema::create('settings', function (Blueprint $table): void {
             $table->id();
             $table->string('key')->unique();
+            $table->foreignIdFor(User::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('copyright')->nullable();
             $table->boolean('maintain')->default(0);
-            $table->foreignIdFor(User::class)
-                ->constrained()
-                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

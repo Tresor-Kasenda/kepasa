@@ -37,11 +37,11 @@ class EventRepository
     {
         $files = File::exists($event->image);
 
-        if ($files !== false) {
+        if (false !== $files) {
             $this->removePicture($event);
         }
 
-        if ($event->online()->exists() !== false) {
+        if (false !== $event->online()->exists()) {
             $this
                 ->request()
                 ->delete(config('enablex.url').`rooms/${$event->online()->roomId

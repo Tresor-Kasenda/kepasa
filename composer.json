@@ -21,7 +21,7 @@
         "fruitcake/laravel-cors": "^2.2",
         "guzzlehttp/guzzle": "^7.4.1",
         "juststeveking/laravel-key-factory": "^1.0",
-        "laravel/framework": "^v8.83.5",
+        "laravel/framework": "^v8.83.27",
         "laravel/sanctum": "^2.14",
         "laravel/telescope": "^4.14",
         "laravel/tinker": "^2.7",

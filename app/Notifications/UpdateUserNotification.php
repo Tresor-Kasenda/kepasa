@@ -29,7 +29,7 @@ class UpdateUserNotification extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(mixed $notifiable): \Illuminate\Notifications\Messages\MailMessage
+    public function toMail(mixed $notifiable): MailMessage
     {
         return (new MailMessage())
             ->line('The introduction to the notification.')

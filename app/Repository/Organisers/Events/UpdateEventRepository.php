@@ -34,7 +34,7 @@ class UpdateEventRepository
             $this->resolveFeeds(request: $request)
         );
 
-        if ($category->id === 1) {
+        if (1 === $category->id) {
             (new CreateRoomService())
                 ->update(
                     request: $request,

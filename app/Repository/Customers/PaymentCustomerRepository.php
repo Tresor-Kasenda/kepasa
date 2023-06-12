@@ -59,7 +59,7 @@ class PaymentCustomerRepository
         $provider = self::paypalConfiguration();
         $order = $data['orderId'];
         $capture = $provider->capturePaymentOrder(order_id: $order);
-        if ($capture['status'] === 'COMPLETED') {
+        if ('COMPLETED' === $capture['status']) {
             self::updateOrder(capture: $capture);
             self::updateTicketNumber($attributes);
         }

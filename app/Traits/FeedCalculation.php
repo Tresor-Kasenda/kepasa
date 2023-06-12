@@ -12,9 +12,9 @@ trait FeedCalculation
     {
         $prices = (int) $request->input('prices');
         $commission = $prices * 5 / 100;
-        if (request()->input('feeOption') === FeeOptionEnum::Exclusive) {
+        if (FeeOptionEnum::Exclusive === request()->input('feeOption')) {
             $organiser = $prices - $commission;
-        } elseif (request()->input('feeOption') === FeeOptionEnum::Inclusive) {
+        } elseif (FeeOptionEnum::Inclusive === request()->input('feeOption')) {
             $organiser = $prices + $commission;
         }
 

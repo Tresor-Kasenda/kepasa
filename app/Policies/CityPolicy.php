@@ -15,6 +15,6 @@ class CityPolicy
 
     public function update(User $user, City $model): bool
     {
-        return $user->role_id === RoleEnum::SUPER;
+        return RoleEnum::SUPER === $user->role_id;
     }
 }

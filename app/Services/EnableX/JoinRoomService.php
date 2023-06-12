@@ -14,7 +14,7 @@ class JoinRoomService
     public function getRoom(Request $request)
     {
         $roomId = $request->route('room');
-        if (! $roomId) {
+        if ( ! $roomId) {
             $error = Errors::getError(4001);
             $error['desc'] = 'Failed to get roomId from URL';
 

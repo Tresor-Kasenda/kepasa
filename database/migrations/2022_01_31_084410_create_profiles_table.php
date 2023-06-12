@@ -17,8 +17,6 @@ return new class () extends Migration {
                 ->cascadeOnDelete();
             $table->string('key')->unique();
             $table->string('image')->nullable();
-            $table->string('lastName')->nullable();
-            $table->string('phones')->unique()->nullable();
             $table->string('alternativePhones')->unique()->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();

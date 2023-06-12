@@ -48,13 +48,6 @@
                     </x-vex-nav-link>
 
                     <x-vex-nav-link
-                            href="{{ route('supper.category-list') }}"
-                            :active="request()->routeIs('supper.category-list')"
-                            icons="ni-box">
-                        Categories
-                    </x-vex-nav-link>
-
-                    <x-vex-nav-link
                             href="{{ route('supper.events.index') }}"
                             :active="request()->routeIs('supper.events.index')"
                             icons="ni-swap-alt">

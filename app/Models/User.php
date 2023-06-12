@@ -4,88 +4,25 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\UserStatus;
-use Database\Factories\UserFactory;
-use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\DatabaseNotification;
-use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Carbon;
 use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 use Laravel\Sanctum\HasApiTokens;
-use Laravel\Sanctum\PersonalAccessToken;
 
-/**
- * App\Models\User
- *
- * @property int $id
- * @property string $key
- * @property string $name
- * @property string|null $lastName
- * @property string|null $phones
- * @property string $email
- * @property string $password
- * @property int $role_id
- * @property int|null $country_id
- * @property string|null $remember_token
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- *
- * @property-read Setting|null $app
- * @property-read Company|null $company
- * @property-read Event|null $customer
- * @property-read Collection|array<Event> $events
- * @property-read int|null $events_count
- * @property-read DatabaseNotificationCollection|array<DatabaseNotification> $notifications
- * @property-read int|null $notifications_count
- * @property-read Profile|null $profile
- * @property-read Role|null $role
- * @property-read Collection|array<PersonalAccessToken> $tokens
- * @property-read int|null $tokens_count
- *
- * @method static UserFactory factory(...$parameters)
- * @method static Builder|User newModelQuery()
- * @method static Builder|User newQuery()
- * @method static Builder|User query()
- * @method static Builder|User whereCountryId($value)
- * @method static Builder|User whereCreatedAt($value)
- * @method static Builder|User whereEmail($value)
- * @method static Builder|User whereId($value)
- * @method static Builder|User whereKey($value)
- * @method static Builder|User whereLastName($value)
- * @method static Builder|User whereName($value)
- * @method static Builder|User wherePassword($value)
- * @method static Builder|User wherePhones($value)
- * @method static Builder|User whereRememberToken($value)
- * @method static Builder|User whereRoleId($value)
- * @method static Builder|User whereUpdatedAt($value)
- *
- * @property UserStatus $status
- *
- * @property-read Country|null $country
- * @property-read Collection<int, PaymentCustomer> $payment
- * @property-read int|null $payment_count
- *
- * @property string|null $images
- *
- * @method static Builder|User whereImages($value)
- * @method static Builder|User whereStatus($value)
- *
- * @mixin Eloquent
- */
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use HasKey;
     use Notifiable;
+    use SoftDeletes;
 
     protected $fillable = [
         'key',
@@ -96,9 +33,14 @@ class User extends Authenticatable
         'country_id',
         'email',
         'password',
-        'images',
         'status',
     ];
+
+
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Images::class, 'resource');
+    }
 
     protected $hidden = [
         'password',
@@ -124,9 +66,9 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    public function payment(): HasMany
+    public function customer(): HasMany
     {
-        return $this->hasMany(PaymentCustomer::class);
+        return $this->hasMany(Customer::class);
     }
 
     public function events(): HasMany

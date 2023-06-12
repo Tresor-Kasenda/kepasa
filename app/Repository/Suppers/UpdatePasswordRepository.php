@@ -24,7 +24,7 @@ class UpdatePasswordRepository
 {
     public function updatePassword($request, User $user): User|RedirectResponse
     {
-        if (! Hash::check($request['old_password'], $user->password)) {
+        if ( ! Hash::check($request['old_password'], $user->password)) {
             return back()->with('danger', "Old password doesn't match ! ");
         }
         $user->update([
@@ -42,7 +42,7 @@ class UpdatePasswordRepository
             }
         );
 
-        return $response === Password::PASSWORD_RESET
+        return Password::PASSWORD_RESET === $response
             ? $this->sendResetResponse($request, $response)
             : $this->sendResetFailedResponse($request, $response);
     }

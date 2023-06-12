@@ -77,9 +77,12 @@
                             </div>
                             <div class="dropdown-inner">
                                 <ul class="link-list">
-                                    <x-vex-link href="{{ route('supper.settings.index') }}" icons="ni-user-alt">
-                                        Voir le profile
-                                    </x-vex-link>
+                                    <li>
+                                        <a  href="{{ route('supper.settings.index') }}">
+                                            <x-vex-icon class="ni-user" />
+                                            Voir le profile
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="dropdown-inner">

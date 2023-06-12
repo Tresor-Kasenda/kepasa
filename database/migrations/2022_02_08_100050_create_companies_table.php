@@ -13,6 +13,9 @@ return new class () extends Migration {
     {
         Schema::create('companies', function (Blueprint $table): void {
             $table->id();
+            $table->foreignIdFor(User::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string('key')->unique();
             $table->string('companyName')->nullable();
             $table->string('address')->nullable();
@@ -23,12 +26,8 @@ return new class () extends Migration {
             $table->string('socialMedia')->unique()->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
-            $table->string('activeStatus')->default(StatusEnum::ACTIVE);
-            $table->string('images')->nullable();
+            $table->string('status')->default(StatusEnum::ACTIVE);
             $table->timestamps();
-            $table->foreignIdFor(User::class)
-                ->constrained()
-                ->cascadeOnDelete();
         });
     }
 

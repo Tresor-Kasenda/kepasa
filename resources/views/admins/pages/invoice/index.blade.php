@@ -18,22 +18,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($invoices as $billing)
-                    <tr class="nk-tb-item {{ $billing->status === 'unpaid' ? "alert alert-danger" : "" }}">
+                @foreach($invoices as $customer)
+                    <tr class="nk-tb-item {{ $customer->status === 'unpaid' ? "alert alert-danger" : "" }}">
                         <td class="nk-tb-col tb-col-mb">
-                            <span>{{ strtoupper($billing->event->title) ?? "" }}</span>
+                            <span>{{ strtoupper($customer->event->title) ?? "" }}</span>
                         </td>
                         <td class="nk-tb-col tb-col-md">
-                            <span>$ {{ number_format($billing->event->prices, 2, ". ") ?? 0 }}</span>
+                            <span>$ {{ number_format($customer->event->prices, 2, ". ") ?? 0 }}</span>
                         </td>
                         <td class="nk-tb-col tb-col-md">
-                            <span>{{ $billing->event->user->name . "-". $billing->event->user->lastName ?? 0 }}</span>
+                            <span>{{ $customer->event->user->name . "-". $customer->event->user->lastName ?? 0 }}</span>
                         </td>
                         <td class="nk-tb-col tb-col-md">
-                            <span>{{ $billing->ticketNumber ?? 0 }}</span>
+                            <span>{{ $customer->ticketNumber ?? 0 }}</span>
                         </td>
                         <td class="nk-tb-col tb-col-md">
-                            <span>$ {{ number_format($billing->totalAmount, 2, ". ") ?? 0 }}</span>
+                            <span>$ {{ number_format($customer->totalAmount, 2, ". ") ?? 0 }}</span>
                         </td>
                         <td class="nk-tb-col nk-tb-col-tools">
                             <ul class="nk-tb-actions gx-1">
@@ -45,7 +45,7 @@
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <ul class="link-list-opt no-bdr">
                                                 <li>
-                                                    <a href="{{ route('supper.invoices.show', $billing->id) }}">
+                                                    <a href="{{ route('supper.invoices.show', $customer->id) }}">
                                                         <em class="icon ni ni-focus"></em>
                                                         <span>Quick View</span>
                                                     </a>

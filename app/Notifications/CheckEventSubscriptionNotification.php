@@ -28,7 +28,7 @@ class CheckEventSubscriptionNotification extends Notification implements ShouldQ
         return ['mail'];
     }
 
-    public function toMail(mixed $notifiable): \Illuminate\Notifications\Messages\MailMessage
+    public function toMail(mixed $notifiable): MailMessage
     {
         return (new MailMessage())
             ->line('The introduction to the notification.')

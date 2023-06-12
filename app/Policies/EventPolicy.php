@@ -15,7 +15,7 @@ class EventPolicy
 
     public function viewAny(User $user): bool
     {
-        return $user->role_id === RoleEnum::ORGANISER;
+        return RoleEnum::ORGANISER === $user->role_id;
     }
 
     public function view(User $user, Event $event): bool
@@ -35,6 +35,6 @@ class EventPolicy
 
     public function destroy(User $user, Event $event): bool
     {
-        return $user->role_id === RoleEnum::SUPER;
+        return RoleEnum::SUPER === $user->role_id;
     }
 }

@@ -48,7 +48,7 @@ class PayPalPaymentServiceFactory
         $provider = self::paypalConfiguration();
         $order = $attributes['orderId'];
         $capture = $provider->capturePaymentOrder(order_id: $order);
-        if ($capture['status'] === 'COMPLETED') {
+        if ('COMPLETED' === $capture['status']) {
             self::updateOrder(attributes: $attributes, process: $capture);
             self::updateEvent();
         }

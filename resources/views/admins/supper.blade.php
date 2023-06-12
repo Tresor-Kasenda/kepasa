@@ -25,8 +25,8 @@
                         'amount' => \App\Models\Company::count()
                     ])
                     @include('admins.partials.stats', [
-                        'username' => "Billings",
-                        'amount' => \App\Models\Billing::count()
+                        'username' => "Customers",
+                        'amount' => \App\Models\Customer::count()
                     ])
                 </div>
                 <div class="row  g-gs mt-1">

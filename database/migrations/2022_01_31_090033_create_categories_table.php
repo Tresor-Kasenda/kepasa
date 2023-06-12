@@ -21,6 +21,10 @@ return new class () extends Migration {
             ->create([
                 'name' => 'Online',
             ]);
+        Category::query()
+            ->create([
+                'name' => 'Presence',
+            ]);
     }
 
     public function down(): void

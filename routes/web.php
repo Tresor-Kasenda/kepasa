@@ -31,9 +31,6 @@ use App\Http\Controllers\Organisers\Profile\DeleteUsersController;
 use App\Http\Controllers\Organisers\Profile\ProfileOrganiserController;
 use App\Http\Controllers\Organisers\Profile\UpdateProfileController;
 use App\Http\Controllers\Organisers\Profile\UploadProfileController;
-use App\Http\Controllers\Supers\Categories\CreateCategoryController;
-use App\Http\Controllers\Supers\Categories\ListCategoryController;
-use App\Http\Controllers\Supers\Categories\StoreCategoryController;
 use App\Http\Controllers\Supers\Company\ListCompanyController;
 use App\Http\Controllers\Supers\Company\ShowCompanyController;
 use App\Http\Controllers\Supers\Country\City\EditCountryCityController;
@@ -93,10 +90,6 @@ Route::middleware('auth')->group(function (): void {
             Route::put('users/{user}/update', UpdateUserController::class)->name('users.update');
             Route::delete('users/{user}/delete', DeleteUserController::class)->name('users.delete');
 
-            Route::get('category', ListCategoryController::class)->name('category-list');
-            Route::get('category/create', CreateCategoryController::class)->name('category.create');
-            Route::post('category', StoreCategoryController::class)->name('category.store');
-
             Route::get('country', ListCountryController::class)->name('country-list');
             Route::get('country/{country}/cities', ShowCityController::class)->name('country.city');
             Route::get('country/{city}/show', ShowCountryCityController::class)->name('country-city.show');
@@ -104,8 +97,8 @@ Route::middleware('auth')->group(function (): void {
             Route::put('country/{city}/update', UpdateCountryCityController::class)->name('country-city.update');
 
             Route::get('customers', ListInvoicesController::class)->name('invoices-list');
-            Route::get('customers/{billing}/show', ShowInvoiceController::class)->name('invoices.show');
-            Route::get('customers/{billing}/download', DownloadInvoiceController::class)->name('invoices.download');
+            Route::get('customers/{customer}/show', ShowInvoiceController::class)->name('invoices.show');
+            Route::get('customers/{customer}/download', DownloadInvoiceController::class)->name('invoices.download');
 
             Route::get('setting', SettingController::class)->name('settings.index');
             Route::put('setting/{user}', SettingUpdateController::class)->name('settings.store');

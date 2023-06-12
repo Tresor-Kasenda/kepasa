@@ -34,7 +34,7 @@ class CustomerQueryBuilder extends Builder
         string|null $direction
     ): self {
         return $this->when(
-            value: $sortBy === 'date',
+            value: 'date' === $sortBy,
             callback: fn (Builder $builder) => $builder->orderBy('created_at', $direction)
         );
     }

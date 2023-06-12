@@ -22,7 +22,7 @@ class ReadSqlFileCommand extends Command
         $cities = database_path('seeders/city.sql');
         $countries = database_path('seeders/country.sql');
 
-        if (! file_exists($cities) && ! file_exists($countries)) {
+        if ( ! file_exists($cities) && ! file_exists($countries)) {
             $this->error('The files does not exists in this directory');
         }
     }

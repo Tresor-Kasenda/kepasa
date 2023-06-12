@@ -13,9 +13,9 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
-class AddUser extends Command
+class CreateAdminCommand extends Command
 {
-    protected $signature = 'kepasa:add-user';
+    protected $signature = 'admins:create';
 
     protected $description = 'Creates users and stores them in the database';
 
@@ -43,7 +43,7 @@ class AddUser extends Command
             ]
         );
 
-        if (! $validator->fails()) {
+        if ( ! $validator->fails()) {
             try {
                 $password = Hash::make($password);
                 $role = Role::query()
@@ -54,6 +54,7 @@ class AddUser extends Command
                     ->create(compact('name', 'email', 'password', 'role_id'));
 
                 $user->save();
+
                 Profile::query()
                     ->create([
                         'user_id' => $user->id,

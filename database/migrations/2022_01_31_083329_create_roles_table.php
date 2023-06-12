@@ -18,7 +18,6 @@ return new class () extends Migration {
         });
 
         Role::create(['name' => 'SUPER']);
-        Role::create(['name' => 'ADMIN']);
         Role::create(['name' => 'Event organiser']);
         Role::create(['name' => 'Customer']);
     }

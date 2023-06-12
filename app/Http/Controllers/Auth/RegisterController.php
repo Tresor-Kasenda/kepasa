@@ -68,7 +68,7 @@ class RegisterController extends Controller
                 'phones' => $data['phones'],
                 'password' => Hash::make($data['password']),
             ]);
-        if ((int) $data['role'] === 3) {
+        if (3 === (int) $data['role']) {
             Company::query()->create([
                 'user_id' => $user->id,
             ]);
@@ -76,7 +76,7 @@ class RegisterController extends Controller
 
             return $user;
         }
-        if ($data['role'] === 4) {
+        if (4 === $data['role']) {
             Profile::query()
                 ->create([
                     'user_id' => $user->id,

@@ -10,7 +10,7 @@ class GetLocation
 {
     public static function location()
     {
-        if (config('app.env') === 'production') {
+        if ('production' === config('app.env')) {
             $ip = request()->ip();
 
             return Location::get($ip);

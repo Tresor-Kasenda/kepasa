@@ -32,7 +32,7 @@ class HomeRepository
     public function getContents(): LengthAwarePaginator
     {
         $location = GetLocation::location();
-        if ($location === null) {
+        if (null === $location) {
             return $this->getEvents()
                 ->paginate(6);
         }

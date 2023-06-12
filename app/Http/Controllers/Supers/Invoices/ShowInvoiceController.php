@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Supers\Invoices;
 
 use App\Http\Controllers\Controller;
-use App\Models\Billing;
+use App\Models\Customer;
 
 class ShowInvoiceController extends Controller
 {
-    public function __invoke(Billing $billing)
+    public function __invoke(Customer $customer)
     {
         return view('admins.pages.invoice.show', [
-            'invoice' => $billing->load(['event', 'user']),
+            'invoice' => $customer->load(['event', 'user']),
         ]);
     }
 }

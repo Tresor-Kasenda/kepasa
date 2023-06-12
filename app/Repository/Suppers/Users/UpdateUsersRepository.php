@@ -15,7 +15,7 @@ class UpdateUsersRepository
 
     public function handleUser(User $user, UpdateUsersRequest $request): User
     {
-        if ($user->images !== null) {
+        if (null !== $user->images) {
             $this->removePicture($user);
         }
 

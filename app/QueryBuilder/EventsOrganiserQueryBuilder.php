@@ -27,7 +27,7 @@ class EventsOrganiserQueryBuilder extends Builder
         string|null $direction
     ): self {
         return $this->when(
-            value: $filters === 'date',
+            value: 'date' === $filters,
             callback: fn (Builder $builder) => $builder->where(function (Builder $query) use ($direction): void {
                 $query
                     ->orderBy('created_at', $direction)

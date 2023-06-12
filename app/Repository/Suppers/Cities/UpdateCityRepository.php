@@ -33,7 +33,7 @@ class UpdateCityRepository
 
     protected static function statusCity($validated): string
     {
-        if ($validated->input('promoted') === 'on') {
+        if ('on' === $validated->input('promoted')) {
             return CityPromotedEnum::PROMOTION;
         }
         return CityPromotedEnum::NOTPROMOTED;
