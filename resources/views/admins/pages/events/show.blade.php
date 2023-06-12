@@ -19,35 +19,13 @@
                     </div>
                 </div>
             </li>
-            <li class="preview-item">
-                @if ($event->promoted == false)
-                    @include('admins.partials._update', [
-                        'route' => route('supper.events.promoted', $event->id),
-                        'button' => 'btn-outline-success',
-                        'icon' => 'ni-check-circle',
-                        'title' => 'Promoted'
-                    ])
-                @else
-                    @include('admins.partials._update', [
-                        'route' => route('supper.events.unpromoted', $event->id),
-                        'button' => 'btn-outline-danger',
-                        'icon' => 'ni-check-circle',
-                        'title' => 'unPromoted'
-                    ])
-                @endif
-            </li>
+
         </x-brandcrumb>
 
         @if($event->promoted == false)
             <div class="alert alert-danger alert-icon " role="alert">
                 <em class="icon ni ni-alert-circle"></em>
                 La promotion ne peut etre faite que si le paiemment a ete deja effectuer
-            </div>
-        @endif
-        @if($event->status == \App\Enums\StatusEnum::POSTPONE)
-            <div class="alert alert-info alert-icon " role="alert">
-                <em class="icon ni ni-bell"></em>
-                Desoler l'evenement a ete reporter pour des raisons de sécurié
             </div>
         @endif
 
