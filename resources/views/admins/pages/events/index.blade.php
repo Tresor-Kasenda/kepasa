@@ -3,16 +3,7 @@
     @section('title', "Liste des evenements")
 
     <x-vex-container>
-        <x-brandcrumb title="Events Lists">
-            <li>
-                <div class="form-control-wrap">
-                    <div class="form-icon form-icon-right">
-                        <em class="icon ni ni-search"></em>
-                    </div>
-                    <input type="text" class="form-control" id="default-04" placeholder="Quick search by id">
-                </div>
-            </li>
-        </x-brandcrumb>
+        <x-brandcrumb title="Events Lists"></x-brandcrumb>
 
         <x-vex-containt>
             <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">

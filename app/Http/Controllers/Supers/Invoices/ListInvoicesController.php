@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Supers\Invoices;
 
 use App\Http\Controllers\Controller;
-use App\Repository\Suppers\InvoicesEventsRepository;
+use App\Repository\Suppers\CustomersRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
 class ListInvoicesController extends Controller
 {
     public function __construct(
-        protected readonly InvoicesEventsRepository $repository
+        protected readonly CustomersRepository $repository
     ) {
     }
 

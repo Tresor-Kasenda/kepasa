@@ -37,7 +37,7 @@
                             :active="request()->routeIs('supper.invoices-list')"
                             icons="ni-money"
                     >
-                        Billing
+                        Customers
                     </x-vex-nav-link>
 
                     <x-vex-nav-link

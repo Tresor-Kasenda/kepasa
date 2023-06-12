@@ -103,9 +103,9 @@ Route::middleware('auth')->group(function (): void {
             Route::get('country/{city}/edit', EditCountryCityController::class)->name('cities.edit');
             Route::put('country/{city}/update', UpdateCountryCityController::class)->name('country-city.update');
 
-            Route::get('invoices', ListInvoicesController::class)->name('invoices-list');
-            Route::get('invoices/{billing}/show', ShowInvoiceController::class)->name('invoices.show');
-            Route::get('invoices/{billing}/download', DownloadInvoiceController::class)->name('invoices.download');
+            Route::get('customers', ListInvoicesController::class)->name('invoices-list');
+            Route::get('customers/{billing}/show', ShowInvoiceController::class)->name('invoices.show');
+            Route::get('customers/{billing}/download', DownloadInvoiceController::class)->name('invoices.download');
 
             Route::get('setting', SettingController::class)->name('settings.index');
             Route::put('setting/{user}', SettingUpdateController::class)->name('settings.store');

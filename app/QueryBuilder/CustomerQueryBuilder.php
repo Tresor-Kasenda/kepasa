@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @extends Builder<Model>
  *
  */
-class InvoiceQueryBuilder extends Builder
+class CustomerQueryBuilder extends Builder
 {
     public function search(
         string|null $search

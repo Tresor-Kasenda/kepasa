@@ -109,7 +109,7 @@ class User extends Authenticatable
 
     public function company(): HasOne
     {
-        return $this->hasOne(Company::class);
+        return $this->hasOne(Company::class );
     }
 
     public function role(): BelongsTo
@@ -125,11 +125,6 @@ class User extends Authenticatable
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
-    }
-
-    public function customer(): HasOne
-    {
-        return $this->hasOne(Event::class);
     }
 
     public function app(): HasOne

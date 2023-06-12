@@ -8,6 +8,7 @@ use App\Http\Requests\Organiser\StoreEventRequest;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\PaymentCustomer;
 use App\Notifications\CreatedEventNotification;
 use App\Services\EnableX\CreateRoomService;
 use App\Traits\FeedCalculation;
@@ -40,11 +41,6 @@ class StoreEventRepository
                     event: $event
                 );
         }
-
-        $this->createdBilling(
-            event: $event,
-            request: $request
-        );
 
         Notification::send(
             auth()->user(),
@@ -82,29 +78,10 @@ class StoreEventRepository
                 'description' => $request->input('description'),
                 'category_id' => $request->input('category'),
                 'image' => self::uploadFile(request: $request),
-                'company_id' => $request->user()->company->id,
+                'company_id' => auth()->user()->company->id,
             ]);
     }
 
-    private function createdBilling($event, $request): void
-    {
-        $amountSold = $request->input('ticketNumber') * $request->input('prices');
-        $commission = (5 / 100) * $amountSold;
-        $payout = $amountSold - $commission;
-        $event->billings()->create([
-            'eventDate' => $event->date,
-            'amountSold' => $amountSold,
-            'ticketPrice' => $event->prices,
-            'ticketSold' => $event->ticketNumber,
-            'commission' => $commission,
-            'feeType' => $request->input('feeOption'),
-            'amountPaid' => $payout,
-            'payout' => $payout,
-            'outAmount' => 0,
-            'user_id' => $request->user()->id,
-            'billingCode' => $this->generateRandomTransaction(7),
-        ]);
-    }
 
     private function getCity($request): Model|Builder|City|null
     {

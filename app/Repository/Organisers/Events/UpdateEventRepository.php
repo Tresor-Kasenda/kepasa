@@ -43,11 +43,6 @@ class UpdateEventRepository
                 );
         }
 
-        $this->updatedBilling(
-            $event,
-            $request
-        );
-
         return $event;
     }
 
@@ -91,25 +86,5 @@ class UpdateEventRepository
         return Category::query()
             ->where('id', '=', $request->input('category'))
             ->first();
-    }
-
-    private function updatedBilling($event, $request): void
-    {
-        $amountSold = $request->input('ticketNumber') * $request->input('prices');
-        $commission = (5 / 100) * $amountSold;
-        $payout = $amountSold - $commission;
-        $billing = Billing::query()
-            ->where('event_id', '=', $event->id)
-            ->first();
-        $billing->update([
-            'eventDate' => $event->date,
-            'amountSold' => $amountSold,
-            'ticketPrice' => $event->prices,
-            'ticketSold' => $event->ticketNumber,
-            'commission' => $commission,
-            'feeType' => $request->input('feeOption'),
-            'amountPaid' => $payout,
-            'payout' => $payout,
-        ]);
     }
 }

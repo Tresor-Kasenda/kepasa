@@ -44,7 +44,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property int $company_id
  * @property int $country_id
  * @property int $city_id
- * @property-read Collection<int, Billing> $billings
  * @property-read int|null $billings_count
  * @property-read Category $category
  * @property-read City $city
@@ -117,11 +116,6 @@ class Event extends Model
     public function media(): HasMany
     {
         return $this->hasMany(Images::class);
-    }
-
-    public function billings(): HasMany
-    {
-        return $this->hasMany(Billing::class);
     }
 
     public function online(): HasMany

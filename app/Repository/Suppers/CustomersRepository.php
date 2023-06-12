@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Repository\Suppers;
 
 use App\Models\Billing;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class InvoicesEventsRepository
+class CustomersRepository
 {
     public function getInvoices(Request $request): array|Collection
     {
-        return Billing::query()
+        return Customer::query()
             ->with(['event', 'user'])
             ->search(
                 search: $request->input('search')
