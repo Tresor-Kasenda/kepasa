@@ -44,6 +44,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property int $company_id
  * @property int $country_id
  * @property int $city_id
+ *
  * @property-read int|null $billings_count
  * @property-read Category $category
  * @property-read City $city
@@ -55,6 +56,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property-read Collection<int, PaymentCustomer> $payments
  * @property-read int|null $payments_count
  * @property-read User $user
+ *
  * @method static Builder|Event newModelQuery()
  * @method static Builder|Event newQuery()
  * @method static Builder|Event query()
@@ -84,6 +86,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Event whereTitle($value)
  * @method static Builder|Event whereUpdatedAt($value)
  * @method static Builder|Event whereUserId($value)
+ *
  * @mixin Eloquent
  */
 class Event extends Model

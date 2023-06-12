@@ -31,8 +31,10 @@ use Illuminate\Support\Carbon;
  * @property string $promoted
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection|CityMedia[] $media
+ *
+ * @property-read Collection|array<CityMedia> $media
  * @property-read int|null $media_count
+ *
  * @method static Builder|City newModelQuery()
  * @method static Builder|City newQuery()
  * @method static Builder|City query()
@@ -53,6 +55,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|City wherePopulation($value)
  * @method static Builder|City wherePromoted($value)
  * @method static Builder|City whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class City extends Model

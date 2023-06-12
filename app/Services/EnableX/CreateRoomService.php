@@ -75,7 +75,6 @@ class CreateRoomService
         return $this->request()
             ->post(config('enablex.url').'rooms/', $Room)
             ->json();
-
     }
 
     private function calculationDateOfEvent($event): array
@@ -84,11 +83,11 @@ class CreateRoomService
         $date = date('Y-m-d H:i:s', $currentTime);
         $array1 = explode(':', $event->startTime);
         $array2 = explode(':', $event->endTime);
-        $minutes1 = ($array1[0] * 60.0 + $array1[1]);
-        $minutes2 = ($array2[0] * 60.0 + $array2[1]);
+        $minutes1 = $array1[0] * 60.0 + $array1[1];
+        $minutes2 = $array2[0] * 60.0 + $array2[1];
         $duration = $minutes2 - $minutes1;
         $hoursToAdd = -2;
-        $secondsToAdd = $hoursToAdd * (60 * 60);
+        $secondsToAdd = $hoursToAdd * 60 * 60;
         $newTime = $currentTime + $secondsToAdd;
         $date = date('Y-m-d H:i:s', $newTime);
 
@@ -109,7 +108,6 @@ class CreateRoomService
         return $this->request()
             ->post(config('enablex.url').'rooms/', $Room)
             ->json();
-
     }
 
     #[ArrayShape(['name' => 'string', 'owner_ref' => 'int', 'settings' => 'array', 'sip' => 'false[]'])]

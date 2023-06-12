@@ -6,5 +6,5 @@ namespace App\Repository\Contracts;
 
 interface CreateTokenRepositoryInterface
 {
-    public function createToken($onlineEvent);
+    public function createToken($onlineEvent): void;
 }

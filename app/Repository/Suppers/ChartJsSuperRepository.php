@@ -16,7 +16,8 @@ class ChartJsSuperRepository
     {
         return Company::select(
             [DB::raw('COUNT(*) as count'),
-                DB::raw('MONTHNAME(created_at) as month_name')]
+                DB::raw('MONTHNAME(created_at) as month_name'),
+            ]
         )
             ->whereYear('created_at', date('Y'))
             ->groupBy(DB::raw('month_name'))

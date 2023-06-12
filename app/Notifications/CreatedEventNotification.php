@@ -20,7 +20,6 @@ class CreatedEventNotification extends Notification implements ShouldQueue
      */
     public function __construct(public $attributes)
     {
-
     }
 
     /**
@@ -33,10 +32,8 @@ class CreatedEventNotification extends Notification implements ShouldQueue
 
     /**
      * Get the mail representation of the notification.
-     *
-     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail(mixed $notifiable)
+    public function toMail(mixed $notifiable): \Illuminate\Notifications\Messages\MailMessage
     {
         return (new MailMessage())
             ->line('The introduction to the notification.')
@@ -46,10 +43,8 @@ class CreatedEventNotification extends Notification implements ShouldQueue
 
     /**
      * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
      */
-    public function toArray($notifiable): array
+    public function toArray(mixed $notifiable): array
     {
         return [
 

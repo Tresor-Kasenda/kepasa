@@ -22,7 +22,7 @@ class CategoryRequest extends FormRequest
                 'required',
                 'min:4',
                 'string',
-                new Unique(Category::class, 'name')
+                new Unique(Category::class, 'name'),
             ],
         ];
     }

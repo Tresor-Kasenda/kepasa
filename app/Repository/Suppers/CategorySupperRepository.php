@@ -24,7 +24,7 @@ class CategorySupperRepository
     {
         return Category::query()
             ->create([
-                'name' => $validated['name']
+                'name' => $validated['name'],
             ]);
     }
 }

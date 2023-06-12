@@ -16,6 +16,5 @@ class BookingController extends Controller
 
     public function __invoke(string $key): void
     {
-
     }
 }

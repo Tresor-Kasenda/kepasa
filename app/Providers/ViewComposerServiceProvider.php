@@ -11,24 +11,17 @@ use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
-    /**
-     * @return void
-     */
     public function register(): void
     {
-
     }
 
-    /**
-     * @return void
-     */
     public function boot(): void
     {
         View::composer([
             'organisers.pages.profiles.*',
             'organisers.pages.events.*',
             'apps.welcome',
-            'admins.pages.*'
+            'admins.pages.*',
         ], CountryComposer::class);
 
         View::composer([

@@ -29,8 +29,10 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property int $user_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property-read Event $event
  * @property-read User $user
+ *
  * @method static Builder|Customer newModelQuery()
  * @method static Builder|Customer newQuery()
  * @method static Builder|Customer query()
@@ -48,10 +50,13 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Customer whereTicketNumber($value)
  * @method static Builder|Customer whereUpdatedAt($value)
  * @method static Builder|Customer whereUserId($value)
+ *
  * @property string $reference
  * @property string $totalAmount
+ *
  * @method static Builder|Customer whereReference($value)
  * @method static Builder|Customer whereTotalAmount($value)
+ *
  * @mixin \Eloquent
  */
 class Customer extends Model

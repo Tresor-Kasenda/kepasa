@@ -22,13 +22,11 @@ class AuthServiceProvider extends ServiceProvider
         City::class => CityPolicy::class,
         User::class => UpdateProfilePolicy::class,
         Company::class => CompanyPolicy::class,
-        Event::class => EventOrganiserPolicy::class
+        Event::class => EventOrganiserPolicy::class,
     ];
 
     public function boot(): void
     {
         $this->registerPolicies();
-
-
     }
 }

@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 
 class DeleteUsersController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): void
     {
-
     }
 }

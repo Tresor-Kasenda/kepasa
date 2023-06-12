@@ -12,19 +12,19 @@ class CustomerMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if ( ! Auth::check()) {
+        if (! Auth::check()) {
             return redirect()->route('login');
         }
 
-        if (4 === Auth::user()->role_id) {
+        if (Auth::user()->role_id === 4) {
             return $next($request);
         }
 
-        if (1 === Auth::user()->role_id) {
+        if (Auth::user()->role_id === 1) {
             return redirect()->route('supper.dashboard');
         }
 
-        if (3 === Auth::user()->role_id) {
+        if (Auth::user()->role_id === 3) {
             return redirect()->route('organiser.index');
         }
     }

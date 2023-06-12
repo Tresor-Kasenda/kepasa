@@ -22,19 +22,13 @@ class CheckEventSubscriptionNotification extends Notification implements ShouldQ
 
     /**
      * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
      */
-    public function via($notifiable): array
+    public function via(mixed $notifiable): array
     {
         return ['mail'];
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
+    public function toMail(mixed $notifiable): \Illuminate\Notifications\Messages\MailMessage
     {
         return (new MailMessage())
             ->line('The introduction to the notification.')
@@ -43,10 +37,9 @@ class CheckEventSubscriptionNotification extends Notification implements ShouldQ
     }
 
     /**
-     * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(mixed $notifiable): array
     {
         return [
 

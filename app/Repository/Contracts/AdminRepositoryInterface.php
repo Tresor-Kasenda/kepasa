@@ -6,5 +6,5 @@ namespace App\Repository\Contracts;
 
 interface AdminRepositoryInterface
 {
-    public function getContents();
+    public function getContents(): void;
 }

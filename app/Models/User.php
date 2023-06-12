@@ -37,17 +37,19 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property-read Setting|null $app
  * @property-read Company|null $company
  * @property-read Event|null $customer
- * @property-read Collection|Event[] $events
+ * @property-read Collection|array<Event> $events
  * @property-read int|null $events_count
- * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
+ * @property-read DatabaseNotificationCollection|array<DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read Profile|null $profile
  * @property-read Role|null $role
- * @property-read Collection|PersonalAccessToken[] $tokens
+ * @property-read Collection|array<PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
+ *
  * @method static UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -64,13 +66,18 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereRoleId($value)
  * @method static Builder|User whereUpdatedAt($value)
+ *
  * @property UserStatus $status
+ *
  * @property-read Country|null $country
  * @property-read Collection<int, PaymentCustomer> $payment
  * @property-read int|null $payment_count
+ *
  * @property string|null $images
+ *
  * @method static Builder|User whereImages($value)
  * @method static Builder|User whereStatus($value)
+ *
  * @mixin Eloquent
  */
 class User extends Authenticatable
@@ -90,7 +97,7 @@ class User extends Authenticatable
         'email',
         'password',
         'images',
-        'status'
+        'status',
     ];
 
     protected $hidden = [
@@ -109,7 +116,7 @@ class User extends Authenticatable
 
     public function company(): HasOne
     {
-        return $this->hasOne(Company::class );
+        return $this->hasOne(Company::class);
     }
 
     public function role(): BelongsTo

@@ -20,7 +20,9 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property int $city_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property-read City $city
+ *
  * @method static Builder|CityMedia newModelQuery()
  * @method static Builder|CityMedia newQuery()
  * @method static Builder|CityMedia query()
@@ -30,6 +32,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|CityMedia whereImages($value)
  * @method static Builder|CityMedia whereKey($value)
  * @method static Builder|CityMedia whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class CityMedia extends Model

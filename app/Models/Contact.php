@@ -21,6 +21,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @property string $messages
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder|Contact newModelQuery()
  * @method static Builder|Contact newQuery()
  * @method static Builder|Contact query()
@@ -32,6 +33,7 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
  * @method static Builder|Contact whereName($value)
  * @method static Builder|Contact whereSubject($value)
  * @method static Builder|Contact whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Contact extends Model

@@ -19,7 +19,7 @@ class CreateEventController extends Controller
     public function __invoke(Request $request)
     {
         return View::make('organisers.pages.events.create', [
-            'categories' => $this->repository->getContents()
+            'categories' => $this->repository->getContents(),
         ]);
     }
 }

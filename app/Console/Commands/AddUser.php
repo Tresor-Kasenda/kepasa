@@ -9,9 +9,9 @@ use App\Models\Profile;
 use App\Models\Role;
 use App\Models\Setting;
 use App\Models\User;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
-use Exception;
 
 class AddUser extends Command
 {
@@ -43,7 +43,7 @@ class AddUser extends Command
             ]
         );
 
-        if ( ! $validator->fails()) {
+        if (! $validator->fails()) {
             try {
                 $password = Hash::make($password);
                 $role = Role::query()
@@ -63,7 +63,7 @@ class AddUser extends Command
                         'user_id' => $user->id,
                     ]);
                 $this->info(sprintf('User %s <%s> created', $name, $email));
-                exit();
+                exit;
             } catch (Exception $exception) {
                 $this->error('Something went wrong run the command with -v for more details');
                 dd($exception);

@@ -16,7 +16,7 @@ class DeleteUserController extends Controller
 
         $repository->delete($user);
 
-        toast("User has deleted with successful", 'success');
+        toast('User has deleted with successful', 'success');
 
         return redirect()->route('supper.users-list');
     }

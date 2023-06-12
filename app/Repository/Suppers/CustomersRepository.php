@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repository\Suppers;
 
-use App\Models\Billing;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;

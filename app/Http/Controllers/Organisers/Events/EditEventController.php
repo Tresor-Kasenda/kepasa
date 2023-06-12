@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Organisers\Events;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Repository\Suppers\CategorySupperRepository;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
 class EditEventController extends Controller
@@ -20,7 +19,7 @@ class EditEventController extends Controller
 
         return View::make('organisers.pages.events.edit', [
             'event' => $event->load(['category', 'online', 'country', 'city']),
-            'categories' => $repository->getContents()
+            'categories' => $repository->getContents(),
         ]);
     }
 }

@@ -12,7 +12,6 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-
     }
 
     public function boot(): void
@@ -39,5 +38,4 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::component('admins.partials.'.$component, 'vex-'.$component);
     }
-
 }

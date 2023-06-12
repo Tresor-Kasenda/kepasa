@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
  * @template TModelClass of Model
  *
  * @extends Builder<Model>
- *
  */
 class CustomerQueryBuilder extends Builder
 {
@@ -35,7 +34,7 @@ class CustomerQueryBuilder extends Builder
         string|null $direction
     ): self {
         return $this->when(
-            value: 'date' === $sortBy,
+            value: $sortBy === 'date',
             callback: fn (Builder $builder) => $builder->orderBy('created_at', $direction)
         );
     }

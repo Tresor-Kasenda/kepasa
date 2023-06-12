@@ -76,7 +76,7 @@
             "./vendor/bin/pint"
         ],
         "insight": [
-            "./vendor/bin/phpinsights"
+            "./vendor/bin/phpinsights --fix"
         ]
     },
     "extra": {

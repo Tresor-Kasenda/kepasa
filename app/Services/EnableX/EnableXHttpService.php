@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services\EnableX;
 
-use Illuminate\Http\Client\PendingRequest;
 use Http;
+use Illuminate\Http\Client\PendingRequest;
 
 trait EnableXHttpService
 {
