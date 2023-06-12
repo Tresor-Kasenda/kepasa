@@ -1,16 +1,13 @@
+@php use App\Enums\StatusEnum; @endphp
 <x-app-layout>
     @section('title', "Detail sur l'evenement")
 
     <x-vex-container>
         <x-brandcrumb title="Event Details">
-            <x-vex-link href="{{ route('supper.events.index') }}" class="btn btn-dim btn-outline-secondary">
-                <x-vex-icon class="ni-arrow-long-left"/>
-                <span>All events</span>
-            </x-vex-link>
             <li>
-                <div class="drodown">
+                <div class="form-group dropdown">
                     <div class="form-control-wrap">
-                        <select name="status" id="status" class="form-select form-control form-control-lg">
+                        <select name="status" id="status" class="form-select js-select2 form-control-lg">
                             <option value="default_option">Select Status</option>
                             <option value="active">Activated</option>
                             <option value="deactivate">Deactivated</option>
@@ -19,6 +16,10 @@
                     </div>
                 </div>
             </li>
+            <x-vex-link href="{{ route('supper.events.index') }}" class="btn btn-dim btn-outline-secondary">
+                <x-vex-icon class="ni-arrow-long-left"/>
+                <span>All events</span>
+            </x-vex-link>
 
         </x-brandcrumb>
 
@@ -30,107 +31,90 @@
         @endif
 
         <x-vex-containt>
-            <div class="justify-content text-center p-2">
-                <img
-                        src="{{ asset('storage/'.$event->image) }}"
-                        alt="{{ $event->title }}"
-                        class="thumbnail sq w-25 h-25 img-rounded"
-                >
-            </div>
-            <hr class="is-hr-sm">
-            <div class="tab-content">
-                <div class="tab-pane active">
-                    <div class="nk-block">
-                        <div class="profile-ud-list">
-                            <div class="profile-ud-item">
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">Title</span>
-                                    <span class="profile-ud-value">{{ $event->title ?? "" }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">Sub title</span>
-                                    <span class="profile-ud-value">{{ $event->subTitle }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">Categories</span>
-                                    <span class="profile-ud-value">{{ $event->category->name ?? "" }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">Country</span>
-                                    <span class="profile-ud-value">{{ $event->country->countryName ?? "" }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">Address</span>
-                                    <span class="profile-ud-value">{{ $event->address ?? "" }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">status</span>
-                                    <span class="profile-ud-value">{{ strtoupper($event->status) ?? "" }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">buyerPrice</span>
-                                    <span class="profile-ud-value">${{ $event->buyerPrice ?? "" }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">payment</span>
-                                    <span class="profile-ud-value {{ $event->payment === 'unpaid' ? 'text-danger': 'text-primary' }}">{{ strtoupper($event->payment) ?? "" }}</span>
-                                </div>
-                            </div>
-                            <div class="profile-ud-item">
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">Prices</span>
-                                    <span class="profile-ud-value">${{ $event->prices ?? 0 }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">Number Ticket</span>
-                                    <span class="profile-ud-value">{{ $event->ticketNumber ?? 0 }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">feeOption</span>
-                                    <span class="profile-ud-value">{{ strtoupper($event->feeOption) ?? "" }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">Date</span>
-                                    <span class="profile-ud-value">{{ $event->date ?? "" }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">Start Time</span>
-                                    <span class="profile-ud-value">{{ $event->startTime ?? "" }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">End Time</span>
-                                    <span class="profile-ud-value">{{ $event->endTime ?? "" }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">Commission</span>
-                                    <span class="profile-ud-value">%{{ $event->commission ?? "" }}</span>
-                                </div>
-                                <div class="profile-ud wider">
-                                    <span class="profile-ud-label">promoted</span>
-                                    @if($event->promoted === false)
-                                        <span class="profile-ud-value">Promus</span>
-                                    @else
-                                        <span class="profile-ud-value text-danger">Not Promoted</span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="nk-divider divider md"></div>
-                    <div class="nk-block">
-                        <div class="nk-block-head nk-block-head-sm nk-block-between">
-                            <h5 class="title">Description</h5>
-                        </div>
-                        <div class="bq-note">
-                            <div class="bq-note-item">
-                                <div class="bq-note-text">
-                                    <p>{{ $event->description ?? "" }}</p>
-                                </div>
-                            </div>
+            <div class="text-center p-2">
+                <div class="product-gallery me-xl-1 me-xxl-5">
+                    <div class="slider-init" id="sliderFor">
+                        <div class="slider-item rounded">
+                            <img src="{{ asset('storage/'.$event->image) }}" class="rounded w-100 h-50" alt="{{ $event->id }}">
                         </div>
                     </div>
                 </div>
             </div>
+            <hr class="is-hr-sm">
+            <div class="row g-3">
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event title:</span>
+                    <span>{{ $event->title ?? "" }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event sub-title:</span>
+                    <span>{{ $event->subTitle }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event Categories:</span>
+                    <span>{{ $event->category->name ?? "" }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event country:</span>
+                    <span>{{ $event->country->countryName ?? "" }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event address:</span>
+                    <span>{{ $event->address ?? "" }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event Status:</span>
+                    <span class="lead-text {{ $event->status === StatusEnum::ACTIVE ? "text-primary": "text-danger" }}">{{ strtoupper($event->status) ?? "" }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event Ticket buyers:</span>
+                    <span>$ {{ $event->buyerPrice ?? "" }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event Payment:</span>
+                    <span class="lead-text {{ $event->payment === 'unpaid' ? 'text-danger': 'text-primary' }}">{{ strtoupper($event->payment) ?? "" }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event Ticket Prices:</span>
+                    <span>${{ number_format($event->prices, 2, ". ") ?? 0 }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Ticket numbers of Events:</span>
+                    <span>{{ $event->ticketNumber ?? 0 }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event Date:</span>
+                    <span>{{ $event->date ?? "" }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event Start time:</span>
+                    <span>{{ $event->startTime ?? "" }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event End time:</span>
+                    <span>{{ $event->endTime ?? "" }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event Commission:</span>
+                    <span class="lead-text">% {{ $event->commission ?? "" }}</span>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <span class="sub-text">Event Promotion:</span>
+                    <span class="lead-text {{ $event->promoted ? 'text-primary': 'text-secondary' }}">
+                        @if($event->promoted === false)
+                            <span class="profile-ud-value">Promus</span>
+                        @else
+                            <span class="profile-ud-value text-danger">Not Promoted</span>
+                        @endif
+                    </span>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-12">
+                    <span class="sub-text">Event Description:</span>
+                    <span>{{ $event->description ?? "" }}</span>
+                </div>
+            </div>
+
         </x-vex-containt>
 
     </x-vex-container>
@@ -150,9 +134,10 @@
                         },
                         dataType: 'json',
                         success: function (response) {
-                            if (response) {
-                                Swal.fire(`${response.message}`, "information", "success");
+                            if (response.type = 'success') {
+                                Swal.fire("Congratulation", `${response.message}`, "success");
                             }
+                            Swal.fire("Sorry", `${response.message}`, "error");
                         }
                     })
                 })

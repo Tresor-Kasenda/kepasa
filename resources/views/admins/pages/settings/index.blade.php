@@ -3,6 +3,7 @@
     @section('title', "Parametre de l'application")
 
     <x-vex-container>
+
         <div class="nk-block-head nk-block-head-sm">
             <div class="nk-block-between g-3">
                 <div class="nk-block-head-content">
@@ -17,12 +18,6 @@
                             <li>Last Login: <span class="text-base">15 Feb, 2019 01:02 PM</span></li>
                         </ul>
                     </div>
-                </div>
-                <div class="nk-block-head-content">
-                    <a href="{{ route('supper.dashboard') }}" class="btn btn-outline-light btn-dim bg-white d-none d-sm-inline-flex">
-                        <em class="icon ni ni-arrow-left"></em>
-                        <span>Back</span>
-                    </a>
                 </div>
             </div>
         </div>

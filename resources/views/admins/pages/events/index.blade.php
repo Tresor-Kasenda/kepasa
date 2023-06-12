@@ -3,7 +3,16 @@
     @section('title', "Liste des evenements")
 
     <x-vex-container>
-        <x-brandcrumb title="Events Lists"></x-brandcrumb>
+        <x-brandcrumb title="Events Lists">
+            <li>
+                <div class="form-control-wrap">
+                    <div class="form-icon form-icon-right">
+                        <em class="icon ni ni-search"></em>
+                    </div>
+                    <input type="text" class="form-control" id="default-04" placeholder="Quick search by id">
+                </div>
+            </li>
+        </x-brandcrumb>
 
         <x-vex-containt>
             <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
@@ -14,6 +23,7 @@
                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Date</span></th>
                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Prices</span></th>
                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Organiser</span></th>
+                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Promoted</span></th>
                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Created at</span></th>
                     <th class="nk-tb-col nk-tb-col-tools text-end"></th>
                 </tr>
@@ -40,6 +50,16 @@
                         </td>
                         <td class="nk-tb-col tb-col-md">
                             <span>{{ $event->user->name ?? "" }}</span>
+                        </td>
+                        <td class="nk-tb-col tb-col-md">
+                            <ul class="list-status">
+                                <li>
+                                    @if($event->promoted)
+                                        <em class="icon text-success ni ni-check-circle"></em>
+                                    @endif
+                                    <span>{{ $event->promoted ? "Promoted" : "Not Promoted" }}</span>
+                                </li>
+                            </ul>
                         </td>
                         <td class="nk-tb-col tb-col-md">
                             <span>{{ $event->created_at->diffForHumans() ?? "" }}</span>

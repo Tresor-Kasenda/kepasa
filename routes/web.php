@@ -41,9 +41,7 @@ use App\Http\Controllers\Supers\Country\City\ShowCountryCityController;
 use App\Http\Controllers\Supers\Country\City\UpdateCountryCityController;
 use App\Http\Controllers\Supers\Country\ListCountryController;
 use App\Http\Controllers\Supers\Events\ListsEventAdminController;
-use App\Http\Controllers\Supers\Events\Promoted\PromotedEventController;
 use App\Http\Controllers\Supers\Events\Promoted\StatusEventController;
-use App\Http\Controllers\Supers\Events\Promoted\UnPromotedEventController;
 use App\Http\Controllers\Supers\Events\ShowEventAdminController;
 use App\Http\Controllers\Supers\Invoices\DownloadInvoiceController;
 use App\Http\Controllers\Supers\Invoices\ListInvoicesController;
@@ -84,8 +82,6 @@ Route::middleware('auth')->group(function (): void {
 
             Route::get('events', ListsEventAdminController::class)->name('events.index');
             Route::get('events/{event}/show', ShowEventAdminController::class)->name('events.show');
-            Route::put('events/{event}/promoted', PromotedEventController::class)->name('events.promoted');
-            Route::put('events/{event}/unpromoted', UnPromotedEventController::class)->name('events.unpromoted');
             Route::put('events/{event}/status', StatusEventController::class)->name('events.status');
 
             Route::get('users', ListUsersController::class)->name('users-list');
@@ -94,7 +90,7 @@ Route::middleware('auth')->group(function (): void {
             Route::post('users', StoreUsersController::class)->name('users.store');
             Route::get('users/{user}/edit', EditUserController::class)->name('users.edit');
             Route::post('users/status', UpdateStatusUserController::class);
-            Route::put('users/{user}/update', \App\Http\Controllers\Supers\Users\UpdateUserController::class)->name('users.update');
+            Route::put('users/{user}/update', UpdateUserController::class)->name('users.update');
             Route::delete('users/{user}/delete', DeleteUserController::class)->name('users.delete');
 
             Route::get('category', ListCategoryController::class)->name('category-list');

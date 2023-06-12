@@ -33,10 +33,11 @@
                         <h6 class="overline-title text-primary-alt">Administration</h6>
                     </li>
                     <x-vex-nav-link
-                            href="{{ route('supper.events.index') }}"
-                            :active="request()->routeIs('supper.events.index')"
-                            icons="ni-swap-alt">
-                        Events
+                            href="{{ route('supper.invoices-list') }}"
+                            :active="request()->routeIs('supper.invoices-list')"
+                            icons="ni-money"
+                    >
+                        Billing
                     </x-vex-nav-link>
 
                     <x-vex-nav-link
@@ -54,19 +55,22 @@
                     </x-vex-nav-link>
 
                     <x-vex-nav-link
+                            href="{{ route('supper.events.index') }}"
+                            :active="request()->routeIs('supper.events.index')"
+                            icons="ni-swap-alt">
+                        Events
+                    </x-vex-nav-link>
+
+                    <li class="nk-menu-heading">
+                        <h6 class="overline-title text-primary-alt">Users</h6>
+                    </li>
+
+                    <x-vex-nav-link
                             href="{{ route('supper.country-list') }}"
                             :active="request()->routeIs('supper.country-list')"
                             icons="ni-map"
                     >
                         Country
-                    </x-vex-nav-link>
-
-                    <x-vex-nav-link
-                            href="{{ route('supper.invoices-list') }}"
-                            :active="request()->routeIs('supper.invoices-list')"
-                            icons="ni-wallet-saving"
-                    >
-                        Billing
                     </x-vex-nav-link>
 
                     <x-vex-nav-link
