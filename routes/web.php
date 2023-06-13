@@ -117,7 +117,6 @@ Route::middleware('auth')->group(function (): void {
             'as' => 'organiser.',
             'middleware' => [
                 'organiser',
-                EnsureOrganiserPasswordChange::class,
             ],
         ],
         routes: function (): void {

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Country
@@ -15,18 +17,18 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $country_name
  * @property string $country_code
  * @property string $phone_code
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User|null $user
- * @method static \Illuminate\Database\Eloquent\Builder|Country newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Country newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Country query()
- * @method static \Illuminate\Database\Eloquent\Builder|Country whereCountryCode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Country whereCountryName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Country whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Country whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Country wherePhoneCode($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Country whereUpdatedAt($value)
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User|null $user
+ * @method static Builder|Country newModelQuery()
+ * @method static Builder|Country newQuery()
+ * @method static Builder|Country query()
+ * @method static Builder|Country whereCountryCode($value)
+ * @method static Builder|Country whereCountryName($value)
+ * @method static Builder|Country whereCreatedAt($value)
+ * @method static Builder|Country whereId($value)
+ * @method static Builder|Country wherePhoneCode($value)
+ * @method static Builder|Country whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Country extends Model

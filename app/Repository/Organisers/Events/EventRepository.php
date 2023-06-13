@@ -21,7 +21,6 @@ class EventRepository
             ->user()
             ->events()
             ->with(['category', 'online', 'country', 'city'])
-            ->withCount('payments')
             ->search(
                 search: $request->get('search'),
             )
@@ -35,17 +34,10 @@ class EventRepository
 
     public function delete(Event $event): Event
     {
-        $files = File::exists($event->image);
-
-        if (false !== $files) {
-            $this->removePicture($event);
-        }
-
         if (false !== $event->online()->exists()) {
             $this
                 ->request()
-                ->delete(config('enablex.url').`rooms/${$event->online()->roomId
-        }`);
+                ->delete(config('enablex.url').`rooms/${$event->online()->roomId}`);
         }
         $event->delete();
 

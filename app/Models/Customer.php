@@ -10,6 +10,7 @@ use App\QueryBuilder\CustomerQueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Customer
@@ -22,10 +23,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $ticket_number
  * @property int $total_amount
  * @property PaymentEnum $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Event $event
- * @property-read \App\Models\User $user
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Event $event
+ * @property-read User $user
  * @method static CustomerQueryBuilder|Customer newModelQuery()
  * @method static CustomerQueryBuilder|Customer newQuery()
  * @method static CustomerQueryBuilder|Customer query()

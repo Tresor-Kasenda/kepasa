@@ -7,11 +7,13 @@ namespace App\Models;
 use App\Enums\PaymentEnum;
 use App\Enums\StatusEnum;
 use App\QueryBuilder\EventsOrganiserQueryBuilder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Event
@@ -35,22 +37,22 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property string|null $payout
  * @property PaymentEnum $payment
  * @property bool $promoted
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int $company_id
  * @property int $country_id
  * @property int $city_id
- * @property-read \App\Models\Category $category
- * @property-read \App\Models\City $city
- * @property-read \App\Models\Company|null $company
- * @property-read \App\Models\Country $country
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Customer> $customers
+ * @property-read Category $category
+ * @property-read City $city
+ * @property-read Company|null $company
+ * @property-read Country $country
+ * @property-read Collection<int, Customer> $customers
  * @property-read int|null $customers_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Images> $medias
+ * @property-read Collection<int, Images> $medias
  * @property-read int|null $medias_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OnlineEvent> $online
+ * @property-read Collection<int, OnlineEvent> $online
  * @property-read int|null $online_count
- * @property-read \App\Models\User $user
+ * @property-read User $user
  * @method static EventsOrganiserQueryBuilder|Event filters(?string $filters, ?string $direction)
  * @method static EventsOrganiserQueryBuilder|Event newModelQuery()
  * @method static EventsOrganiserQueryBuilder|Event newQuery()

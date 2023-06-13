@@ -6,11 +6,13 @@ namespace App\Models;
 
 use App\Enums\StatusEnum;
 use App\QueryBuilder\CompanyQueryBuilder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Company
@@ -27,13 +29,13 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property string|null $website
  * @property string|null $social_media
  * @property StatusEnum $approval_status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Event> $events
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection<int, Event> $events
  * @property-read int|null $events_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Images> $images
+ * @property-read Collection<int, Images> $images
  * @property-read int|null $images_count
- * @property-read \App\Models\User $user
+ * @property-read User $user
  * @method static CompanyQueryBuilder|Company newModelQuery()
  * @method static CompanyQueryBuilder|Company newQuery()
  * @method static CompanyQueryBuilder|Company query()

@@ -1,3 +1,4 @@
+@php use App\Enums\RoleEnum; @endphp
 <header id="header-container">
     <div id="header">
         <div class="container">
@@ -59,19 +60,19 @@
             <div class="right-side">
                 <div class="header-widget">
                     @auth
-                        @if(auth()->user()->role_id == 1)
+                        @if(auth()->user()->role_id == RoleEnum::ROLE_SUPER)
                             <a href="{{ route('supper.dashboard') }}" class="button {{ Request::url() === route('supper.dashboard') ? 'current' : '' }}">
                                 Profile <i class="sl sl-icon-user"></i>
                             </a>
                         @endif
-                        @if(auth()->user()->role_id == 4)
+                        @if(auth()->user()->role_id == RoleEnum::ROLE_USERS)
                             <a
                                 href=""
                                 class="button">
                                 Profile <i class="sl sl-icon-user"></i>
                             </a>
                         @endif
-                        @if(auth()->user()->role_id == 3)
+                        @if(auth()->user()->role_id == RoleEnum::ROLE_ORGANISER)
                             <a href="{{ route('organiser.index') }}" class="button {{ Request::url() === route('organiser.index') ? 'current' : '' }}">
                                 Profile <i class="sl sl-icon-user"></i>
                             </a>

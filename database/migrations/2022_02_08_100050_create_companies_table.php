@@ -19,9 +19,11 @@ return new class () extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignIdFor(Country::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignIdFor(City::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('company_name')->nullable();

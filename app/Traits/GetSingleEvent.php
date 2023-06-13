@@ -17,7 +17,7 @@ trait GetSingleEvent
         return Event::query()
             ->where('key', '=', $key)
             ->where('payment', '=', PaymentEnum::PAID)
-            ->where('status', '=', StatusEnum::ACTIVE)
+            ->where('status', '=', StatusEnum::STATUS_ACTIVE)
             ->first();
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('title', "Authentification and inscription")
+@section('title', "Authentication an Registration")
 
 @section('content')
     <div class="container margin-top-40">
@@ -64,7 +64,7 @@
                                         <select class="input-text" name="role" id="role" required>
                                             @php
                                                 $roles = \App\Models\Role::query()
-                                                                ->whereNotIn('id',[1,2])
+                                                                ->whereIn('id',[2,3])
                                                                 ->get(['name', 'id'])
                                             @endphp
                                             @foreach($roles as $role)
@@ -168,9 +168,4 @@
             <div class="col-md-3"></div>
         </div>
     </div>
-@endsection
-
-
-@section('alpines')
-
 @endsection

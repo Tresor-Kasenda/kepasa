@@ -48,17 +48,10 @@
                     <h4 class="gray">Profile Details</h4>
                     <div class="dashboard-list-box-static">
                         <div class="edit-profile-photo">
-                            @if(auth()->user()->company->images !== null)
-                                <img
-                                    src="{{ asset('storage/'.auth()->user()->company->images) }}"
-                                    id="preview"
-                                    alt="{{ auth()->user()->id ?? "" }}">
-                            @else
-                                <img
+                            <img
                                     src="{{ asset('assets/images/profile.jpg') }}"
                                     id="preview"
                                     alt="Photo de profile">
-                            @endif
                             <form id="submit">
                                 @csrf
                                 <div class="change-photo-btn">
@@ -85,7 +78,7 @@
                                     <h5>Last Name</h5>
                                     <input
                                         type="text"
-                                        value="{{ old('lastName') ?? auth()->user()->lastName }}"
+                                        value="{{ old('lastName') ?? auth()->user()->last_name }}"
                                         name="lastName"
                                         id="lastName"
                                     >
@@ -113,18 +106,18 @@
 
                                     <h5>Country</h5>
                                     <select type="text" name="country" id="country">
-                                        <option value="{{ auth()->user()->country->id }}">{{ auth()->user()->country->countryName }}</option>
+                                        <option value="{{ auth()->user()->country->id ?? "" }}">{{ auth()->user()->country->country_name ?? "" }}</option>
                                         @foreach($countries as $country)
-                                            <option value="{{ $country->id }}">
-                                                {{ $country->countryName }}
-                                            </option>
+                                            <option value="{{ $country->id ?? ""  }}">
+                                                {{ $country->country_name ?? ""  }}
+                                            </option>"
                                         @endforeach
                                     </select>
                                     @error('contry')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
 
                                     <h5> City</h5>
                                     <input
-                                        value="{{ old('city') ?? auth()->user()->company->city }}"
+                                        value="{{ old('city') }}"
                                         type="text"
                                         name="city"
                                         id="city"
@@ -151,7 +144,7 @@
                                 <div class="col-md-6">
                                     <h5>Company Name</h5>
                                     <input
-                                        value="{{ old('companyName') ?? auth()->user()->company->companyName }}"
+                                        value="{{ old('companyName') ?? auth()->user()->company->company_name }}"
                                         type="text"
                                         name="companyName"
                                         id="companyName"
@@ -202,7 +195,7 @@
 
                                     <h5><i class="fa fa-facebook-square"></i> Company Social media</h5>
                                     <input
-                                        value="{{ old('socialMedia') ?? auth()->user()->company->socialMedia }}"
+                                        value="{{ old('socialMedia') ?? auth()->user()->company->social_media }}"
                                         type="text"
                                         name="socialMedia"
                                         id="socialMedia"
@@ -212,10 +205,10 @@
 
                                     <h5>Country</h5>
                                     <select type="text" name="country" id="country">
-                                        <option value="{{ auth()->user()->company->country}}">{{ auth()->user()->country->countryName}}</option>
+                                        <option value="{{ auth()->user()->company->country_id ?? ""}}">{{ auth()->user()->country->country_name ?? "" }}</option>
                                         @foreach($countries as $country)
-                                            <option value="{{ $country->countryCode }}">
-                                                {{ $country->countryName }}
+                                            <option value="{{ $country->country_code ?? "" }}">
+                                                {{ $country->country_name ?? "" }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -246,7 +239,7 @@
                     <h4 class="gray">Change Password</h4>
                     <div class="dashboard-list-box-static">
                         <div class="my-profile">
-                            <form action="{{ route('organiser.profile.update', auth()->user()->key) }}" method="post" class="submitPassword">
+                            <form action="{{ route('organiser.profile.update', auth()->id()) }}" method="post" class="submitPassword">
                                 @csrf
                                 @method('PUT')
                                 <div class="row with-forms">

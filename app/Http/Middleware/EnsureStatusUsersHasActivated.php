@@ -12,7 +12,7 @@ class EnsureStatusUsersHasActivated
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && (UserStatus::STATUS_DEACTIVATE->value === auth()->user()->status)) {
+        if (auth()->check() && (UserStatus::STATUS_DEACTIVATE === auth()->user()->approval_status)) {
             auth()->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();

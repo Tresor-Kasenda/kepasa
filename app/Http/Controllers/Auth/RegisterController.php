@@ -53,7 +53,7 @@ class RegisterController extends Controller
                 'string',
                 'confirmed',
             ],
-            'role' => ['required', Rule::in(3, 4)],
+            'role' => ['required', Rule::in(2, 3)],
         ]);
     }
 
@@ -64,11 +64,11 @@ class RegisterController extends Controller
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'role_id' => $data['role'],
-                'lastName' => $data['lastName'],
+                'last_name' => $data['lastName'],
                 'phones' => $data['phones'],
                 'password' => Hash::make($data['password']),
             ]);
-        if (3 === (int) $data['role']) {
+        if (2 === (int) $data['role']) {
             Company::query()->create([
                 'user_id' => $user->id,
             ]);
@@ -76,15 +76,6 @@ class RegisterController extends Controller
 
             return $user;
         }
-        if (4 === $data['role']) {
-            Profile::query()
-                ->create([
-                    'user_id' => $user->id,
-                    'alternativePhones' => $data['phones'],
-                ]);
-            Mail::send(new CustomerMail($user));
-
-            return $user;
-        }
+        return $user;
     }
 }
