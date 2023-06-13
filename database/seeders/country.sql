@@ -1,4 +1,4 @@
-INSERT INTO `countries` ( `countryname`, `countrycode`) VALUES
+INSERT INTO `countries` ( `country_name`, `country_code`) VALUES
                                                             ('Angola', 'AO'),
                                                             ('Burkina Faso', 'BF'),
                                                             ('Burundi', 'BI'),
