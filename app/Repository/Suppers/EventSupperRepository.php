@@ -10,8 +10,6 @@ use Illuminate\Support\Collection;
 
 class EventSupperRepository
 {
-    use ImageUpload;
-
     public function getContents(): array|Collection
     {
         return Event::query()

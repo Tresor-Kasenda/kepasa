@@ -19,7 +19,7 @@ class EventUserRepository
     {
         return Event::query()
             ->where('payment', '=', PaymentEnum::PAID)
-            ->where('status', '=', StatusEnum::ACTIVE)
+            ->where('status', '=', StatusEnum::STATUS_ACTIVE)
             ->orderByDesc('created_at')
             ->get();
     }
@@ -34,7 +34,7 @@ class EventUserRepository
             ->where('city', '=', $attributes->input('city'))
             ->where('country', '=', $country->countryName)
             ->where('payment', '=', PaymentEnum::PAID)
-            ->where('status', '=', StatusEnum::ACTIVE)
+            ->where('status', '=', StatusEnum::STATUS_ACTIVE)
             ->get();
     }
 }

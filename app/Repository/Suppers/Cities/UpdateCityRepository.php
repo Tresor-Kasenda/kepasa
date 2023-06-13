@@ -16,16 +16,16 @@ class UpdateCityRepository
     public function updateCity(City $city, UpdateCityRequest $validated): void
     {
         $city->update([
-            'cityName' => $validated->input('cityName'),
+            'city_name' => $validated->input('cityName'),
             'facts' => $validated->input('facts'),
             'overview' => $validated->input('overview'),
             'currency' => $validated->input('currency'),
             'history' => $validated->input('history'),
             'languages' => $validated->input('language'),
             'population' => $validated->input('population'),
-            'popularCity' => $validated->input('popular_city'),
+            'popular_city' => $validated->input('popular_city'),
             'mayor' => $validated->input('mayor'),
-            'countryCode' => $validated->input('country_code'),
+            'country_code' => $validated->input('country_code'),
             'image' => self::uploadProfile($validated),
             'promoted' => self::statusCity($validated),
         ]);
@@ -34,8 +34,8 @@ class UpdateCityRepository
     protected static function statusCity($validated): string
     {
         if ('on' === $validated->input('promoted')) {
-            return CityEnum::PROMOTION;
+            return CityEnum::APPROVAL_PROMOTION->value;
         }
-        return CityEnum::NOTPROMOTED;
+        return CityEnum::APPROVAL_NOT_PROMOTION->value;
     }
 }

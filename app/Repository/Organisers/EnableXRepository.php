@@ -7,7 +7,6 @@ namespace App\Repository\Organisers;
 use App\EnxRtc\Errors;
 use App\Mail\TokenCreateMail;
 use App\Models\OnlineEvent;
-use App\Repository\Contracts\OnlineRepositoryInterface;
 use App\Services\EnableX\CreateRoomTokenService;
 use App\Services\EnableX\EnableXHttpService;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Mail;
 
-class EnableXRepository implements OnlineRepositoryInterface
+class EnableXRepository
 {
     use EnableXHttpService;
 

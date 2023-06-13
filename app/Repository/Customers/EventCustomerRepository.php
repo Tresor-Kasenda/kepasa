@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Customers;
 
+use App\Models\Customer;
 use App\Models\PaymentCustomer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,20 +16,10 @@ class EventCustomerRepository
 {
     public function getContent(): LengthAwarePaginator
     {
-        return PaymentCustomer::query()
+        return Customer::query()
             ->with('event')
             ->where('user_id', '=', auth()->id())
             ->paginate(6);
-    }
-
-    public function getInvoiceContent(string $key): Model|Builder|null
-    {
-        $invoice = PaymentCustomer::query()
-            ->where('key', '=', $key)
-            ->where('user_id', '=', auth()->id())
-            ->first();
-
-        return $invoice->load('event');
     }
 
     public function getUserPosition($latitude, $longitude): Collection

@@ -27,13 +27,13 @@ class CheckEventSubscriptionCommand extends Command
         $events = Event::query()
             ->where('date', '<=', Carbon::now()->addDay(7)->toDateString())
             ->where('payment', '=', PaymentEnum::PAID)
-            ->where('status', '=', StatusEnum::ACTIVE)
+            ->where('status', '=', StatusEnum::STATUS_ACTIVE)
             ->get();
 
         foreach ($events as $event) {
             $customers = Customer::query()->get();
             foreach ($customers as $customer) {
-                if ($event->id === $customer->id) {
+                if ($event->id === $customer->event_id) {
                 }
             }
         }

@@ -36,16 +36,4 @@ class ChartJsSuperRepository
             ->orderBy('id', 'ASC')
             ->pluck('count', 'month_name');
     }
-
-    public function getBillingsByMonths(): Collection
-    {
-        return Billing::select(
-            DB::raw('COUNT(*) as count'),
-            DB::raw('MONTHNAME(created_at) as month_name')
-        )
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw('month_name'))
-            ->orderBy('id', 'ASC')
-            ->pluck('count', 'month_name');
-    }
 }

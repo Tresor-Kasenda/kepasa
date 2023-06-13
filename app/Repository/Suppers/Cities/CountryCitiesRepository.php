@@ -13,7 +13,7 @@ class CountryCitiesRepository
     public function getCities(Country $country): Collection|array
     {
         return City::query()
-            ->where('countryCode', '=', $country->countryCode)
+            ->where('country_code', '=', $country->countryCode)
             ->get();
     }
 }

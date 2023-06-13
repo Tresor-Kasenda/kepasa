@@ -23,7 +23,7 @@ class BookingRepository
             ->where('title', '=', $attributes->input('title'))
             ->where('date', '=', $attributes->input('date'))
             ->when('city', fn ($query) => $query->where('city', $attributes->input('city')))
-            ->where('status', '=', StatusEnum::ACTIVE)
+            ->where('status', '=', StatusEnum::STATUS_ACTIVE)
             ->firstOrFail();
     }
 

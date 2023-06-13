@@ -20,8 +20,8 @@ class ListUsersRepository
                 'country',
             ])
             ->whereIn('role_id', [
-                RoleEnum::ORGANISER,
-                RoleEnum::USERS,
+                RoleEnum::ROLE_ORGANISER,
+                RoleEnum::ROLE_USERS,
             ])
             ->latest()
             ->orderByDesc('created_at')

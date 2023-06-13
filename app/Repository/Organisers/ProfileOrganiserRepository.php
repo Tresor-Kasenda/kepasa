@@ -6,15 +6,12 @@ namespace App\Repository\Organisers;
 
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
-use App\Traits\ImageUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileOrganiserRepository
 {
-    use ImageUpload;
-
     public function updatePassword(string $key, $attributes): Model|Builder
     {
         $user = User::query()

@@ -12,22 +12,22 @@ use LaravelIdea\Helper\App\Models\_IH_Company_QB;
 
 class UpdateCompanyRepository
 {
-    public function updateCompany(User $user, array $validated): Model|Company|Builder|_IH_Company_QB|null
+    public function updateCompany(User $user, array $validated): Model|Company|Builder|null
     {
         $company = Company::query()
             ->where('user_id', '=', $user->id)
             ->first();
 
         $company->update([
-            'companyName' => $validated['companyName'],
+            'company_name' => $validated['companyName'],
             'address' => $validated['address'],
             'phones' => $validated['phonesCompany'],
             'alternativeNumber' => $validated['phonesCompany'],
             'email' => $validated['emailCompany'],
             'website' => $validated['website'],
             'socialMedia' => $validated['socialMedia'],
-            'country' => $validated['country'],
-            'city' => $validated['cityName'],
+            'country_id' => $validated['country'],
+            'city_id' => $validated['cityName'],
             'updated_at' => now(),
         ]);
 

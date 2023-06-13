@@ -24,11 +24,6 @@ class HomeRepository
             ->get();
     }
 
-    public function getCitiesInCountry($attributes): array|Collection
-    {
-        return Country::getCitiesInCountry($attributes->all());
-    }
-
     public function getContents(): LengthAwarePaginator
     {
         $location = GetLocation::location();
@@ -38,21 +33,21 @@ class HomeRepository
         }
 
         return $this->getEvents()
-            ->when('city', fn ($query) => $query->where('city', $location->cityName))
+            ->whereHas('city',  fn ($query) => $query->where('city_name', $location->cityName))
             ->paginate(6);
     }
 
     public function getCities(): Collection|array
     {
         return City::query()
-            ->where('promoted', '=', CityEnum::PROMOTION)
+            ->where('promoted', '=', CityEnum::APPROVAL_PROMOTION)
             ->get();
     }
 
     public function getCity(string $city): array
     {
         $city = City::query()
-            ->where('promoted', '=', CityEnum::PROMOTION)
+            ->where('promoted', '=', CityEnum::APPROVAL_PROMOTION)
             ->first();
         $event = $this->getEvents()
             ->where('city', '=', $city->cityName)
@@ -65,7 +60,7 @@ class HomeRepository
     {
         return Event::query()
             ->where('payment', '=', PaymentEnum::PAID)
-            ->where('status', '=', StatusEnum::ACTIVE)
+            ->where('status', '=', StatusEnum::STATUS_ACTIVE)
             ->where('promoted', '=', true);
     }
 }
