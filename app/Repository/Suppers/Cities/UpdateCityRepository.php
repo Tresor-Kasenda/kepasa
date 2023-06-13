@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository\Suppers\Cities;
 
-use App\Enums\CityPromotedEnum;
+use App\Enums\CityEnum;
 use App\Http\Requests\Admin\UpdateCityRequest;
 use App\Models\City;
 use App\Traits\ImageUpload;
@@ -34,8 +34,8 @@ class UpdateCityRepository
     protected static function statusCity($validated): string
     {
         if ('on' === $validated->input('promoted')) {
-            return CityPromotedEnum::PROMOTION;
+            return CityEnum::PROMOTION;
         }
-        return CityPromotedEnum::NOTPROMOTED;
+        return CityEnum::NOTPROMOTED;
     }
 }

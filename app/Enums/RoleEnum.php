@@ -4,19 +4,9 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
-
-final class RoleEnum extends Enum
+enum RoleEnum: int
 {
-    public const SUPER = 1;
-
-    public const ORGANISER = 3;
-
-    public const USERS = 4;
-
-    public static array $types = [
-        self::ORGANISER,
-        self::USERS,
-        self::SUPER,
-    ];
+    case ROLE_SUPER = 1;
+    case ROLE_ORGANISER = 2;
+    case ROLE_USERS = 3;
 }

@@ -1,4 +1,4 @@
-@php use App\Enums\CityPromotedEnum; @endphp
+@php use App\Enums\CityEnum; @endphp
 <x-app-layout>
     @section('title', "City details")
 
@@ -10,7 +10,7 @@
             </x-vex-link>
         </x-brandcrumb>
 
-        @if($city->promoted === CityPromotedEnum::NOTPROMOTED)
+        @if($city->promoted === CityEnum::NOTPROMOTED)
             <div class="alert alert-icon alert-danger" role="alert">
                 <em class="icon ni ni-alert-circle"></em>
                 <strong>Warning</strong>. This city is not promoted.

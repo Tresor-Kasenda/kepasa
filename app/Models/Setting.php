@@ -12,7 +12,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 class Setting extends Model
 {
     use HasFactory;
-    use HasKey;
 
     protected $guarded = [];
 

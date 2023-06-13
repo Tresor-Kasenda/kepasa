@@ -13,7 +13,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 class Customer extends Model
 {
     use HasFactory;
-    use HasKey;
 
     protected $fillable = [
         'event_id',

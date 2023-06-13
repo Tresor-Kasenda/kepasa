@@ -12,7 +12,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 class Profile extends Model
 {
     use HasFactory;
-    use HasKey;
 
     protected $guarded = [];
 

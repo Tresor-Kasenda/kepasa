@@ -14,18 +14,20 @@ return new class () extends Migration {
     {
         Schema::create('customers', function (Blueprint $table): void {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(\App\Models\Event::class)
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->enum('type', [TypeCustomer::$types])->default(TypeCustomer::USER);
+            $table->string('type')->default(TypeCustomer::TYPE_USER->value);
             $table->string('reference')->unique();
-            $table->string('ticketNumber', 9);
-            $table->string('totalAmount', 9);
-            $table->enum('status', [PaymentEnum::$types])->default(PaymentEnum::UNPAID);
+            $table->integer('ticket_number');
+            $table->integer('total_amount');
+            $table->enum('status', [
+                PaymentEnum::PAID->value,
+                PaymentEnum::UNPAID->value,
+            ])->default(PaymentEnum::UNPAID->value);
             $table->timestamps();
         });
     }

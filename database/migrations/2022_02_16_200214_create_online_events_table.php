@@ -12,7 +12,6 @@ return new class () extends Migration {
     {
         Schema::create('online_events', function (Blueprint $table): void {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(Company::class)
                 ->constrained()
                 ->cascadeOnDelete();

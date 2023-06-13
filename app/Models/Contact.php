@@ -11,7 +11,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 class Contact extends Model
 {
     use HasFactory;
-    use HasKey;
 
     protected $guarded = [];
 }

@@ -12,18 +12,17 @@ return new class () extends Migration {
     {
         Schema::create('categories', function (Blueprint $table): void {
             $table->id();
-            $table->string('key')->unique();
             $table->string('name');
             $table->timestamps();
         });
 
         Category::query()
             ->create([
-                'name' => 'Online',
+                'name' => 'Event Online',
             ]);
         Category::query()
             ->create([
-                'name' => 'Presence',
+                'name' => 'Event Presence',
             ]);
     }
 

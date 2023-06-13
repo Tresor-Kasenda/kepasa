@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
-
-class PaymentEnum extends Enum
+enum PaymentEnum: string
 {
-    public const PAID = 'paid';
+    case PAID = 'paid';
 
-    public const UNPAID = 'unpaid';
-
-    public static array $types = [self::PAID, self::UNPAID];
+    case UNPAID = 'un_paid';
 }

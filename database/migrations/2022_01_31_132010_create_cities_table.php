@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Enums\CityPromotedEnum;
+use App\Enums\CityEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,20 +12,20 @@ return new class () extends Migration {
     {
         Schema::create('cities', function (Blueprint $table): void {
             $table->id();
-            $table->string('cityName', 100)->unique();
-            $table->mediumText('latitude')->nullable();
-            $table->mediumText('longitude')->nullable();
+            $table->string('city_name', 100)->unique();
+            $table->decimal('latitude', 11, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
             $table->mediumText('facts')->nullable();
-            $table->mediumText('overview')->nullable();
             $table->string('currency', 20)->nullable();
             $table->text('history')->nullable();
             $table->string('languages')->nullable();
-            $table->mediumText('population', 11)->nullable();
-            $table->string('popularCity')->nullable();
+            $table->integer('population')->nullable();
+            $table->string('popular_city')->nullable();
             $table->mediumText('mayor')->nullable();
-            $table->string('countryCode');
+            $table->string('country_code', 3);
             $table->string('image')->nullable();
-            $table->enum('promoted', [CityPromotedEnum::$cities])->default(CityPromotedEnum::NOTPROMOTED);
+            $table->longText('description')->nullable();
+            $table->string('promoted')->default(CityEnum::APPROVAL_NOT_PROMOTION->value);
             $table->timestamps();
         });
     }

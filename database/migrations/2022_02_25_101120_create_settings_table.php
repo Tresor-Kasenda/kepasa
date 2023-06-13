@@ -12,7 +12,6 @@ return new class () extends Migration {
     {
         Schema::create('settings', function (Blueprint $table): void {
             $table->id();
-            $table->string('key')->unique();
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();

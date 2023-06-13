@@ -13,7 +13,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 class OnlineEvent extends Model
 {
     use HasFactory;
-    use HasKey;
 
     protected $guarded = [];
 

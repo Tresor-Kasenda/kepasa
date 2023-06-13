@@ -22,27 +22,24 @@ return new class () extends Migration {
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('key')->unique();
             $table->string('title')->unique();
-            $table->string('subTitle')->unique();
-            $table->date('date');
-            $table->time('startTime');
-            $table->time('endTime');
+            $table->string('sub_title')->unique();
+            $table->date('start_date');
+            $table->date('end_date');
             $table->string('address');
-            $table->integer('ticketNumber')->default(0);
-            $table->integer('prices')->default(0);
+            $table->integer('ticket_number');
+            $table->integer('prices');
+            $table->string('image');
             $table->enum('feeOption', FeeOptionEnum::$types)
                 ->default(FeeOptionEnum::Inclusive);
             $table->decimal('commission')->default(0);
-            $table->decimal('buyerPrice')->default(0);
+            $table->decimal('buyer_price')->default(0);
             $table->longText('description')->nullable();
-            $table->enum('status', StatusEnum::$status)
-                ->default(StatusEnum::DEACTIVATE);
+            $table->tinyInteger('status')->default(StatusEnum::STATUS_DEACTIVATE->value);
             $table->string('payout')->nullable();
-            $table->enum('payment', [PaymentEnum::UNPAID, PaymentEnum::PAID])
-                ->default(PaymentEnum::UNPAID);
+            $table->enum('payment', [PaymentEnum::UNPAID->value, PaymentEnum::PAID->value])
+                ->default(PaymentEnum::UNPAID->value);
             $table->boolean('promoted')->default(0);
-            $table->string('image');
             $table->timestamps();
         });
     }

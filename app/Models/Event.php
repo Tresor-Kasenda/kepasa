@@ -15,7 +15,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 class Event extends Model
 {
     use HasFactory;
-    use HasKey;
 
     protected $guarded = [];
 

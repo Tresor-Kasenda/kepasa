@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-class UserStatus
+enum UserStatus: int
 {
-    public const ACTIVE = 1;
+    case STATUS_ACTIVE = 1;
 
-    public const DEACTIVATE = 0;
-
-    public static array $status = [
-        self::ACTIVE,
-        self::DEACTIVATE,
-    ];
+    case STATUS_DEACTIVATE = 0;
 }

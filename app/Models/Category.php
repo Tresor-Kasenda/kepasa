@@ -12,7 +12,6 @@ use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 class Category extends Model
 {
     use HasFactory;
-    use HasKey;
 
     protected $guarded = [];
 

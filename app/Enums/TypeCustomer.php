@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
-
-class TypeCustomer extends Enum
+enum TypeCustomer: string
 {
-    public const COMPANY = 'company';
+    case TYPE_COMPANY = 'type_company';
 
-    public const USER = 'user';
-
-    public static array $types = [self::COMPANY, self::USER];
+    case TYPE_USER = 'type_user';
 }

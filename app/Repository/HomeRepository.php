@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Enums\CityPromotedEnum;
+use App\Enums\CityEnum;
 use App\Enums\PaymentEnum;
 use App\Enums\StatusEnum;
 use App\Models\City;
@@ -45,14 +45,14 @@ class HomeRepository
     public function getCities(): Collection|array
     {
         return City::query()
-            ->where('promoted', '=', CityPromotedEnum::PROMOTION)
+            ->where('promoted', '=', CityEnum::PROMOTION)
             ->get();
     }
 
     public function getCity(string $city): array
     {
         $city = City::query()
-            ->where('promoted', '=', CityPromotedEnum::PROMOTION)
+            ->where('promoted', '=', CityEnum::PROMOTION)
             ->first();
         $event = $this->getEvents()
             ->where('city', '=', $city->cityName)

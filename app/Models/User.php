@@ -20,7 +20,6 @@ class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
-    use HasKey;
     use Notifiable;
     use SoftDeletes;
 
