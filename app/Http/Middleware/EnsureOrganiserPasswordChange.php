@@ -12,8 +12,19 @@ class EnsureOrganiserPasswordChange
 {
     public function handle(Request $request, Closure $next)
     {
-        return redirect()->route('organiser.profile')
-            ->with('danger', 'Please update your company details before continuing.');
+        $user = auth()->user();
+
+        if (
+            $user &&
+            !Company::where('user_id', $user->id)
+                ->whereNotNull('name')
+                ->whereNotNull('email')
+                ->exists()
+        ) {
+            return redirect()->route('organiser.profile', ['#profile'])
+                ->with('danger', 'Please update your company details before continuing.');
+        }
+
         return $next($request);
     }
 }
