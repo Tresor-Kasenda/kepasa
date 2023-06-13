@@ -25,9 +25,9 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check() && 1 === Auth::user()->role_id) {
                 return redirect()->route('supper.dashboard');
-            } elseif (Auth::guard($guard)->check() && 3 === Auth::user()->role_id) {
+            } elseif (Auth::guard($guard)->check() && 2 === Auth::user()->role_id) {
                 return redirect()->route('organiser.index');
-            } elseif (Auth::guard($guard)->check() && 4 === Auth::user()->role_id) {
+            } elseif (Auth::guard($guard)->check() && 3 === Auth::user()->role_id) {
                 return redirect()->route('user.home.index');
             }
         }

@@ -12,12 +12,13 @@ class EnsureStatusUsersHasActivated
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && (UserStatus::DEACTIVATE === auth()->user()->status)) {
+        if (auth()->check() && (UserStatus::STATUS_DEACTIVATE->value === auth()->user()->status)) {
             auth()->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            toast("Votre compte a bien été déverrouiller, vous pouvez contactez l'administrateur !", 'danger');
-            return redirect()->route('login');
+            return redirect()
+                ->route('login')
+                ->with('error', 'Your account has been deactivated. Please contact the administrator.');
         }
 
         return $next($request);

@@ -8,13 +8,30 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 
 class OnlineEvent extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'company_id',
+        'event_id',
+        'roomId',
+        'roomName',
+        'reference',
+        'moderators',
+        'schedule',
+        'duration',
+        'participants',
+        'mode',
+        'participantsID',
+        'moderatorID',
+    ];
+
+    protected $casts = [
+        'schedule' => 'datetime',
+        'duration' => 'integer',
+    ];
 
     public function event(): BelongsTo
     {

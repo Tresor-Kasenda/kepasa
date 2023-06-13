@@ -18,7 +18,7 @@ return new class () extends Migration {
             $table->mediumText('facts')->nullable();
             $table->string('currency', 20)->nullable();
             $table->text('history')->nullable();
-            $table->string('languages')->nullable();
+            $table->string('language')->nullable();
             $table->integer('population')->nullable();
             $table->string('popular_city')->nullable();
             $table->mediumText('mayor')->nullable();

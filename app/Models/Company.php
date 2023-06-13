@@ -4,19 +4,35 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\StatusEnum;
 use App\QueryBuilder\CompanyQueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 
 class Company extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'user_id',
+        'country_id',
+        'city_id',
+        'company_name',
+        'address',
+        'phone',
+        'email',
+        'website',
+        'alternative_phone',
+        'social_media',
+        'approval_status',
+    ];
+
+    protected $casts = [
+        'approval_status' => StatusEnum::class,
+    ];
 
     public function user(): BelongsTo
     {
@@ -31,11 +47,6 @@ class Company extends Model
     public function images(): MorphMany
     {
         return $this->morphMany(Images::class, 'resource');
-    }
-
-    public function online(): HasMany
-    {
-        return $this->hasMany(OnlineEvent::class);
     }
 
     public function events(): HasMany

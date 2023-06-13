@@ -20,11 +20,11 @@ class OrganiserMiddleware
             return redirect()->route('supper.dashboard');
         }
 
-        if (3 === Auth::user()->role_id) {
+        if (2 === Auth::user()->role_id) {
             return $next($request);
         }
 
-        if (4 === Auth::user()->role_id) {
+        if (3 === Auth::user()->role_id) {
             return redirect()->route('user.home.index');
         }
     }

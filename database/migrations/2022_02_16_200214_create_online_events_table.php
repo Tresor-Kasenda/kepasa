@@ -23,7 +23,7 @@ return new class () extends Migration {
             $table->string('reference');
             $table->string('moderators');
             $table->dateTime('schedule');
-            $table->string('duration');
+            $table->integer('duration');
             $table->string('participants');
             $table->string('mode', 64);
             $table->string('participantsID');

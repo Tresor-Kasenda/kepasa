@@ -4,19 +4,54 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\PaymentEnum;
+use App\Enums\StatusEnum;
 use App\QueryBuilder\EventsOrganiserQueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 
 class Event extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'category_id',
+        'user_id',
+        'company_id',
+        'country_id',
+        'city_id',
+        'title',
+        'sub_title',
+        'start_date',
+        'end_date',
+        'address',
+        'ticket_number',
+        'prices',
+        'image',
+        'feeOption',
+        'commission',
+        'buyer_price',
+        'description',
+        'status',
+        'payout',
+        'payment',
+        'promoted',
+    ];
+
+    protected $casts = [
+        'start_date' => 'immutable_date',
+        'end_date' => 'immutable_date',
+        'promoted' => 'boolean',
+        'status' => StatusEnum::class,
+        'ticket_number' => 'integer',
+        'prices' => 'integer',
+        'commission' => 'decimal',
+        'buyer_price' => 'decimal',
+        'payment' => PaymentEnum::class,
+    ];
 
     public function newEloquentBuilder($query): EventsOrganiserQueryBuilder
     {

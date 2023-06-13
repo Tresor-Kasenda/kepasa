@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\StatusEnum;
+use App\Enums\RoleEnum;
+use App\Enums\UserStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use JustSteveKing\KeyFactory\Models\Concerns\HasKey;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -24,15 +24,12 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $fillable = [
-        'key',
         'name',
-        'lastName',
+        'last_name',
         'phones',
-        'role_id',
-        'country_id',
         'email',
-        'password',
-        'status',
+        'role_id',
+        'approval_status',
     ];
 
 
@@ -48,12 +45,9 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'approval_status' => UserStatus::class,
+        'role_id' => RoleEnum::class
     ];
-
-    public function profile(): HasOne
-    {
-        return $this->hasOne(Profile::class);
-    }
 
     public function company(): HasOne
     {

@@ -16,7 +16,7 @@ class CustomerMiddleware
             return redirect()->route('login');
         }
 
-        if (4 === Auth::user()->role_id) {
+        if (3 === Auth::user()->role_id) {
             return $next($request);
         }
 
@@ -24,7 +24,7 @@ class CustomerMiddleware
             return redirect()->route('supper.dashboard');
         }
 
-        if (3 === Auth::user()->role_id) {
+        if (2 === Auth::user()->role_id) {
             return redirect()->route('organiser.index');
         }
     }

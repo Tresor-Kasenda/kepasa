@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Enums\RoleEnum;
-use App\Models\Profile;
 use App\Models\Role;
 use App\Models\Setting;
 use App\Models\User;
@@ -47,7 +46,7 @@ class CreateAdminCommand extends Command
             try {
                 $password = Hash::make($password);
                 $role = Role::query()
-                    ->where('id', '=', RoleEnum::SUPER)
+                    ->where('id', '=', RoleEnum::ROLE_SUPER->value)
                     ->first();
                 $role_id = $role->id;
                 $user = User::query()
@@ -55,10 +54,6 @@ class CreateAdminCommand extends Command
 
                 $user->save();
 
-                Profile::query()
-                    ->create([
-                        'user_id' => $user->id,
-                    ]);
                 Setting::query()
                     ->create([
                         'user_id' => $user->id,
