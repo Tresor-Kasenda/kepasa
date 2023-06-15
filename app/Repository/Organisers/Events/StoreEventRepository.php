@@ -15,6 +15,8 @@ use App\Traits\ImageUpload;
 use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class StoreEventRepository
@@ -26,27 +28,23 @@ class StoreEventRepository
     public function store(StoreEventRequest $request): Model|Builder
     {
         $category = $this->getCategory(request: $request);
-        $event = $this->storedEvent(
-            request: $request,
-            feeds: $this->resolveFeeds(
-                request: $request
-            )
-        );
 
-        if (1 === $category->id) {
-            (new CreateRoomService())
-                ->handle(
-                    request: $request,
-                    event: $event
-                );
-        }
+        DB::transaction(function () use ($category, $request) {
+            $event = $this->storedEvent(
+                request: Arr::except($request->validated(), ['category', 'country']),
+                feeds: $this->resolveFeeds(
+                    request: $request
+                )
+            );
 
-        Notification::send(
-            auth()->user(),
-            new CreatedEventNotification($event)
-        );
+            if (1 === $category->id) {
+                (new CreateRoomService())->handle(request: $request, event: $event);
+            }
 
-        return $event;
+            Notification::send(auth()->user(), new CreatedEventNotification($event));
+
+            return $event;
+        });
     }
 
     private function getCategory($request): null|Builder|Model
@@ -62,16 +60,16 @@ class StoreEventRepository
             ->events()
             ->create([
                 'title' => $request->input('title'),
-                'subTitle' => $request->input('subTitle'),
+                'sub_title' => $request->input('subTitle'),
                 'date' => $request->input('date'),
-                'startTime' => $request->input('startTime'),
-                'endTime' => $request->input('endTime'),
+                'start_date' => $request->input('startTime'),
+                'end_date' => $request->input('endTime'),
                 'address' => $request->input('address'),
-                'ticketNumber' => $request->input('ticketNumber'),
+                'ticket_number' => $request->input('ticketNumber'),
                 'prices' => $request->input('prices'),
                 'feeOption' => $request->input('feeOption'),
                 'commission' => $feeds['0'],
-                'buyerPrice' => $feeds['1'],
+                'buyer_price' => $feeds['1'],
                 'country_id' => $this->getCountry($request)->id,
                 'city_id' => $this->getCity($request)->id,
                 'description' => $request->input('description'),

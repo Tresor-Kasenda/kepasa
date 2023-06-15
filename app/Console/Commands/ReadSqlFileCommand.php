@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use DB;
 use Illuminate\Console\Command;
 
 class ReadSqlFileCommand extends Command
@@ -25,5 +26,9 @@ class ReadSqlFileCommand extends Command
         if ( ! file_exists($cities) && ! file_exists($countries)) {
             $this->error('The files does not exists in this directory');
         }
+        DB::insert($countries);
+        DB::insert($cities);
+
+        $this->info('importation executer avec success');
     }
 }

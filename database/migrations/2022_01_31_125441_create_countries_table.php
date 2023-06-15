@@ -13,7 +13,7 @@ return new class () extends Migration {
             $table->id();
             $table->string('country_name')->unique();
             $table->string('country_code', 3)->unique();
-            $table->string('phone_code', 2)->unique()->nullable();
+            $table->string('phone_code')->nullable();
             $table->string('capital')->nullable();
             $table->timestamps();
         });

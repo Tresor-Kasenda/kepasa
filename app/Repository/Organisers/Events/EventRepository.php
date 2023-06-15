@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers\Events;
 
+use App\Enums\ReservationEnum;
 use App\Models\Event;
 use App\Services\EnableX\EnableXHttpService;
 use App\Traits\ImageUpload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Validation\ValidationException;
 
 class EventRepository
 {
@@ -39,6 +41,12 @@ class EventRepository
                 ->request()
                 ->delete(config('enablex.url').`rooms/${$event->online()->roomId}`);
         }
+        
+        if ($event->reservations()->where('status', ReservationEnum::STATUS_INACTIVE)) {
+            throw ValidationException::withMessages(['event' => "Cannot delete this office !"])
+                ->redirectTo('event/'.$event->id.'/show');
+        }
+
         $event->delete();
 
         return $event;

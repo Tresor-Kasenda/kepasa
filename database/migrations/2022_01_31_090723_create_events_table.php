@@ -23,20 +23,19 @@ return new class () extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('title')->unique();
-            $table->string('sub_title')->unique();
+            $table->date('event_date');
             $table->date('start_date');
             $table->date('end_date');
             $table->string('address');
             $table->integer('ticket_number');
             $table->integer('prices');
-            $table->string('image');
-            $table->enum('feeOption', FeeOptionEnum::$types)
+            $table->foreignId('feature_image_id')->index()->nullable();
+            $table->enum('fee_option', FeeOptionEnum::$types)
                 ->default(FeeOptionEnum::Inclusive);
             $table->decimal('commission')->default(0);
             $table->decimal('buyer_price')->default(0);
             $table->longText('description')->nullable();
             $table->tinyInteger('status')->default(StatusEnum::STATUS_DEACTIVATE->value);
-            $table->string('payout')->nullable();
             $table->enum('payment', [PaymentEnum::UNPAID->value, PaymentEnum::PAID->value])
                 ->default(PaymentEnum::UNPAID->value);
             $table->boolean('promoted')->default(0);

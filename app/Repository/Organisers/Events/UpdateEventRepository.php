@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers\Events;
 
+use App\Enums\RoleEnum;
+use App\Enums\StatusEnum;
 use App\Http\Requests\Organiser\EventUpdateRequest;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
+use App\Models\User;
+use App\Notifications\EventPendingApprovalNotification;
 use App\Services\EnableX\CreateRoomService;
 use App\Services\EnableX\EnableXHttpService;
 use App\Traits\FeedCalculation;
@@ -16,6 +20,8 @@ use App\Traits\ImageUpload;
 use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class UpdateEventRepository
 {
@@ -28,18 +34,27 @@ class UpdateEventRepository
     {
         $category = $this->getCategory(request: $request);
 
-        $this->updatedEvent(
-            $event,
-            $request,
-            $this->resolveFeeds(request: $request)
-        );
+        $event->fill($request->validated());
 
-        if (1 === $category->id) {
-            (new CreateRoomService())
-                ->update(
-                    request: $request,
-                    event: $event
-                );
+        if ($requires = $event->isDirty(['date', 'prices', 'feeOption', 'address', 'start_date', 'end_date', 'country_id'])) {
+            $event->fill(['status' => StatusEnum::STATUS_DEACTIVATE]);
+        }
+
+        DB::transaction(function () use ($category, $request, $event) {
+
+            $this->updatedEvent(
+                $event,
+                $request,
+                $this->resolveFeeds(request: $request)
+            );
+
+            if (1 === $category->id) {
+                (new CreateRoomService())->update(request: $request, event: $event);
+            }
+        });
+        
+        if ($requires) {
+            Notification::send(User::where('role_id', RoleEnum::ROLE_SUPER)->first(), new EventPendingApprovalNotification($event));
         }
 
         return $event;
@@ -49,7 +64,7 @@ class UpdateEventRepository
     {
         $event->update([
             'title' => $request->input('title'),
-            'subTitle' => $request->input('subTitle'),
+            'sub_title' => $request->input('subTitle'),
             'date' => $request->input('date'),
             'startTime' => $request->input('startTime'),
             'endTime' => $request->input('endTime'),

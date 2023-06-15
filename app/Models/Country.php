@@ -39,6 +39,7 @@ class Country extends Model
         'country_name',
         'country_code',
         'phone_code',
+        'capital'
     ];
 
     public function user(): HasOne

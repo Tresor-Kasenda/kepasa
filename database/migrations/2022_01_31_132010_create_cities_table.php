@@ -22,9 +22,8 @@ return new class () extends Migration {
             $table->integer('population')->nullable();
             $table->string('popular_city')->nullable();
             $table->mediumText('mayor')->nullable();
-            $table->string('country_code', 3);
+            $table->string('country_code')->nullable();
             $table->string('image')->nullable();
-            $table->longText('description')->nullable();
             $table->string('promoted')->default(CityEnum::APPROVAL_NOT_PROMOTION->value);
             $table->timestamps();
         });

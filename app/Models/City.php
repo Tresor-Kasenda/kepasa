@@ -73,7 +73,6 @@ class City extends Model
         'mayor',
         'country_code',
         'image',
-        'description',
         'promoted',
     ];
 
