@@ -1,5 +1,6 @@
 <x-organiser-layout>
-    @section('title', "Modification des informations de l'organteur d'evenement")
+
+    @section('title', "Profile informations")
 
     <div id="titlebar">
         <div class="row">
@@ -107,7 +108,7 @@
                                     <h5>Country</h5>
                                     <select type="text" name="country" id="country">
                                         <option value="{{ auth()->user()->country->id ?? "" }}">{{ auth()->user()->country->country_name ?? "" }}</option>
-                                        @foreach($countries as $country)
+                                        @foreach(\App\Models\Country::all() as $country)
                                             <option value="{{ $country->id ?? ""  }}">
                                                 {{ $country->country_name ?? ""  }}
                                             </option>"
@@ -206,7 +207,7 @@
                                     <h5>Country</h5>
                                     <select type="text" name="country" id="country">
                                         <option value="{{ auth()->user()->company->country_id ?? ""}}">{{ auth()->user()->country->country_name ?? "" }}</option>
-                                        @foreach($countries as $country)
+                                        @foreach(\App\Models\Country::all() as $country)
                                             <option value="{{ $country->country_code ?? "" }}">
                                                 {{ $country->country_name ?? "" }}
                                             </option>
