@@ -34,6 +34,7 @@ class RegisterController extends Controller
 
     protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
+
         return Validator::make($data, [
             'name' => [
                 'required',
@@ -56,20 +57,17 @@ class RegisterController extends Controller
             ],
             'role' => [
                 'required',
-                'integer',
-                new In([RoleEnum::ROLE_ORGANISER, RoleEnum::ROLE_USERS])
+                Rule::in([2,3])
             ],
             'country' => [
                 'required',
-                'int',
                 new Exists(Country::class, 'id')
             ],
             'password' => [
                 'required',
                 'string',
                 'confirmed',
-                Password::min(8)
-                    ->mixedCase()
+                Password::min(6)->mixedCase()
             ],
         ]);
     }

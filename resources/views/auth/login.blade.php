@@ -83,18 +83,18 @@
                                     @error('name')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="lastName">
+                                    <label for="last_name">
                                         Last Name:
                                         <input
                                             type="text"
                                             class="input-text"
-                                            name="lastName"
-                                            id="lastName"
+                                            name="last_name"
+                                            id="last_name"
                                             required
-                                            value="{{ old('lastName') }}"
+                                            value="{{ old('last_name') }}"
                                         />
                                     </label>
-                                    @error('lastName')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('last_name')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="email">
@@ -113,7 +113,7 @@
                                     <label for="role">
                                         Select Your Country
                                         <select class="input-text" name="country" id="country" required>
-                                            <option value="default">Select Your Country</option>
+                                            <option>Select Your Country</option>
                                             @foreach(\App\Models\Country::all() as $country)
                                                 <option value="{{ $country->id ?? "" }}">{{ $country->country_name ?? "" }}</option>
                                             @endforeach
