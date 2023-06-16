@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\EnableX;
 
 use Illuminate\Foundation\Application;
@@ -10,13 +12,14 @@ class EnableConnector
 {
     public function __construct(
         private PendingRequest $request
-    ) {}
+    ) {
+    }
 
     public static function register(Application $application): void
     {
         $application->bind(
             EnableConnector::class,
-            fn() => new EnableConnector(
+            fn () => new EnableConnector(
                 Http::baseUrl(
                     ''
                 )->timeout(
@@ -24,11 +27,11 @@ class EnableConnector
                 )->withHeaders([
                     'Content-Type: application/json',
                 ])
-                ->withBasicAuth(
-                    username: '',
-                    password: ''
-                )
-                ->asJson()->acceptJson()
+                    ->withBasicAuth(
+                        username: '',
+                        password: ''
+                    )
+                    ->asJson()->acceptJson()
             )
         );
     }

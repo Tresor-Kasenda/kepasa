@@ -16,9 +16,6 @@ return new class () extends Migration {
             $table->foreignIdFor(Company::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->foreignIdFor(Country::class)
-                ->constrained()
-                ->cascadeOnDelete();
             $table->foreignIdFor(City::class)
                 ->constrained()
                 ->cascadeOnDelete();
@@ -26,7 +23,6 @@ return new class () extends Migration {
 
         Schema::table('users', function (Blueprint $table): void {
             $table->foreignIdFor(Country::class)
-                ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
         });

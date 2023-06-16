@@ -29,17 +29,23 @@ return new class () extends Migration {
             $table->string('address');
             $table->integer('ticket_number');
             $table->integer('prices');
+            $table->boolean('promoted')->default(0);
+
             $table->foreignId('feature_image_id')->index()->nullable();
-            $table->enum('fee_option', FeeOptionEnum::$types)
-                ->default(FeeOptionEnum::Inclusive);
+            $table->enum('fee_option', FeeOptionEnum::$types)->default(FeeOptionEnum::Inclusive);
+
             $table->decimal('commission')->default(0);
             $table->decimal('buyer_price')->default(0);
+
             $table->longText('description')->nullable();
             $table->tinyInteger('status')->default(StatusEnum::STATUS_DEACTIVATE->value);
-            $table->enum('payment', [PaymentEnum::UNPAID->value, PaymentEnum::PAID->value])
-                ->default(PaymentEnum::UNPAID->value);
-            $table->boolean('promoted')->default(0);
+            $table->enum('payment', [
+                PaymentEnum::UNPAID->value,
+                PaymentEnum::PAID->value
+            ])->default(PaymentEnum::UNPAID->value);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Repository\Suppers;
 
 use App\Models\Event;
-use App\Traits\ImageUpload;
 use Illuminate\Support\Collection;
 
 class EventSupperRepository

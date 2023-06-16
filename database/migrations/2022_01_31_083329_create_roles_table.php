@@ -16,8 +16,8 @@ return new class () extends Migration {
             $table->timestamps();
         });
 
-        Role::create(['name' => 'SUPER']);
-        Role::create(['name' => 'Event organiser']);
+        Role::create(['name' => 'Admin']);
+        Role::create(['name' => 'Organiser']);
         Role::create(['name' => 'Customer']);
     }
 

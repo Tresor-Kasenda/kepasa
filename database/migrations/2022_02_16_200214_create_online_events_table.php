@@ -18,16 +18,16 @@ return new class () extends Migration {
             $table->foreignIdFor(\App\Models\Event::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('roomId')->unique();
-            $table->string('roomName');
+            $table->string('room_id')->unique();
+            $table->string('room_name');
             $table->string('reference');
             $table->string('moderators');
             $table->dateTime('schedule');
             $table->integer('duration');
             $table->string('participants');
             $table->string('mode', 64);
-            $table->string('participantsID');
-            $table->string('moderatorID');
+            $table->string('participant_id');
+            $table->string('moderator');
             $table->timestamps();
         });
     }

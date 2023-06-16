@@ -29,9 +29,9 @@ class CreateAdminCommand extends Command
 
         process :
             $name = ucwords($this->anticipate('name', ['admin', 'kepasa manager']));
-            $email = mb_strtolower($this->ask('email'));
-            $password = $this->secret('password');
-            $password_confirmation = $this->secret('confirm password');
+        $email = mb_strtolower($this->ask('email'));
+        $password = $this->secret('password');
+        $password_confirmation = $this->secret('confirm password');
 
         $validator = validator(
             compact('name', 'email', 'password', 'password_confirmation'),

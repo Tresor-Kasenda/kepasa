@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
+use Eloquent;
 
 /**
  * App\Models\Images
@@ -20,7 +21,7 @@ use Illuminate\Support\Carbon;
  * @property string $path
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Model|\Eloquent $resource
+ * @property-read Model|Eloquent $resource
  * @method static Builder|Images newModelQuery()
  * @method static Builder|Images newQuery()
  * @method static Builder|Images query()

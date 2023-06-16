@@ -28,7 +28,6 @@ class ReadSqlFileCommand extends Command
             $bar->start();
 
             foreach ($cities as $city) {
-                sleep(1);
                 $bar->advance($city->id);
             }
 

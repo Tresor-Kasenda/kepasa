@@ -58,7 +58,6 @@ use App\Http\Controllers\Supers\Users\UpdateUserController;
 use App\Http\Controllers\Users\InvoiceCustomerController;
 use App\Http\Controllers\Users\PaypalCustomerController;
 use App\Http\Middleware\EnsureDefaultPasswordIsChanged;
-use App\Http\Middleware\EnsureOrganiserPasswordChange;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);

@@ -32,8 +32,9 @@ class HomeRepository
                 ->paginate(6);
         }
 
-        return $this->getEvents()
-            ->whereHas('city',  fn ($query) => $query->where('city_name', $location->cityName))
+        return Event::query()
+            ->when('status', fn($query) => $query->where('status', StatusEnum::STATUS_ACTIVE))
+            ->when('payment', fn($query) => $query->where('payment', PaymentEnum::PAID))
             ->paginate(6);
     }
 
@@ -42,18 +43,6 @@ class HomeRepository
         return City::query()
             ->where('promoted', '=', CityEnum::APPROVAL_PROMOTION)
             ->get();
-    }
-
-    public function getCity(string $city): array
-    {
-        $city = City::query()
-            ->where('promoted', '=', CityEnum::APPROVAL_PROMOTION)
-            ->first();
-        $event = $this->getEvents()
-            ->where('city', '=', $city->cityName)
-            ->get();
-
-        return [$city, $event];
     }
 
     private function getEvents(): Builder

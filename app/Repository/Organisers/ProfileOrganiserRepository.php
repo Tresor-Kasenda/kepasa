@@ -29,7 +29,7 @@ class ProfileOrganiserRepository
     {
         $user->fill($request->validated());
 
-        if ($requires = $user->isDirty(['email', 'phones', 'country_id'])){
+        if ($requires = $user->isDirty(['email', 'phones', 'country_id'])) {
             $user->fill(['status' => UserStatus::STATUS_DEACTIVATE]);
         }
 

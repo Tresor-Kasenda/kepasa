@@ -40,7 +40,7 @@ class UpdateEventRepository
             $event->fill(['status' => StatusEnum::STATUS_DEACTIVATE]);
         }
 
-        DB::transaction(function () use ($category, $request, $event) {
+        DB::transaction(function () use ($category, $request, $event): void {
 
             $this->updatedEvent(
                 $event,
@@ -52,7 +52,7 @@ class UpdateEventRepository
                 (new CreateRoomService())->update(request: $request, event: $event);
             }
         });
-        
+
         if ($requires) {
             Notification::send(User::where('role_id', RoleEnum::ROLE_SUPER)->first(), new EventPendingApprovalNotification($event));
         }

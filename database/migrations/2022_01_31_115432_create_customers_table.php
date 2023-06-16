@@ -20,15 +20,19 @@ return new class () extends Migration {
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
+
             $table->string('type')->default(TypeCustomer::TYPE_USER->value);
-            $table->string('reference')->unique();
+            $table->string('reference')->unique()->nullable();
             $table->integer('ticket_number');
             $table->integer('total_amount');
+
             $table->enum('status', [
                 PaymentEnum::PAID->value,
                 PaymentEnum::UNPAID->value,
             ])->default(PaymentEnum::UNPAID->value);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

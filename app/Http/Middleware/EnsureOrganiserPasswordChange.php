@@ -16,7 +16,7 @@ class EnsureOrganiserPasswordChange
 
         if (
             $user &&
-            !Company::where('user_id', $user->id)
+            ! Company::where('user_id', $user->id)
                 ->whereNotNull('name')
                 ->whereNotNull('email')
                 ->exists()

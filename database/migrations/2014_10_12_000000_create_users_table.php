@@ -18,6 +18,7 @@ return new class () extends Migration {
             $table->string('phones')->unique()->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->foreignId('feature_image_id')->index()->nullable();
             $table->integer('role_id')->default(RoleEnum::ROLE_USERS->value);
             $table->boolean('approval_status')->default(UserStatus::STATUS_ACTIVE->value);
             $table->rememberToken();

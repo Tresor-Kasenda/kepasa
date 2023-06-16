@@ -18,6 +18,10 @@ fresh: vendor/autoload.php
 seed: vendor/autoload.php ## Remplie la base de données
 	php artisan db:seed
 
+.PHONY: import
+generate: vendor/autoload.php
+	php artisan sql:import
+
 .PHONY: clear
 clear: vendor/autoload.php ## vide le cache de l'application
 	php artisan cache:clear && php artisan view:clear && php artisan route:clear

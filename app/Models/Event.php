@@ -7,26 +7,23 @@ namespace App\Models;
 use App\Enums\PaymentEnum;
 use App\Enums\StatusEnum;
 use App\QueryBuilder\EventsOrganiserQueryBuilder;
-use Carbon\CarbonImmutable;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'category_id',
         'user_id',
         'company_id',
-        'country_id',
         'city_id',
-        'feature_image_id',
         'title',
         'event_date',
         'start_date',
@@ -34,13 +31,14 @@ class Event extends Model
         'address',
         'ticket_number',
         'prices',
+        'promoted',
+        'feature_image_id',
         'fee_option',
         'commission',
         'buyer_price',
         'description',
         'status',
         'payment',
-        'promoted'
     ];
 
     protected $casts = [
@@ -66,11 +64,6 @@ class Event extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function getEventImages(): string
-    {
-        return asset('storage/'.$this->image);
-    }
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -81,7 +74,7 @@ class Event extends Model
         return $this->belongsTo(Images::class, 'feature_image_id');
     }
 
-    public function medias(): MorphMany
+    public function images(): MorphMany
     {
         return $this->morphMany(Images::class, 'resource');
     }
@@ -99,11 +92,6 @@ class Event extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');
-    }
-
-    public function country(): BelongsTo
-    {
-        return $this->belongsTo(Country::class, 'country_id');
     }
 
     public function city(): BelongsTo

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
@@ -13,7 +15,7 @@ class UserPendingApprovalNotification extends Notification implements ShouldQueu
 
     public function __construct(public $user)
     {
-        //
+
     }
 
     public function via($notifiable)
@@ -23,16 +25,16 @@ class UserPendingApprovalNotification extends Notification implements ShouldQueu
 
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return (new MailMessage())
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     public function toArray($notifiable)
     {
         return [
-            //
+
         ];
     }
 }

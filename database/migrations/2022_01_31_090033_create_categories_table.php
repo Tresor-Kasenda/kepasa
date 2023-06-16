@@ -16,14 +16,12 @@ return new class () extends Migration {
             $table->timestamps();
         });
 
-        Category::query()
-            ->create([
-                'name' => 'Event Online',
-            ]);
-        Category::query()
-            ->create([
-                'name' => 'Event Presence',
-            ]);
+        collect([
+            "Online",
+            "Presence"
+        ])->each(function ($category): void {
+            Category::query()->create(['name' => $category]);
+        });
     }
 
     public function down(): void

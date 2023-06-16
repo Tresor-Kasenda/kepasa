@@ -62,12 +62,7 @@
                                     <label for="role">
                                         Register As
                                         <select class="input-text" name="role" id="role" required>
-                                            @php
-                                                $roles = \App\Models\Role::query()
-                                                                ->whereIn('id',[2,3])
-                                                                ->get(['name', 'id'])
-                                            @endphp
-                                            @foreach($roles as $role)
+                                            @foreach(\App\Models\Role::query()->whereIn('id',[2,3])->get() as $role)
                                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                                             @endforeach
                                         </select>
@@ -115,8 +110,20 @@
                                     @error('email')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
+                                    <label for="role">
+                                        Select Your Country
+                                        <select class="input-text" name="country" id="country" required>
+                                            <option value="default">Select Your Country</option>
+                                            @foreach(\App\Models\Country::all() as $country)
+                                                <option value="{{ $country->id ?? "" }}">{{ $country->country_name ?? "" }}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                    @error('country')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                </p>
+                                <p class="form-row form-row-wide">
                                     <label for="phones">
-                                        Contact:
+                                        Phone Number:
                                         <input
                                             type="text"
                                             class="input-text"
