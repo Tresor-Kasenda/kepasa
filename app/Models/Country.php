@@ -29,6 +29,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Country whereId($value)
  * @method static Builder|Country wherePhoneCode($value)
  * @method static Builder|Country whereUpdatedAt($value)
+ * @property string|null $capital
+ * @method static Builder|Country whereCapital($value)
  * @mixin \Eloquent
  */
 class Country extends Model

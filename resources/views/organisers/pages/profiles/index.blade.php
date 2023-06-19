@@ -53,15 +53,12 @@
                                     src="{{ asset('assets/images/profile.jpg') }}"
                                     id="preview"
                                     alt="Photo de profile">
-                            <form id="submit">
-                                @csrf
-                                <div class="change-photo-btn">
-                                    <div class="photoUpload">
-                                        <span><i class="fa fa-upload"></i></span>
-                                        <input type="file" class="upload" name="images" id="images"/>
-                                    </div>
+                            <div class="change-photo-btn">
+                                <div class="photoUpload">
+                                    <span><i class="fa fa-upload"></i></span>
+                                    <input type="file" class="upload" name="avatar" id="avatar"/>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <form action="{{ route('organiser.profile.update', auth()->id()) }}" class="updateDetails" method="post">
                             @csrf
@@ -291,16 +288,17 @@
 
     @section('scripts')
         <script type="text/javascript">
-            const images = document.getElementById('images');
+            const images = document.querySelector('#avatar');
+            console.log(images)
             images.addEventListener('change', () => {
                 let form  = new FormData();
-                let files  = images.files
+                let files  = images.files[0]
 
                 if(files.length > 0){
                     for(const file of files){
                         form.append('images',file);
-                        previewImage(file);
                     }
+                    console.log(form, files)
 
                     fetch(`{{ route('organiser.profile.upload') }}`, {
                         method: 'POST',

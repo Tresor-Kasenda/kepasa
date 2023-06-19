@@ -15,7 +15,6 @@ use Eloquent;
  * App\Models\Images
  *
  * @property int $id
- * @property string $key
  * @property string $resource_type
  * @property int $resource_id
  * @property string $path
@@ -32,7 +31,7 @@ use Eloquent;
  * @method static Builder|Images whereResourceId($value)
  * @method static Builder|Images whereResourceType($value)
  * @method static Builder|Images whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Images extends Model
 {

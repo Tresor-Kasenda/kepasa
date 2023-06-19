@@ -19,8 +19,8 @@
                                     <select data-placeholder="All Country" name="country" id="country" class="chosen-select" >
                                         <option>All Country</option>
                                         @foreach($countries as $country)
-                                            <option value="{{ $country->countryCode }}">
-                                                {{ $country->countryName }}
+                                            <option value="{{ $country->country_code }}">
+                                                {{ $country->country_name ?? "" }}
                                             </option>
                                         @endforeach
                                     </select>

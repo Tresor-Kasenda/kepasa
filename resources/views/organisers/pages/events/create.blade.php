@@ -30,7 +30,7 @@
                             <h3><i class="sl sl-icon-doc"></i>Event Information</h3>
                         </div>
                         <div class="row with-forms">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <h5>Event Title <span>(required)</span></h5>
                                 <input
                                     type="text"
@@ -41,17 +41,7 @@
                                 >
                                 @error('title')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
-                            <div class="col-md-4">
-                                <h5>Event Subtitle <span>(required)</span></h5>
-                                <input
-                                    type="text"
-                                    name="subTitle"
-                                    id="subTitle"
-                                    value="{{ old('subTitle') }}"
-                                >
-                                @error('subTitle')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <h5>Event Category<span>(required)</span></h5>
                                 <select class="chosen-select-no-single" name="category" id="category" required>
                                     <option label="blank">Select Category</option>
@@ -63,37 +53,37 @@
                             </div>
                         </div>
                         <div class="row with-forms">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <h5>Event Date <span>(required)</span></h5>
                                 <input
                                     type="date"
-                                    id="date"
-                                    name="date"
-                                    value="{{ old('date') }}"
-                                    min="{{ now()->format('Y:m:d') }}">
-                                @error('date')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    id="event_date"
+                                    name="event_date"
+                                    value="{{ old('event_date') }}"
+                                    >
+                                @error('event_date')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
-                            <div class="col-md-3">
-                                <h5>Start Time <span>(required)</span></h5>
+                            <div class="col-md-6">
+                                <h5>Start Date <span>(required)</span></h5>
                                 <input
-                                    type="time"
-                                    id="startTime"
-                                    name="startTime"
-                                    value="{{ old('startTime') }}"
+                                    type="datetime-local"
+                                    id="start_date"
+                                    name="start_date"
+                                    value="{{ old('start_date') }}"
                                 >
-                                @error('startTime')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                @error('start_date')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
-                            <div class="col-md-3">
-                                <h5> End Time <span>(required)</span></h5>
+                            <div class="col-md-6">
+                                <h5> End Date <span>(required)</span></h5>
                                 <input
-                                    type="time"
-                                    name="endTime"
-                                    id="endTime"
-                                    value="{{ old('endTime') }}"
+                                    type="datetime-local"
+                                    name="end_date"
+                                    id="end_date"
+                                    value="{{ old('end_date') }}"
                                 >
-                                @error('endTime')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                @error('end_date')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <h5>Avenue<span>(required)</span></h5>
                                 <input
                                     type="text"
@@ -109,11 +99,11 @@
                                 <h5>Number of Tickets:<span>(required)</span></h5>
                                 <input
                                     type="number"
-                                    name="ticketNumber"
-                                    value="{{ old('ticketNumber') }}"
-                                    id="ticketNumber"
+                                    name="ticket_number"
+                                    value="{{ old('ticket_number') }}"
+                                    id="ticket_number"
                                 >
-                                @error('ticketNumber')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                @error('ticket_number')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                             <div class="col-md-4">
                                 <h5>Price per Ticket<span>(required)</span></h5>
@@ -128,7 +118,7 @@
 
                             <div class="col-md-4">
                                 <h5>Fee Options<span>(required)</span></h5>
-                                <select id="selectBox" onchange="calculate();" name="feeOption" required>
+                                <select id="selectBox" onchange="calculate();" name="fee_option" required>
                                     <option value=" ">-------</option>
                                     <option value="Inclusive">Inclusive</option>
                                     <option value="Exclusive">Exclusive</option>
@@ -163,42 +153,18 @@
                         </div>
                         <div class="submit-section">
                             <div class="row with-forms">
-                                <div class="countries col-md-6">
-                                    <h5>Country</h5>
-                                    <select class="countries" id="country" name="country">
-                                        <option>All Country</option>
-                                        @foreach($countries as $country)
-                                            <option value="{{ $country->countryCode }}">
-                                                {{ $country->countryName }}
+                                <div class="countries col-md-12">
+                                    <h5>City Event</h5>
+                                    <select class="cities" id="city" name="city">
+                                        <option>All cities</option>
+                                        @foreach($cities as $city)
+                                            <option value="{{ $city->id ?? "" }}">
+                                                {{ $city->city_name ?? "" }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('country')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('city')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </div>
-                                <div class="col-md-6">
-                                    <h5>City</h5>
-                                    <div class="viewRender"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="add-listing-section margin-top-45">
-                        <div class="add-listing-headline">
-                            <h3><i class="sl sl-icon-picture"></i> Gallery</h3>
-                        </div>
-                        <div class="submit-section">
-                            <div class="row with-forms">
-                                <div class="col-md-12">
-                                    <h5>Images</h5>
-                                    <input
-                                        type="file"
-                                        name="image"
-                                        id="image"
-                                        value="{{ old('image') }}"
-                                    >
-                                </div>
-                                @error('image')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                             </div>
                         </div>
                     </div>
@@ -230,26 +196,6 @@
 
     @section('scripts')
         <script>
-            $(document).ready(function () {
-                $("#country").change(function () {
-                    const country = $("#country option:selected").val()
-                    $.ajax({
-                        type: "get",
-                        url: `{{ route('country.index') }}`,
-                        data: {
-                            country: country,
-                            _token: '{{csrf_token()}}'
-                        },
-                        dataType : 'json',
-                        success: function(response){
-                            if (response){
-                                $('.viewRender').html(response.views);
-                            }
-                        }
-                    })
-                })
-            });
-
             function calculate() {
                 let selectedValue = selectBox.options[selectBox.selectedIndex].value;
                 let price = document.getElementById("prices").value

@@ -15,25 +15,22 @@ class UploadImageRepository
     use ImageUpload;
     public function uploadImages(UploadImageRequest $request): Model|Builder|null
     {
-        $organiser = $this->getCompanyByUser();
-        $user = auth()->user();
-        dd($user, $request);
-        $this->removeProfile($organiser);
-        $organiser->update([
-            'images' => self::uploadProfile($request),
+        $company = Company::whereUserId(auth()->id())->first();
+
+        if ($company->exists()){
+            $company->images()->create([
+                'path' => self::uploadProfile($request)
+            ]);
+        }
+
+        $images = auth()->user()->images()->create([
+            'path' => self::uploadProfile($request)
         ]);
-        $this->removeProfile($user);
+
         auth()->user()->update([
-            'images' => self::uploadProfile($request),
+            'feature_image_id' => $images->id
         ]);
 
-        return $organiser;
-    }
-
-    private function getCompanyByUser(): null|Builder|Model
-    {
-        return Company::query()
-            ->where('user_id', '=', auth()->id())
-            ->first();
+        return  $images;
     }
 }
