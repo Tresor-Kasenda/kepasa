@@ -4,24 +4,22 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers\Events;
 
-use App\Enums\ReservationEnum;
+use App\Enums\PaymentEnum;
 use App\Models\Event;
 use App\Services\EnableX\EnableXHttpService;
-use App\Traits\ImageUpload;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class EventRepository
 {
     use EnableXHttpService;
-    use ImageUpload;
 
-    public function getEvents(Request $request)
+    public function getEvents(Request $request): LengthAwarePaginator|\Illuminate\Pagination\LengthAwarePaginator|array
     {
-        return auth()
-            ->user()
-            ->events()
-            ->with(['category', 'online', 'country', 'city'])
+        return Event::query()
+            ->where('user_id', '=', auth()->id())
+            ->with(['category', 'online', 'city'])
             ->search(
                 search: $request->get('search'),
             )
@@ -38,10 +36,10 @@ class EventRepository
         if (false !== $event->online()->exists()) {
             $this
                 ->request()
-                ->delete(config('enablex.url').`rooms/${$event->online()->roomId}`);
+                ->delete(config('enablex.url').`rooms/{${$event->online()->roomId}}`);
         }
 
-        if ($event->reservations()->where('status', ReservationEnum::STATUS_INACTIVE)) {
+        if ($event->customers()->where('status', PaymentEnum::UNPAID)) {
             throw ValidationException::withMessages(['event' => "Cannot delete this office !"])
                 ->redirectTo('event/'.$event->id.'/show');
         }

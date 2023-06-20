@@ -22,10 +22,5 @@ class RepositoriesServiceProvider extends ServiceProvider
             OnlineRepositoryInterface::class,
             EnableXRepository::class
         );
-
-        $this->app->bind(
-            JoinRoomRepositoryInterface::class,
-            OnlineEventRepository::class
-        );
     }
 }

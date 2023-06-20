@@ -17,7 +17,7 @@ class UploadImageRepository
     {
         $company = Company::whereUserId(auth()->id())->first();
 
-        if ($company->exists()){
+        if ($company->exists()) {
             $company->images()->create([
                 'path' => self::uploadProfile($request)
             ]);

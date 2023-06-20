@@ -35,14 +35,17 @@ class ProfileOrganiserRepository
 
         $user->update([
             'name' => $request->input('name'),
-            'last_name' => $request->input('lastName'),
+            'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
             'phones' => $request->input('phones'),
             'country_id' => $request->input('country'),
         ]);
 
         if ($requires) {
-            Notification::send(User::where('role_id', RoleEnum::ROLE_SUPER)->first(), new UserPendingApprovalNotification($user));
+            Notification::send(
+                User::where('role_id', RoleEnum::ROLE_SUPER)->first(),
+                new UserPendingApprovalNotification($user)
+            );
         }
 
         return $user;

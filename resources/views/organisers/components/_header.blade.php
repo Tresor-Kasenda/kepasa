@@ -3,16 +3,9 @@
         <div class="container">
             <div class="left-side">
                 <div id="logo">
-                    <a href="{{ route('organiser.index') }}">
-                        @if(auth()->user()->company->images)
-                            <img src="{{ asset('storage/'.auth()->user()->company->images) }}" alt="{{ auth()->user()->name }}">
-                        @else
-                            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ auth()->user()->name }}">
-                        @endif
-                    </a>
                     <a href="{{ route('organiser.index') }}" class="dashboard-logo">
-                        @if(auth()->user()->company->images)
-                            <img src="{{ asset('storage/'.auth()->user()->company->images) }}" alt="{{ auth()->user()->name }}">
+                        @if(auth()->user()->featureImage)
+                            <img src="{{ asset('storage/'.auth()->user()->featureImage->path) }}" alt="{{ auth()->user()->name }}">
                         @else
                             <img src="{{ asset('assets/images/logo.png') }}" alt="{{ auth()->user()->name }}">
                         @endif
@@ -35,8 +28,10 @@
                     <div class="user-menu">
                         <div class="user-name">
                             <span>
-                                <img src="{{ asset('storage/'. auth()->user()->images) }}" alt="{{ auth()->id() }}">
-                            </span>{{ auth()->user()->name. " " . auth()->user()->lastName }}</div>
+                                @if(auth()->user()->featureImage)
+                                    <img src="{{ asset('storage/'. auth()->user()->featureImage->path) }}" alt="{{ auth()->id() }}">
+                                @endif
+                            </span>{{ auth()->user()->name. " " . auth()->user()->last_name }}</div>
                         <ul>
                             <li>
                                 <a href="{{ route('organiser.index') }}">

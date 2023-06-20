@@ -22,7 +22,7 @@ class WelcomeNotification extends Notification implements ShouldQueue
         return ['mail', 'database'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
             ->line('The introduction to the notification.')

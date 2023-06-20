@@ -1,6 +1,6 @@
 <x-organiser-layout>
 
-    @section('title', "Profile informations")
+    @section('title', "Profile information")
 
     <div id="titlebar">
         <div class="row">
@@ -49,10 +49,17 @@
                     <h4 class="gray">Profile Details</h4>
                     <div class="dashboard-list-box-static">
                         <div class="edit-profile-photo">
+                            @if(auth()->user()->featureImage)
                             <img
+                                    src="{{ asset('storage/'.auth()->user()->featureImage->path) }}"
+                                    id="{{ auth()->user()->name }}"
+                                    alt="Photo de profile">
+                            @else
+                                <img
                                     src="{{ asset('assets/images/profile.jpg') }}"
                                     id="preview"
                                     alt="Photo de profile">
+                            @endif
                             <div class="change-photo-btn">
                                 <div class="photoUpload">
                                     <span><i class="fa fa-upload"></i></span>
@@ -76,11 +83,11 @@
                                     <h5>Last Name</h5>
                                     <input
                                         type="text"
-                                        value="{{ old('lastName') ?? auth()->user()->last_name }}"
-                                        name="lastName"
-                                        id="lastName"
+                                        value="{{ old('last_name') ?? auth()->user()->last_name }}"
+                                        name="last_name"
+                                        id="last_name"
                                     >
-                                    @error('lastName')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('last_name')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
 
                                     <h5>Email</h5>
                                     <input
@@ -104,14 +111,16 @@
 
                                     <h5>Country</h5>
                                     <select type="text" name="country" id="country">
-                                        <option value="{{ auth()->user()->country->id ?? "" }}">{{ auth()->user()->country->country_name ?? "" }}</option>
+                                        <option value="{{ auth()->user()->country->id ?? "" }}">
+                                            {{ auth()->user()->country->country_name ?? "" }}
+                                        </option>
                                         @foreach(\App\Models\Country::all() as $country)
                                             <option value="{{ $country->id ?? ""  }}">
                                                 {{ $country->country_name ?? ""  }}
                                             </option>"
                                         @endforeach
                                     </select>
-                                    @error('contry')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('country')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
 
                                     <h5> City</h5>
                                     <input
@@ -142,13 +151,13 @@
                                 <div class="col-md-6">
                                     <h5>Company Name</h5>
                                     <input
-                                        value="{{ old('companyName') ?? auth()->user()->company->company_name }}"
+                                        value="{{ old('company_name') ?? auth()->user()->company->company_name }}"
                                         type="text"
-                                        name="companyName"
-                                        id="companyName"
+                                        name="company_name"
+                                        id="company_name"
                                         placeholder="company name"
                                     >
-                                    @error('companyName')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('company_name')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
 
                                     <h5>Company Address</h5>
                                     <input
@@ -193,24 +202,24 @@
 
                                     <h5><i class="fa fa-facebook-square"></i> Company Social media</h5>
                                     <input
-                                        value="{{ old('socialMedia') ?? auth()->user()->company->social_media }}"
+                                        value="{{ old('social_media') ?? auth()->user()->company->social_media }}"
                                         type="text"
-                                        name="socialMedia"
-                                        id="socialMedia"
+                                        name="social_media"
+                                        id="social_media"
                                         placeholder="https://www.facebook.com/"
                                     >
-                                    @error('socialMedia')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('social_media')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
 
                                     <h5>Country</h5>
-                                    <select type="text" name="country" id="country">
-                                        <option value="{{ auth()->user()->company->country_id ?? ""}}">{{ auth()->user()->country->country_name ?? "" }}</option>
+                                    <select type="text" name="countryCompany" id="countryCompany">
+                                        <option value="{{ auth()->user()->country->id ?? ""}}">{{ auth()->user()->country->country_name ?? "" }}</option>
                                         @foreach(\App\Models\Country::all() as $country)
-                                            <option value="{{ $country->country_code ?? "" }}">
-                                                {{ $country->country_name ?? "" }}
+                                            <option value="{{ $country->id }}">
+                                                {{ $country->country_name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('country')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('countryCompany')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
 
                                     <h5> City</h5>
                                     <input
@@ -244,11 +253,12 @@
                                     <div class="col-md-6">
                                         <h5>Company Email</h5>
                                         <input
-                                            value="{{ old('companyEmail') ?? auth()->user()->company->email }}"
+                                            value="{{ old('userEmail') ?? auth()->user()->email }}"
                                             type="email"
-                                            name="companyEmail"
-                                            id="companyEmail"
+                                            name="userEmail"
+                                            id="userEmail"
                                         >
+                                        @error('userEmail')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
 
                                         <h5>Current Password</h5>
                                         <input
@@ -289,36 +299,28 @@
     @section('scripts')
         <script type="text/javascript">
             const images = document.querySelector('#avatar');
-            console.log(images)
             images.addEventListener('change', () => {
                 let form  = new FormData();
                 let files  = images.files[0]
+                form.append('avatar',files);
 
-                if(files.length > 0){
-                    for(const file of files){
-                        form.append('images',file);
+                previewImage(files)
+
+                fetch(`{{ route('organiser.profile.upload') }}`, {
+                    method: 'POST',
+                    body: form,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     }
-                    console.log(form, files)
-
-                    fetch(`{{ route('organiser.profile.upload') }}`, {
-                        method: 'POST',
-                        body: form,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                            'Content-Type': 'multipart/form-data'
+                })
+                    .then((response) => {
+                        if (response.status === 200) {
+                            Swal("Congrats!", `${response.message}`, "success");
                         }
                     })
-                        .then((response) => {
-                            if (response.status === 200) {
-                                console.log(response.messages)
-                                Swal("Congrats!", "Your profile is updated with successful", "success");
-                            }
-                        })
-                        .catch((error) => {
-                            Swal("Congrats!", `${error}`, "success");
-                            console.error(error);
-                        });
-                }
+                    .catch((error) => {
+                        Swal("Congrats!", `${error}`, "success");
+                    });
             })
 
             function previewImage(file) {

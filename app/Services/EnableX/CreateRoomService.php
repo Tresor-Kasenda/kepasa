@@ -26,7 +26,7 @@ class CreateRoomService
         return OnlineEvent::query()
             ->create([
                 'event_id' => $event->id,
-                'company_id' => $request->user()->company->id,
+                'company_id' => auth()->user()->company->id,
                 'roomId' => $onlineEventCreate['room']['room_id'],
                 'roomName' => $onlineEventCreate['room']['name'],
                 'reference' => $onlineEventCreate['room']['owner_ref'],

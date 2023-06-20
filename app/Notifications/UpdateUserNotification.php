@@ -13,23 +13,15 @@ class UpdateUserNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
     public function toMail(mixed $notifiable): MailMessage
     {
         return (new MailMessage())
@@ -38,11 +30,6 @@ class UpdateUserNotification extends Notification implements ShouldQueue
             ->line('Thank you for using our application!');
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array
-     */
     public function toArray(mixed $notifiable): array
     {
         return [

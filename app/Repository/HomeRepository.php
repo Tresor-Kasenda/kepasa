@@ -33,8 +33,8 @@ class HomeRepository
         }
 
         return Event::query()
-            ->when('status', fn($query) => $query->where('status', StatusEnum::STATUS_ACTIVE))
-            ->when('payment', fn($query) => $query->where('payment', PaymentEnum::PAID))
+            ->when('status', fn ($query) => $query->where('status', StatusEnum::STATUS_ACTIVE))
+            ->when('payment', fn ($query) => $query->where('payment', PaymentEnum::PAID))
             ->paginate(6);
     }
 

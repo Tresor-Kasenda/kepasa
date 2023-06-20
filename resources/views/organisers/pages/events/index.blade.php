@@ -37,7 +37,7 @@
                             <div class="list-box-listing">
                                 <div class="list-box-listing-img">
                                     <a href="{{ route('organiser.events.show', $event->id) }}">
-                                        <img src="{{ $event->getEventImages() }}" alt="{{ $event->city ?? "" }}">
+                                        <img src="" alt="{{ $event->city->id ?? "" }}">
                                     </a>
                                 </div>
                                 <div class="list-box-listing-content">
@@ -52,19 +52,25 @@
                                         <div class="inner-booking-list" style="margin-top: 2%">
                                             <h5>Date:</h5>
                                             <ul class="booking-list">
-                                                <li class="highlighted">{{ $event->date ?? "" }} at {{ $event->startTime ?? "" }} - {{ $event->endTime ?? "" }}</li>
+                                                <li class="highlighted">
+                                                    {{ $event->event_date ?? "" }} at {{ $event->start_date ?? "" }} - {{ $event->end_date ?? "" }}
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="inner-booking-list">
                                             <h5>Prices:</h5>
                                             <ul class="booking-list">
-                                                <li class="highlighted">$ {{ number_format($event->prices, 2, '.') ?? "" }}</li>
+                                                <li class="highlighted">
+                                                    $ {{ number_format($event->prices, 2, '.') ?? "" }}
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="inner-booking-list">
                                             <h5>Location:</h5>
                                             <ul class="booking-list">
-                                                <li>{{ $event->city->cityName ?? "" }} | {{ $event->address ?? "" }}</li>
+                                                <li>
+                                                    {{ $event->city->city_name ?? "" }} | {{ $event->address ?? "" }}
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="inner-booking-list">
@@ -85,8 +91,8 @@
                                             @endif
                                             <span class="message-by">{{ $event->billings_count ?? 0 }} ticket(s) </span>
                                         </div>
-                                        @if($event->onlineEvent != null)
-                                            @if($event->onlineEvent->mode == "group")
+                                        @if($event->online != null)
+                                            @if($event->online == "group")
                                                 <div class="start-rating d-block">
                                                     @if($event->category_id == 1 && $event->onlineEvent->event_id == $event->id)
                                                         @include('organisers.partials.join', with($event))

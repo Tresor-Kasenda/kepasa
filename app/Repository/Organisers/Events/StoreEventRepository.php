@@ -4,92 +4,79 @@ declare(strict_types=1);
 
 namespace App\Repository\Organisers\Events;
 
-use App\Http\Requests\Organiser\StoreEventRequest;
-use App\Models\Category;
-use App\Models\City;
-use App\Models\Country;
-use App\Notifications\CreatedEventNotification;
+use App\Enums\PaymentEnum;
+use App\Enums\RoleEnum;
+use App\Enums\StatusEnum;
+use App\Models\Event;
+use App\Models\User;
+use App\Notifications\NewAdminEventNotification;
+use App\Notifications\NewEventNotification;
 use App\Services\EnableX\CreateRoomService;
 use App\Traits\FeedCalculation;
 use App\Traits\ImageUpload;
-use App\Traits\RandomValue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class StoreEventRepository
 {
     use FeedCalculation;
     use ImageUpload;
-    use RandomValue;
 
-    public function store(StoreEventRequest $request): Model|Builder
+    public function store($request): Model|Builder
     {
         $category = $this->getCategory(request: $request);
+        $city = $this->getCity($request);
 
-        DB::transaction(function () use ($category, $request) {
-            $event = $this->storedEvent(
-                request: Arr::except($request->validated(), ['category', 'country']),
-                feeds: $this->resolveFeeds(
-                    request: $request
-                )
-            );
+        $event = $this->storedEvent(
+            request: $request,
+            feeds: $this->resolveFeeds(
+                request: $request
+            ),
+            category: $category,
+            city: $city
+        );
 
-            if (1 === $category->id) {
-                (new CreateRoomService())->handle(request: $request, event: $event);
-            }
+        if (1 === $category->id) {
+            (new CreateRoomService())->handle(request: $request, event: $event);
+        }
 
-            Notification::send(auth()->user(), new CreatedEventNotification($event));
+        Notification::send($event->user, new NewEventNotification($event));
 
-            return $event;
-        });
+        Notification::send(
+            User::where('role_id', RoleEnum::ROLE_SUPER)->get(),
+            new NewAdminEventNotification($event)
+        );
+
+        return $event;
     }
 
-    private function getCategory($request): null|Builder|Model
-    {
-        return Category::query()
-            ->where('id', '=', $request->input('category'))
-            ->first();
-    }
-
-    private function storedEvent($request, $feeds): Builder|Model
-    {
-        return auth()->user()
-            ->events()
+    private function storedEvent(
+        array $request,
+        array $feeds,
+        Model|Builder|null $category,
+        Model|Builder|null $city
+    ) {
+        return Event::query()
             ->create([
-                'title' => $request->input('title'),
-                'sub_title' => $request->input('subTitle'),
-                'date' => $request->input('date'),
-                'start_date' => $request->input('startTime'),
-                'end_date' => $request->input('endTime'),
-                'address' => $request->input('address'),
-                'ticket_number' => $request->input('ticketNumber'),
-                'prices' => $request->input('prices'),
-                'feeOption' => $request->input('feeOption'),
+                'user_id' => auth()->id(),
+                'category_id' => $category->id,
+                'city_id' => $city->id,
+                'company_id' => auth()->user()->company->id,
+                'title' => $request['title'],
+                'event_date' => $request['event_date'],
+                'start_date' => $request['start_date'],
+                'end_date' => $request['end_date'],
+                'address' => $request['address'],
+                'ticket_number' => $request['ticket_number'],
+                'prices' => $request['prices'],
+                'promoted' => Event::EVENT_NOT_PROMOTED,
+                'fee_option' => $request['fee_option'],
                 'commission' => $feeds['0'],
                 'buyer_price' => $feeds['1'],
-                'country_id' => $this->getCountry($request)->id,
-                'city_id' => $this->getCity($request)->id,
-                'description' => $request->input('description'),
-                'category_id' => $request->input('category'),
-                'image' => self::uploadFile(request: $request),
-                'company_id' => auth()->user()->company->id,
+                'description' => $request['description'],
+                'status' => StatusEnum::STATUS_DEACTIVATE,
+                'payment' => PaymentEnum::UNPAID
             ]);
-    }
-
-    private function getCity($request): Model|Builder|City|null
-    {
-        return City::query()
-            ->whereCityname($request->input('cityName'))
-            ->first();
-    }
-
-    private function getCountry($request): Builder|Model
-    {
-        return Country::query()
-            ->whereCountrycode($request->input('country'))
-            ->first();
     }
 }

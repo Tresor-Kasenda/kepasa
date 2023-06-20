@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Requests\Organiser;
 
 use App\Enums\FeeOptionEnum;
+use App\Enums\RoleEnum;
 use App\Models\Category;
 use App\Models\City;
-use App\Models\Country;
 use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -18,7 +18,7 @@ class StoreEventRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return RoleEnum::ROLE_ORGANISER === auth()->user()->role_id;
     }
 
     public function rules(): array
@@ -29,36 +29,31 @@ class StoreEventRequest extends FormRequest
                 'min:4',
                 new Unique(Event::class, 'title'),
             ],
-            'subTitle' => [
-                'required',
-                'min:4',
-                new Unique(Event::class, 'subTitle'),
-            ],
             'category' => [
                 'required',
+                'int',
                 new Exists(Category::class, 'id'),
             ],
-            'date' => [
+            'event_date' => [
                 'required',
                 'date',
-                'after:tomorrow',
+                'after:today',
             ],
-            'startTime' => [
+            'start_date' => [
                 'required',
-                'date_format:H:i',
-                'required_with:endTime',
+                'date',
+                'after:today'
             ],
-            'endTime' => [
+            'end_date' => [
                 'required',
-                'date_format:H:i',
-                'required_with:startTime',
-                'after:startTime',
+                'date',
+                'after:start_date'
             ],
             'address' => [
                 'required',
                 'min:5',
             ],
-            'ticketNumber' => [
+            'ticket_number' => [
                 'required',
                 'min:1',
             ],
@@ -66,22 +61,13 @@ class StoreEventRequest extends FormRequest
                 'required',
                 'min:1',
             ],
-            'feeOption' => [
+            'fee_option' => [
                 'required',
                 Rule::in(FeeOptionEnum::$types),
             ],
-            'country' => [
+            'city' => [
                 'required',
-                new Exists(Country::class, 'countryCode'),
-            ],
-            'cityName' => [
-                'required',
-                new Exists(City::class, 'cityName'),
-            ],
-            'image' => [
-                'required',
-                'image',
-                'mimes:jpeg,jpg,png',
+                new Exists(City::class, 'id'),
             ],
             'description' => [
                 'nullable',

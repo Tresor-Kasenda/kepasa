@@ -17,7 +17,7 @@ trait ImageUpload
 
     public static function uploadProfile($request): string
     {
-        return $request->file('images')
+        return $request->file('avatar')
             ->storePublicly('/', ['disk' => 'public']);
     }
 

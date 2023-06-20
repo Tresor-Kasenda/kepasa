@@ -122,9 +122,9 @@ Route::middleware('auth')->group(function (): void {
             Route::get('/', HomeOrganiserController::class)->name('index');
 
             Route::get('profile', ProfileOrganiserController::class)->name('profile');
+            Route::post('profile/upload', UploadProfileController::class)->name('profile.upload');
             Route::post('profile/{user}/update', UpdateProfileController::class)->name('profile.update');
             Route::post('profile/{user}/company', UpdateCompanyController::class)->name('profile.update.company');
-            Route::post('profile/upload', UploadProfileController::class)->name('profile.upload');
             Route::delete('profile/{user}/delete', DeleteUsersController::class)->name('profile.delete');
 
             Route::get('event', \App\Http\Controllers\Organisers\Events\ListEventsController::class)->name('events-list');

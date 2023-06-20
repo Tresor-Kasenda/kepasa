@@ -20,11 +20,11 @@ class UpdateCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'companyName' => [
+            'company_name' => [
                 'required',
                 'string',
                 'max:255',
-                new Unique(Company::class, 'companyName'),
+                new Unique(Company::class, 'company_name'),
             ],
             'address' => [
                 'required',
@@ -44,13 +44,13 @@ class UpdateCompanyRequest extends FormRequest
                 'required',
                 'string',
             ],
-            'socialMedia' => [
+            'social_media' => [
                 'required',
                 'string',
             ],
-            'country' => [
+            'countryCompany' => [
                 'required',
-                new Exists(Country::class, 'countryCode'),
+                new Exists(Country::class, 'id'),
             ],
             'cityName' => [
                 'required',

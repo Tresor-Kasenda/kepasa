@@ -155,7 +155,7 @@
                             <div class="row with-forms">
                                 <div class="countries col-md-12">
                                     <h5>City Event</h5>
-                                    <select class="cities" id="city" name="city">
+                                    <select data-placeholder="All Cities" id="city" name="city"  class="chosen-select">
                                         <option>All cities</option>
                                         @foreach($cities as $city)
                                             <option value="{{ $city->id ?? "" }}">

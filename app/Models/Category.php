@@ -27,8 +27,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Category whereId($value)
  * @method static Builder|Category whereName($value)
  * @method static Builder|Category whereUpdatedAt($value)
- * @property-read Collection<int, \App\Models\Event> $event
- * @property-read Collection<int, \App\Models\Event> $event
  * @mixin \Eloquent
  */
 class Category extends Model

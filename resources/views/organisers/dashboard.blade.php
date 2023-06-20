@@ -3,7 +3,7 @@
     <div id="titlebar">
         <div class="row">
             <div class="col-md-12">
-                <h2>{{ auth()->user()->name. " " . auth()->user()->lastName }} </h2>
+                <h2>{{ auth()->user()->name. " " . auth()->user()->last_name }} </h2>
                 <nav id="breadcrumbs">
                     <ul>
                         <li><a href="{{ route('organiser.index') }}">Home</a></li>
@@ -16,7 +16,7 @@
 
     <div class="row">
         @include('organisers.components._stat', [
-            'number' => \App\Models\Event::query()->where('user_id', '=', auth()->id())->count(),
+            'number' => 0,
             'name' => "Evénement",
             'icon' => 'im-icon-Clothing-Store',
             'color' => 'color-1'

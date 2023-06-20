@@ -16,7 +16,7 @@ class UploadImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'images' => [
+            'avatar' => [
                 'required',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',

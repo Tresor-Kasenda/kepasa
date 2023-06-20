@@ -14,7 +14,6 @@ class HomeOrganiserRepository
         return Customer::query()
             ->with('event')
             ->orderByDesc('created_at')
-            ->inRandomOrder()
             ->limit(5)
             ->get();
     }

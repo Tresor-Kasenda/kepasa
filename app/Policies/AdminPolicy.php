@@ -14,16 +14,16 @@ class AdminPolicy
 
     public function view(User $user, User $model): bool
     {
-        return RoleEnum::SUPER === $user->role_id;
+        return RoleEnum::ROLE_SUPER === $user->role_id;
     }
 
     public function update(User $user, User $model): bool
     {
-        return RoleEnum::SUPER === $user->role_id;
+        return RoleEnum::ROLE_SUPER === $user->role_id;
     }
 
     public function delete(User $user, User $model): bool
     {
-        return RoleEnum::SUPER === $user->role_id;
+        return RoleEnum::ROLE_SUPER === $user->role_id;
     }
 }

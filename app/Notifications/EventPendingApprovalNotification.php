@@ -18,12 +18,12 @@ class EventPendingApprovalNotification extends Notification implements ShouldQue
 
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail', 'database'];
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
             ->line('The introduction to the notification.')
@@ -31,7 +31,7 @@ class EventPendingApprovalNotification extends Notification implements ShouldQue
             ->line('Thank you for using our application!');
     }
 
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
 

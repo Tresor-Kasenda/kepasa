@@ -15,7 +15,7 @@ class CompanyPolicy
 
     public function create(User $user): bool
     {
-        return RoleEnum::ORGANISER === $user->role_id;
+        return RoleEnum::ROLE_ORGANISER === $user->role_id;
     }
 
     public function update(User $user, Company $company): bool

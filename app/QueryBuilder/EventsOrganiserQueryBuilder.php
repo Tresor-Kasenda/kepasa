@@ -16,8 +16,7 @@ class EventsOrganiserQueryBuilder extends Builder
             callback: fn (Builder $query) => $query->where(function ($query) use ($search): void {
                 $query
                     ->whereHas('category', fn (Builder $builder) => $builder->where('name', 'LIKE', "%{$search}%"))
-                    ->orWhereHas('country', fn (Builder $builder) => $builder->where('countryName', 'LIKE', "%{$search}%"))
-                    ->orWhereHas('city', fn (Builder $builder) => $builder->where('cityName', 'LIKE', "%{$search}%"));
+                    ->orWhereHas('city', fn (Builder $builder) => $builder->where('city_name', 'LIKE', "%{$search}%"));
             })
         );
     }
@@ -28,11 +27,7 @@ class EventsOrganiserQueryBuilder extends Builder
     ): self {
         return $this->when(
             value: 'date' === $filters,
-            callback: fn (Builder $builder) => $builder->where(function (Builder $query) use ($direction): void {
-                $query
-                    ->orderBy('created_at', $direction)
-                    ->orWhereBetween('created_at', $direction);
-            })
+            callback: fn (Builder $builder) => $builder->orderBy('created_at', $direction)
         );
     }
 }

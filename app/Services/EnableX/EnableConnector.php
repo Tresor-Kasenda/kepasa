@@ -21,15 +21,15 @@ class EnableConnector
             EnableConnector::class,
             fn () => new EnableConnector(
                 Http::baseUrl(
-                    ''
+                    'https://api.enablex.io/video/v2/'
                 )->timeout(
                     seconds: 15
                 )->withHeaders([
                     'Content-Type: application/json',
                 ])
                     ->withBasicAuth(
-                        username: '',
-                        password: ''
+                        username: config('enablex.app_id'),
+                        password: config('enablex.app_key')
                     )
                     ->asJson()->acceptJson()
             )

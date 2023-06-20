@@ -25,7 +25,7 @@ class UpdateProfileRequest extends FormRequest
                 'string',
                 'max:255',
             ],
-            'lastName' => [
+            'last_name' => [
                 'required',
                 'string',
                 'max:255',
