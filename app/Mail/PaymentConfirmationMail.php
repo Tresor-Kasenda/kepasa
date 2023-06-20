@@ -23,8 +23,10 @@ class PaymentConfirmationMail extends Mailable implements ShouldQueue
         return $this
             ->to($this->user['email'])
             ->subject('')
-            ->view('emails.event', [
+            ->view(
+                'emails.event', [
                 'events' => $this->event,
-            ]);
+                ]
+            );
     }
 }

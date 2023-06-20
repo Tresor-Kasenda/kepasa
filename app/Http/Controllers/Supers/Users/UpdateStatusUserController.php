@@ -18,12 +18,16 @@ class UpdateStatusUserController extends Controller
 
         $this->authorize('update', $user);
 
-        $user->update([
+        $user->update(
+            [
             'status' => $request->input('status'),
-        ]);
-        return response()->json([
+            ]
+        );
+        return response()->json(
+            [
             'success' => 'Uitlisateur activez avec success',
             'room' => $user,
-        ]);
+            ]
+        );
     }
 }

@@ -16,9 +16,11 @@ class StatusEventRepository
             ->first();
 
         if (null !== $event->where('payment', PaymentEnum::PAID)->first()) {
-            return $event->update([
+            return $event->update(
+                [
                 'status' => $attributes->input('status'),
-            ]);
+                ]
+            );
         }
 
         return false;

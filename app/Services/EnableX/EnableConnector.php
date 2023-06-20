@@ -24,9 +24,11 @@ class EnableConnector
                     'https://api.enablex.io/video/v2/'
                 )->timeout(
                     seconds: 15
-                )->withHeaders([
+                )->withHeaders(
+                    [
                     'Content-Type: application/json',
-                ])
+                    ]
+                )
                     ->withBasicAuth(
                         username: config('enablex.app_id'),
                         password: config('enablex.app_key')

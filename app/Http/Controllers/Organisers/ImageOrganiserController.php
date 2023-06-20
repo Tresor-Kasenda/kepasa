@@ -23,16 +23,20 @@ class ImageOrganiserController extends Controller
 
     public function index(): Renderable
     {
-        return view('organisers.pages.images.index', [
+        return view(
+            'organisers.pages.images.index', [
             'images' => $this->repository->getContents(),
-        ]);
+            ]
+        );
     }
 
     public function create(): Factory|View|Application
     {
-        return view('organisers.pages.images.create', [
+        return view(
+            'organisers.pages.images.create', [
             'events' => $this->repository->getEvents(),
-        ]);
+            ]
+        );
     }
 
     public function store(ImageRequest $attributes): RedirectResponse
@@ -44,10 +48,12 @@ class ImageOrganiserController extends Controller
 
     public function edit(Images $image): Factory|View|Application
     {
-        return view('organisers.pages.images.edit', [
+        return view(
+            'organisers.pages.images.edit', [
             'events' => $this->repository->getEvents(),
             'image' => $image,
-        ]);
+            ]
+        );
     }
 
     public function update(Images $image, ImageRequest $request): RedirectResponse

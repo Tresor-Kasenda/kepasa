@@ -17,8 +17,10 @@ class ShowEventAdminController extends Controller
 
     public function __invoke(Event $event)
     {
-        return view('admins.pages.events.show', [
+        return view(
+            'admins.pages.events.show', [
             'event' => $event->load(['category', 'user', 'company', 'country', 'city']),
-        ]);
+            ]
+        );
     }
 }

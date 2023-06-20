@@ -14,9 +14,11 @@ class CreateEventController extends Controller
 {
     public function __invoke(Request $request)
     {
-        return View::make('organisers.pages.events.create', [
+        return View::make(
+            'organisers.pages.events.create', [
             'categories' => Category::all(),
             'cities' => City::orderBy('city_name', 'asc')->get()
-        ]);
+            ]
+        );
     }
 }

@@ -34,23 +34,27 @@ class CustomerRepository
 
     private function updateUser($user, $attributes): void
     {
-        $user->update([
+        $user->update(
+            [
             'name' => $attributes->input('name'),
             'lastName' => $attributes->input('lastName'),
             'phones' => $attributes->input('phones'),
             'email' => $attributes->input('email'),
-        ]);
+            ]
+        );
     }
 
     private function UpdateProfile($user, $attributes): void
     {
-        $user->profile->update([
+        $user->profile->update(
+            [
             'phones' => $attributes->input('phones'),
             'lastName' => $attributes->input('lastName'),
             'alternativePhones' => $attributes->input('alternativePhones'),
             'city' => $attributes->input('city'),
             'country' => $attributes->input('country'),
             'image' => self::uploadFile($attributes),
-        ]);
+            ]
+        );
     }
 }

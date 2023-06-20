@@ -22,11 +22,15 @@ class EventCustomerRepository
     public function getUserPosition($latitude, $longitude): Collection
     {
         return DB::table('events')
-            ->select('events.id', DB::raw('6371 * acos(cos(radians('.$latitude.'))
+            ->select(
+                'events.id', DB::raw(
+                    '6371 * acos(cos(radians('.$latitude.'))
                 * cos(radians(events.latitude))
                 * cos(radians(events.longitude) - radians('.$longitude.'))
                 + sin(radians('.$latitude.'))
-                * sin(radians(events.latitude))) AS distance'))
+                * sin(radians(events.latitude))) AS distance'
+                )
+            )
             ->groupBy('events.id')
             ->get();
     }

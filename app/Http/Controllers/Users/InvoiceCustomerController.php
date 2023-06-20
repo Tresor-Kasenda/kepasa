@@ -16,8 +16,10 @@ class InvoiceCustomerController extends Controller
             ->where('user_id', '=', auth()->id())
             ->first();
 
-        return view('users.invoices.invoice', [
+        return view(
+            'users.invoices.invoice', [
             'invoice' => $invoice->load(['event', 'user']),
-        ]);
+            ]
+        );
     }
 }

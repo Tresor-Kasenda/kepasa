@@ -11,8 +11,10 @@ class DownloadInvoiceController extends Controller
 {
     public function __invoke(Billing $billing)
     {
-        return view('admins.pages.invoice.invoice', [
+        return view(
+            'admins.pages.invoice.invoice', [
             'invoice' => $billing->load(['user', 'event']),
-        ]);
+            ]
+        );
     }
 }

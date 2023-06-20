@@ -18,9 +18,11 @@ class UploadProfileController extends Controller
     public function __invoke(UploadImageRequest $request)
     {
         $this->repository->uploadImages($request);
-        return response()->json([
+        return response()->json(
+            [
             'messages' => 'Photo de profile uploader',
             'status' => 'success',
-        ], 200);
+            ], 200
+        );
     }
 }

@@ -19,13 +19,15 @@ class UpdateUsersRepository
             $this->removePicture($user);
         }
 
-        $user->update([
+        $user->update(
+            [
             'name' => $request->input('name'),
             'last_name' => $request->input('lastName'),
             'country_id' => $request->input('country'),
             'email' => $request->input('email'),
             'phones' => $request->input('phones'),
-        ]);
+            ]
+        );
         $user->notify(new UpdateUserEvent($user));
 
         return $user;

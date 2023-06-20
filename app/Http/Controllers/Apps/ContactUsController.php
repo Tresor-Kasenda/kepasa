@@ -25,8 +25,10 @@ class ContactUsController extends Controller
     {
         $this->repository->store($contactRequest);
 
-        return response()->json([
+        return response()->json(
+            [
             'message' => 'Votre message a ete envoyer avec success',
-        ], 200);
+            ], 200
+        );
     }
 }

@@ -12,8 +12,10 @@ class ShowUsersController extends Controller
 {
     public function __invoke(User $user)
     {
-        return View::make('admins.pages.users.show', [
+        return View::make(
+            'admins.pages.users.show', [
             'user' => $user->load(['payment', 'company', 'role', 'country']),
-        ]);
+            ]
+        );
     }
 }

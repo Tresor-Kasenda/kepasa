@@ -23,8 +23,10 @@ class TokenCreateMail extends Mailable implements ShouldQueue
         return $this
             ->to($this->token['email'])
             ->subject('')
-            ->view('emails.token', [
+            ->view(
+                'emails.token', [
                 'token' => $this->token,
-            ]);
+                ]
+            );
     }
 }

@@ -24,7 +24,8 @@ class CreateRoomService
         $date = date('Y-m-d H:i:s', $currentTime);
 
         return OnlineEvent::query()
-            ->create([
+            ->create(
+                [
                 'event_id' => $event->id,
                 'company_id' => auth()->user()->company->id,
                 'roomId' => $onlineEventCreate['room']['room_id'],
@@ -37,7 +38,8 @@ class CreateRoomService
                 'mode' => $onlineEventCreate['room']['settings']['mode'],
                 'participantsID' => $this->generateNumericValues(100000, 999999),
                 'moderatorID' => $this->generateNumericValues(100000, 999999),
-            ]);
+                ]
+            );
     }
 
     public function update(EventUpdateRequest $request, Event $event): Model|Builder|OnlineEvent|null
@@ -50,7 +52,8 @@ class CreateRoomService
             ->where('event_id', '=', $event->id)
             ->first();
 
-        $online->update([
+        $online->update(
+            [
             'event_id' => $event->id,
             'company_id' => $request->user()->company->id,
             'roomId' => $onlineEventCreate['room']['room_id'],
@@ -61,7 +64,8 @@ class CreateRoomService
             'duration' => $onlineEventCreate['room']['settings']['duration'],
             'participants' => $onlineEventCreate['room']['settings']['participants'],
             'mode' => $onlineEventCreate['room']['settings']['mode'],
-        ]);
+            ]
+        );
 
         return $online;
     }

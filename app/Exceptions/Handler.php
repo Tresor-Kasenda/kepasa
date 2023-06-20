@@ -41,9 +41,11 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e): void {
+        $this->reportable(
+            function (Throwable $e): void {
 
-        });
+            }
+        );
     }
 
     public function report(Exception|Throwable $e): void
@@ -54,15 +56,19 @@ class Handler extends ExceptionHandler
     public function render($request, Exception|Throwable $e): Response|JsonResponse|\Symfony\Component\HttpFoundation\Response
     {
         if ($e instanceof MethodNotAllowedHttpException) {
-            return response()->json([
+            return response()->json(
+                [
                 'error' => true,
                 'message' => 'Method is not allowed for the requested route',
-            ], 405);
+                ], 405
+            );
         } elseif ($e instanceof NotFoundHttpException) {
-            return response()->json([
+            return response()->json(
+                [
                 'error' => true,
                 'message' => 'Intended route is not found.',
-            ], 405);
+                ], 405
+            );
         }
 
         return parent::render($request, $e);

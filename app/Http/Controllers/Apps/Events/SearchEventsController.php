@@ -19,16 +19,20 @@ class SearchEventsController extends Controller
     {
         $events = $this->repository->searchEvent(attributes: $request);
         if (count($events) <= 0) {
-            return response()->json([
+            return response()->json(
+                [
                 'messages' => 'Events does not exist for this town or country',
-            ]);
+                ]
+            );
         }
 
-        return response()->json([
+        return response()->json(
+            [
             'search' => view(
                 'apps.components._search',
                 compact('events')
             )->render(),
-        ]);
+            ]
+        );
     }
 }

@@ -28,9 +28,11 @@ class EventPaymentRepository
 
     public function updatePayment(Event $event): Model|Builder|null
     {
-        $event->update([
+        $event->update(
+            [
             'payment' => PaymentEnum::PAID,
-        ]);
+            ]
+        );
         $this->updateTransaction(event: $event);
         Mail::send(new PaymentConfirmationMail(auth()->user(), $event));
         toast('Transaction made with success', 'success');
@@ -42,7 +44,8 @@ class EventPaymentRepository
     {
         $total = $event->ticketNumber * $event->prices;
         Customer::query()
-            ->create([
+            ->create(
+                [
                 'event_id' => $event->id,
                 'user_id' => auth()->id(),
                 'ticketNumber' => $event->ticketNumber,
@@ -54,7 +57,8 @@ class EventPaymentRepository
                 'phones' => auth()->user()->company->phones,
                 'country' => auth()->user()->company->country,
                 'city' => auth()->user()->company->country,
-            ]);
+                ]
+            );
     }
 
     private function updateTransaction($event): void

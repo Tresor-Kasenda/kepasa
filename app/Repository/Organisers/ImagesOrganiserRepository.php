@@ -35,11 +35,13 @@ class ImagesOrganiserRepository
     public function create($request): Model|Builder
     {
         $image = Images::query()
-            ->create([
+            ->create(
+                [
                 'event_id' => $request->input('event_id'),
                 'image' => self::uploadFile($request),
                 'company_id' => $request->user()->company->id,
-            ]);
+                ]
+            );
         toast('Image ajouter avec success', 'success');
 
         return $image;
@@ -48,11 +50,13 @@ class ImagesOrganiserRepository
     public function update(Images $image, $attributes): Model|Builder|null
     {
         $this->removePicture($image);
-        $image->update([
+        $image->update(
+            [
             'event_id' => $attributes->input('event_id'),
             'image' => self::uploadFile($attributes),
             'company_id' => $attributes->user()->company->id,
-        ]);
+            ]
+        );
         toast('Image a ete mise a jours', 'success');
 
         return $image;

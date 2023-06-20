@@ -17,45 +17,45 @@ use Illuminate\Support\Carbon;
 /**
  * App\Models\City
  *
- * @property int $id
- * @property string $city_name
- * @property string|null $latitude
- * @property string|null $longitude
- * @property string|null $facts
- * @property string|null $currency
- * @property string|null $history
- * @property string|null $language
- * @property int|null $population
- * @property string|null $popular_city
- * @property string|null $mayor
- * @property string|null $country_code
- * @property int|null $feature_image_id
- * @property CityEnum $promoted
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property      int $id
+ * @property      string $city_name
+ * @property      string|null $latitude
+ * @property      string|null $longitude
+ * @property      string|null $facts
+ * @property      string|null $currency
+ * @property      string|null $history
+ * @property      string|null $language
+ * @property      int|null $population
+ * @property      string|null $popular_city
+ * @property      string|null $mayor
+ * @property      string|null $country_code
+ * @property      int|null $feature_image_id
+ * @property      CityEnum $promoted
+ * @property      Carbon|null $created_at
+ * @property      Carbon|null $updated_at
  * @property-read Images|null $featureImage
  * @property-read Collection<int, Images> $images
  * @property-read int|null $images_count
- * @method static Builder|City newModelQuery()
- * @method static Builder|City newQuery()
- * @method static Builder|City query()
- * @method static Builder|City whereCityName($value)
- * @method static Builder|City whereCountryCode($value)
- * @method static Builder|City whereCreatedAt($value)
- * @method static Builder|City whereCurrency($value)
- * @method static Builder|City whereFacts($value)
- * @method static Builder|City whereFeatureImageId($value)
- * @method static Builder|City whereHistory($value)
- * @method static Builder|City whereId($value)
- * @method static Builder|City whereLanguage($value)
- * @method static Builder|City whereLatitude($value)
- * @method static Builder|City whereLongitude($value)
- * @method static Builder|City whereMayor($value)
- * @method static Builder|City wherePopularCity($value)
- * @method static Builder|City wherePopulation($value)
- * @method static Builder|City wherePromoted($value)
- * @method static Builder|City whereUpdatedAt($value)
- * @mixin Eloquent
+ * @method        static Builder|City newModelQuery()
+ * @method        static Builder|City newQuery()
+ * @method        static Builder|City query()
+ * @method        static Builder|City whereCityName($value)
+ * @method        static Builder|City whereCountryCode($value)
+ * @method        static Builder|City whereCreatedAt($value)
+ * @method        static Builder|City whereCurrency($value)
+ * @method        static Builder|City whereFacts($value)
+ * @method        static Builder|City whereFeatureImageId($value)
+ * @method        static Builder|City whereHistory($value)
+ * @method        static Builder|City whereId($value)
+ * @method        static Builder|City whereLanguage($value)
+ * @method        static Builder|City whereLatitude($value)
+ * @method        static Builder|City whereLongitude($value)
+ * @method        static Builder|City whereMayor($value)
+ * @method        static Builder|City wherePopularCity($value)
+ * @method        static Builder|City wherePopulation($value)
+ * @method        static Builder|City wherePromoted($value)
+ * @method        static Builder|City whereUpdatedAt($value)
+ * @mixin         Eloquent
  */
 class City extends Model
 {

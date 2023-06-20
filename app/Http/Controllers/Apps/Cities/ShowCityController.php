@@ -13,8 +13,10 @@ class ShowCityController extends Controller
 {
     public function __invoke(Country $country, CountryCitiesRepository $repository): View
     {
-        return view('admins.pages.countries.show', [
+        return view(
+            'admins.pages.countries.show', [
             'cities' => $repository->getCities($country),
-        ]);
+            ]
+        );
     }
 }

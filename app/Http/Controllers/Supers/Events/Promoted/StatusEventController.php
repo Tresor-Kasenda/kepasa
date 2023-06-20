@@ -19,15 +19,19 @@ class StatusEventController extends Controller
     {
         $event = $this->repository->changeStatus(attributes: $request);
         if (false !== $event) {
-            return response()->json([
+            return response()->json(
+                [
                 'message' => 'The status has been successfully updated',
                 'type' => 'success',
-            ]);
+                ]
+            );
         }
 
-        return response()->json([
+        return response()->json(
+            [
             'message' => 'Le paiement ne pas encore effectuer pour activer cette evenement',
             'type' => 'danger',
-        ]);
+            ]
+        );
     }
 }

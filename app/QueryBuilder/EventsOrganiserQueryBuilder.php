@@ -13,11 +13,13 @@ class EventsOrganiserQueryBuilder extends Builder
     ): self {
         return $this->when(
             value: $search,
-            callback: fn (Builder $query) => $query->where(function ($query) use ($search): void {
+            callback: fn (Builder $query) => $query->where(
+                function ($query) use ($search): void {
                 $query
                     ->whereHas('category', fn (Builder $builder) => $builder->where('name', 'LIKE', "%{$search}%"))
                     ->orWhereHas('city', fn (Builder $builder) => $builder->where('city_name', 'LIKE', "%{$search}%"));
-            })
+                }
+            )
         );
     }
 

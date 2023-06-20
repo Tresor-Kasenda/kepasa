@@ -18,9 +18,11 @@ class ProfileOrganiserRepository
 {
     public function updatePassword(User $user, $attributes): Model|Builder
     {
-        $user->update([
+        $user->update(
+            [
             'password' => Hash::make($attributes->input('password')),
-        ]);
+            ]
+        );
 
         return $user;
     }
@@ -33,13 +35,15 @@ class ProfileOrganiserRepository
             $user->fill(['status' => UserStatus::STATUS_DEACTIVATE]);
         }
 
-        $user->update([
+        $user->update(
+            [
             'name' => $request->input('name'),
             'last_name' => $request->input('last_name'),
             'email' => $request->input('email'),
             'phones' => $request->input('phones'),
             'country_id' => $request->input('country'),
-        ]);
+            ]
+        );
 
         if ($requires) {
             Notification::send(

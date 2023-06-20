@@ -58,7 +58,8 @@ class StoreEventRepository
         Model|Builder|null $city
     ) {
         return Event::query()
-            ->create([
+            ->create(
+                [
                 'user_id' => auth()->id(),
                 'category_id' => $category->id,
                 'city_id' => $city->id,
@@ -77,6 +78,7 @@ class StoreEventRepository
                 'description' => $request['description'],
                 'status' => StatusEnum::STATUS_DEACTIVATE,
                 'payment' => PaymentEnum::UNPAID
-            ]);
+                ]
+            );
     }
 }

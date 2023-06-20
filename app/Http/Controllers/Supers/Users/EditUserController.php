@@ -11,8 +11,10 @@ class EditUserController extends Controller
 {
     public function __invoke(User $user)
     {
-        return view('admins.pages.users.edit', [
+        return view(
+            'admins.pages.users.edit', [
             'user' => $user,
-        ]);
+            ]
+        );
     }
 }

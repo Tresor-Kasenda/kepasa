@@ -13,8 +13,10 @@ class ListEventsController extends Controller
 {
     public function __invoke(Request $request, EventRepository $repository)
     {
-        return View::make('organisers.pages.events.index', [
+        return View::make(
+            'organisers.pages.events.index', [
             'events' => $repository->getEvents($request),
-        ]);
+            ]
+        );
     }
 }

@@ -14,8 +14,10 @@ class StoreEventController extends Controller
         StoreEventRequest $request,
         StoreEventRepository $repository
     ) {
-        return redirect()->route('organiser.events.payment', [
+        return redirect()->route(
+            'organiser.events.payment', [
             'event' => $repository->store($request->validated()),
-        ]);
+            ]
+        );
     }
 }

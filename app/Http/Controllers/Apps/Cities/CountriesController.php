@@ -19,12 +19,14 @@ class CountriesController extends Controller
     {
         $data['cities'] = $this->repository->getCitiesInCountry($request);
 
-        return response()->json([
+        return response()->json(
+            [
             'views' => view(
                 'apps.components._select',
                 compact('data')
             )->render(),
             'status' => true,
-        ]);
+            ]
+        );
     }
 }

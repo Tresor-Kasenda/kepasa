@@ -40,18 +40,20 @@ class UpdateEventRepository
             $event->fill(['status' => StatusEnum::STATUS_DEACTIVATE]);
         }
 
-        DB::transaction(function () use ($category, $request, $event): void {
+        DB::transaction(
+            function () use ($category, $request, $event): void {
 
-            $this->updatedEvent(
-                $event,
-                $request,
-                $this->resolveFeeds(request: $request)
-            );
+                $this->updatedEvent(
+                    $event,
+                    $request,
+                    $this->resolveFeeds(request: $request)
+                );
 
-            if (1 === $category->id) {
-                (new CreateRoomService())->update(request: $request, event: $event);
+                if (1 === $category->id) {
+                    (new CreateRoomService())->update(request: $request, event: $event);
+                }
             }
-        });
+        );
 
         if ($requires) {
             Notification::send(User::where('role_id', RoleEnum::ROLE_SUPER)->first(), new EventPendingApprovalNotification($event));
@@ -62,7 +64,8 @@ class UpdateEventRepository
 
     private function updatedEvent($event, $request, array $feedCalculation): void
     {
-        $event->update([
+        $event->update(
+            [
             'title' => $request->input('title'),
             'sub_title' => $request->input('subTitle'),
             'date' => $request->input('date'),
@@ -78,7 +81,8 @@ class UpdateEventRepository
             'city_id' => $this->getCity($request)->id,
             'description' => $request->input('description'),
             'category_id' => $request->input('category'),
-        ]);
+            ]
+        );
     }
 
     private function getCity($request): Model|Builder|City|null

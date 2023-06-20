@@ -23,23 +23,27 @@ class SettingSupperRepository
             ->where('user_id', '=', $user->id)
             ->first();
         if ($setting) {
-            $settings = $setting->update([
+            $settings = $setting->update(
+                [
                 'name' => $attributes['name'],
                 'email' => $attributes['email'],
                 'copyright' => $attributes['copyright'],
-            ]);
+                ]
+            );
 
             toast('Settings is update', 'success');
 
             return $settings;
         }
         $set = Setting::query()
-            ->create([
+            ->create(
+                [
                 'name' => $attributes['name'],
                 'email' => $attributes['email'],
                 'copyright' => $attributes['copyright'],
                 'user_id' => $user->id,
-            ]);
+                ]
+            );
 
         toast('Settings is created with successful', 'success');
 

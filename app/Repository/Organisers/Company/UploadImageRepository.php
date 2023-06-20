@@ -18,18 +18,24 @@ class UploadImageRepository
         $company = Company::whereUserId(auth()->id())->first();
 
         if ($company->exists()) {
-            $company->images()->create([
+            $company->images()->create(
+                [
                 'path' => self::uploadProfile($request)
-            ]);
+                ]
+            );
         }
 
-        $images = auth()->user()->images()->create([
+        $images = auth()->user()->images()->create(
+            [
             'path' => self::uploadProfile($request)
-        ]);
+            ]
+        );
 
-        auth()->user()->update([
+        auth()->user()->update(
+            [
             'feature_image_id' => $images->id
-        ]);
+            ]
+        );
 
         return  $images;
     }

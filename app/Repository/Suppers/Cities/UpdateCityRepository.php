@@ -15,7 +15,8 @@ class UpdateCityRepository
 
     public function updateCity(City $city, UpdateCityRequest $validated): void
     {
-        $city->update([
+        $city->update(
+            [
             'city_name' => $validated->input('cityName'),
             'facts' => $validated->input('facts'),
             'overview' => $validated->input('overview'),
@@ -28,7 +29,8 @@ class UpdateCityRepository
             'country_code' => $validated->input('country_code'),
             'image' => self::uploadProfile($validated),
             'promoted' => self::statusCity($validated),
-        ]);
+            ]
+        );
     }
 
     protected static function statusCity($validated): string

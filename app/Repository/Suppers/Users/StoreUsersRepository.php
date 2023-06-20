@@ -15,7 +15,8 @@ class StoreUsersRepository
     public function created(array $validated)
     {
         $users = User::query()
-            ->create([
+            ->create(
+                [
                 'name' => $validated['name'],
                 'lastName' => $validated['lastName'],
                 'email' => $validated['email'],
@@ -23,7 +24,8 @@ class StoreUsersRepository
                 'country_id' => $validated['country'],
                 'password' => Hash::make($validated['password']),
                 'role_id' => RoleEnum::ROLE_SUPER,
-            ]);
+                ]
+            );
         Mail::send(new CreatedAdminEmail($users));
         return $users;
     }

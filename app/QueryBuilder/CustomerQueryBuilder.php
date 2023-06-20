@@ -20,11 +20,13 @@ class CustomerQueryBuilder extends Builder
         return $this->when(
             value: $search,
             callback: function (Builder $query) use ($search): void {
-                $query->where(function ($query) use ($search): void {
-                    $query
-                        ->whereHas('event', fn (Builder $builder) => $builder->where('title', 'LIKE', "%{$search}%"))
-                        ->orWhereHas('user', fn (Builder $builder) => $builder->where('name', 'LIKE', "%{$search}%"));
-                });
+                $query->where(
+                    function ($query) use ($search): void {
+                        $query
+                            ->whereHas('event', fn (Builder $builder) => $builder->where('title', 'LIKE', "%{$search}%"))
+                            ->orWhereHas('user', fn (Builder $builder) => $builder->where('name', 'LIKE', "%{$search}%"));
+                    }
+                );
             }
         );
     }

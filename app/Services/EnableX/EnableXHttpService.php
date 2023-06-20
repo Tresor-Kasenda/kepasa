@@ -11,9 +11,11 @@ trait EnableXHttpService
 {
     public function request(): PendingRequest
     {
-        return Http::withHeaders([
+        return Http::withHeaders(
+            [
             'Content-Type: application/json',
-        ])
+            ]
+        )
             ->withBasicAuth(
                 config('enablex.app_id'),
                 config('enablex.app_key')

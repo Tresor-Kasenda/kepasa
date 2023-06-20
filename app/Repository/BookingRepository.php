@@ -33,9 +33,11 @@ class BookingRepository
             ->where('user_id', '=', auth()->id())
             ->where('company_id', '=', auth()->user()->company->id)
             ->first();
-        $event->update([
+        $event->update(
+            [
             'payment' => PaymentEnum::PAID,
-        ]);
+            ]
+        );
         Mail::send(new CustomerTransactionMail(auth()->user(), $event));
         toast('Transaction made with success', 'success');
 

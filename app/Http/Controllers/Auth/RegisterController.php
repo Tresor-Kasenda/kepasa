@@ -34,7 +34,8 @@ class RegisterController extends Controller
     protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
 
-        return Validator::make($data, [
+        return Validator::make(
+            $data, [
             'name' => [
                 'required',
                 'string',
@@ -68,7 +69,8 @@ class RegisterController extends Controller
                 'confirmed',
                 Password::min(6)->mixedCase()
             ],
-        ]);
+            ]
+        );
     }
 
     protected function create(array $data)
@@ -77,14 +79,17 @@ class RegisterController extends Controller
             ->whereId($data['country'])
             ->first();
         if ($country->doesntExist()) {
-            throw ValidationException::withMessages([
+            throw ValidationException::withMessages(
+                [
                 "Country doesn't exist for moment you can contact administrator"
-            ])
+                ]
+            )
                 ->redirectTo('/login');
         }
 
         $user = User::query()
-            ->create([
+            ->create(
+                [
                 'name' => $data['name'],
                 'last_name' => $data['last_name'],
                 'phones' => $data['phones'],
@@ -92,7 +97,8 @@ class RegisterController extends Controller
                 'role_id' => $data['role'],
                 'country_id' => $country->id,
                 'password' => Hash::make($data['password']),
-            ]);
+                ]
+            );
 
         if (2 === (int) $data['role']) {
             Company::query()->create(['user_id' => $user->id]);

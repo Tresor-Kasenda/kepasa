@@ -24,12 +24,14 @@ class UpdatePasswordRepository
 {
     public function updatePassword($request, User $user): User|RedirectResponse
     {
-        if ( ! Hash::check($request['old_password'], $user->password)) {
+        if (! Hash::check($request['old_password'], $user->password)) {
             return back()->with('danger', "Old password doesn't match ! ");
         }
-        $user->update([
+        $user->update(
+            [
             'password' => Hash::make($request['password']),
-        ]);
+            ]
+        );
 
         return $user;
     }
@@ -93,9 +95,11 @@ class UpdatePasswordRepository
     protected function sendResetFailedResponse(Request $request, $response): RedirectResponse
     {
         if ($request->wantsJson()) {
-            throw ValidationException::withMessages([
+            throw ValidationException::withMessages(
+                [
                 'email' => [trans($response)],
-            ]);
+                ]
+            );
         }
 
         return redirect()->back()

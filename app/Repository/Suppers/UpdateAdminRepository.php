@@ -10,12 +10,14 @@ class UpdateAdminRepository
 {
     public function handleUser(User $user, $request): bool
     {
-        return $user->update([
+        return $user->update(
+            [
             'name' => $request['name'],
             'lastName' => $request['lastName'],
             'country_id' => $request['country'],
             'email' => $request['email'],
             'phones' => $request['phones'],
-        ]);
+            ]
+        );
     }
 }

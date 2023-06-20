@@ -17,7 +17,8 @@ class UpdateCompanyRepository
             ->where('user_id', '=', $user->id)
             ->first();
 
-        $company->update([
+        $company->update(
+            [
             'company_name' => $validated['company_name'],
             'address' => $validated['address'],
             'phones' => $validated['phonesCompany'],
@@ -26,7 +27,8 @@ class UpdateCompanyRepository
             'socialMedia' => $validated['social_media'],
             'country_id' => $validated['countryCompany'],
             'updated_at' => now(),
-        ]);
+            ]
+        );
 
         return $company;
     }

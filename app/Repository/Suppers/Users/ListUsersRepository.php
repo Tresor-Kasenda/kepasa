@@ -13,16 +13,20 @@ class ListUsersRepository
     public function users(): array|Collection
     {
         return User::query()
-            ->with([
+            ->with(
+                [
                 'payment',
                 'company',
                 'role',
                 'country',
-            ])
-            ->whereIn('role_id', [
+                ]
+            )
+            ->whereIn(
+                'role_id', [
                 RoleEnum::ROLE_ORGANISER,
                 RoleEnum::ROLE_USERS,
-            ])
+                ]
+            )
             ->latest()
             ->orderByDesc('created_at')
             ->get();

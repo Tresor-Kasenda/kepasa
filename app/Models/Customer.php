@@ -15,39 +15,39 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\Customer
  *
- * @property int $id
- * @property int $event_id
- * @property int $user_id
- * @property TypeCustomer $type
- * @property string|null $reference
- * @property int $ticket_number
- * @property int $total_amount
- * @property PaymentEnum $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property      int $id
+ * @property      int $event_id
+ * @property      int $user_id
+ * @property      TypeCustomer $type
+ * @property      string|null $reference
+ * @property      int $ticket_number
+ * @property      int $total_amount
+ * @property      PaymentEnum $status
+ * @property      \Illuminate\Support\Carbon|null $created_at
+ * @property      \Illuminate\Support\Carbon|null $updated_at
+ * @property      \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Event $event
  * @property-read \App\Models\User $user
- * @method static CustomerQueryBuilder|Customer newModelQuery()
- * @method static CustomerQueryBuilder|Customer newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Customer onlyTrashed()
- * @method static CustomerQueryBuilder|Customer query()
- * @method static CustomerQueryBuilder|Customer search(?string $search)
- * @method static CustomerQueryBuilder|Customer sortBy(?string $sortBy, ?string $direction)
- * @method static CustomerQueryBuilder|Customer whereCreatedAt($value)
- * @method static CustomerQueryBuilder|Customer whereDeletedAt($value)
- * @method static CustomerQueryBuilder|Customer whereEventId($value)
- * @method static CustomerQueryBuilder|Customer whereId($value)
- * @method static CustomerQueryBuilder|Customer whereReference($value)
- * @method static CustomerQueryBuilder|Customer whereStatus($value)
- * @method static CustomerQueryBuilder|Customer whereTicketNumber($value)
- * @method static CustomerQueryBuilder|Customer whereTotalAmount($value)
- * @method static CustomerQueryBuilder|Customer whereType($value)
- * @method static CustomerQueryBuilder|Customer whereUpdatedAt($value)
- * @method static CustomerQueryBuilder|Customer whereUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Customer withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Customer withoutTrashed()
- * @mixin \Eloquent
+ * @method        static CustomerQueryBuilder|Customer newModelQuery()
+ * @method        static CustomerQueryBuilder|Customer newQuery()
+ * @method        static \Illuminate\Database\Eloquent\Builder|Customer onlyTrashed()
+ * @method        static CustomerQueryBuilder|Customer query()
+ * @method        static CustomerQueryBuilder|Customer search(?string $search)
+ * @method        static CustomerQueryBuilder|Customer sortBy(?string $sortBy, ?string $direction)
+ * @method        static CustomerQueryBuilder|Customer whereCreatedAt($value)
+ * @method        static CustomerQueryBuilder|Customer whereDeletedAt($value)
+ * @method        static CustomerQueryBuilder|Customer whereEventId($value)
+ * @method        static CustomerQueryBuilder|Customer whereId($value)
+ * @method        static CustomerQueryBuilder|Customer whereReference($value)
+ * @method        static CustomerQueryBuilder|Customer whereStatus($value)
+ * @method        static CustomerQueryBuilder|Customer whereTicketNumber($value)
+ * @method        static CustomerQueryBuilder|Customer whereTotalAmount($value)
+ * @method        static CustomerQueryBuilder|Customer whereType($value)
+ * @method        static CustomerQueryBuilder|Customer whereUpdatedAt($value)
+ * @method        static CustomerQueryBuilder|Customer whereUserId($value)
+ * @method        static \Illuminate\Database\Eloquent\Builder|Customer withTrashed()
+ * @method        static \Illuminate\Database\Eloquent\Builder|Customer withoutTrashed()
+ * @mixin         \Eloquent
  */
 class Customer extends Model
 {

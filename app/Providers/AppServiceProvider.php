@@ -24,14 +24,16 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureComponents(): void
     {
-        $this->callAfterResolving(BladeCompiler::class, function (): void {
-            $this->registerComponent('icon');
-            $this->registerComponent('container');
-            $this->registerComponent('nav-link');
-            $this->registerComponent('link');
-            $this->registerComponent('form-input');
-            $this->registerComponent('containt');
-        });
+        $this->callAfterResolving(
+            BladeCompiler::class, function (): void {
+                $this->registerComponent('icon');
+                $this->registerComponent('container');
+                $this->registerComponent('nav-link');
+                $this->registerComponent('link');
+                $this->registerComponent('form-input');
+                $this->registerComponent('containt');
+            }
+        );
     }
 
     protected function registerComponent(string $component): void

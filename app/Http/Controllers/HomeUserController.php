@@ -15,29 +15,37 @@ use Illuminate\Http\RedirectResponse;
 
 class HomeUserController extends Controller
 {
-    public function __construct(public CustomerRepository $repository, public EventCustomerRepository $customerRepository)
-    {
+    public function __construct(
+        protected readonly CustomerRepository $repository,
+        protected readonly EventCustomerRepository $customerRepository
+    ) {
     }
 
     public function index(): Factory|View|Application
     {
-        return view('users.home', [
+        return view(
+            'users.home', [
             'invoices' => $this->customerRepository->getContent(),
-        ]);
+            ]
+        );
     }
 
     public function show(string $key): Renderable
     {
-        return view('users.invoices.show', [
+        return view(
+            'users.invoices.show', [
             'invoice' => $this->customerRepository->getInvoiceContent($key),
-        ]);
+            ]
+        );
     }
 
     public function edit(): Factory|View|Application
     {
-        return view('users.profiles.edit', [
+        return view(
+            'users.profiles.edit', [
             'countries' => $this->repository->getCountries(),
-        ]);
+            ]
+        );
     }
 
     public function update(CustomerRequest $attributes, string $key): RedirectResponse
