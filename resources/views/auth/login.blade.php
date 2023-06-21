@@ -97,17 +97,17 @@
                                     @error('last_name')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="email">
+                                    <label for="emailUser">
                                         Email Address:
                                         <input
                                             type="text"
                                             class="input-text"
-                                            name="email"
-                                            id="email"
-                                            value="{{ old('email') }}"
+                                            name="emailUser"
+                                            id="emailUser"
+                                            value="{{ old('emailUser') }}"
                                         />
                                     </label>
-                                    @error('email')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('emailUser')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="role">
@@ -136,18 +136,18 @@
                                     @error('phones')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="password">
+                                    <label for="passwordAuth">
                                         Password:
                                         <input
                                             class="input-text"
-                                            type="password"
-                                            name="password"
-                                            id="password"
+                                            type="passwordAuth"
+                                            name="passwordAuth"
+                                            id="passwordAuth"
                                             required
                                             autocomplete="new-password"
                                         />
                                     </label>
-                                    @error('password')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('passwordAuth')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="password_confirmation">

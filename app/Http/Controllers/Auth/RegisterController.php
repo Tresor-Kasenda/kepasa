@@ -33,9 +33,7 @@ class RegisterController extends Controller
 
     protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
-
-        return Validator::make(
-            $data, [
+        return Validator::make( $data, [
             'name' => [
                 'required',
                 'string',
@@ -50,7 +48,7 @@ class RegisterController extends Controller
                 'required',
                 'min:10',
             ],
-            'email' => [
+            'emailUser' => [
                 'required',
                 'email',
                 Rule::unique(User::class, 'id'),
@@ -63,14 +61,12 @@ class RegisterController extends Controller
                 'required',
                 new Exists(Country::class, 'id')
             ],
-            'password' => [
+            'passwordAuth' => [
                 'required',
                 'string',
-                'confirmed',
-                Password::min(6)->mixedCase()
+                Password::min(6)
             ],
-            ]
-        );
+        ]);
     }
 
     protected function create(array $data)
@@ -79,26 +75,22 @@ class RegisterController extends Controller
             ->whereId($data['country'])
             ->first();
         if ($country->doesntExist()) {
-            throw ValidationException::withMessages(
-                [
+            throw ValidationException::withMessages([
                 "Country doesn't exist for moment you can contact administrator"
-                ]
-            )
+            ])
                 ->redirectTo('/login');
         }
 
         $user = User::query()
-            ->create(
-                [
+            ->create([
                 'name' => $data['name'],
                 'last_name' => $data['last_name'],
                 'phones' => $data['phones'],
-                'email' => $data['email'],
+                'email' => $data['emailUser'],
                 'role_id' => $data['role'],
                 'country_id' => $country->id,
-                'password' => Hash::make($data['password']),
-                ]
-            );
+                'password' => Hash::make($data['passwordAuth']),
+            ]);
 
         if (2 === (int) $data['role']) {
             Company::query()->create(['user_id' => $user->id]);

@@ -33,14 +33,15 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8.1",
         "barryvdh/laravel-ide-helper": "^2.13.0",
-        "spatie/laravel-ignition": "^1.6.4",
         "fakerphp/faker": "^1.23.0",
         "laravel/pint": "^1.10.2",
         "laravel/sail": "^1.22.0",
-        "nunomaduro/phpinsights": "^2.8",
-        "phpunit/phpunit": "^9.6.9",
         "mockery/mockery": "^1.6.2",
-        "nunomaduro/collision": "^6.4.0"
+        "nunomaduro/collision": "^6.4.0",
+        "nunomaduro/phpinsights": "^2.8",
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^9.6.9",
+        "spatie/laravel-ignition": "^1.6.4"
     },
     "autoload": {
         "psr-4": {

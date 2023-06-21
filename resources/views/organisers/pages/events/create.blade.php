@@ -56,9 +56,10 @@
                             <div class="col-md-6">
                                 <h5>Event Date <span>(required)</span></h5>
                                 <input
-                                    type="date"
+                                    type="text"
                                     id="event_date"
                                     name="event_date"
+                                    placeholder="Event Date"
                                     value="{{ old('event_date') }}"
                                     >
                                 @error('event_date')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
@@ -195,6 +196,7 @@
     </div>
 
     @section('scripts')
+        <script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script>
         <script>
             function calculate() {
                 let selectedValue = selectBox.options[selectBox.selectedIndex].value;
@@ -236,6 +238,12 @@
                 document.getElementById("ticketPrice").innerHTML = " ";
                 document.getElementById("answer").innerHTML = " ";
             }
+        </script>
+
+        <script>
+           new ClassicEditor(document.querySelector('#description'),{
+               toolbar: ['Bold', 'Italic', 'Underline', 'Link']
+            });
         </script>
     @endsection
 

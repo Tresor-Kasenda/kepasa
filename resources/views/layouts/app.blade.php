@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admins/css/dashlite.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admins/css/skins/theme-green.css') }}">
     @yield('styles')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="nk-body bg-lighter npc-general has-sidebar ui-clean">

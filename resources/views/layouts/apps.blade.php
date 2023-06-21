@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main-color.css') }}" id="colors">
     @yield('styles')
     @laravelPWA
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="transparent-header">
     <div id="wrapper">
