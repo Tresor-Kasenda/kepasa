@@ -5,8 +5,9 @@ if [ $name ]; then
     result = $(composer create-project --prefer-dist laravel/laravel $name)
     echo $result
     echo "Project $name has created with success"
-    cp $result $HOME/Vides
+    mv -i $result $HOME/Vides/
     cd result
+    echo "$result directory changed"
     git init
     git add .
     echo "Add message of commit"
