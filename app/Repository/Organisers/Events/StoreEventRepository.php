@@ -11,6 +11,7 @@ use App\Models\Event;
 use App\Models\User;
 use App\Notifications\NewAdminEventNotification;
 use App\Notifications\NewEventNotification;
+use App\Pipelines\Events\EventPipeline;
 use App\Services\EnableX\CreateRoomService;
 use App\Traits\FeedCalculation;
 use App\Traits\ImageUpload;
@@ -41,12 +42,9 @@ class StoreEventRepository
             (new CreateRoomService())->handle(request: $request, event: $event);
         }
 
-        Notification::send($event->user, new NewEventNotification($event));
-
-        Notification::send(
-            User::where('role_id', RoleEnum::ROLE_SUPER)->get(),
-            new NewAdminEventNotification($event)
-        );
+        app(EventPipeline::class)
+            ->send($event)
+            ->thenReturn();
 
         return $event;
     }
