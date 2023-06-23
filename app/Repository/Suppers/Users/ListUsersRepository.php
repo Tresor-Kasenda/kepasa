@@ -15,16 +15,17 @@ class ListUsersRepository
         return User::query()
             ->with(
                 [
-                'payment',
-                'company',
-                'role',
-                'country',
+                    'payment',
+                    'company',
+                    'role',
+                    'country',
                 ]
             )
             ->whereIn(
-                'role_id', [
-                RoleEnum::ROLE_ORGANISER,
-                RoleEnum::ROLE_USERS,
+                'role_id',
+                [
+                    RoleEnum::ROLE_ORGANISER,
+                    RoleEnum::ROLE_USERS,
                 ]
             )
             ->latest()

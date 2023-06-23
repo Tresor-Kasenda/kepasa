@@ -21,11 +21,11 @@ class CountriesController extends Controller
 
         return response()->json(
             [
-            'views' => view(
-                'apps.components._select',
-                compact('data')
-            )->render(),
-            'status' => true,
+                'views' => view(
+                    'apps.components._select',
+                    compact('data')
+                )->render(),
+                'status' => true,
             ]
         );
     }

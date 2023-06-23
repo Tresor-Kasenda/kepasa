@@ -24,8 +24,9 @@ class ImageOrganiserController extends Controller
     public function index(): Renderable
     {
         return view(
-            'organisers.pages.images.index', [
-            'images' => $this->repository->getContents(),
+            'organisers.pages.images.index',
+            [
+                'images' => $this->repository->getContents(),
             ]
         );
     }
@@ -33,8 +34,9 @@ class ImageOrganiserController extends Controller
     public function create(): Factory|View|Application
     {
         return view(
-            'organisers.pages.images.create', [
-            'events' => $this->repository->getEvents(),
+            'organisers.pages.images.create',
+            [
+                'events' => $this->repository->getEvents(),
             ]
         );
     }
@@ -49,9 +51,10 @@ class ImageOrganiserController extends Controller
     public function edit(Images $image): Factory|View|Application
     {
         return view(
-            'organisers.pages.images.edit', [
-            'events' => $this->repository->getEvents(),
-            'image' => $image,
+            'organisers.pages.images.edit',
+            [
+                'events' => $this->repository->getEvents(),
+                'image' => $image,
             ]
         );
     }

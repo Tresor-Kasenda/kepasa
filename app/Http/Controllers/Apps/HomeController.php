@@ -17,10 +17,11 @@ class HomeController extends Controller
     public function __invoke(): View
     {
         return view(
-            'apps.welcome', [
-            'cities' => $this->repository->getCities(),
-            'countries' => $this->repository->getCountries(),
-            'events' => $this->repository->getContents()
+            'apps.welcome',
+            [
+                'cities' => $this->repository->getCities(),
+                'countries' => $this->repository->getCountries(),
+                'events' => $this->repository->getContents()
             ]
         );
     }

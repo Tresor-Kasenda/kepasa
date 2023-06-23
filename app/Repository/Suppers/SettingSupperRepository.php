@@ -25,9 +25,9 @@ class SettingSupperRepository
         if ($setting) {
             $settings = $setting->update(
                 [
-                'name' => $attributes['name'],
-                'email' => $attributes['email'],
-                'copyright' => $attributes['copyright'],
+                    'name' => $attributes['name'],
+                    'email' => $attributes['email'],
+                    'copyright' => $attributes['copyright'],
                 ]
             );
 
@@ -38,10 +38,10 @@ class SettingSupperRepository
         $set = Setting::query()
             ->create(
                 [
-                'name' => $attributes['name'],
-                'email' => $attributes['email'],
-                'copyright' => $attributes['copyright'],
-                'user_id' => $user->id,
+                    'name' => $attributes['name'],
+                    'email' => $attributes['email'],
+                    'copyright' => $attributes['copyright'],
+                    'user_id' => $user->id,
                 ]
             );
 

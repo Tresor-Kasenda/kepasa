@@ -17,8 +17,9 @@ class BookingOrganiserController extends Controller
     public function __invoke(): Renderable
     {
         return view(
-            'organisers.pages.billings.index', [
-            'bookings' => $this->repository->getContent(),
+            'organisers.pages.billings.index',
+            [
+                'bookings' => $this->repository->getContent(),
             ]
         );
     }

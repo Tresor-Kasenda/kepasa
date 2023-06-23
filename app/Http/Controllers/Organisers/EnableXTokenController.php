@@ -27,9 +27,10 @@ class EnableXTokenController extends Controller
         $event = $this->repository->createdToken($attributes);
 
         return Redirect::route(
-            'organiser.enable.joinRoom', [
-            'token' => $event[0]['token'],
-            'roomId' => $event[1]['roomId'],
+            'organiser.enable.joinRoom',
+            [
+                'token' => $event[0]['token'],
+                'roomId' => $event[1]['roomId'],
             ]
         );
     }

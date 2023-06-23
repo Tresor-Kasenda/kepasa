@@ -35,7 +35,7 @@ class BookingRepository
             ->first();
         $event->update(
             [
-            'payment' => PaymentEnum::PAID,
+                'payment' => PaymentEnum::PAID,
             ]
         );
         Mail::send(new CustomerTransactionMail(auth()->user(), $event));

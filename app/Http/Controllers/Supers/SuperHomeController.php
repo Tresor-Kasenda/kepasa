@@ -18,10 +18,11 @@ class SuperHomeController extends Controller
     public function __invoke(): Renderable
     {
         return view(
-            'admins.supper', [
-            'companies' => [],
-            'events' => [],
-            'billings' => [],
+            'admins.supper',
+            [
+                'companies' => [],
+                'events' => [],
+                'billings' => [],
             ]
         );
     }

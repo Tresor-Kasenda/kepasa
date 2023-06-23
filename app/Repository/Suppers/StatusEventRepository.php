@@ -18,7 +18,7 @@ class StatusEventRepository
         if (null !== $event->where('payment', PaymentEnum::PAID)->first()) {
             return $event->update(
                 [
-                'status' => $attributes->input('status'),
+                    'status' => $attributes->input('status'),
                 ]
             );
         }

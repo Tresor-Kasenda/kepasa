@@ -66,21 +66,21 @@ class UpdateEventRepository
     {
         $event->update(
             [
-            'title' => $request->input('title'),
-            'sub_title' => $request->input('subTitle'),
-            'date' => $request->input('date'),
-            'startTime' => $request->input('startTime'),
-            'endTime' => $request->input('endTime'),
-            'address' => $request->input('address'),
-            'ticketNumber' => $request->input('ticketNumber'),
-            'prices' => $request->input('prices'),
-            'feeOption' => $request->input('feeOption'),
-            'commission' => $feedCalculation['0'],
-            'buyerPrice' => $feedCalculation['1'],
-            'country_id' => $this->getCountry($request)->id,
-            'city_id' => $this->getCity($request)->id,
-            'description' => $request->input('description'),
-            'category_id' => $request->input('category'),
+                'title' => $request->input('title'),
+                'sub_title' => $request->input('subTitle'),
+                'date' => $request->input('date'),
+                'startTime' => $request->input('startTime'),
+                'endTime' => $request->input('endTime'),
+                'address' => $request->input('address'),
+                'ticketNumber' => $request->input('ticketNumber'),
+                'prices' => $request->input('prices'),
+                'feeOption' => $request->input('feeOption'),
+                'commission' => $feedCalculation['0'],
+                'buyerPrice' => $feedCalculation['1'],
+                'country_id' => $this->getCountry($request)->id,
+                'city_id' => $this->getCity($request)->id,
+                'description' => $request->input('description'),
+                'category_id' => $request->input('category'),
             ]
         );
     }

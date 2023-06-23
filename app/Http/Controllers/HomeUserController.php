@@ -24,8 +24,9 @@ class HomeUserController extends Controller
     public function index(): Factory|View|Application
     {
         return view(
-            'users.home', [
-            'invoices' => $this->customerRepository->getContent(),
+            'users.home',
+            [
+                'invoices' => $this->customerRepository->getContent(),
             ]
         );
     }
@@ -33,8 +34,9 @@ class HomeUserController extends Controller
     public function show(string $key): Renderable
     {
         return view(
-            'users.invoices.show', [
-            'invoice' => $this->customerRepository->getInvoiceContent($key),
+            'users.invoices.show',
+            [
+                'invoice' => $this->customerRepository->getInvoiceContent($key),
             ]
         );
     }
@@ -42,8 +44,9 @@ class HomeUserController extends Controller
     public function edit(): Factory|View|Application
     {
         return view(
-            'users.profiles.edit', [
-            'countries' => $this->repository->getCountries(),
+            'users.profiles.edit',
+            [
+                'countries' => $this->repository->getCountries(),
             ]
         );
     }

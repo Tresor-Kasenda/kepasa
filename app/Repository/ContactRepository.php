@@ -15,10 +15,10 @@ class ContactRepository
         return Contact::query()
             ->create(
                 [
-                'name' => $attributes->input('name'),
-                'email' => $attributes->input('email'),
-                'subject' => $attributes->input('subject'),
-                'messages' => $attributes->input('messages'),
+                    'name' => $attributes->input('name'),
+                    'email' => $attributes->input('email'),
+                    'subject' => $attributes->input('subject'),
+                    'messages' => $attributes->input('messages'),
                 ]
             );
     }

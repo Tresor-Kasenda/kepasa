@@ -30,7 +30,7 @@ class EventPaymentRepository
     {
         $event->update(
             [
-            'payment' => PaymentEnum::PAID,
+                'payment' => PaymentEnum::PAID,
             ]
         );
         $this->updateTransaction(event: $event);
@@ -46,17 +46,17 @@ class EventPaymentRepository
         Customer::query()
             ->create(
                 [
-                'event_id' => $event->id,
-                'user_id' => auth()->id(),
-                'ticketNumber' => $event->ticketNumber,
-                'totalAmount' => $total,
-                'reference' => $this->generateNumericValues(1000, 999999),
-                'name' => auth()->user()->company->companyName,
-                'surname' => auth()->user()->lastName,
-                'email' => auth()->user()->company->email,
-                'phones' => auth()->user()->company->phones,
-                'country' => auth()->user()->company->country,
-                'city' => auth()->user()->company->country,
+                    'event_id' => $event->id,
+                    'user_id' => auth()->id(),
+                    'ticketNumber' => $event->ticketNumber,
+                    'totalAmount' => $total,
+                    'reference' => $this->generateNumericValues(1000, 999999),
+                    'name' => auth()->user()->company->companyName,
+                    'surname' => auth()->user()->lastName,
+                    'email' => auth()->user()->company->email,
+                    'phones' => auth()->user()->company->phones,
+                    'country' => auth()->user()->company->country,
+                    'city' => auth()->user()->company->country,
                 ]
             );
     }

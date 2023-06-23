@@ -25,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
     protected function configureComponents(): void
     {
         $this->callAfterResolving(
-            BladeCompiler::class, function (): void {
+            BladeCompiler::class,
+            function (): void {
                 $this->registerComponent('icon');
                 $this->registerComponent('container');
                 $this->registerComponent('nav-link');

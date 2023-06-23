@@ -13,7 +13,7 @@ trait EnableXHttpService
     {
         return Http::withHeaders(
             [
-            'Content-Type: application/json',
+                'Content-Type: application/json',
             ]
         )
             ->withBasicAuth(

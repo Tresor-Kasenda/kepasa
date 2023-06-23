@@ -42,7 +42,7 @@ class CreateAdminCommand extends Command
             ]
         );
 
-        if (! $validator->fails()) {
+        if ( ! $validator->fails()) {
             try {
                 $password = Hash::make($password);
                 $role = Role::query()
@@ -57,7 +57,7 @@ class CreateAdminCommand extends Command
                 Setting::query()
                     ->create(
                         [
-                        'user_id' => $user->id,
+                            'user_id' => $user->id,
                         ]
                     );
                 $this->info(sprintf('User %s <%s> created', $name, $email));

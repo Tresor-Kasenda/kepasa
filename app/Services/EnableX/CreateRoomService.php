@@ -26,18 +26,18 @@ class CreateRoomService
         return OnlineEvent::query()
             ->create(
                 [
-                'event_id' => $event->id,
-                'company_id' => auth()->user()->company->id,
-                'roomId' => $onlineEventCreate['room']['room_id'],
-                'roomName' => $onlineEventCreate['room']['name'],
-                'reference' => $onlineEventCreate['room']['owner_ref'],
-                'moderators' => $onlineEventCreate['room']['settings']['moderators'],
-                'schedule' => $date,
-                'duration' => $onlineEventCreate['room']['settings']['duration'],
-                'participants' => $onlineEventCreate['room']['settings']['participants'],
-                'mode' => $onlineEventCreate['room']['settings']['mode'],
-                'participantsID' => $this->generateNumericValues(100000, 999999),
-                'moderatorID' => $this->generateNumericValues(100000, 999999),
+                    'event_id' => $event->id,
+                    'company_id' => auth()->user()->company->id,
+                    'roomId' => $onlineEventCreate['room']['room_id'],
+                    'roomName' => $onlineEventCreate['room']['name'],
+                    'reference' => $onlineEventCreate['room']['owner_ref'],
+                    'moderators' => $onlineEventCreate['room']['settings']['moderators'],
+                    'schedule' => $date,
+                    'duration' => $onlineEventCreate['room']['settings']['duration'],
+                    'participants' => $onlineEventCreate['room']['settings']['participants'],
+                    'mode' => $onlineEventCreate['room']['settings']['mode'],
+                    'participantsID' => $this->generateNumericValues(100000, 999999),
+                    'moderatorID' => $this->generateNumericValues(100000, 999999),
                 ]
             );
     }
@@ -54,16 +54,16 @@ class CreateRoomService
 
         $online->update(
             [
-            'event_id' => $event->id,
-            'company_id' => $request->user()->company->id,
-            'roomId' => $onlineEventCreate['room']['room_id'],
-            'roomName' => $onlineEventCreate['room']['name'],
-            'reference' => $onlineEventCreate['room']['owner_ref'],
-            'moderators' => $onlineEventCreate['room']['settings']['moderators'],
-            'schedule' => $date,
-            'duration' => $onlineEventCreate['room']['settings']['duration'],
-            'participants' => $onlineEventCreate['room']['settings']['participants'],
-            'mode' => $onlineEventCreate['room']['settings']['mode'],
+                'event_id' => $event->id,
+                'company_id' => $request->user()->company->id,
+                'roomId' => $onlineEventCreate['room']['room_id'],
+                'roomName' => $onlineEventCreate['room']['name'],
+                'reference' => $onlineEventCreate['room']['owner_ref'],
+                'moderators' => $onlineEventCreate['room']['settings']['moderators'],
+                'schedule' => $date,
+                'duration' => $onlineEventCreate['room']['settings']['duration'],
+                'participants' => $onlineEventCreate['room']['settings']['participants'],
+                'mode' => $onlineEventCreate['room']['settings']['mode'],
             ]
         );
 

@@ -12,11 +12,11 @@ class UpdateAdminRepository
     {
         return $user->update(
             [
-            'name' => $request['name'],
-            'lastName' => $request['lastName'],
-            'country_id' => $request['country'],
-            'email' => $request['email'],
-            'phones' => $request['phones'],
+                'name' => $request['name'],
+                'lastName' => $request['lastName'],
+                'country_id' => $request['country'],
+                'email' => $request['email'],
+                'phones' => $request['phones'],
             ]
         );
     }

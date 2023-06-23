@@ -23,7 +23,8 @@ class EventCustomerRepository
     {
         return DB::table('events')
             ->select(
-                'events.id', DB::raw(
+                'events.id',
+                DB::raw(
                     '6371 * acos(cos(radians('.$latitude.'))
                 * cos(radians(events.latitude))
                 * cos(radians(events.longitude) - radians('.$longitude.'))

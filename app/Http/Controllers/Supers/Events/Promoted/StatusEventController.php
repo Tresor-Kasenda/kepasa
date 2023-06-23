@@ -21,16 +21,16 @@ class StatusEventController extends Controller
         if (false !== $event) {
             return response()->json(
                 [
-                'message' => 'The status has been successfully updated',
-                'type' => 'success',
+                    'message' => 'The status has been successfully updated',
+                    'type' => 'success',
                 ]
             );
         }
 
         return response()->json(
             [
-            'message' => 'Le paiement ne pas encore effectuer pour activer cette evenement',
-            'type' => 'danger',
+                'message' => 'Le paiement ne pas encore effectuer pour activer cette evenement',
+                'type' => 'danger',
             ]
         );
     }

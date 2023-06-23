@@ -14,8 +14,9 @@ class ListUsersController extends Controller
     public function __invoke(ListUsersRepository $repository): Renderable
     {
         return View::make(
-            'admins.pages.users.index', [
-            'users' => $repository->users(),
+            'admins.pages.users.index',
+            [
+                'users' => $repository->users(),
             ]
         );
     }

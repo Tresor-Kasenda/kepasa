@@ -20,7 +20,7 @@ class ProfileOrganiserRepository
     {
         $user->update(
             [
-            'password' => Hash::make($attributes->input('password')),
+                'password' => Hash::make($attributes->input('password')),
             ]
         );
 
@@ -37,11 +37,11 @@ class ProfileOrganiserRepository
 
         $user->update(
             [
-            'name' => $request->input('name'),
-            'last_name' => $request->input('last_name'),
-            'email' => $request->input('email'),
-            'phones' => $request->input('phones'),
-            'country_id' => $request->input('country'),
+                'name' => $request->input('name'),
+                'last_name' => $request->input('last_name'),
+                'email' => $request->input('email'),
+                'phones' => $request->input('phones'),
+                'country_id' => $request->input('country'),
             ]
         );
 

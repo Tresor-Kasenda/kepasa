@@ -19,14 +19,14 @@ class UpdateCompanyRepository
 
         $company->update(
             [
-            'company_name' => $validated['company_name'],
-            'address' => $validated['address'],
-            'phones' => $validated['phonesCompany'],
-            'email' => $validated['emailCompany'],
-            'website' => $validated['website'],
-            'socialMedia' => $validated['social_media'],
-            'country_id' => $validated['countryCompany'],
-            'updated_at' => now(),
+                'company_name' => $validated['company_name'],
+                'address' => $validated['address'],
+                'phones' => $validated['phonesCompany'],
+                'email' => $validated['emailCompany'],
+                'website' => $validated['website'],
+                'socialMedia' => $validated['social_media'],
+                'country_id' => $validated['countryCompany'],
+                'updated_at' => now(),
             ]
         );
 

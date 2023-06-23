@@ -23,8 +23,9 @@ class CustomerTransactionMail extends Mailable
             ->to($this->user['email'])
             ->subject('')
             ->view(
-                'emails.event', [
-                'events' => $this->event,
+                'emails.event',
+                [
+                    'events' => $this->event,
                 ]
             );
     }

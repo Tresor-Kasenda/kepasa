@@ -36,10 +36,10 @@ class CustomerRepository
     {
         $user->update(
             [
-            'name' => $attributes->input('name'),
-            'lastName' => $attributes->input('lastName'),
-            'phones' => $attributes->input('phones'),
-            'email' => $attributes->input('email'),
+                'name' => $attributes->input('name'),
+                'lastName' => $attributes->input('lastName'),
+                'phones' => $attributes->input('phones'),
+                'email' => $attributes->input('email'),
             ]
         );
     }
@@ -48,12 +48,12 @@ class CustomerRepository
     {
         $user->profile->update(
             [
-            'phones' => $attributes->input('phones'),
-            'lastName' => $attributes->input('lastName'),
-            'alternativePhones' => $attributes->input('alternativePhones'),
-            'city' => $attributes->input('city'),
-            'country' => $attributes->input('country'),
-            'image' => self::uploadFile($attributes),
+                'phones' => $attributes->input('phones'),
+                'lastName' => $attributes->input('lastName'),
+                'alternativePhones' => $attributes->input('alternativePhones'),
+                'city' => $attributes->input('city'),
+                'country' => $attributes->input('country'),
+                'image' => self::uploadFile($attributes),
             ]
         );
     }

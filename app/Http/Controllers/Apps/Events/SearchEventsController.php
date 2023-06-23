@@ -21,17 +21,17 @@ class SearchEventsController extends Controller
         if (count($events) <= 0) {
             return response()->json(
                 [
-                'messages' => 'Events does not exist for this town or country',
+                    'messages' => 'Events does not exist for this town or country',
                 ]
             );
         }
 
         return response()->json(
             [
-            'search' => view(
-                'apps.components._search',
-                compact('events')
-            )->render(),
+                'search' => view(
+                    'apps.components._search',
+                    compact('events')
+                )->render(),
             ]
         );
     }

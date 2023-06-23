@@ -12,8 +12,9 @@ class ShowInvoiceController extends Controller
     public function __invoke(Customer $customer)
     {
         return view(
-            'admins.pages.invoice.show', [
-            'invoice' => $customer->load(['event', 'user']),
+            'admins.pages.invoice.show',
+            [
+                'invoice' => $customer->load(['event', 'user']),
             ]
         );
     }

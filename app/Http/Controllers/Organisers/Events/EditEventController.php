@@ -18,9 +18,10 @@ class EditEventController extends Controller
         $this->authorize('update', $event);
 
         return View::make(
-            'organisers.pages.events.edit', [
-            'event' => $event->load(['category', 'online', 'country', 'city']),
-            'categories' => $repository->getContents(),
+            'organisers.pages.events.edit',
+            [
+                'event' => $event->load(['category', 'online', 'country', 'city']),
+                'categories' => $repository->getContents(),
             ]
         );
     }

@@ -15,21 +15,21 @@ trait RedirectAuthentication
     public function redirectTo(): string
     {
         switch (Auth::user()->role_id) {
-        case RoleEnum::ROLE_USERS:
-            $this->redirectTo = route('user.home.index');
-            return $this->redirectTo;
+            case RoleEnum::ROLE_USERS:
+                $this->redirectTo = route('user.home.index');
+                return $this->redirectTo;
                 break;
-        case RoleEnum::ROLE_ORGANISER:
-            $this->redirectTo = route('organiser.index');
-            return $this->redirectTo;
+            case RoleEnum::ROLE_ORGANISER:
+                $this->redirectTo = route('organiser.index');
+                return $this->redirectTo;
                 break;
-        case RoleEnum::ROLE_SUPER:
-            $this->redirectTo = route('supper.dashboard');
-            return $this->redirectTo;
+            case RoleEnum::ROLE_SUPER:
+                $this->redirectTo = route('supper.dashboard');
+                return $this->redirectTo;
                 break;
-        default:
-            $this->redirectTo = route('login');
-            return $this->redirectTo;
+            default:
+                $this->redirectTo = route('login');
+                return $this->redirectTo;
         }
     }
 }

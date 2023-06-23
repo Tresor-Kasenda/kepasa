@@ -58,16 +58,18 @@ class Handler extends ExceptionHandler
         if ($e instanceof MethodNotAllowedHttpException) {
             return response()->json(
                 [
-                'error' => true,
-                'message' => 'Method is not allowed for the requested route',
-                ], 405
+                    'error' => true,
+                    'message' => 'Method is not allowed for the requested route',
+                ],
+                405
             );
         } elseif ($e instanceof NotFoundHttpException) {
             return response()->json(
                 [
-                'error' => true,
-                'message' => 'Intended route is not found.',
-                ], 405
+                    'error' => true,
+                    'message' => 'Intended route is not found.',
+                ],
+                405
             );
         }
 

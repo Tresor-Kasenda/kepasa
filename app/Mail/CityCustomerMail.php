@@ -24,8 +24,9 @@ class CityCustomerMail extends Mailable implements ShouldQueue
             ->to($this->promoted['email'])
             ->subject('')
             ->view(
-                'emails.contact', [
-                'contact' => $this->promoted,
+                'emails.contact',
+                [
+                    'contact' => $this->promoted,
                 ]
             );
     }

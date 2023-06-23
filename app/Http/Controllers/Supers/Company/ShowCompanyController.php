@@ -13,8 +13,9 @@ class ShowCompanyController extends Controller
     public function __invoke(Company $company)
     {
         return View::make(
-            'admins.pages.company.show', [
-            'company' => $company->load(['user', 'events']),
+            'admins.pages.company.show',
+            [
+                'company' => $company->load(['user', 'events']),
             ]
         );
     }

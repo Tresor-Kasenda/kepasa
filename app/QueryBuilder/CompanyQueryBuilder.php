@@ -12,7 +12,8 @@ class CompanyQueryBuilder extends Builder
         string|null $search
     ) {
         return $this->when(
-            $search, function (Builder $query) use ($search): void {
+            $search,
+            function (Builder $query) use ($search): void {
                 $query->where('companyName', 'LIKE', "%.{$search}.%")
                     ->orWhereHas('user', fn ($query) => $query->where('name', 'LIKE', "%{$search}%"));
             }

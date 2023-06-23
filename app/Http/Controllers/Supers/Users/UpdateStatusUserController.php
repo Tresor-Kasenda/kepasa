@@ -20,13 +20,13 @@ class UpdateStatusUserController extends Controller
 
         $user->update(
             [
-            'status' => $request->input('status'),
+                'status' => $request->input('status'),
             ]
         );
         return response()->json(
             [
-            'success' => 'Uitlisateur activez avec success',
-            'room' => $user,
+                'success' => 'Uitlisateur activez avec success',
+                'room' => $user,
             ]
         );
     }

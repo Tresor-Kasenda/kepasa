@@ -14,7 +14,7 @@ class EnsureOrganiserPasswordChange
     {
         $user = auth()->user();
 
-        if ($user 
+        if ($user
             && ! Company::where('user_id', $user->id)            ->whereNotNull('name')            ->whereNotNull('email')            ->exists()
         ) {
             return redirect()->route('organiser.profile', ['#profile'])

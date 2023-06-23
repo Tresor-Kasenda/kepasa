@@ -17,13 +17,13 @@ class StoreUsersRepository
         $users = User::query()
             ->create(
                 [
-                'name' => $validated['name'],
-                'lastName' => $validated['lastName'],
-                'email' => $validated['email'],
-                'phones' => $validated['phones'],
-                'country_id' => $validated['country'],
-                'password' => Hash::make($validated['password']),
-                'role_id' => RoleEnum::ROLE_SUPER,
+                    'name' => $validated['name'],
+                    'lastName' => $validated['lastName'],
+                    'email' => $validated['email'],
+                    'phones' => $validated['phones'],
+                    'country_id' => $validated['country'],
+                    'password' => Hash::make($validated['password']),
+                    'role_id' => RoleEnum::ROLE_SUPER,
                 ]
             );
         Mail::send(new CreatedAdminEmail($users));

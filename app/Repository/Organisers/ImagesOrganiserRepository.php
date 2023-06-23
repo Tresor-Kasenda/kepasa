@@ -37,9 +37,9 @@ class ImagesOrganiserRepository
         $image = Images::query()
             ->create(
                 [
-                'event_id' => $request->input('event_id'),
-                'image' => self::uploadFile($request),
-                'company_id' => $request->user()->company->id,
+                    'event_id' => $request->input('event_id'),
+                    'image' => self::uploadFile($request),
+                    'company_id' => $request->user()->company->id,
                 ]
             );
         toast('Image ajouter avec success', 'success');
@@ -52,9 +52,9 @@ class ImagesOrganiserRepository
         $this->removePicture($image);
         $image->update(
             [
-            'event_id' => $attributes->input('event_id'),
-            'image' => self::uploadFile($attributes),
-            'company_id' => $attributes->user()->company->id,
+                'event_id' => $attributes->input('event_id'),
+                'image' => self::uploadFile($attributes),
+                'company_id' => $attributes->user()->company->id,
             ]
         );
         toast('Image a ete mise a jours', 'success');

@@ -29,9 +29,10 @@ class HomeOrganiserController extends Controller
         $data['chart_data'] = json_encode($data);
 
         return view(
-            'organisers.dashboard', [
-            'payments' => $this->repository->getContents(),
-            'data' => $data,
+            'organisers.dashboard',
+            [
+                'payments' => $this->repository->getContents(),
+                'data' => $data,
             ]
         );
     }

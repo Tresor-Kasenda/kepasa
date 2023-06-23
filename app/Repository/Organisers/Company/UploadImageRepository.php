@@ -20,20 +20,20 @@ class UploadImageRepository
         if ($company->exists()) {
             $company->images()->create(
                 [
-                'path' => self::uploadProfile($request)
+                    'path' => self::uploadProfile($request)
                 ]
             );
         }
 
         $images = auth()->user()->images()->create(
             [
-            'path' => self::uploadProfile($request)
+                'path' => self::uploadProfile($request)
             ]
         );
 
         auth()->user()->update(
             [
-            'feature_image_id' => $images->id
+                'feature_image_id' => $images->id
             ]
         );
 

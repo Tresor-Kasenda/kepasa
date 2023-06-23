@@ -27,8 +27,9 @@ class ContactUsController extends Controller
 
         return response()->json(
             [
-            'message' => 'Votre message a ete envoyer avec success',
-            ], 200
+                'message' => 'Votre message a ete envoyer avec success',
+            ],
+            200
         );
     }
 }

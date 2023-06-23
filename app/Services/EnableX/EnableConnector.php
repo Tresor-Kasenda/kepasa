@@ -26,7 +26,7 @@ class EnableConnector
                     seconds: 15
                 )->withHeaders(
                     [
-                    'Content-Type: application/json',
+                        'Content-Type: application/json',
                     ]
                 )
                     ->withBasicAuth(

@@ -14,8 +14,9 @@ class ListCompanyController extends Controller
     public function __invoke(Request $request, ListCompanyRepository $repository)
     {
         return View::make(
-            'admins.pages.company.list-company', [
-            'companies' => $repository->company($request),
+            'admins.pages.company.list-company',
+            [
+                'companies' => $repository->company($request),
             ]
         );
     }

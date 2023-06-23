@@ -20,9 +20,10 @@ class UploadProfileController extends Controller
         $this->repository->uploadImages($request);
         return response()->json(
             [
-            'messages' => 'Photo de profile uploader',
-            'status' => 'success',
-            ], 200
+                'messages' => 'Photo de profile uploader',
+                'status' => 'success',
+            ],
+            200
         );
     }
 }

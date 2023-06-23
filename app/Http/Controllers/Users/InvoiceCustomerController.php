@@ -17,8 +17,9 @@ class InvoiceCustomerController extends Controller
             ->first();
 
         return view(
-            'users.invoices.invoice', [
-            'invoice' => $invoice->load(['event', 'user']),
+            'users.invoices.invoice',
+            [
+                'invoice' => $invoice->load(['event', 'user']),
             ]
         );
     }

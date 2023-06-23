@@ -17,18 +17,18 @@ class UpdateCityRepository
     {
         $city->update(
             [
-            'city_name' => $validated->input('cityName'),
-            'facts' => $validated->input('facts'),
-            'overview' => $validated->input('overview'),
-            'currency' => $validated->input('currency'),
-            'history' => $validated->input('history'),
-            'languages' => $validated->input('language'),
-            'population' => $validated->input('population'),
-            'popular_city' => $validated->input('popular_city'),
-            'mayor' => $validated->input('mayor'),
-            'country_code' => $validated->input('country_code'),
-            'image' => self::uploadProfile($validated),
-            'promoted' => self::statusCity($validated),
+                'city_name' => $validated->input('cityName'),
+                'facts' => $validated->input('facts'),
+                'overview' => $validated->input('overview'),
+                'currency' => $validated->input('currency'),
+                'history' => $validated->input('history'),
+                'languages' => $validated->input('language'),
+                'population' => $validated->input('population'),
+                'popular_city' => $validated->input('popular_city'),
+                'mayor' => $validated->input('mayor'),
+                'country_code' => $validated->input('country_code'),
+                'image' => self::uploadProfile($validated),
+                'promoted' => self::statusCity($validated),
             ]
         );
     }
