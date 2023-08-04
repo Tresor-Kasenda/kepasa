@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Enums\RoleEnum;
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Company;
-use App\Models\Country;
 use App\Models\User;
 use App\Notifications\UserWelcomeNotification;
 use App\Notifications\WelcomeNotification;
@@ -53,9 +53,9 @@ class RegisterController extends Controller
                 'required',
                 Rule::in([2, 3])
             ],
-            'country' => [
+            'city' => [
                 'required',
-                new Exists(Country::class, 'country_name')
+                new Exists(City::class, 'city_name')
             ],
             'passwordAuth' => [
                 'required',
@@ -67,10 +67,10 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        $country = Country::query()
-            ->whereId($data['country'])
+        $city = City::query()
+            ->whereId($data['city'])
             ->first();
-        if ($country->doesntExist()) {
+        if ($city->doesntExist()) {
             throw ValidationException::withMessages([
                 "Country doesn't exist for moment you can contact administrator"
             ])
@@ -83,11 +83,11 @@ class RegisterController extends Controller
                 'phones' => $data['phones'],
                 'email' => $data['emailUser'],
                 'role_id' => $data['role'],
-                'country_id' => $country->id,
+                'country_id' => $city->id,
                 'password' => Hash::make($data['passwordAuth']),
             ]);
 
-        if (2 === (int)$data['role']) {
+        if (RoleEnum::ROLE_ORGANISER->value === (int)$data['role']) {
             Company::query()->create(['user_id' => $user->id]);
             Notification::send([$user, User::whereRoleId(RoleEnum::ROLE_SUPER)->get()], new WelcomeNotification($user));
         } else {

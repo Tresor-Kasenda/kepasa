@@ -1,5 +1,4 @@
-@php use App\Models\Role; @endphp
-@php use App\Models\Country; @endphp
+@php use App\Models\City;use App\Models\Role; @endphp
 @extends('layouts.front')
 
 @section('title', "Authentication an Registration")
@@ -112,7 +111,7 @@
                                         Select Your Country
                                         <select class="input-text" name="country" id="country" required>
                                             <option>Select Your Country</option>
-                                            @foreach(Country::all() as $country)
+                                            @foreach(City::all() as $country)
                                                 <option
                                                     value="{{ $country->id ?? "" }}">{{ $country->country_name ?? "" }}</option>
                                             @endforeach

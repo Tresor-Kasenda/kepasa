@@ -19,6 +19,10 @@ class CustomerMiddleware
 
         $user_role = Auth::user()->role_id;
 
+        if (session()->has('url.intended')) {
+            return redirect()->intended(session()->get('url.intended'));
+        }
+
         return match ($user_role) {
             RoleEnum::ROLE_SUPER => redirect()->route('supper.dashboard'),
             RoleEnum::ROLE_ORGANISER => redirect()->route('organiser.index'),

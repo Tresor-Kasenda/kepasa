@@ -13,7 +13,7 @@ class OrganiserMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if ( ! Auth::check()) {
+        if (!Auth::check()) {
             return redirect()->route('login');
         }
 
@@ -22,7 +22,12 @@ class OrganiserMiddleware
         }
 
         if (RoleEnum::ROLE_ORGANISER === Auth::user()->role_id) {
-            return $next($request);
+            // Redirect to the previous route if it exists.
+            if (session()->has('url.intended')) {
+                return redirect()->intended(session()->get('url.intended'));
+            } else {
+                return $next($request);
+            }
         }
 
         if (RoleEnum::ROLE_USERS === Auth::user()->role_id) {
