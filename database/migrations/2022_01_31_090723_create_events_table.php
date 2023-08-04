@@ -24,8 +24,8 @@ return new class () extends Migration {
                 ->cascadeOnDelete();
             $table->string('title')->unique();
             $table->date('event_date');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->time('start_date');
+            $table->time('end_date');
             $table->string('address');
             $table->integer('ticket_number');
             $table->integer('prices');

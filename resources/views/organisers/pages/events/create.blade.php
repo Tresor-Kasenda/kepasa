@@ -239,12 +239,6 @@
                 document.getElementById("answer").innerHTML = " ";
             }
         </script>
-
-        <script>
-           new ClassicEditor(document.querySelector('#description'),{
-               toolbar: ['Bold', 'Italic', 'Underline', 'Link']
-            });
-        </script>
     @endsection
 
 </x-organiser-layout>

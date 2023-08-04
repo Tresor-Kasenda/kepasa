@@ -1,3 +1,5 @@
+@php use App\Models\Role; @endphp
+@php use App\Models\Country; @endphp
 @extends('layouts.front')
 
 @section('title', "Authentication an Registration")
@@ -10,14 +12,17 @@
                 <div class="style-1" x-data="{ currentTab: $persist('login') }">
                     <ul class="tabs-nav">
                         <li @click.prevent="currentTab='login'" :class="currentTab === 'login' ? 'active' : ''">
-                            <a href="#login" @click.prevent="currentTab='login'" :class="currentTab === 'login' ? 'active' : ''">Log In</a>
+                            <a href="#login" @click.prevent="currentTab='login'"
+                               :class="currentTab === 'login' ? 'active' : ''">Log In</a>
                         </li>
                         <li @click.prevent="currentTab='register'" :class="currentTab === 'register' ? 'active' : ''">
-                            <a href="#register" @click.prevent="currentTab='register'" :class="currentTab === 'register' ? 'active' : ''">Register</a>
+                            <a href="#register" @click.prevent="currentTab='register'"
+                               :class="currentTab === 'register' ? 'active' : ''">Register</a>
                         </li>
                     </ul>
                     <div class="tabs-container alt">
-                        <div class="tab-content mb-4" id="login"  style="display: none;" :class="currentTab === 'login' ? 'active' : ''">
+                        <div class="tab-content mb-4" id="login" style="display: none;"
+                             :class="currentTab === 'login' ? 'active' : ''">
                             <form method="post" class="login" action="{{ route('login') }}">
                                 @csrf
                                 <p class="form-row form-row-wide">
@@ -31,7 +36,8 @@
                                             value="{{ old('email') }}"
                                         />
                                     </label>
-                                    @error('email')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('email')<span
+                                        style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="password">
@@ -44,7 +50,7 @@
                                         />
                                     </label>
                                     <span class="lost_password">
-                                        <a href="{{ route('password.request') }}" >Lost Your Password?</a>
+                                        <a href="{{ route('password.request') }}">Lost Your Password?</a>
                                     </span>
                                 </p>
                                 <div class="form-row">
@@ -55,19 +61,21 @@
                             </form>
                         </div>
 
-                        <div class="tab-content mb-4" id="register" style="display: none;" :class="currentTab === 'register' ? 'active' : ''">
+                        <div class="tab-content mb-4" id="register" style="display: none;"
+                             :class="currentTab === 'register' ? 'active' : ''">
                             <form method="post" class="register" action="{{ route('register') }}">
                                 @csrf
                                 <p class="form-row form-row-wide">
                                     <label for="role">
                                         Register As
                                         <select class="input-text" name="role" id="role" required>
-                                            @foreach(\App\Models\Role::query()->whereIn('id',[2,3])->get() as $role)
+                                            @foreach(Role::query()->whereIn('id',[2,3])->get() as $role)
                                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                                             @endforeach
                                         </select>
                                     </label>
-                                    @error('role')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('role')<span
+                                        style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="name">
@@ -77,24 +85,12 @@
                                             class="input-text"
                                             name="name"
                                             id="name"
+                                            placeholder="Enter Your complete name"
                                             value="{{ old('name') }}"
                                         />
                                     </label>
-                                    @error('name')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
-                                </p>
-                                <p class="form-row form-row-wide">
-                                    <label for="last_name">
-                                        Last Name:
-                                        <input
-                                            type="text"
-                                            class="input-text"
-                                            name="last_name"
-                                            id="last_name"
-                                            required
-                                            value="{{ old('last_name') }}"
-                                        />
-                                    </label>
-                                    @error('last_name')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('name')<span
+                                        style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="emailUser">
@@ -103,23 +99,27 @@
                                             type="text"
                                             class="input-text"
                                             name="emailUser"
+                                            placeholder="Enter Your Email Address"
                                             id="emailUser"
                                             value="{{ old('emailUser') }}"
                                         />
                                     </label>
-                                    @error('emailUser')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('emailUser')<span
+                                        style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="role">
                                         Select Your Country
                                         <select class="input-text" name="country" id="country" required>
                                             <option>Select Your Country</option>
-                                            @foreach(\App\Models\Country::all() as $country)
-                                                <option value="{{ $country->id ?? "" }}">{{ $country->country_name ?? "" }}</option>
+                                            @foreach(Country::all() as $country)
+                                                <option
+                                                    value="{{ $country->id ?? "" }}">{{ $country->country_name ?? "" }}</option>
                                             @endforeach
                                         </select>
                                     </label>
-                                    @error('country')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('country')<span
+                                        style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="phones">
@@ -128,26 +128,30 @@
                                             type="text"
                                             class="input-text"
                                             name="phones"
+                                            placeholder="Enter Your Phone Number"
                                             id="phones"
                                             required
                                             value="{{ old('phones') }}"
                                         />
                                     </label>
-                                    @error('phones')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('phones')<span
+                                        style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="passwordAuth">
                                         Password:
                                         <input
                                             class="input-text"
-                                            type="passwordAuth"
+                                            type="password"
+                                            placeholder="Enter Your Password"
                                             name="passwordAuth"
                                             id="passwordAuth"
                                             required
                                             autocomplete="new-password"
                                         />
                                     </label>
-                                    @error('passwordAuth')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('passwordAuth')<span
+                                        style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
                                 <p class="form-row form-row-wide">
                                     <label for="password_confirmation">
@@ -155,16 +159,19 @@
                                         <input
                                             class="input-text"
                                             type="password"
+                                            placeholder="Enter Your Password Again"
                                             name="password_confirmation"
                                             id="password_confirmation"
                                         />
                                     </label>
                                     <span class="lost_password">
-                                        You have a account <a href="{{ route('login') }}" >Login</a>
+                                        You have a account <a href="{{ route('login') }}">Login</a>
                                     </span>
-                                    @error('password_confirmation')<span style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
+                                    @error('password_confirmation')<span
+                                        style="font-size: 13px;color: rgba(255,0,0,0.76);font-weight: 500;">{{ $message }}</span>@enderror
                                 </p>
-                                <button type="submit" class="button border fw margin-top-10" style="justify-content: center">
+                                <button type="submit" class="button border fw margin-top-10"
+                                        style="justify-content: center">
                                     Register
                                 </button>
                             </form>

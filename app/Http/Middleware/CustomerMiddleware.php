@@ -13,21 +13,18 @@ class CustomerMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if ( ! Auth::check()) {
+        if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        if (RoleEnum::ROLE_SUPER === Auth::user()->role_id) {
-            return redirect()->route('supper.dashboard');
-        }
+        $user_role = Auth::user()->role_id;
 
-        if (RoleEnum::ROLE_ORGANISER === Auth::user()->role_id) {
-            return redirect()->route('organiser.index');
-        }
-
-        if (RoleEnum::ROLE_USERS === Auth::user()->role_id) {
-            return $next($request);
-        }
+        return match ($user_role) {
+            RoleEnum::ROLE_SUPER => redirect()->route('supper.dashboard'),
+            RoleEnum::ROLE_ORGANISER => redirect()->route('organiser.index'),
+            RoleEnum::ROLE_USERS => redirect()->route('moderator.index'),
+            default => $next($request),
+        };
 
     }
 }

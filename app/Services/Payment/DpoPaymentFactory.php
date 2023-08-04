@@ -25,7 +25,7 @@ class DpoPaymentFactory
               <Transaction>
                 <PaymentAmount>".$price.'</PaymentAmount>
                 <PaymentCurrency>USD</PaymentCurrency>
-                <CompanyRef>'.$reference.'</CompanyRef>
+                <CompanyRef>'.$reference.'</CompanyRef> 
                 <RedirectURL>https://kepasa.africa/organiser/confirmation</RedirectURL>
                 <BackURL>https://kepasa.africa/</BackURL>
                 <customerEmail>'.$email.'</customerEmail>

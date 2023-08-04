@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Enums\CityEnum;
 use App\Enums\PaymentEnum;
 use App\Enums\StatusEnum;
 use App\Models\City;
@@ -13,7 +12,9 @@ use App\Models\Event;
 use App\Services\LocationService\GetLocation;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use LaravelIdea\Helper\App\Models\_IH_City_C;
 
 class HomeRepository
 {
@@ -33,16 +34,9 @@ class HomeRepository
         }
 
         return Event::query()
-            ->when('status', fn ($query) => $query->where('status', StatusEnum::STATUS_ACTIVE))
-            ->when('payment', fn ($query) => $query->where('payment', PaymentEnum::PAID))
+            ->when('status', fn($query) => $query->where('status', StatusEnum::STATUS_ACTIVE))
+            ->when('payment', fn($query) => $query->where('payment', PaymentEnum::PAID))
             ->paginate(6);
-    }
-
-    public function getCities(): Collection|array
-    {
-        return City::query()
-            ->where('promoted', '=', CityEnum::APPROVAL_PROMOTION)
-            ->get();
     }
 
     private function getEvents(): Builder
@@ -51,5 +45,16 @@ class HomeRepository
             ->where('payment', '=', PaymentEnum::PAID)
             ->where('status', '=', StatusEnum::STATUS_ACTIVE)
             ->where('promoted', '=', true);
+    }
+
+    public function getCitiesInCountry(Request $request): \Illuminate\Database\Eloquent\Collection|array|_IH_City_C
+    {
+        $country = Country::query()
+            ->where('country_code', '=', $request->country)
+            ->first();
+
+        return City::query()
+            ->where('country_code', '=', $country->country_code)
+            ->get();
     }
 }

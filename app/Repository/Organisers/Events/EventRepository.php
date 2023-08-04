@@ -10,12 +10,13 @@ use App\Services\EnableX\EnableXHttpService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use LaravelIdea\Helper\App\Models\_IH_Event_C;
 
 class EventRepository
 {
     use EnableXHttpService;
 
-    public function getEvents(Request $request): LengthAwarePaginator|\Illuminate\Pagination\LengthAwarePaginator|array
+    public function getEvents(Request $request): LengthAwarePaginator|_IH_Event_C|array
     {
         return Event::query()
             ->where('user_id', '=', auth()->id())

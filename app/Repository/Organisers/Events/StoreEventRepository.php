@@ -37,9 +37,9 @@ class StoreEventRepository
             (new CreateRoomService())->handle(request: $request, event: $event);
         }
 
-        app(EventPipeline::class)
-            ->send($event)
-            ->thenReturn();
+//        app(EventPipeline::class)
+//            ->send($event)
+//            ->thenReturn();
 
         return $event;
     }
@@ -70,7 +70,7 @@ class StoreEventRepository
                     'buyer_price' => $feeds['1'],
                     'description' => $request['description'],
                     'status' => StatusEnum::STATUS_DEACTIVATE,
-                    'payment' => PaymentEnum::UNPAID
+                    'payment' => PaymentEnum::UNPAID->value
                 ]
             );
     }

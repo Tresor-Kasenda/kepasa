@@ -27,12 +27,11 @@ class EventUserRepository
     public function searchEvent($attributes): Collection|array
     {
         $country = Country::query()
-            ->where('countryCode', '=', $attributes->input('country'))
+            ->where('country_code', '=', $attributes->input('country'))
             ->first();
 
         return Event::query()
             ->where('city', '=', $attributes->input('city'))
-            ->where('country', '=', $country->countryName)
             ->where('payment', '=', PaymentEnum::PAID)
             ->where('status', '=', StatusEnum::STATUS_ACTIVE)
             ->get();

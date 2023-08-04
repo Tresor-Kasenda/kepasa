@@ -12,11 +12,8 @@ class PaymentEventController extends Controller
 {
     public function __invoke(Event $event)
     {
-        return View::make(
-            'organisers.pages.events.payment.index',
-            [
-                'event' => $event->load(['category', 'country', 'city']),
-            ]
-        );
+        return View::make('organisers.pages.events.payment.index', [
+            'event' => $event->load(['category', 'city']),
+        ]);
     }
 }

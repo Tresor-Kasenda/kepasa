@@ -5,7 +5,8 @@
 @section('content')
     <div class="clearfix"></div>
 
-    <div class="main-search-container full-height alt-search-box centered" data-background-image="{{ asset('assets/images/banner0.jpg') }}">
+    <div class="main-search-container full-height alt-search-box centered"
+         data-background-image="{{ asset('assets/images/banner0.jpg') }}">
         <div class="main-search-inner">
             <div class="container">
                 <div class="row">
@@ -16,7 +17,8 @@
                                     <h3>Select the country for the city you are looking for.</h3>
                                 </div>
                                 <div class="main-search-input-item">
-                                    <select data-placeholder="All Country" name="country" id="country" class="chosen-select" >
+                                    <select data-placeholder="All Country" name="country" id="country"
+                                            class="chosen-select">
                                         <option>All Country</option>
                                         @foreach($countries as $country)
                                             <option value="{{ $country->country_code }}">
@@ -49,19 +51,11 @@
     <div class="container" id="listenCities">
         <div class="row">
             <div class="col-md-12">
-                <h3 class="headline centered margin-bottom-35 margin-top-70">Popular Cities <span>Browse listings in popular places</span></h3>
+                <h3 class="headline centered margin-bottom-35 margin-top-70">Popular Cities <span>Browse listings in popular places</span>
+                </h3>
             </div>
 
-            @foreach($cities as $city)
-                    <div class="col-md-4">
-                        <a href="" class="img-box" data-background-image="{{ asset('storage/'. $city->image) }}">
-                            <div class="img-box-content visible">
-                                <h4>{{ $city->cityName ?? "" }}</h4>
-                                <span>14 Listings</span>
-                            </div>
-                        </a>
-                    </div>
-            @endforeach
+            <livewire:city/>
         </div>
     </div>
 
@@ -89,9 +83,11 @@
                             @each('apps.components._card', $events, 'event', 'apps.components._empty')
                         </div>
                     @else
-                       <div class="text-center justify-content-center">
-                           <h4>&#128549; No events in <span style='color: #f91942; font-weight: 700;'>{{ $location->cityName ?? "" }}</span></h4>
-                       </div>
+                        <div class="text-center justify-content-center">
+                            <h4>&#128549; No events in <span
+                                    style='color: #f91942; font-weight: 700;'>{{ $location->cityName ?? "" }}</span>
+                            </h4>
+                        </div>
                     @endif
                 </div>
             </div>
@@ -111,9 +107,9 @@
                         country: country,
                         _token: '{{ csrf_token() }}'
                     },
-                    dataType : 'json',
-                    success: function(response){
-                        if (response){
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response) {
                             $('.viewRender').html(response.views);
                         }
                     }
@@ -131,19 +127,19 @@
                         country: country,
                         city: city
                     },
-                    dataType : 'json',
-                    success: function(response){
-                        if (response.search){
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.search) {
                             $('.renderSearch').html(response.search)
                             $('#titlebar').hide()
                             $('#listenCities').hide()
                             $('#eventsListens').hide()
-                        }else {
+                        } else {
                             $('#error').html('<div class="col-md-12">' +
                                 '<div class="notification success closeable margin-bottom-30">' +
-                                    '<p> <strong>Sorry </strong>' + response.messages+ '</p><a class="close"></a>' +
+                                '<p> <strong>Sorry </strong>' + response.messages + '</p><a class="close"></a>' +
                                 '</div>' +
-                            '</div>');
+                                '</div>');
                         }
                     }
                 })

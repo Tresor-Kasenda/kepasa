@@ -39,27 +39,23 @@ class RegisterController extends Controller
                 'string',
                 'max:255',
             ],
-            'last_name' => [
-                'required',
-                'string',
-                'max:255'
-            ],
             'phones' => [
                 'required',
                 'min:10',
+                Rule::unique(User::class, 'phones'),
             ],
             'emailUser' => [
                 'required',
                 'email',
-                Rule::unique(User::class, 'id'),
+                Rule::unique(User::class, 'email'),
             ],
             'role' => [
                 'required',
-                Rule::in([2,3])
+                Rule::in([2, 3])
             ],
             'country' => [
                 'required',
-                new Exists(Country::class, 'id')
+                new Exists(Country::class, 'country_name')
             ],
             'passwordAuth' => [
                 'required',
@@ -84,7 +80,6 @@ class RegisterController extends Controller
         $user = User::query()
             ->create([
                 'name' => $data['name'],
-                'last_name' => $data['last_name'],
                 'phones' => $data['phones'],
                 'email' => $data['emailUser'],
                 'role_id' => $data['role'],
@@ -92,7 +87,7 @@ class RegisterController extends Controller
                 'password' => Hash::make($data['passwordAuth']),
             ]);
 
-        if (2 === (int) $data['role']) {
+        if (2 === (int)$data['role']) {
             Company::query()->create(['user_id' => $user->id]);
             Notification::send([$user, User::whereRoleId(RoleEnum::ROLE_SUPER)->get()], new WelcomeNotification($user));
         } else {

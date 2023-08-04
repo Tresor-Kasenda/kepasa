@@ -120,12 +120,8 @@ class Event extends Model
     ];
 
     protected $casts = [
-        'start_date' => 'immutable_date',
-        'end_date' => 'immutable_date',
         'promoted' => 'boolean',
         'status' => StatusEnum::class,
-        'ticket_number' => 'integer',
-        'prices' => 'integer',
         'commission' => 'decimal',
         'buyer_price' => 'decimal',
         'payment' => PaymentEnum::class,

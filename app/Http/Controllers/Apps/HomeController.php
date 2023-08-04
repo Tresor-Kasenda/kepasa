@@ -19,7 +19,6 @@ class HomeController extends Controller
         return view(
             'apps.welcome',
             [
-                'cities' => $this->repository->getCities(),
                 'countries' => $this->repository->getCountries(),
                 'events' => $this->repository->getContents()
             ]

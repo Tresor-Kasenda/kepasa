@@ -57,7 +57,9 @@ use App\Http\Controllers\Supers\Users\UpdateStatusUserController;
 use App\Http\Controllers\Supers\Users\UpdateUserController;
 use App\Http\Controllers\Users\InvoiceCustomerController;
 use App\Http\Controllers\Users\PaypalCustomerController;
+use App\Http\Middleware\CustomerMiddleware;
 use App\Http\Middleware\EnsureDefaultPasswordIsChanged;
+use App\Http\Middleware\OrganiserMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
@@ -73,7 +75,7 @@ Route::middleware('auth')->group(function (): void {
                 EnsureDefaultPasswordIsChanged::class,
             ],
         ],
-        routes:  function (): void {
+        routes: function (): void {
             Route::get('/index', SuperHomeController::class)->name('dashboard');
 
             Route::get('events', ListsEventAdminController::class)->name('events.index');
@@ -114,9 +116,7 @@ Route::middleware('auth')->group(function (): void {
         attributes: [
             'prefix' => 'organiser',
             'as' => 'organiser.',
-            'middleware' => [
-                'organiser',
-            ],
+            'middleware' => [OrganiserMiddleware::class],
         ],
         routes: function (): void {
             Route::get('/', HomeOrganiserController::class)->name('index');
@@ -148,8 +148,8 @@ Route::middleware('auth')->group(function (): void {
         }
     );
 
-    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user']], function (): void {
-        Route::resource('home', HomeUserController::class);
+    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => [CustomerMiddleware::class]], function (): void {
+        Route::get('/', HomeUserController::class)->name('home');
         Route::controller(BookingController::class)->group(function (): void {
             Route::post('confirm/{key}/bookings', 'confirmation')->name('booking.confirmation');
             Route::get('payment/{eventId}', 'confirmationPayment')->name('confirmation.payment');

@@ -9,6 +9,12 @@
         </div>
     </div>
 
+    @if ($exception instanceof \App\Exceptions\CustomerException)
+        <div class="alert alert-danger">
+            <p>{{ $exception->getMessage() }}</p>
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-lg-12">
             <div id="add-listing">
@@ -28,20 +34,16 @@
                                 <input type="text" id="title" readonly required value="{{ $event->title ?? "" }}" name="title">
                             </div>
                             <div class="col-md-6">
-                                <h5>Subtitle</h5>
-                                <input type="text" value="{{ $event->subTitle ?? "" }}" name="subTitle">
-                            </div>
-                            <div class="col-md-6">
                                 <h5>Event Date</h5>
-                                <input type="date" readonly required value="{{ $event->date ?? "" }}" name="date">
+                                <input type="date" readonly required value="{{ $event->event_date ?? "" }}" name="date">
                             </div>
                             <div class="col-md-6">
                                 <h5>Start Time</h5>
-                                <input type="time" name="startTime" value="{{ $event->startTime ?? "" }}" readonly required>
+                                <input type="time" name="startTime" value="{{ $event->start_date ?? "" }}" readonly required>
                             </div>
                             <div class="col-md-6">
                                 <h5>End Time </h5>
-                                <input type="time" name="endTime" value="{{ $event->endTime ?? "" }}" readonly required>
+                                <input type="time" name="endTime" value="{{ $event->end_date ?? "" }}" readonly required>
                             </div>
                             <div class="col-md-6">
                                 <h5>Ticket Price</h5>
@@ -53,14 +55,14 @@
                             </div>
                             <div class="col-md-6">
                                 <h5>Number Of Tickets</h5>
-                                <input type="number" name="numberOfTickets" id="numberOfTickets" value="{{ $event->ticketNumber ?? "" }}" readonly required>
+                                <input type="number" name="numberOfTickets" id="numberOfTickets" value="{{ $event->ticket_number ?? "" }}" readonly required>
                             </div>
                             <div class="col-md-6">
                                 <h5>Your Email</h5>
                                 <input type="email" name="email" value="{{ auth()->user()->email ?? "" }}" required readonly >
                             </div>
-                            <h6 style="color: #F96; font-size: 25px; font-weight: 400;">Payment Options</h6>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
+                                <h6 style="color: #F96; font-size: 25px; font-weight: 400;">Payment Options</h6>
                                 <div class="payment_icon">
                                     <div class="primary" style=" margin-top: 1.5rem;">
                                         <button style="box-shadow: none; border: none;">

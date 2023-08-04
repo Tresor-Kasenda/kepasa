@@ -24,6 +24,7 @@ return new class () extends Migration {
             $table->string('type')->default(TypeCustomer::TYPE_USER->value);
             $table->string('reference')->unique()->nullable();
             $table->integer('ticket_number');
+            $table->integer('prices');
             $table->integer('total_amount');
 
             $table->enum('status', [

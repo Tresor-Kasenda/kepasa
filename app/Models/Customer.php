@@ -7,10 +7,12 @@ namespace App\Models;
 use App\Enums\PaymentEnum;
 use App\Enums\TypeCustomer;
 use App\QueryBuilder\CustomerQueryBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Customer
@@ -23,14 +25,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property      int $ticket_number
  * @property      int $total_amount
  * @property      PaymentEnum $status
- * @property      \Illuminate\Support\Carbon|null $created_at
- * @property      \Illuminate\Support\Carbon|null $updated_at
- * @property      \Illuminate\Support\Carbon|null $deleted_at
+ * @property      Carbon|null $created_at
+ * @property      Carbon|null $updated_at
+ * @property      Carbon|null $deleted_at
  * @property-read \App\Models\Event $event
  * @property-read \App\Models\User $user
  * @method        static CustomerQueryBuilder|Customer newModelQuery()
  * @method        static CustomerQueryBuilder|Customer newQuery()
- * @method        static \Illuminate\Database\Eloquent\Builder|Customer onlyTrashed()
+ * @method        static Builder|Customer onlyTrashed()
  * @method        static CustomerQueryBuilder|Customer query()
  * @method        static CustomerQueryBuilder|Customer search(?string $search)
  * @method        static CustomerQueryBuilder|Customer sortBy(?string $sortBy, ?string $direction)
@@ -45,8 +47,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method        static CustomerQueryBuilder|Customer whereType($value)
  * @method        static CustomerQueryBuilder|Customer whereUpdatedAt($value)
  * @method        static CustomerQueryBuilder|Customer whereUserId($value)
- * @method        static \Illuminate\Database\Eloquent\Builder|Customer withTrashed()
- * @method        static \Illuminate\Database\Eloquent\Builder|Customer withoutTrashed()
+ * @method        static Builder|Customer withTrashed()
+ * @method        static Builder|Customer withoutTrashed()
  * @mixin         \Eloquent
  */
 class Customer extends Model
@@ -60,13 +62,15 @@ class Customer extends Model
         'type',
         'reference',
         'ticket_number',
-        'ticket_amount',
+        'total_amount',
+        'prices',
         'status'
     ];
 
     protected $casts = [
         'ticket_number' => 'integer',
-        'ticket_amount' => 'integer',
+        'total_amount' => 'integer',
+        'prices' => 'integer',
         'status' => PaymentEnum::class,
         'type' => TypeCustomer::class,
     ];

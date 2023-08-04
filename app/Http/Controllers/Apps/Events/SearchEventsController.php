@@ -12,7 +12,8 @@ class SearchEventsController extends Controller
 {
     public function __construct(
         public EventUserRepository $repository
-    ) {
+    )
+    {
     }
 
     public function __invoke(EventSearchRequest $request)
