@@ -20,7 +20,7 @@ class DpoPaymentFactory
 
         $xml = "<?xml version='1.0' encoding='utf-8'?>
             <API3G>
-              <CompanyToken>0149FD91-B446-498D-BF6B-3308F807899F</CompanyToken>
+              <CompanyToken>8D3DA73D-9D7F-4E09-96D4-3D44E7A83EA3</CompanyToken>
               <Request>createToken</Request>
               <Transaction>
                 <PaymentAmount>".$price.'</PaymentAmount>
